@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentViewScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!--
+    Layout used for:
+    - Address Book
+    - Package
+    -->
+
+    <!--Empty state when no package available-->
+    <!--TODO Create a singleton so this part doesn't have to re-create on every layout. Just include-->
+    <RelativeLayout
+        android:id="@+id/emptyStateParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/clickable_size">
+
+            <ImageView
+                android:id="@+id/emptyStateImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.5"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerInside"
+                android:src="@drawable/empty_state_package"/>
+
+            <TextView
+                android:id="@+id/txtEmptyPackage"
+                style="@style/TextDimmmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emptyStateImage"
+                android:layout_centerHorizontal="true"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_l"
+                android:text="@string/lbl_reloading_server_data"/>
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/txtEmptyPackage"
+                android:layout_alignRight="@+id/txtEmptyPackage"
+                android:layout_below="@+id/txtEmptyPackage"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- This FrameLayout is needed ONLY IF sticky headers are used, in order to
+			 display the refresh circle on the top of sticky_header_layout.
+			 If you need to drag items, SwipeRefreshLayout must be disabled! -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPackageHistory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/separator_view_lighter"
+                tools:listitem="@layout/row_package"/>
+
+            <!-- Needed by FlexibleAdapter for headers to be sticky.
+				 This little layout is included in the library.
+				 If you need to drag items, SwipeRefreshLayout must be disabled!-->
+            <include layout="@layout/sticky_header_layout"/>
+
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!-- Custom EmptyView for RV when empty-->
+    <include layout="@layout/empty_view"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCreatePackage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add_24dp"
+        android:tint="@color/white_100"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"/>
+
+</android.support.design.widget.CoordinatorLayout>

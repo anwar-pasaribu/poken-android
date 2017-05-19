@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/item_gap_s"
+    app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardMaxElevation="@dimen/item_gap_s"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_100">
+
+        <RelativeLayout
+            android:id="@+id/parentHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap_m">
+
+            <ImageView
+                android:id="@+id/imageVendorLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/icon_24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:adjustViewBounds="true"
+                android:maxWidth="@dimen/clickable_size"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/courier_logo_jne" />
+
+            <TextView
+                android:id="@+id/textViewVendorBranchName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/txtDate"
+                android:layout_toRightOf="@+id/imageVendorLogo"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="SML Express" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_m"
+                tools:text="05 Aug, 13.30" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/TextBodyDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/parentHeader"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            tools:text="Jl. Dr. Mansyur No. 70, Padang Bulan" />
+
+        <!--Extra detail-->
+        <TextView
+            android:id="@+id/textViewExtraDetail"
+            style="@style/TextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTitle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_s"
+            tools:text="Gedung Cyber Lt. 678 Ruangan 400\ntes line 3" />
+
+        <!-- S: Parent for image status-->
+        <LinearLayout
+            android:id="@+id/parentStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewExtraDetail"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivStatus1"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_pickup_pending" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <ImageView
+                android:id="@+id/ivStatus2"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_pickup_otw" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <FrameLayout
+                android:id="@+id/frameLayoutPickedPackage"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:background="?attr/selectableItemBackgroundBorderless">
+
+                <ImageView
+                    android:id="@+id/ivStatus3"
+                    android:layout_width="@dimen/clickable_size"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_pickup_package" />
+
+                <ImageView
+                    android:id="@+id/badgePackageCount"
+                    android:layout_width="@dimen/icon_24dp"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_gravity="right"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="fitXY"
+                    android:tint="@color/myPrimaryDarkColor"
+                    android:src="@drawable/ic_circle" />
+
+                <!--
+                On runtime set text size to 12sp when
+                package count is more than 99 items and apped '+' sign.
+                -->
+                <TextView
+                    style="@style/TextCaption"
+                    android:id="@+id/textViewPackageCount"
+                    android:layout_width="@dimen/icon_24dp"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_gravity="right"
+                    android:gravity="center|center_vertical"
+                    android:textColor="@color/white_100"
+                    tools:text="99+" />
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <ImageView
+                android:id="@+id/ivStatus4"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_pickup_done" />
+        </LinearLayout>
+        <!-- E: Parent for image status-->
+
+        <!-- S: Parent for OTW state-->
+        <RelativeLayout
+            android:id="@+id/relativeLayoutOtwInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/parentStatus"
+            android:layout_marginTop="@dimen/item_gap_l">
+
+            <TextView
+                android:id="@+id/txtStatus"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/item_gap_l"
+                tools:text="On The Way" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/txtStatus"
+                android:background="@color/separator_view" />
+
+            <ImageView
+                android:id="@+id/ivDriverImage"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/txtStatus"
+                android:layout_marginLeft="@dimen/item_gap_s"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_person_black_48dp"
+
+                android:tint="@color/black_90" />
+
+            <TextView
+                android:id="@+id/textViewDriverName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtStatus"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_toRightOf="@+id/ivDriverImage"
+                android:layout_toLeftOf="@+id/parentDriverButtons"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:maxWidth="150dp"
+                android:paddingBottom="@dimen/item_gap_s"
+                android:paddingTop="@dimen/item_gap_s"
+                android:textStyle="bold"
+                tools:text="Tiki368 Indomart Pondok Kopi Ujung" />
+
+            <!-- Vehicle flat number-->
+            <TextView
+                android:id="@+id/textViewDriverPlateNumber"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewDriverName"
+                android:layout_marginRight="@dimen/item_gap_m"
+                android:layout_toRightOf="@+id/ivDriverImage"
+                android:background="@color/black_50_alpha"
+                android:padding="@dimen/item_gap_s"
+                android:textColor="@color/white_100"
+                android:textStyle="bold"
+                tools:text="B 7321 AB" />
+
+            <!-- NOT Nececcasery - GONE-->
+            <ImageView
+                android:id="@+id/ivVehicleType"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/txtStatus"
+                android:layout_marginEnd="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_m"
+                android:layout_marginStart="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_toLeftOf="@+id/textViewDriverPlateNumber"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_pickup_car"
+                android:visibility="gone"
+
+                tools:tint="@color/white_100" />
+
+
+            <RelativeLayout
+                android:id="@+id/parentDriverButtons"
+                android:layout_width="@dimen/height_100dp"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_below="@+id/txtStatus"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_alignParentRight="true"
+                android:visibility="visible">
+
+                <!--Image color set to white on runtime-->
+                <ImageButton
+                    android:id="@+id/imageButtonDriverCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/viewButtonSeparator"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/item_gap_s"
+                    android:src="@drawable/ic_notif_call"
+
+                    android:tint="@color/black_90" />
+
+                <View
+                    android:id="@+id/viewButtonSeparator"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/item_gap_m"
+                    android:layout_marginBottom="@dimen/item_gap_m"
+                    android:layout_centerInParent="true"
+                    android:background="@color/separator_view" />
+
+                <!--Image color set to white on runtime-->
+                <ImageButton
+                    android:id="@+id/imageButtonDriverSms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/viewButtonSeparator"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/item_gap_m"
+                    android:src="@drawable/ic_sms_notif"
+
+                    android:tint="@color/black_90" />
+            </RelativeLayout>
+
+            <!-- Trio buttons for direct actions-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/parentDriverButtons"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:paddingBottom="@dimen/item_gap_s"
+                android:paddingTop="@dimen/item_gap_s"
+                android:background="@color/separator_view_lighter"
+
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <!-- Show disabled effect on design mode-->
+                <Button
+                    android:id="@+id/buttonCancel"
+                    style="@style/TextCaption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_clear_black_24dp"
+                    android:paddingTop="@dimen/item_gap_xs"
+                    android:text="@string/btn_negative_cancel"
+                    android:textAllCaps="false"
+
+                    tools:textColor="@color/style_overlay_grey"
+                    tools:drawableTint="@color/style_overlay_grey"/>
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/item_gap_m"
+                    android:layout_marginTop="@dimen/item_gap_m"
+                    android:background="@color/separator_view" />
+
+                <Button
+                    android:id="@+id/buttonRepickup"
+                    style="@style/TextCaption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_repickup_black_24dp"
+                    android:paddingTop="@dimen/item_gap_xs"
+                    android:text="@string/btn_repickup"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black_90" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/item_gap_m"
+                    android:layout_marginTop="@dimen/item_gap_m"
+                    android:background="@color/separator_view" />
+
+                <Button
+                    android:id="@+id/buttonDetail"
+                    style="@style/TextCaption"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:drawableTop="@drawable/ic_more_horiz_black_24dp"
+                    android:paddingTop="@dimen/item_gap_xs"
+                    android:text="@string/btn_see_detail"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black_90" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <!-- E: Parent for OTW state-->
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

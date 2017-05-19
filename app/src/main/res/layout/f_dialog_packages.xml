@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtViewDialogPackagesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="@dimen/item_gap_m"
+        android:paddingLeft="@dimen/item_gap_m"
+        android:paddingRight="@dimen/item_gap_s"
+        android:paddingTop="@dimen/item_gap_m"
+        android:textColor="@color/white_100"
+        android:textSize="@dimen/text_title" />
+
+    <TextView
+        android:id="@+id/textViewNoData"
+        style="@style/TextBodySecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtViewDialogPackagesTitle"
+        android:background="@color/white_100"
+        android:gravity="center"
+        android:minHeight="@dimen/clickable_size_64"
+        android:padding="@dimen/item_gap_l"
+        android:text="@string/no_items"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtViewDialogPackagesTitle" />
+
+</RelativeLayout>

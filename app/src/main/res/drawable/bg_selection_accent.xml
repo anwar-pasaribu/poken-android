@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape
+            android:padding="@dimen/item_gap_m"
+            android:shape="rectangle">
+            <size android:height="@dimen/clickable_size"/>
+            <solid android:color="@color/separator_view_lighter" />
+            <corners
+                android:radius="@dimen/icon_24dp" />
+        </shape>
+    </item>
+
+    <!--When button is disabled-->
+    <item android:state_checked="true">
+        <shape
+            android:padding="@dimen/item_gap_m"
+            android:shape="rectangle">
+            <size android:height="@dimen/clickable_size"/>
+            <solid android:color="@color/white_100" />
+            <corners
+                android:radius="@dimen/icon_24dp" />
+        </shape>
+
+    </item>
+    <item android:state_checked="false">
+        <shape
+            android:padding="@dimen/item_gap_m"
+            android:shape="rectangle">
+            <size android:height="@dimen/clickable_size"/>
+            <solid android:color="@color/white_100" />
+            <corners
+                android:radius="@dimen/icon_24dp" />
+        </shape>
+    </item>
+
+</selector>

@@ -1,0 +1,142 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+// S: Read keystore file
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// E: Read keystore file
+
+android {
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+
+        applicationId "id.unware.poken"
+
+        minSdkVersion 16
+        targetSdkVersion 25
+
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
+        resConfigs "en", "id"
+
+        // TODO Test
+        buildConfigField 'String', 'TRACK_CODE_SAMPLE', '"020103975850"'
+        buildConfigField 'String', 'USER_EMAIL', '"maheswara@gmail.com"'
+        buildConfigField 'String', 'USER_PASSWORD', '"qwe123qwe"'
+    }
+
+    signingConfigs {
+        config {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def apk = output.outputFile;
+                def newName = "poken-psp-" + variant.baseName.replace("-release", "") + "-" + defaultConfig.versionName + " (" + defaultConfig.versionCode + ")" + ".apk";
+                output.outputFile = new File(apk.parentFile, newName);
+            }
+        }
+    }
+
+    productFlavors {
+
+        development {
+
+            applicationIdSuffix ".beta"
+
+            resValue "string", "app_name", "Poken Psp Beta"
+
+            buildConfigField 'Boolean', 'enableCrashlytics', 'true'
+            buildConfigField 'Boolean', 'DEV_MODE', 'true'
+
+            buildConfigField 'String', 'session_key', '"ci_session"'
+            buildConfigField 'String', 'HOST', '"http://tis.tiki.id/mobile/"'
+            buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
+
+        }
+
+        production {
+            resValue "string", "app_name", "Poken Psp"
+
+            buildConfigField 'Boolean', 'enableCrashlytics', 'true'
+            buildConfigField 'Boolean', 'DEV_MODE', 'false'
+
+            buildConfigField 'String', 'session_key', '"ci_session"'
+            buildConfigField 'String', 'HOST', '"http://datacenter.tiki.co.id:8080/mobile/"'
+            buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
+
+        }
+    }
+
+    // Google Volley dependencies
+    useLibrary 'org.apache.http.legacy'
+
+}
+
+dependencies {
+    String playServices = "9.6.1"
+    String supportLibrary = "25.2.0"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    // Advanced recycler view
+    compile 'eu.davidea:flexible-adapter:5.0.0-b8'
+    //ANDROID SUPPORT LIBRARY
+    compile "com.android.support:appcompat-v7:${supportLibrary}"
+    compile "com.android.support:design:${supportLibrary}"
+    compile "com.android.support:recyclerview-v7:${supportLibrary}"
+    compile "com.android.support:cardview-v7:${supportLibrary}"
+    compile "com.android.support:support-v4:${supportLibrary}"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    // For Chrome tab
+    compile "com.android.support:customtabs:${supportLibrary}"
+    //PLAY SERVICES
+    compile "com.google.android.gms:play-services-location:${playServices}"
+    compile "com.google.android.gms:play-services-places:${playServices}"
+    compile "com.google.android.gms:play-services-gcm:${playServices}"
+    compile "com.google.android.gms:play-services-maps:${playServices}"
+    compile "com.google.android.gms:play-services-analytics:${playServices}"
+    compile "com.google.android.gms:play-services-plus:${playServices}"
+    compile "com.google.android.gms:play-services-auth:${playServices}"
+    //BUTTER KNIFE
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //RETROFIT HTTP REQUEST
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //IMAGE
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
+    testCompile 'junit:junit:4.12'
+
+}

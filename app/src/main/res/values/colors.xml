@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#c52727</color>
+    <color name="colorPrimaryDark">#9E2020</color>
+    <color name="myPrimaryColor">#c52727</color>
+    <color name="myPrimaryDarkColor">#9E2020</color>
+    <color name="colorAccent">#c52727</color>
+    <color name="myAccentColor">#c52727</color>
+    <color name="fg_main">#77EEEEEE</color>
+    <color name="tikiBlueDark">#002784</color>
+    <color name="tikiBlue">#0032ab</color>
+    <color name="black_60">#757575</color>
+
+    <color name="eco">#F6902D</color>
+    <color name="reg">#203E8F</color>
+    <color name="ons">#6200EA</color>
+    <color name="sds">#EC1C24</color>
+    <color name="hds">#86C240</color>
+    <color name="international">#F3DA0C</color>
+
+    <color name="package_status_delivered">#5CB85C</color>
+    <color name="tikiRed">#EC3237</color>
+    <color name="package_status_booked">#777777</color>
+    <color name="package_status_picked">#F0AD4E</color>
+
+    <color name="package_status_sent">#5BC0DE</color>
+    <color name="package_status_deleted">#D9534F</color>
+
+    <!--White color with transparency 20% alpha-->
+    <color name="white_20_alpha">#1effffff</color>
+    <color name="white_40_alpha">#3cffffff</color>
+    <color name="black_50_alpha">#7d000000</color>
+    <color name="btn_higlight_primary">#B3E5FC</color> <!--Material: Accent color with 70% alpha-->
+    <color name="btn_pressed_primary">#01579b</color> <!--Material: Accent color with 70% alpha-->
+    <color name="btn_higlight_accent">#FFCCBC</color> <!--Material: Accent color with 70% alpha-->
+    <color name="btn_pressed_accent">#af452f</color> <!--Material: Accent color with 70% alpha-->
+
+    <!--Disabled colors (grey) -->
+    <color name="style_overlay_grey">#9e9e9e</color> <!-- GREY 500 -->
+
+    <color name="material_color_grey_400">#CDCDCD</color>
+    <color name="material_color_grey_600">#757575</color>
+    <color name="material_color_grey_900">#212121</color>
+
+    <!--Used for button selector in Tariff Check-->
+    <color name="package_devider">#c6c6c6</color>
+
+    <!-- Separator View -->
+    <color name="separator_view">#bdbdbd</color>
+    <color name="separator_view_lighter">#f5f5f5</color>
+
+    <!-- Black Color Collections -->
+    <color name="black_90">#212121</color>
+
+    <!-- White Color Collections -->
+    <color name="white_100">#ffffff</color>
+
+    <!-- Success indicator-->
+    <color name="green">#2E7D32</color> <!-- GREEN 800-->
+
+    <!-- Warning indicator-->
+    <!-- YELLOW 800-->
+
+    <!-- Danger indicator-->
+    <color name="red">#C62828</color> <!-- RED 800-->
+
+    <!-- Express color - Exclusive purpose-->
+    <color name="purple">#4527A0</color> <!-- DEEP PURPLE 800-->
+</resources>

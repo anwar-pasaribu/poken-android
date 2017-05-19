@@ -1,0 +1,55 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/separator_view_lighter">
+
+    <RelativeLayout
+        android:id="@+id/emptyStateParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/clickable_size">
+
+            <ImageView
+                android:id="@+id/emptyStateImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.5"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerInside"
+                android:src="@drawable/img_empty_state_pickup_history" />
+
+            <TextView
+                style="@style/TextDimmmed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emptyStateImage"
+                android:padding="@dimen/item_gap_l"
+                android:text="@string/lbl_no_pickup_history" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPickupHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_pickup_history" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

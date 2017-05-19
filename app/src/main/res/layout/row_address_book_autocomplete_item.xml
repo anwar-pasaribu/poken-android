@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextBodyDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="@color/white_100"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingRight="@dimen/item_gap_l"
+        android:paddingTop="@dimen/item_gap_s"
+        tools:text="Nama Lengkap" />
+
+    <TextView
+        android:id="@+id/textViewSubtitle"
+        style="@style/TextBodySecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewTitle"
+        android:background="@color/white_100"
+        android:ellipsize="middle"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/item_gap_s"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingRight="@dimen/item_gap_l"
+        android:paddingTop="@dimen/item_gap_xs"
+
+        tools:text="Jl. Lapangan Bola No. 3, Gg. Mawar No. 43, Kebon Jeruk, Jakarta Barat 11530" />
+
+    <View
+        android:id="@+id/viewSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/textViewSubtitle"
+        android:background="@color/separator_view" />
+
+    <!-- For ripple effect purpose.-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:layout_alignBottom="@+id/viewSeparator"
+        android:layout_alignParentTop="true"/>
+
+</RelativeLayout>

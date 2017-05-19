@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/btn_higlight_primary"
+    android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
+    <item>
+        <selector>
+            <!--When button is disabled-->
+            <item android:state_enabled="false">
+                <shape
+                    android:padding="@dimen/item_gap_m"
+                    android:shape="rectangle">
+                    <solid android:color="@color/separator_view" />
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/separator_view" />
+                    <corners
+                        android:radius="@dimen/default_button_radius" />
+                </shape>
+            </item>
+
+            <item>
+                <shape
+                    android:padding="@dimen/item_gap_m"
+                    android:shape="rectangle">
+                    <solid android:color="@color/myPrimaryDarkColor" />
+                    <corners
+                        android:radius="@dimen/default_button_radius"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+
+</ripple>

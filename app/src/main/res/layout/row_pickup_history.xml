@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/item_gap_s"
+    app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardMaxElevation="@dimen/item_gap_s"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_100">
+
+        <RelativeLayout
+            android:id="@+id/parentHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap_m">
+
+            <!--adjustViewBounds make ImageView respect maxWidth-->
+            <ImageView
+                android:id="@+id/imageVendorLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/icon_24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:adjustViewBounds="true"
+
+                android:maxWidth="@dimen/clickable_size"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/courier_logo_jne" />
+
+            <TextView
+                android:id="@+id/textViewVendorBranchName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/txtDate"
+                android:layout_toRightOf="@+id/imageVendorLogo"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Tiki Wolter Mongonsidi" />
+
+            <TextView
+                android:id="@+id/txtDate"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_m"
+                tools:text="05 Aug, 13.30" />
+
+            <!--<ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="@dimen/icon_24dp"
+                android:layout_height="@dimen/icon_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/item_gap_m"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="center"
+                android:src="@drawable/btn_overflow_menu_vert" />-->
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/txtTitle"
+            style="@style/TextBodyDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/parentHeader"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            tools:text="Jl. Lapangan Bola No. 3, Meruya Utara, Kebon Jeruk, Jakarta 11530" />
+
+        <!--Extra detail-->
+        <TextView
+            android:id="@+id/textViewExtraDetail"
+            style="@style/TextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTitle"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_s"
+            tools:text="Gedung Cyber Lt. 678 Ruangan 400\ntes line 3" />
+
+        <LinearLayout
+            android:id="@+id/parentStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewExtraDetail"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivStatus1"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_pickup_pending" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <ImageView
+                android:id="@+id/ivStatus2"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_pickup_otw" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <ImageView
+                android:id="@+id/ivStatus3"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_pickup_package" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_weight="1"
+                android:background="@color/package_devider" />
+
+            <ImageView
+                android:id="@+id/ivStatus4"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_pickup_done" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtStatus"
+            style="@style/TextBodyDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/parentStatus"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/item_gap_l"
+            tools:text="On The Way" />
+
+        <View
+            android:id="@+id/viewSepMainButtons"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/txtStatus"
+            android:background="@color/separator_view" />
+
+        <!-- Trio buttons for direct actions-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewSepMainButtons"
+            android:background="@color/separator_view_lighter"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/item_gap_s"
+
+            android:paddingTop="@dimen/item_gap_s"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/buttonCancel"
+                style="@style/TextCaption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableTop="@drawable/ic_clear_black_24dp"
+                android:paddingTop="@dimen/item_gap_xs"
+                android:text="@string/btn_negative_cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/black_90" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:background="@color/separator_view" />
+
+            <Button
+                android:id="@+id/buttonRepickup"
+                style="@style/TextCaption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableTop="@drawable/ic_repickup_black_24dp"
+                android:paddingTop="@dimen/item_gap_xs"
+                android:text="@string/btn_repickup"
+                android:textAllCaps="false"
+                android:textColor="@color/black_90" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:background="@color/separator_view" />
+
+            <Button
+                android:id="@+id/buttonDetail"
+                style="@style/TextCaption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:drawableTop="@drawable/ic_more_horiz_black_24dp"
+                android:paddingTop="@dimen/item_gap_xs"
+                android:text="@string/btn_see_detail"
+                android:textAllCaps="false"
+                android:textColor="@color/black_90" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/item_gap_m"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingLeft="@dimen/item_gap_l"
+    android:paddingRight="@dimen/item_gap_l">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/separator_view_lighter"
+        android:id="@+id/viewSeparator"/>
+
+    <TextView
+        android:id="@+id/textVIewNewsPublishDate"
+        android:layout_below="@+id/viewSeparator"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextBodySecondary"
+        android:text="20 Maret" />
+
+    <TextView
+        android:id="@+id/textViewNewsTitle"
+        style="@style/TextTitle"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:layout_below="@+id/textVIewNewsPublishDate"
+        android:maxLines="2"
+        android:ellipsize="middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Judul berita" />
+
+    <TextView
+        android:id="@+id/textVIewNewsShortDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextBodyDefault"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_below="@+id/textViewNewsTitle"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="Deskripsi singkat berita line 1\nLine 2\nLine 3" />
+
+
+
+</RelativeLayout>

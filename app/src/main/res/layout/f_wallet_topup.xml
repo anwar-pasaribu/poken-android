@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_100">
+
+    <LinearLayout
+        android:id="@+id/parentViewScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- S: Input Balance -->
+        <RelativeLayout
+            android:id="@+id/parentTopUpInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/clickable_size_32"
+            android:paddingBottom="@dimen/item_gap_m"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:paddingTop="@dimen/item_gap_m"
+
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/textViewAddBalanceLabel"
+                style="@style/TextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_xs"
+                android:text="@string/lbl_add_balance"/>
+
+            <FrameLayout
+                android:id="@+id/parentInputAmount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_below="@+id/textViewAddBalanceLabel">
+
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/item_gap_xs"
+                    android:layout_marginStart="@dimen/item_gap_xs"
+                    android:gravity="center"
+                    android:text="@string/lbl_idr"/>
+
+                <EditText
+                    android:id="@+id/editTextAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="monospace"
+                    android:hint="@string/hint_money"
+                    android:maxLength="13"
+                    android:inputType="numberSigned"
+                    android:paddingLeft="@dimen/clickable_size_32"
+                    android:paddingRight="@dimen/clickable_size_32"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold"
+                    android:typeface="monospace"/>
+
+                <!--Clear typed text.-->
+                <ImageButton
+                    android:id="@+id/buttonClearText"
+                    android:layout_width="@dimen/icon_24dp"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/action_delete"
+                    android:padding="@dimen/item_gap_xs"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_clear_black_24dp"
+                    android:tint="@color/style_overlay_grey"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textViewTopUpRule"
+                style="@style/TextCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/parentInputAmount"
+                android:layout_marginLeft="@dimen/item_gap_xs"
+                android:text="@string/lbl_minimum_top_up"/>
+
+            <Button
+                android:id="@+id/buttonContinueTopUp"
+                style="@style/ButtonDefault"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/textViewTopUpRule"
+                android:layout_marginTop="@dimen/clickable_size"
+                android:text="@string/btn_continue_topup"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/buttonContinueTopUp"
+                android:minHeight="@dimen/clickable_size_64"
+                android:paddingBottom="@dimen/item_gap_l"
+                android:paddingTop="@dimen/clickable_size_64">
+
+                <ImageView
+                    android:id="@+id/imageSecure"
+                    android:layout_width="@dimen/icon_24dp"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/lbl_secure_connection"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_verified_user_black_24dp"
+                    android:tint="@color/green"
+                    />
+
+                <TextView
+                    style="@style/TextCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageSecure"
+                    android:gravity="center"
+                    android:padding="@dimen/item_gap_s"
+                    android:text="@string/lbl_secure_connection"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <!-- E: Input Balance -->
+
+        <!--S: Waiting status-->
+        <RelativeLayout
+            android:id="@+id/parentWaitingTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/clickable_size_32"
+            android:paddingBottom="@dimen/item_gap_m"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:paddingTop="@dimen/item_gap_m"
+
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textViewAmountToTransferLable"
+                style="@style/TextBodySecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_amount_to_transfer"/>
+
+            <TextView
+                android:id="@+id/textViewAmountToTransfer"
+                style="@style/TextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_below="@+id/textViewAmountToTransferLable"
+                android:fontFamily="monospace"
+
+                android:gravity="center_vertical"
+                android:text="Rp 0"
+
+                android:typeface="monospace"
+                tools:ignore="HardcodedText"/>
+
+            <TextView
+                android:id="@+id/textViewTransferHelper"
+                style="@style/TextCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewAmountToTransfer"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:text="@string/lbl_precise_transfer_nominal"/>
+
+            <TextView
+                android:id="@+id/textViewBanksLable"
+                style="@style/TextBodySecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewTransferHelper"
+                android:layout_marginTop="@dimen/clickable_size_32"
+                android:text="@string/lbl_transfer_to"/>
+
+            <RelativeLayout
+                android:id="@+id/parentBanks"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_below="@+id/textViewBanksLable"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewBankLogo"
+                    android:layout_width="@dimen/clickable_size_64"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_marginRight="@dimen/item_gap_m"
+                    android:contentDescription="@string/lbl_transfer_to"
+                    android:src="@drawable/ic_bank_logo_bca"/>
+
+                <TextView
+                    android:id="@+id/textViewBankAccountName"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_gap_s"
+                    android:layout_toRightOf="@+id/imageViewBankLogo"
+                    android:text="@string/lbl_company_name"/>
+
+                <Button
+                    android:id="@+id/buttonAccountNumber"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_below="@+id/textViewBankAccountName"
+                    android:layout_toLeftOf="@+id/buttonCopyBankAccountNumber"
+                    android:layout_toRightOf="@+id/imageViewBankLogo"
+
+                    android:background="?attr/selectableItemBackground"
+                    android:enabled="false"
+
+                    android:gravity="left|center_vertical"
+
+                    android:text="@string/lbl_bank_account_no"/>
+
+                <Button
+                    android:id="@+id/buttonCopyBankAccountNumber"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/icon_24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textViewBankAccountName"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/btn_copy"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textViewInstructionLable"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/parentBanks"
+                android:layout_marginTop="@dimen/clickable_size_32"
+                android:text="@string/lbl_information"
+                android:textColor="@color/black_90"/>
+
+            <TextView
+                android:id="@+id/textViewInstructions"
+                style="@style/TextCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewInstructionLable"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:text="@string/top_up_rules"
+                android:textColor="@color/black_90"/>
+
+            <RelativeLayout
+                android:id="@+id/parentCancelTopUp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_below="@+id/textViewInstructions"
+                android:layout_marginTop="@dimen/clickable_size_32"
+                android:background="@color/red">
+
+                <Button
+                    android:id="@+id/buttonCancelTopUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/clickable_size"
+                    android:background="?attr/selectableItemBackground"
+                    android:text="@string/btn_cancel_top_up"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white_100"/>
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/parentCancelTopUp"
+                android:paddingTop="@dimen/item_gap_s"
+                android:text="@string/lbl_info_cancel_top_up"/>
+
+
+        </RelativeLayout>
+        <!--E: Waiting status-->
+    </LinearLayout>
+</ScrollView>

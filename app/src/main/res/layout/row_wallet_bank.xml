@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Show User banks.
+-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/clickable_size"
+    android:paddingBottom="@dimen/item_gap_s"
+    android:paddingTop="@dimen/item_gap_m">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextListTitle"
+
+        android:layout_marginLeft="@dimen/item_gap_m"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/icon_24dp"
+
+        tools:text="Anwar Pasaribu * 123 456 789 " />
+
+    <!-- Bank logo not used yet-->
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/icon_24dp"
+        android:maxWidth="@dimen/clickable_size"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:paddingTop="@dimen/item_gap_xs"
+        android:paddingBottom="@dimen/item_gap_xs"
+
+        android:visibility="gone"
+
+        android:layout_alignBottom="@+id/textViewTitle"
+        android:layout_alignTop="@+id/textViewTitle"
+        android:layout_marginLeft="@dimen/item_gap_s"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:layout_toRightOf="@+id/textViewTitle"
+
+        android:contentDescription="@string/vendor"
+
+        android:src="@drawable/courier_logo_jne" />
+
+    <TextView
+        android:id="@+id/txtViewSubtitle1"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTitle"
+        android:paddingBottom="@dimen/item_gap_s"
+        android:layout_marginLeft="@dimen/item_gap_m"
+
+        tools:text="Bank Central Asia" />
+
+    <!-- For bank account other data ~NOT AVAILABLE YET~-->
+    <LinearLayout
+        android:id="@+id/linearLayoutPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtETA"
+            style="@style/TextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1 Day " />
+
+        <TextView
+            android:id="@+id/txtTarif"
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Rp 250.000.000" />
+
+    </LinearLayout>
+
+</RelativeLayout>

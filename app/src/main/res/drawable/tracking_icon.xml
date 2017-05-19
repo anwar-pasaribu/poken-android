@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/stat_icon_bg"
+        android:drawable="@drawable/tracking_bg_info" />
+
+    <item android:id="@+id/stat_icon" android:gravity="center">
+        <inset
+            android:drawable="@drawable/delivery"
+            android:insetTop="@dimen/tracking_icon_inset"
+            android:insetBottom="@dimen/tracking_icon_inset"
+            android:insetLeft="@dimen/tracking_icon_inset"
+            android:insetRight="@dimen/tracking_icon_inset"
+            />
+    </item>
+
+</layer-list>

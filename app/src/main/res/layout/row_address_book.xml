@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:background="?attr/selectableItemBackground"
+              android:clickable="true"
+              android:id="@+id/parentAddressBook">
+
+    <!--Image color filter change on runtime-->
+    <ImageView
+        android:id="@+id/imgProfileAddressBook"
+        android:layout_width="@dimen/clickable_size"
+        android:layout_height="@dimen/clickable_size"
+        android:scaleType="center"
+        android:src="@drawable/ic_person_black_48dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/item_gap_s">
+
+        <TextView
+            android:id="@+id/txtNameAddressBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black_90"
+            tools:text="Carlotte Moore"/>
+
+        <TextView
+            android:id="@+id/txtPhoneAddressBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_color_grey_600"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:text="087890907878"/>
+
+        <TextView
+            android:id="@+id/txtAddressAddressBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/material_color_grey_600"
+            tools:text="Jl. Lapangan Bola No 3 Gang Mawar No 43 Kos Ibu Rasmi"
+            android:layout_marginRight="@dimen/item_gap_s"/>
+    </LinearLayout>
+
+</LinearLayout>

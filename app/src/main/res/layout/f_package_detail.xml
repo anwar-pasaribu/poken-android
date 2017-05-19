@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentSwipeRefresh"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/parentViewScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_100"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/separator_view_lighter"
+                android:paddingBottom="@dimen/item_gap_m"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_m">
+
+                <TextView
+                    android:id="@+id/txtBookingCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black_90"
+                    android:textIsSelectable="true"
+                    android:textSize="@dimen/text_headline"
+
+                    tools:text="YBCDE" />
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtBookingCode"
+                    android:layout_marginRight="@dimen/item_gap_m"
+
+                    tools:text="Booked" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonSharePaketCode"
+                    android:layout_width="@dimen/clickable_size"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_share"
+                    android:tint="@color/style_overlay_grey"
+                    android:contentDescription="@string/action_share"/>
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextBodySecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/item_gap_s"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_s"
+                android:text="@string/lbl_sender" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/txtFromName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/myAccentColor"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Dika Maheswara" />
+
+                <TextView
+                    android:id="@+id/txtFromPhone"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+
+                    tools:text="087808783036" />
+
+
+                <TextView
+                    android:id="@+id/txtFromAddress"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+                    tools:text="Jl Duri Kepa No 43" />
+
+                <TextView
+                    android:id="@+id/txtFromCityZip"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+
+                    tools:text="-" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextBodySecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/item_gap_s"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_s"
+                android:text="@string/lbl_receiver" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l">
+
+                <TextView
+                    android:id="@+id/txtToName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textIsSelectable="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="Anwar Pasaribu" />
+
+                <TextView
+                    android:id="@+id/txtToPhone"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+                    tools:text="082362588301" />
+
+                <TextView
+                    android:id="@+id/txtToAddress"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+                    tools:text="Jl Lapangan Bola No 3, Gg Mawar No 43" />
+
+                <TextView
+                    android:id="@+id/txtToCityZip"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
+                    tools:text="11530" />
+            </LinearLayout>
+
+            <!--shrinkColumns makes text wrap.-->
+            <TableLayout
+                android:id="@+id/parentMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_s"
+                android:shrinkColumns="1">
+
+                <!--S: Service-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/dimen_column_package_detail"
+                        android:text="@string/lbl_servis" />
+
+                    <TextView
+                        android:id="@+id/txtService"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textIsSelectable="true"
+                        tools:text="REG (No Description)" />
+
+                </TableRow>
+                <!--E: Service-->
+
+                <!--S: Content-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_content" />
+
+                    <TextView
+                        android:id="@+id/txtContent"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textIsSelectable="true"
+                        tools:text="Kacamata anti radiasi off 35%" />
+
+                </TableRow>
+                <!--E: Content-->
+
+                <!--S: InsuredValue-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_insured_value" />
+
+                    <TextView
+                        android:id="@+id/txtInsuredValue"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textIsSelectable="true"
+                        tools:text="Rp 40.000" />
+
+                </TableRow>
+                <!--E: InsuredValue-->
+
+                <!--S: Note-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_note" />
+
+                    <TextView
+                        android:id="@+id/txtNote"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="Pengiriman pakai Tiki ONS" />
+
+                </TableRow>
+                <!--E: Note-->
+            </TableLayout>
+
+            <View
+                android:id="@+id/sepBelowPackageDetailBorder"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:background="@color/separator_view" />
+
+            <View
+                android:id="@+id/sepBelowPackageDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_gap_l"
+                android:background="@color/separator_view_lighter" />
+
+            <!--Shipping vendor data is here.-->
+            <TableLayout
+                android:id="@+id/parentVendor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_l"
+                android:shrinkColumns="1">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/item_gap_s">
+
+                    <TextView
+                        style="@style/TextListTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:text="@string/lbl_shipping_info"
+                        />
+                </TableRow>
+
+                <!--S: Receipt number-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s">
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/dimen_column_package_detail"
+                        android:text="@string/lbl_receipt_no" />
+
+                    <!--Special style for airway bill, it's eye catching-->
+                    <TextView
+                        android:id="@+id/txtReceiptNumber"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="monospace"
+
+                        android:textColor="@android:color/black"
+                        android:textIsSelectable="true"
+                        android:textStyle="bold"
+
+                        tools:text="030055490696" />
+
+                </TableRow>
+                <!--E: Receipt number-->
+
+                <!--S: Courier-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_courier" />
+
+                    <TextView
+                        android:id="@+id/txtVendorName"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="TIKI" />
+
+                </TableRow>
+                <!--E: Courier-->
+
+                <!--S: Type-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_type" />
+
+                    <TextView
+                        android:id="@+id/txtType"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="ONS" />
+
+                </TableRow>
+                <!--E: Type-->
+
+                <!--S: Weight-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_weight" />
+
+                    <TextView
+                        android:id="@+id/txtBerat"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="7,8 KG" />
+
+                </TableRow>
+                <!--E: Weight-->
+
+                <!--S: Volume-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s">
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_vol" />
+
+                    <TextView
+                        android:id="@+id/txtVolume"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="12 cm3" />
+                </TableRow>
+                <!--E: Volume-->
+
+                <!--S: Volumetric weight-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_vol_weight" />
+
+                    <TextView
+                        android:id="@+id/txtVolumetricWeight"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="13 cm3" />
+                </TableRow>
+                <!--E: Volumetric weight-->
+
+                <!--S: Estimate day-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_estimate_day" />
+
+                    <TextView
+                        android:id="@+id/txtETA"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="2 days" />
+                </TableRow>
+
+                <!--S: Price-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_table_row"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    >
+
+                    <TextView
+                        style="@style/TextBodySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="@dimen/height_100dp"
+                        android:text="@string/lbl_price" />
+
+                    <TextView
+                        android:id="@+id/txtPrice"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
+                        tools:text="Rp 45.000" />
+                </TableRow>
+            </TableLayout>
+
+            <View
+                android:id="@+id/sepBelowTariffBorder"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:background="@color/separator_view" />
+
+            <View
+                android:id="@+id/sepBelowTariff"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_gap_l"
+                android:background="@color/separator_view_lighter" />
+
+            <RelativeLayout
+                android:id="@+id/parentHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/height_100dp">
+
+                <!--Header text for Recent lable and button to clear recent.-->
+                <FrameLayout
+                    android:id="@+id/parentHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/clickable_size"
+                    android:visibility="visible"
+
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/textViewHeaderTitle"
+                        style="@style/TextListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/clickable_size"
+                        android:paddingLeft="@dimen/item_gap_l"
+                        android:paddingRight="@dimen/item_gap_l"
+                        android:text="@string/lbl_booking_history" />
+
+                    <ImageButton
+                        android:layout_width="@dimen/icon_24dp"
+                        android:layout_height="@dimen/icon_24dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_margin="@dimen/item_gap_l"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/action_delete"
+                        android:padding="@dimen/item_gap_xs"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_clear_black_24dp"
+                        android:tint="@color/style_overlay_grey"
+                        android:visibility="gone"
+
+                        tools:visibility="visible" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/parentLoadingIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_below="@+id/parentHeader">
+
+                    <TextView
+                        android:id="@+id/textViewNoTracking"
+                        style="@style/TextBodyDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/item_gap_m"
+                        android:text="@string/lbl_no_tracking_yet" />
+
+                    <RelativeLayout
+                        android:id="@+id/parentLastIndicator"
+                        android:layout_width="@dimen/icon_24dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/height_100dp">
+
+                        <View
+                            android:id="@+id/viewVerticalLine"
+                            android:layout_width="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/parentIndicatorHolder"
+                            android:layout_centerHorizontal="true"
+                            android:background="@color/separator_view" />
+
+                        <FrameLayout
+                            android:id="@+id/parentIndicatorHolder"
+                            android:layout_width="@dimen/icon_24dp"
+                            android:layout_height="@dimen/icon_24dp"
+                            android:layout_centerInParent="true">
+
+                            <ImageView
+                                android:id="@+id/imageViewIndicatorColor"
+                                android:layout_width="@dimen/icon_24dp"
+                                android:layout_height="@dimen/icon_24dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_circle_24dp"
+                                android:tint="@color/style_overlay_grey"
+
+                                tools:tint="@color/green" />
+
+                            <ImageView
+                                android:id="@+id/imageViewIndicatorLogo"
+                                android:layout_width="@dimen/item_gap_m"
+                                android:layout_height="@dimen/item_gap_m"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_check"
+
+                                android:visibility="gone"
+                                tools:visibility="visible" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressIndicatorTrackingHistory"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="@dimen/icon_24dp"
+                        android:layout_height="@dimen/icon_24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/height_100dp"
+
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
+
+                <com.indoskyware.paket.customview.ExpandableHeightListView
+                    android:id="@+id/lvHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/parentLoadingIndicator"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

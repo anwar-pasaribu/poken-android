@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_100"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/item_gap_l"
+              android:paddingTop="@dimen/item_gap_32">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextBodySecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_xs"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingRight="@dimen/item_gap_l"
+        tools:text="Dialog Title" />
+
+    <EditText
+        android:id="@+id/userInputDialog"
+        style="@style/PaketEditText.Default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_gap_l"
+        android:focusableInTouchMode="true"
+        android:imeOptions="actionDone"
+        android:inputType="text|textCapSentences|textNoSuggestions"
+        android:maxLines="1"
+        tools:hint="Hint " />
+
+</LinearLayout>

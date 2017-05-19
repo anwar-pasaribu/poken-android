@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentRowPackageHeader"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/icon_24dp"
+    android:background="@color/separator_view_lighter">
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:textColor="@color/material_color_grey_600"
+        tools:text="Status"/>
+
+    <Button
+        android:id="@+id/buttonHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/clickable_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="@dimen/item_gap_m"
+        android:paddingLeft="@dimen/item_gap_m"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/lbl_pickup_now"
+        android:textSize="@dimen/text_button"
+        android:textColor="@color/myAccentColor"/>
+
+</RelativeLayout>

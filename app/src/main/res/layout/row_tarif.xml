@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/clickable_size_64"
+    android:background="@color/white_100"
+    android:clickable="true"
+    android:paddingLeft="@dimen/item_gap_l"
+    android:paddingRight="@dimen/item_gap_l"
+    android:paddingBottom="@dimen/item_gap_l"
+    android:paddingTop="@dimen/item_gap_l"
+
+    tools:background="@color/btn_higlight_primary">
+
+    <TextView
+        android:id="@+id/textViewVendorName"
+        style="@style/TextListTitle"
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/icon_24dp"
+        tools:text="Tiki " />
+
+    <ImageView
+        android:id="@+id/imageViewVendor"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/icon_24dp"
+        android:maxWidth="@dimen/clickable_size"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:paddingTop="@dimen/item_gap_xs"
+        android:paddingBottom="@dimen/item_gap_xs"
+
+        android:layout_alignBottom="@+id/textViewVendorName"
+        android:layout_alignTop="@+id/textViewVendorName"
+        android:layout_marginLeft="@dimen/item_gap_s"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:layout_toRightOf="@+id/textViewVendorName"
+
+        android:contentDescription="@string/vendor"
+
+        android:src="@drawable/courier_logo_jne" />
+
+    <TextView
+        android:id="@+id/txtViewSubtitle1"
+        style="@style/TextBodySecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewVendorName"
+        tools:text="ONS" />
+
+    <TextView
+        android:id="@+id/textViewSubtitle2"
+        style="@style/TextBodySecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtViewSubtitle1"
+        android:layout_marginLeft="@dimen/item_gap_s"
+        android:layout_marginRight="@dimen/item_gap_s"
+
+        android:layout_toLeftOf="@+id/linearLayoutPrice"
+        android:layout_toRightOf="@+id/txtViewSubtitle1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="One Night Service dangan sangat panjang" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtETA"
+            style="@style/TextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1 Day " />
+
+        <TextView
+            android:id="@+id/txtTarif"
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Rp 250.000.000" />
+
+    </LinearLayout>
+
+</RelativeLayout>

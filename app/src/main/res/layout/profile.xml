@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_100"
+    android:paddingTop="@dimen/item_gap_32"
+    android:minHeight="@dimen/clickable_size_64">
+
+    <ImageView
+        android:id="@+id/imageViewProfilePicture"
+        android:layout_width="@dimen/clickable_size"
+        android:layout_height="@dimen/clickable_size"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_person_black_48dp"
+        android:tint="@color/myPrimaryColor" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHeaderData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_toRightOf="@+id/imageViewProfilePicture"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/clickable_size_64"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtName"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:gravity="center_vertical|left"
+            android:maxLines="1"
+            android:textStyle="bold"
+            tools:text="Anwar Pasaribu" />
+
+        <TextView
+            android:id="@+id/txtUserPhone"
+            style="@style/TextBodyDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:gravity="center_vertical|left"
+            tools:text="087884155479" />
+
+        <TextView
+            android:id="@+id/txtUserEmail"
+            style="@style/TextBodyDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            tools:text="anwar_pasaribu@live.com" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_below="@+id/linearLayoutHeaderData"
+        android:layout_marginTop="@dimen/clickable_size_32"
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="@dimen/item_gap_32"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:id="@+id/buttonLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        tools:text="Logout" />
+</RelativeLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="id.unware.poken">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--
+     The following two permissions are not required to use
+     Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+
+    <!-- Permission to receive Google Maps -->
+    <uses-permission android:name="${applicationId}.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <application
+        android:name=".PokenApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.splash.SplashScreen"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.TrackPackage.TrackingMain.view.TrackingActivity"
+            android:label="@string/title_tracking"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.Tariff.TariffMain.view.RateActivity"
+            android:label="@string/title_tariff"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.pickup.view.PickupActivity"
+            android:label="@string/title_pickup"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.pickup.history.view.PickupHistoryActivity"
+            android:label="@string/title_pickup"
+            android:parentActivityName=".ui.pickup.view.PickupActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.pickup.view.PickupActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.wallet.main.view.WalletActivity"
+            android:label="@string/title_wallet"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.nearby.view.NearbyActivity"
+            android:label="@string/title_activity_nearby"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.MainPage.MainPage"/>
+        </activity>
+        <activity
+            android:name=".ui.newPackage.view.AcNewPaket"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/action_new_package"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.packages.view.AcMain"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_package"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Activity to contain FragmentAddressBook and set bundle "fromNewPackage" to true -->
+        <activity
+            android:name=".ui.addressBook.AcAddressBook"
+            android:label="@string/title_activity_address_book"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.detailPackage.ActivityMainWithUp"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/paket"
+            android:parentActivityName=".ui.MainPage.MainPage"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.MainPage.MainPage"
+            android:theme="@style/AppTheme.ActionBar.Transparent"
+            android:screenOrientation="portrait"/>
+
+        <!-- ///////////////////////////////////////////////////////////////////////////// -->
+        <!-- Google Places API - Places AutoComplete -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcQQ9KEmVxEgtraDeSxpbVC03MDVTqLYI"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+        <service
+            android:name=".services.FetchAddressIntentService"
+            android:exported="false"/>
+
+    </application>
+
+</manifest>

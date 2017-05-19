@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_100"
+        android:gravity="center"
+        android:minHeight="@dimen/clickable_size"
+        android:padding="@dimen/item_gap_m"
+        android:textSize="@dimen/text_body"
+        android:textColor="@color/black_90"
+        android:lineSpacingMultiplier="1.25"
+
+        tools:text="This custom snackbar message\nLine 2" />
+
+    <!--Sahadow below text-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_s"
+        android:layout_below="@+id/txtMessage"
+        android:background="@drawable/bg_shadow_top" />
+</RelativeLayout>

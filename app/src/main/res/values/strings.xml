@@ -1,0 +1,478 @@
+<resources>
+    <string name="menu">Menu</string>
+    <string name="profile">Profile</string>
+    <string name="jne_news">JNEWS</string>
+    <string name="hint_air_waybill">Airway Bill / Resi</string>
+    <string name="btn_check">Check</string>
+    <string name="msg_empty_tracking_number">Please enter tracking number</string>
+    <string name="msg_tracking_not_found">Package not found, please make sure the number is correct.</string>
+    <string name="origin">Origin?</string>
+    <string name="destination">Destination?</string>
+    <string name="weight">Weight</string>
+    <string name="initial_weight_val">0.50</string>
+    <string name="kg">KG</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="check2">Check</string>
+    <string name="hint_search_area">Search Location</string>
+    <string name="lbl_no_data">No Data</string>
+    <string name="lbl_rate_more">More</string>
+    <string name="msg_error_number_to_large">We are sorry, for now we only provide delivery at range 1 to %.2f KG.</string>
+    <string name="msg_error_number_format_not_supported">Weight for %s is not supported, please enter proper number format.</string>
+    <string name="lbl_est_day_same_day">Same day</string>
+    <string name="lbl_default_currency">Rp</string>
+    <string name="lbl_est_tariff">%1$s %2$s</string>
+    <string name="msg_choose_origin">Please choose origin</string>
+    <string name="msg_choose_destination">Please choose destination</string>
+    <string name="lbl_rate_no_delivery"><![CDATA[No delivery from <u>%1$s</u> to <u>%2$s</u>]]></string>
+    <string name="lbl_empty_string"/>
+
+    <string name="action_check_tariff">Cek tarif</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_filters">Filter</string>
+    <string name="btn_see_detail">Detail</string>
+    <string name="action_new_package">Paket Baru</string>
+    <string name="action_rate_on_play_store">Rate di Play Store</string>
+    <string name="action_rate_on_play_store_description">Beri kami bintang lima di Play Store.</string>
+    <string name="action_refresh">Segarkan</string>
+    <string name="action_search">Cari</string>
+    <string name="action_share">Bagikan</string>
+    <string name="address">Alamat</string>
+    <string name="address_book">Buku Alamat</string>
+    <string name="alamat_tidak_ditemukan">Alamat tidak ditemukan.</string>
+    <string name="btn_back">List</string>
+    <string name="btn_clear">Bersihkan</string>
+    <string name="btn_compose_package">Baru</string>
+    <string name="btn_confirm_otp">KONFIRMASI OTP</string>
+    <string name="btn_done">Selesai</string>
+    <string name="btn_forgot_password">Lupa password?</string>
+    <string name="btn_negative_cancel">Batal</string>
+    <string name="btn_negative_ignore">Abaikan</string>
+    <string name="btn_negative_no">Tidak</string>
+    <string name="btn_positive_create">Buat</string>
+    <string name="btn_positive_verify_phone">Verifikasi Sekarang</string>
+    <string name="btn_positive_delete">Hapus</string>
+    <string name="btn_positive_ok">OK</string>
+    <string name="btn_positive_signout">Logout</string>
+    <string name="btn_positive_update">Perbarui</string>
+    <string name="btn_positive_yes">Ya</string>
+    <string name="btn_reset">Reset</string>
+    <string name="btn_retry_process">ULANGI</string>
+    <string name="btn_reuse_address">PICKUP DARI SINI</string>
+    <string name="btn_sign_in_with_email">Masuk pakai email</string>
+    <string name="btn_skip_tutorial">LEWATI TUTORIAL</string>
+    <string name="btn_verify">VERIVIKASI SEKARANG</string>
+    <string name="btn_wait_verifying">Sedang verifikasi&#8230;</string>
+    <string name="btn_back_to_previous">Kembali</string>
+    <string name="click_to_edit">Klik untuk edit.</string>
+    <string name="delete_confirmation">Hapus paket?</string>
+    <string name="demo_max_label">maks</string>
+    <string name="demo_min_label">min</string>
+    <string name="drawer_close">Drawer dibuka</string>
+    <string name="drawer_open">Drawer ditutup</string>
+    <string name="edit_phone">Edit Telepon</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="email">Email</string>
+    <string name="email_support_compose_contents"><![CDATA[ <p>%s<br />Masukkan email dibawah: </p>]]></string>
+    <string name="email_tidak_boleh_kosong">Email tidak boleh kosong</string>
+    <string name="email_title_support">Dukungan - Paket ID</string>
+    <string name="enter_email_addr">Masukkan Alamat Email</string>
+    <string name="enter_password">Masukkan Password</string>
+    <string name="from">Dari</string>
+    <string name="helper_password_visibility">Perlihatkan/sembunyikan password</string>
+    <string name="hint_enter_receiver_data">Klik disini untuk memasukkan data Penerima</string>
+    <string name="hint_img_description_general">Lebih lanjut</string>
+    <string name="hint_note_for_driver">Info tambahan&#8230;</string>
+    <string name="hint_note_for_driver_ex">Contoh: \"Nama gang, nama gedung, lantai, atau nomor rumah.\"</string>
+    <string name="hint_package_content">Contoh: baju, aksesoris</string>
+    <string name="hint_package_note">Contoh: pecah belah, packing kayu</string>
+    <string name="hint_search_address_book">Cari buku alamat</string>
+    <string name="hint_search_package">Cari kode atau nama penerima</string>
+    <string name="hint_search_postcode">Kode pos atau lokasi</string>
+    <string name="hint_weight">Berat</string>
+    <string name="history">Riwayat</string>
+    <string name="info">Info</string>
+    <string name="info_saved">Tersimpan!</string>
+    <string name="info_saving">Sedang menyimpan&#8230;</string>
+    <string name="info_saving_error">Penyimpanan gagal</string>
+    <string name="lable_info_tap">Klik pada gambar (</string>
+    <string name="lable_info_when_done">ketika Anda selesai.</string>
+    <string name="lbl_app_version"><![CDATA[%1$s<br /><small>Versi %2$s (%3$d)</small>]]></string>
+    <string name="lbl_bike">Motor</string>
+    <string name="lbl_booking_code">Kode booking</string>
+    <string name="lbl_booking_format"><![CDATA[Format: <b>NAMA</b>&lt;space&gt;<b>TELEPON</b>&lt;space&gt;<b>ALAMAT</b>]]></string>
+    <string name="lbl_booking_history">Riwayat booking</string>
+    <string name="lbl_car">Mobil</string>
+    <string name="lbl_click_verify_button">Klik untuk verifikasi</string>
+    <string name="lbl_clickable_text">Klik disini</string>
+    <string name="lbl_contact_us">Hubungi Kami</string>
+    <string name="lbl_courier">Jasa pengiriman</string>
+    <string name="lbl_currency_idr">Rp %s</string>
+    <string name="lbl_date_format">%1$s, %2$s %3$s</string>
+    <string name="lbl_delivery_service">Jasa pengiriman</string>
+    <string name="lbl_dimension">Dimensi?</string>
+    <string name="lbl_edit_phone_info">Silahkan masukkan OTP dari SMS yang telah kami dikirim.</string>
+    <string name="lbl_edit_phone_otp_is_sent">Sedang mengirim SMS ke: %s</string>
+    <string name="lbl_error_phone_empty"><![CDATA[<font color="#e36146">&nbsp;Nomor telepon tidak boleh kosong.</font>]]></string>
+    <string name="lbl_error_phone_not_valid"><![CDATA[<font color="#e36146">&nbsp;Nomor telepon tidak valid.</font>]]></string>
+    <string name="lbl_estimate_tariff">Estimasi Ongkir</string>
+    <string name="lbl_filters">Filter</string>
+    <string name="lbl_height">Tinggi</string>
+    <string name="lbl_how_to_book">Tampilkan Tutorial Membuat Paket</string>
+    <string name="lbl_how_to_book_description">Tampilkan tutorial untuk membuat paket baru</string>
+    <string name="lbl_how_to_learn_more">Blog Paket ID</string>
+    <string name="lbl_how_to_learn_more_description">Pelajari lebih lanjut untuk fitur lainnya</string>
+    <string name="lbl_info_above">) di atas.</string>
+    <string name="lbl_length">Panjang</string>
+    <string name="lbl_load_more">Tampilkan lainnya</string>
+    <string name="lbl_mobile_phone">Panggil, SMS atau WhatsApp</string>
+
+    <string name="lbl_no_address_book">
+        Tidak ada buku alamat. Buku alamat tersedia berdasarkan riwayat booking yang dilakukan.</string>
+
+    <string name="lbl_no_package">
+        Hai! Anda belum membuat paket,
+        \nKlik tombol Tambah (+) untuk membuat paket baru.
+    </string>
+
+    <string name="lbl_no_pickup_history">
+        Tidak ada permintaan pickup yang sedang berlangsung.
+    </string>
+
+    <string name="lbl_no_package_count">Tidak ada paket yang dijemput</string>
+    <string name="lbl_note_empty">Catatan kosong</string>
+    <string name="lbl_package_detail_volume">Volume: %s</string>
+    <string name="lbl_package_detail_weight">Berat: %s</string>
+    <string name="lbl_phone_number_verified"><![CDATA[<font color="#37B158">&nbsp;Nomor telepon telah diverifikasi.</font>]]></string>
+    <string name="lbl_pickup_location">Lokasi Pickup</string>
+    <string name="lbl_pickup_now">REQUEST PICKUP</string>
+    <string name="lbl_rate_district">Daerah</string>
+    <string name="lbl_recent">Riwayat</string>
+    <string name="lbl_reloading_server_data">Memuat ulang data&#8230;</string>
+    <string name="lbl_round">Pembulatan</string>
+    <string name="lbl_settings_header_profiles">Profil</string>
+    <string name="lbl_size_unit">cm</string>
+    <string name="lbl_support_email">Kirim kami email</string>
+    <string name="lbl_verification_helper">* Verifikasi nomor telepon untuk Pickup</string>
+    <string name="lbl_volume_unit">cm&#179;</string>
+    <string name="lbl_weight_unit">kg</string>
+    <string name="lbl_width">Lebar</string>
+    <string name="loading">Memuat&#8230;</string>
+    <string name="login">Masuk</string>
+    <string name="msg_cancel_verification">SMS akan sampai dalam beberapa menit, Anda yakin untuk membatalkan proses verifikasi?</string>
+    <string name="msg_change_data_loading">Silahkan tunggu&#8230;</string>
+    <string name="msg_confirm_logout">Anda yakin untuk Logout?</string>
+    <string name="msg_confirm_no_package">Belum ada Paket untuk di pickup. Buat yang baru?</string>
+    <string name="msg_error_address_not_found">Alamat tidak ditemukan</string>
+    <string name="msg_error_delivery_not_available">Tidak ada delivery dari %1$s ke %2$s.</string>
+    <string name="msg_error_email_invalid">Silahkan masukkan email yang valid.</string>
+    <string name="msg_error_origin_empty">Silahkan pilih asal pengiriman (Dari).</string>
+    <string name="msg_error_destination_empty">Silahkan pilih tujuan pengiriman (Ke).</string>
+    <string name="msg_error_otp_empty">Masukkan 6 digit OTP untuk verifikasi.</string>
+    <string name="msg_error_pwd_invalid">Password harus memiliki panjang 6 sampai 32 karakter.</string>
+    <string name="msg_error_weight_empty">Berat minimal 1 kg untuk cek ongkir.</string>
+    <string name="msg_helper_title">Contoh penulisan</string>
+
+    <string name="msg_helper_text">
+        <![CDATA[
+        <html>
+        <p>Andi Wijaya 08787887878 Jalan Permuda 1 No. 21, Jakarta 11230</p>
+        &#8226; <small>Pastikan nomor TELEPON ditulis <u>diantara</u> NAMA dan ALAMAT.</small><br/>
+        &#8226; <small>Sertakan <u>KODE POS</u> dalam ALAMAT.</small>
+        </html>
+        ]]>
+    </string>
+
+    <string name="msg_info_string_copied">\"%1$s\" telah disalin.</string>
+    <string name="msg_loading_data">Memuat data&#8230;</string>
+    <string name="msg_no_courier_location_found">Memuat lokasi vendor pengiriman&#8230;</string>
+    <string name="msg_no_network">Tidak ada koneksi internet, pastikan koneksi internet Anda berjalan.</string>
+    <string name="msg_no_package">Tidak ada paket ditemukan.</string>
+    <string name="msg_no_phone_feature">Panggilan telepon tidak didukung.</string>
+    <string name="msg_no_pickup_location">Alamat Pickup tidak diketahui. Silahkan coba lokasi terdekat.</string>
+    <string name="msg_package_no_network">Koneksi internet diperlukan untuk melanjutkan proses.</string>
+    <string name="msg_phone_not_verified">Silahkan verifikasi nomor telepon Anda untuk menggunakan fitur Pickup.</string>
+    <string name="msg_pickup_cancel">Anda yakin untuk membatalkan request pickup ini?</string>
+    <string name="msg_search_postcode_empty">Silahkan masukkan kode pos atau lokasi untuk dicari.</string>
+    <string name="msg_search_result_empty">Masukkan kata kunci untuk dicari</string>
+    <string name="msg_update_notify">Silahkan perbarui aplikasi Paket.ID untuk pengalaman pemakaian yang lebih baik.</string>
+    <string name="msg_waiting_requesting_otp">Sedang meminta One Time Password (OTP)&#8230;</string>
+    <string name="nama_penerima_harus_di_isi">Data Penerima harus diisi dengan format:  \nNAMA &lt;space> TELEPON &lt;space> ALAMAT</string>
+    <string name="nama_pengirim_harus_di_isi">Data Pengirim harus diisi dengan format:  \nNAMA &lt;space> TELEPON &lt;space> ALAMAT</string>
+    <string name="hint_name">Nama</string>
+    <string name="no_del">Tidak ada delivery untuk lokasi yang dipilih.</string>
+    <string name="no_items">Tidak ada data</string>
+    <string name="notif_ticker">Pickuper segera tiba dalam %1$s %2$s</string>
+    <string name="notif_ticker_arrived">Pickuper telah tiba.</string>
+    <string name="ob_subtitle_1">Tidak perlu label, print, atau lem, cukup buat kode dan tulis di paket.</string>
+    <string name="ob_subtitle_2">Paket bisa di-pickup di tempat Anda</string>
+    <string name="ob_subtitle_3">Semua Paket bisa di-track dari app, PRAKTIS!</string>
+    <string name="ob_subtitle_4">Penerima barang mendapat SMS status, GRATIS!</string>
+    <string name="ob_subtitle_5">Paket ID tidak mengenakan biaya apapun, daftar sekarang dan mulai kirim barang Anda.</string>
+    <string name="ob_title_1">Booking Instan</string>
+    <string name="ob_title_2">Pickup</string>
+    <string name="ob_title_3">Tracking Otomatis</string>
+    <string name="ob_title_4">Notifikasi SMS</string>
+    <string name="ob_title_5">Mulai SEKARANG</string>
+    <string name="paket">Booking</string>
+    <string name="password">Password</string>
+    <string name="msg_password_blank">Password tidak boleh kosong</string>
+    <string name="penerima">Penerima</string>
+    <string name="pengirim">Pengirim</string>
+    <string name="phone_number">Nomor Telepon</string>
+    <string name="phone_number_with_example">Nomor Telepon</string>
+    <string name="pickup">Pickup</string>
+    <string name="please_enable_your_gps">Hidupkan GPS Anda</string>
+    <string name="please_insert_OTP">Silahkan masukkan OTP.</string>
+    <string name="please_insert_name">Silahkan masukkan nama!</string>
+    <string name="please_insert_password">Silahkan masukkan password</string>
+    <string name="please_insert_your_email">Silahkan masukkan email</string>
+    <string name="please_insert_your_phone_number">Silahkan masukkan nomor telepon Anda</string>
+    <string name="receiver">Penerima</string>
+    <string name="register">Register</string>
+    <string name="save">Simpan</string>
+    <string name="searching">Sedang mencari&#8230;</string>
+    <string name="sender">Pengirim</string>
+    <string name="sign_in">Login</string>
+    <string name="sign_out"><![CDATA[<font color="#D9534F">Logout</font>]]></string>
+    <string name="sign_out_description">Keluar dari aplikasi Paket ID</string>
+    <string name="size_initial_value">10</string>
+    <string name="subtitle_tut_mode">Mode Tutorial</string>
+    <string name="this_is_an_offline_mode">Anda dalam mode offline</string>
+    <string name="title_activity_address_book">Buku Alamat</string>
+    <string name="title_address_book">Buku Alamat</string>
+    <string name="title_dialog_update">Perbarui App</string>
+    <string name="title_help_support">Bantuan</string>
+    <string name="title_package">Paket</string>
+    <string name="title_package_detail">Detail Paket</string>
+    <string name="title_partner_location">Lokasi</string>
+    <string name="title_pickup">Pickup</string>
+    <string name="title_pickup_history">Riwayat Pickup</string>
+    <string name="title_postcode">Kode Pos</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_share_intent">Bagikan Kode Paket ID</string>
+    <string name="title_share_wallet_transaction_item">Bagikan Info Riwayat Transaksi</string>
+    <string name="title_tariff">Tarif</string>
+    <string name="title_tracking">Track</string>
+    <string name="to">Ke</string>
+    <string name="tutorial_field_sender">Masukkan informasi Anda disini. Silahkan gunakan format yang diberikan.</string>
+    <string name="tutorial_new_package">Klik disini untuk membuat Paket baru.</string>
+    <string name="vendor">Vendor</string>
+    <string name="verify">Verifikasi</string>
+    <string name="verify_now">VERIFIKASI SEKARANG</string>
+    <string name="verify_otp_info">Kami telah mengirimkan SMS berisi OTP. \n\nMasukkan OTP untuk menyelesaikan verifikasi.</string>
+    <string name="weight_initial_value">1,00</string>
+    <string name="hint_areah_search_destination">Cari tujuan pengiriman</string>
+    <string name="hint_areah_search_origin">Cari asal pengiriman</string>
+    <string name="lbl_load_more_area">Area lain atau kode pos</string>
+    <string name="btn_call">Hubungi</string>
+    <string name="btn_navigate_to_location">Arah</string>
+    <string name="lbl_faq_subtitle">Pertanyaan umum yang sering diajukan.</string>
+    <string name="lbl_term_and_condition">Syarat dan Ketentuan</string>
+    <string name="lbl_term_and_condition_description">Baca syarat dan ketentuan penggunaan</string>
+    <string name="lbl_privacy_policy">Kebijakan Privasi</string>
+    <string name="lbl_privacy_policy_description">Baca kebijakan privasi</string>
+    <string name="lbl_chat">Chat dengan kami</string>
+    <string name="lbl_content">Konten</string>
+    <string name="lbl_estimate_day">Estimasi hari</string>
+    <string name="lbl_no_tracking_yet">Belum ada tracking</string>
+    <string name="lbl_note">Catatan</string>
+    <string name="lbl_price">Tarif</string>
+    <string name="lbl_receipt_no">Resi</string>
+    <string name="lbl_receiver">Penerima</string>
+    <string name="lbl_sender">Pengirim</string>
+    <string name="lbl_shipping_info">Info pengiriman</string>
+    <string name="lbl_type">Tipe</string>
+    <string name="lbl_vol">Vol.</string>
+    <string name="lbl_vol_weight">Berat volumetrik</string>
+    <string name="lbl_weight">Berat</string>
+    <string name="title_support">Bantuan &amp; Dukungan</string>
+    <string name="lbl_whats_new">Fitur Baru</string>
+    <string name="lbl_whats_new_description">Fitur terbaru pada aplikasi</string>
+    <string name="subtitle_wallet_history">Riwayat</string>
+    <string name="subtitle_wallet_withdrawal">Penarikan</string>
+    <string name="subtitle_wallet_tupup">Top Up</string>
+
+
+    <string name="subtitle_pickup_history_on_going">Dalam Proses</string>
+    <string name="subtitle_pickup_history_finished">Selesai</string>
+
+
+    <string name="title_wallet">Dompet</string>
+    <string name="lbl_will_be_transferred_to">akan ditransfer ke</string>
+    <string name="lbl_withdrawal_limit"><![CDATA[Minimum <b>%1$s</b> dan maksimum <b>%2$s</b>.]]></string>
+    <string name="lbl_transfer_to">Transfer ke</string>
+    <string name="lbl_information">Informasi</string>
+    <string name="lbl_add_balance">Tambah saldo</string>
+    <string name="btn_copy">Salin</string>
+    <string name="btn_cancel_top_up">Batalkan Top Up</string>
+    <string name="btn_continue_topup">Selanjutnya</string>
+    <string name="lbl_amount_to_transfer">Jumlah yang harus ditransfer</string>
+    <string name="lbl_ask_for_question">Pertanyaan? Hubungi kami di:</string>
+    <string name="lbl_info_cancel_top_up">Klik Batalkan Top Up jika Anda tidak ingin menambah saldo Wallet Paket ID Anda.</string>
+    <string name="lbl_minimum_top_up">Top Up minimum Rp 10.000</string>
+    <string name="lbl_precise_transfer_nominal">Pastikan Anda membayar persis sesuai dengan angka yang tertera di atas.</string>
+    <string name="lbl_wallet_balance">Saldo</string>
+    <string name="lbl_add_bank">Tambah rekening bank</string>
+    <string name="hint_receiver">Contoh: Andi 0888111222\nJln Pemuda No 21, 11230</string>
+    <string name="hint_sender">Contoh: Andi 0888111222\nJln Pemuda No 21, 11230</string>
+    <string name="lbl_insurance">Asuransi</string>
+    <string name="lbl_service">Servis</string>
+    <string name="lbl_optional"><![CDATA[ &#8212; <font color="#bdbdbd">Opsional</font>]]></string>
+    <string name="msg_shipping_service_not_valid">Silahkan pilih jasa pengiriman paket.</string>
+    <string name="msg_user_transaction_snippet">Transaksi: %1$s pada %2$s</string>
+    <string name="btn_cancel_withdraw">Batalkan penarikan</string>
+    <string name="lbl_withdrawal_amount">Nominal pencairan</string>
+    <string name="lbl_transaction_info">Info Transaksi Paket ID</string>
+    <string name="lbl_password_helper">Masukkan password Paket ID Anda untuk melanjutkan proses pencairan.</string>
+    <string name="btn_proceed_withdrawal">Cairkan</string>
+    <string name="lbl_user_bank_account_no">No. rekening</string>
+    <string name="lbl_name">Nama</string>
+    <string name="msg_amount_not_valid">Jumlah uang tidak sesuai ketentuan.</string>
+    <string name="msg_error_amount_empty">Jumlah uang harus diisi.</string>
+    <string name="msg_withdrawal_cancellation">Anda yakin untuk membatalkan pencairan dana?</string>
+    <string name="msg_top_up_cancellation">Anda yakin untuk membatalkan top up Wallet Paket ID?</string>
+
+    <!--
+    [V49]
+    Package services.
+    -->
+    <string name="lbl_package_service_reg">REG</string>
+    <string name="lbl_package_service_reg_desc">Servis Reguler: TIKI REG / JNE REG</string>
+    <string name="lbl_package_service_exp">EXP</string>
+    <string name="lbl_package_service_exp_desc">Servis Tercepat: TIKI ONS / JNE YES</string>
+    <string name="lbl_package_service_eco">ECO</string>
+    <string name="lbl_package_service_eco_desc">Servis Ekonomi: TIKI ECO / JNE OKE</string>
+
+    <!-- Infos-->
+    <string name="msg_info_service">Pilih servis yang sesuai.</string>
+    <string name="msg_info_content">Isi konten pengiriman.</string>
+    <string name="msg_info_insurance">Masukkan nilai barang, kosongkan jika tidak memakai asuransi.</string>
+    <string name="msg_info_note">Tulis catatan untuk pihak pengiriman, contoh: Pecah Belah, Packing Kayu.</string>
+    <string name="lbl_note_for_driver">Informasi tambahan</string>
+    <string name="msg_creating_new_package">Sedang membuat paket baru&#8230;</string>
+    <string name="msg_facebook_auth_success">Autentikasi Facebook berhasil.</string>
+    <string name="msg_google_auth_success">Autentikasi Google berhasil.</string>
+    <string name="msg_authenticating">Otentikasi akun&#8230;</string>
+    <string name="btn_repickup">Pickup ulang</string>
+    <string name="facebook_app_id">1147844828613244</string>
+    <string name="fb_login_protocol_scheme">fb1147844828613244</string>
+    <string name="hint_input_amount">0</string>
+    <string name="hint_phone_number_example">123456</string>
+    <string name="hotline_file_provider_authority">com.indoskyware.paket.provider</string>
+    <string name="invalid_lat_long_used">Latitude dan longitude yang digunakan tidak valid.</string>
+    <string name="lbl_bank">Bank</string>
+    <string name="lbl_bank_account_no">310 217 3799</string>
+    <string name="lbl_company_name">PT. Paket Informasi Digital</string>
+    <string name="lbl_idr">Rp</string>
+    <string name="no_location_data_provided">Tidak ada lokasi yang diterima</string>
+    <string name="service_not_available">Geocoding Service tidak tersedia</string>
+    <string name="support_chat">Chat</string>
+    <string name="support_email">cs@paket.id</string>
+    <string name="support_fqs">F.A.Q</string>
+    <string name="support_mobile_phone">+62878 0878 3630</string>
+    <string name="support_paketid_blog">http://blog.paket.id/</string>
+    <string name="support_paketid_privacy_policy">https://doc.paket.id/kebijakan-privasi.html</string>
+    <string name="support_paketid_terms_and_condition">https://doc.paket.id/syarat-dan-ketentuan.html</string>
+
+    <!--Corporate policies (no CDATA when creating clickable text view)-->
+    <string name="lbl_corporate_policies">
+        By creating an account, you agree to Paket ID\'s <a href="http://docs.paket.id/Kebijakan_Privasi.html">Privacy Policies</a>,
+        <a href="http://docs.paket.id/Syarat_Dan_Ketentuan.html">Term and Conditions</a>, and
+        <a href="http://docs.paket.id/Ketentuan_Pengiriman/index.html">Vendor Policies</a>
+    </string>
+
+    <string name="lbl_secure_connection">All information is transmitted \nover a secure connection.</string>
+
+    <!--Styling map to hide POIs-->
+    <string name="map_style_hide_poi">
+      [
+        {
+          \"featureType\": \"poi.business\",
+          \"elementType\": \"all\",
+          \"stylers\": [
+            {
+              \"visibility\": \"off\"
+            }
+          ]
+        }
+      ]
+  </string>
+
+    <!-- Top Up rule-->
+    <string name="top_up_rules">
+        <![CDATA[
+        <ul>
+            <li>&nbsp;Setelah melakukan pembayaran, sistem Paket ID akan memverifikasi pembayaran secara otomatis dalam 5-10 menit. Jika Anda menghadapi kendala mengenai pembayaran, silahkan Hubungi Paket ID Support</li>
+            <li>&nbsp;Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat</li>
+            <li>&nbsp;Angka unik <b><u>%1$s</u></b> yang ditambahkan pada total biaya adalah untuk mengidentifikasi pembayaran</li>
+            <li>&nbsp;Transaksi dianggap batal jika sampai dengan pukul <b><u>%2$s</u></b> pembayaran belum dilunasi</li>
+        </ul>
+        ]]>
+    </string>
+
+    <!-- Withdrawal rule-->
+    <string name="withdrawal_rules">
+        <![CDATA[
+        <ul>
+            <li>&nbsp;Pencairan dana hanya bisa dilakukan satu kali sehari</li>
+            <li>&nbsp;Lama waktu transfer dana ke rekening bank: BCA, BNI, BRI, Mandiri maksimal 1&#215;24 jam kerja.</li>
+            <li>&nbsp;Lama waktu transfer selain ke rekening bank: BCA, BNI, BRI, Mandiri maksimal 2 hari kerja.</li>
+            <li>&nbsp;Pencairan dana ke rekening selain Mandiri, BCA, BRI, BNI, atau BNI Syariah dikenakan biaya Rp 6.500,- (bisa berubah sesuai ketentuan yang berlaku).</li>
+        </ul>
+        ]]>
+    </string>
+
+    <string name="vendor_color_jne">#DB321C</string>
+    <string name="vendor_color_sml">#F3A838</string>
+    <string name="vendor_color_tiki">#001BEB</string>
+    <string name="view_tag_clear_text_button">clr_txt</string>
+    <string name="view_tag_info_button">info_button</string>
+    <string name="lbl_filter_all_vendor">Semua Vendor</string>
+    <string name="lbl_filter_all_packages">Semua</string>
+    <string name="lbl_learn_more">Learn more</string>
+    <string name="hint_money">0,-</string>
+    <string name="lbl_insurance_value_range"><![CDATA[Tambahan biaya asuransi: <b>%1$s</b> sampai <b>%2$s</b>.]]></string>
+    <string name="lbl_drop_off_helper">Lokasi drop-off paket</string>
+    <string name="lbl_postcode_helper">Cari kode pos</string>
+    <string name="lbl_help_and_support_helper">Dapat dukungan dari tim Paket ID</string>
+    <string name="lbl_servis">Servis</string>
+    <string name="lbl_insured_value">Nilai barang</string>
+    <string name="session_expired_message">Sesi login Anda telah berakhir, silahkan login kembali.</string>
+    <string name="action_search_location">Cari Lokasi</string>
+    <string name="lbl_pickup_address_detail">Tulis detail alamat</string>
+    <string name="btn_request_pickup_now">PESAN</string>
+    <string name="msg_no_selected_vendor">Silahkan pilih salah satu jasa pengiriman.</string>
+    <string name="title_more_menu">Menu Lain</string>
+    <string name="btn_ongkir">Ongkir</string>
+    <string name="lbl_pickup_info">Info Pickup</string>
+    <string name="lbl_vendor_term">Ketentuan jasa pengiriman:</string>
+    <string name="msg_prepare_map">Persiapan halaman pickup&#8230;</string>
+    <string name="lbl_no_account_name"><![CDATA[<font color="#D9534F">Nama belum ada</font>]]></string>
+    <string name="lbl_no_account_phone_number"><![CDATA[<font color="#D9534F">Nomor kosong</font>]]></string>
+    <string name="lbl_no_account_email"><![CDATA[<font color="#D9534F">Email kosong</font>]]></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_nearby">Nearby</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="lbl_info_window_helper">Ketuk untuk memanggil</string>
+    <string name="booking_available">Booking tersedia</string>
+    <string name="title_activity_history">Pickup History</string>
+    <string name="hint_search_address">Search address</string>
+
+
+</resources>
