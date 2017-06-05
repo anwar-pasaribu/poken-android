@@ -56,5 +56,6 @@
     <dimen name="img_grid_m">160dp</dimen>
     <dimen name="header_slide_width_m">270dp</dimen>
     <dimen name="header_slide_height_m">140dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
 
 </resources>

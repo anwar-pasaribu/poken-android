@@ -21,15 +21,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
+import id.unware.poken.ui.home.presenter.IHomePresenter;
 
-public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListDataAdapter.SingleItemRowHolder> {
+public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAdapter.SingleItemRowHolder> {
 
     private ArrayList<Product> itemsList;
     private Context mContext;
+    private IHomePresenter homePresenter;
 
-    public SectionListDataAdapter(Context context, ArrayList<Product> itemsList) {
+    public ProductSectionAdapter(Context context, ArrayList<Product> itemsList, IHomePresenter homePresenter) {
         this.itemsList = itemsList;
         this.mContext = context;
+        this.homePresenter = homePresenter;
     }
 
     @Override
@@ -61,7 +64,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         return (null != itemsList ? itemsList.size() : 0);
     }
 
-    public class SingleItemRowHolder extends RecyclerView.ViewHolder {
+    public class SingleItemRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvPrice) TextView tvPrice;
@@ -73,20 +76,19 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             super(view);
             ButterKnife.bind(this, view);
 
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-
+            view.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (homePresenter != null) {
+
+                homePresenter.onProductClick(
+                        getAdapterPosition(),
+                        itemsList.get(getAdapterPosition())
+                );
+            }
+        }
     }
 
 }

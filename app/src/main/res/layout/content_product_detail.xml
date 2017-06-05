@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity"
+    tools:showIn="@layout/activity_product_detail">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/clickable_size_64">
+
+        <ImageView
+            android:id="@+id/ivProduct"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2"
+            app:layout_constraintDimensionRatio="h,4:3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="Nama Barang dengan batasan jumlah baris 3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
+
+        <TextView
+            android:id="@+id/tvProductPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:text="Rp 450.000"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
+
+        <View
+            android:id="@+id/viewSep"
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:background="@color/separator_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductPrice" />
+
+        <TextView
+            android:id="@+id/tvProductStock"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:text="45"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep" />
+
+        <TextView
+            android:id="@+id/tvProductStockLabel"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:text="Stok"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline1"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductStock" />
+
+        <TextView
+            android:id="@+id/tvProductSold"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:text="15"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline1"
+            app:layout_constraintRight_toLeftOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep" />
+
+        <TextView
+            android:id="@+id/tvProductSoldLabel"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Terjual"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline1"
+            app:layout_constraintRight_toLeftOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductSold" />
+
+        <TextView
+            android:id="@+id/tvProductLeft"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:text="30"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+            app:layout_constraintRight_toLeftOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep" />
+
+        <TextView
+            android:id="@+id/tvProductLeftLabel"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Sisa"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline2"
+            app:layout_constraintRight_toLeftOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductLeft" />
+
+
+        <TextView
+            android:id="@+id/tvProductDescription"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:text="@string/large_text"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:paddingBottom="@dimen/text_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivSellerAvatar" />
+
+
+        <ImageView
+            android:id="@+id/ivSellerAvatar"
+            android:layout_width="@dimen/clickable_size"
+            android:layout_height="@dimen/clickable_size"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvSellerName"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Kejora Busana"
+            app:layout_constraintTop_toTopOf="@+id/ivSellerAvatar"
+            app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel" />
+
+        <TextView
+            android:id="@+id/tvSellerAddress"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Padangsidimpuan"
+            app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/tvSellerName"/>
+
+        <!-- Guideline for product stock counter-->
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.20" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.35" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

@@ -13,4 +13,7 @@ public class Section {
     public int section_action_id;
     public ArrayList<Product> products;
     public ArrayList<Seller> top_sellers;
+
+    public Section() {
+    }
 }

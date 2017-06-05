@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="id.unware.poken.ui.home.view.HomeActivity">
+    tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -27,6 +26,25 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <include layout="@layout/content_product_detail" />
+
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_64">
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:theme="@style/MyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:text="Beli Sekarang"/>
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

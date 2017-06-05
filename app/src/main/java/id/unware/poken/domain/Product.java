@@ -23,6 +23,8 @@ public class Product {
     public double price;
     public double weight;
 
+    public static String KEY_PRODUCT_ID = "id";
+
     public Product() {
     }
 }

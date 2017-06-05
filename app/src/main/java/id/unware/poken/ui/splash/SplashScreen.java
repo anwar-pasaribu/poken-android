@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
-import id.unware.poken.ui.home.view.HomeAcivity;
+import id.unware.poken.ui.home.view.HomeActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void gotoMainPage() {
-        Intent intent = new Intent(this, HomeAcivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
     }

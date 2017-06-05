@@ -1,10 +1,5 @@
 package id.unware.poken.ui.home.view.adapter;
 
-/**
- * Created by Anwar Pasaribu on June 2017
- * Main list adapter.
- */
-
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,7 +22,13 @@ import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
+import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.home.presenter.IHomePresenter;
 
+/**
+ * Created by Anwar Pasaribu on June 2017
+ * Main list adapter.
+ */
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int TYPE_HEADER = 1,
@@ -35,12 +36,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             TYPE_ITEM_TOP_SELLER = 3,
             TYPE_ITEM_REGULAR = 4;
 
+    private final String TAG = "HomeAdapter";
+
     private ArrayList<SectionDataModel> dataList;
     private Context mContext;
+    private IHomePresenter homePresenter;
 
-    public HomeAdapter(Context context, ArrayList<SectionDataModel> dataList) {
+    public HomeAdapter(Context context, ArrayList<SectionDataModel> dataList, IHomePresenter homePresenter) {
         this.dataList = dataList;
         this.mContext = context;
+        this.homePresenter = homePresenter;
     }
 
     @Override
@@ -101,7 +106,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             case TYPE_ITEM_REGULAR:
             default:
-                configureItemRegularRow((ItemRowHolder) holder, i);
+                configureItemProductRow((ItemRowHolder) holder, i);
         }
     }
 
@@ -129,19 +134,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.recycler_view_list.setNestedScrollingEnabled(false);
     }
 
-    private void configureItemRegularRow(ItemRowHolder holder, int pos) {
+    private void configureItemProductRow(ItemRowHolder holder, int pos) {
 
         // Product section found
         if (dataList.get(pos).getSection() != null) {
             final Section section = dataList.get(pos).getSection();
             final String sectionName = section.name;
-
-            ArrayList<Product> singleSectionItems = section.products;
+            final int itemPos = pos;
+            final ArrayList<Product> products = section.products;
 
             holder.itemTitle.setText(sectionName);
 
-            SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(mContext, singleSectionItems);
-
+            ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(mContext, products, homePresenter);
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
@@ -151,7 +155,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "click event on more, " + sectionName, Toast.LENGTH_SHORT).show();
+                    Utils.Log(TAG, "Btn more context: " + String.valueOf(v.getContext()));
+                    homePresenter.onSectionActionClick(itemPos, section);
                 }
             });
         } else {

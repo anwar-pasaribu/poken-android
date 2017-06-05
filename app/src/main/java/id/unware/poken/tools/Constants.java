@@ -5,7 +5,6 @@ package id.unware.poken.tools;
  * Various constants.
  */
 public class Constants {
-    public static final String DEFAULT_TAG = "MyJne";
     public static final int TAG_HEADER_RECENT = -99;
     public static final int TAG_TRACKING = 1;
     public static final String LAST_ORIGIN = "LAST_ORIGIN";
@@ -13,6 +12,23 @@ public class Constants {
     // HOME SECTION ID
     public static final int HOME_SECTION_TOP_SELLER = 2;
     public static final int HOME_SECTION_SALE_PRODUCT = 3;
+
+
+    // SECTION ACTION
+    public static final int TAG_PRODUCTS = 0;  // Grid/List/many product in one screen
+    public static final int TAG_PRODUCTS_WITH_INTENTION = 1;  // Grid/List/many product in one screen
+    public static final int TAG_PRODUCT_DETAIL = 2;  // Product detail
+
+
+
+
+
+
+
+
+
+
+
 
     public static boolean focusOnSender = false;
 

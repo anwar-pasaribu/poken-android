@@ -1,5 +1,6 @@
 package id.unware.poken.ui.home.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.domain.Product;
 import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.models.SingleItemModel;
 import id.unware.poken.domain.Category;
@@ -26,9 +28,10 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
+import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import io.realm.Realm;
 
-public class HomeAcivity extends AppCompatActivity implements IHomeView {
+public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private final String TAG = "HomeAcivity";
 
@@ -52,7 +55,7 @@ public class HomeAcivity extends AppCompatActivity implements IHomeView {
         realm = Realm.getDefaultInstance();
 
         HomeModelImpl model = new HomeModelImpl(realm);
-        presenter = new HomePresenter(model, HomeAcivity.this);
+        presenter = new HomePresenter(model, HomeActivity.this);
 
         listHome = new ArrayList<>();
 
@@ -61,7 +64,7 @@ public class HomeAcivity extends AppCompatActivity implements IHomeView {
 
         createDummyData();
 
-        adapter = new HomeAdapter(this, listHome);
+        adapter = new HomeAdapter(this, listHome, presenter /* Presenter to trigger click event on items*/);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -171,6 +174,19 @@ public class HomeAcivity extends AppCompatActivity implements IHomeView {
         listHome.remove(1);
         listHome.add(1, createCategoryItems());
         adapter.notifyItemChanged(1);
+    }
+
+    @Override
+    public void startProductCategoryScreen(Section sectionItem) {
+        Utils.Logs('i', TAG, "Start Product Category Screen with intention to show Sale item. Intent id: " + sectionItem.section_action_id);
+    }
+
+    @Override
+    public void startProductDetailScreen(Product product) {
+        Utils.Logs('i', TAG, "Start Product Detail Screen. Product id: " + product.id);
+        Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
+        productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
+        this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
     }
 
     private SectionDataModel createCategoryItems() {
