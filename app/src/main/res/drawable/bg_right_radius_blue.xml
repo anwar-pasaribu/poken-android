@@ -4,10 +4,10 @@
         <shape
             android:padding="@dimen/item_gap_m"
             android:shape="rectangle">
-            <solid android:color="@color/tikiBlueDark" />
+            <solid android:color="@color/colorAccent" />
             <stroke
                 android:width="2dp"
-                android:color="@color/tikiBlueDark" />
+                android:color="@color/colorAccent" />
             <corners
                 android:bottomLeftRadius="0dp"
                 android:bottomRightRadius="@dimen/edit_text_round_radius"
@@ -20,10 +20,10 @@
         <shape
             android:padding="@dimen/item_gap_m"
             android:shape="rectangle">
-            <solid android:color="@color/tikiBlue" />
+            <solid android:color="@color/colorAccent" />
             <stroke
                 android:width="2dp"
-                android:color="@color/tikiBlue" />
+                android:color="@color/colorAccent" />
             <corners
                 android:bottomLeftRadius="0dp"
                 android:bottomRightRadius="@dimen/edit_text_round_radius"

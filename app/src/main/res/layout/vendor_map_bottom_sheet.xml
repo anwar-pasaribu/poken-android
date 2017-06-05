@@ -72,7 +72,7 @@
                 android:padding="@dimen/item_gap_m"
                 android:text="@string/btn_navigate_to_location"
                 android:textAllCaps="false"
-                android:textColor="@color/myAccentColor"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_caption"
                 android:textStyle="normal" />
 
@@ -96,7 +96,7 @@
                 android:padding="@dimen/item_gap_m"
                 android:text="@string/btn_call"
                 android:textAllCaps="false"
-                android:textColor="@color/myAccentColor"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_caption"
                 android:textStyle="normal" />
 

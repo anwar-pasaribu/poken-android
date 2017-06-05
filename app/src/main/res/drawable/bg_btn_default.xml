@@ -27,7 +27,7 @@
         <shape
             android:padding="@dimen/item_gap_m"
             android:shape="rectangle">
-            <solid android:color="@color/myPrimaryDarkColor" />
+            <solid android:color="@color/colorPrimaryDark" />
 
             <corners
                 android:radius="@dimen/default_button_radius" />

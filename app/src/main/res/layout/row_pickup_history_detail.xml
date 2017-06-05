@@ -72,6 +72,6 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/hint_img_description_general"
         android:src="@drawable/ic_notif_call"
-        android:tint="@color/myAccentColor"/>
+        android:tint="@color/colorAccent"/>
 
 </RelativeLayout>

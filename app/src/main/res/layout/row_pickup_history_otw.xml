@@ -144,7 +144,7 @@
                     android:layout_gravity="right"
                     android:contentDescription="@string/app_name"
                     android:scaleType="fitXY"
-                    android:tint="@color/myPrimaryDarkColor"
+                    android:tint="@color/colorPrimaryDark"
                     android:src="@drawable/ic_circle" />
 
                 <!--

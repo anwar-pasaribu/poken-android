@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/myAccentColor"
+                    android:textColor="@color/colorAccent"
                     android:textIsSelectable="true"
                     android:textSize="18sp"
                     android:textStyle="bold"

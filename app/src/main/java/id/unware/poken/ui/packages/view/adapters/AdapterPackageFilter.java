@@ -62,11 +62,11 @@ public class AdapterPackageFilter extends RecyclerView.Adapter<AdapterPackageFil
             GeneralListItem item = mListData.get(position);
             GradientDrawable drawable = (GradientDrawable) holder.textViewBadgeCount.getBackground();
             drawable.setColor(item.isSelected()
-                    ? ContextCompat.getColor(ctx, R.color.myAccentColor)
-                    : ContextCompat.getColor(ctx, R.color.myPrimaryDarkColor));
+                    ? ContextCompat.getColor(ctx, R.color.colorAccent)
+                    : ContextCompat.getColor(ctx, R.color.colorPrimaryDark));
 
             holder.textViewTitle.setTextColor(item.isSelected()
-                    ? ContextCompat.getColor(ctx, R.color.myAccentColor)
+                    ? ContextCompat.getColor(ctx, R.color.colorAccent)
                     : ContextCompat.getColor(ctx, R.color.black_90));
 
             holder.textViewTitle.setText(item.getTitle());

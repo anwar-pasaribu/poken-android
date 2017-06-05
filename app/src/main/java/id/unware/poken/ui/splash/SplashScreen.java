@@ -9,13 +9,13 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
-import id.unware.poken.ui.MainPage.MainPage;
+import id.unware.poken.ui.home.view.HomeAcivity;
 
 public class SplashScreen extends AppCompatActivity {
 
     @BindView(R.id.ivSplash) ImageView ivSplash;
     int idx = 0;
-    private long splashDelay = 3000;
+    private long splashDelay = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void gotoMainPage() {
-        Intent intent = new Intent(this, MainPage.class);
+        Intent intent = new Intent(this, HomeAcivity.class);
         startActivity(intent);
         finish();
     }

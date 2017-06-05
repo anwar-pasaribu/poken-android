@@ -72,7 +72,7 @@ public class AdapterPickupHistory extends RecyclerView.Adapter<RecyclerView.View
         mColorFilterRed = BitmapUtil.getDrawableFilter(mContext, R.color.red);
         mColorFilterGrey = BitmapUtil.getDrawableFilter(mContext, R.color.style_overlay_grey);
         mColorFilterBlack = BitmapUtil.getDrawableFilter(mContext, R.color.black_90);
-        mColorFilterBlue = BitmapUtil.getDrawableFilter(mContext, R.color.myPrimaryColor);
+        mColorFilterBlue = BitmapUtil.getDrawableFilter(mContext, R.color.colorPrimary);
     }
 
     /**
@@ -330,7 +330,7 @@ public class AdapterPickupHistory extends RecyclerView.Adapter<RecyclerView.View
         if (intStatusNumber == TYPE_OTW) {
 
             // When Pickup is on the way (OTW)
-            intBgRes = R.color.myAccentColor;
+            intBgRes = R.color.colorAccent;
 
             holder.badgePackageCount.setVisibility(View.GONE);
             holder.textViewPackageCount.setVisibility(View.GONE);
@@ -340,7 +340,7 @@ public class AdapterPickupHistory extends RecyclerView.Adapter<RecyclerView.View
             // When Pickup is being Picked
             // 1. Set badge
             // 2. Set all badge view clickable in order to show list of picked packages.
-            intBgRes = R.color.myPrimaryColor;
+            intBgRes = R.color.colorPrimary;
 
             statusText = intPackageCount == 0 ?
                     mContext.getString(R.string.lbl_no_package_count) :

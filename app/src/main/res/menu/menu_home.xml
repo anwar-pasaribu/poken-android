@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="id.unware.poken.ui.home.view.HomeAcivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Cari barang"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_shopping_cart"
+        android:orderInCategory="100"
+        android:title="Troli"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        app:showAsAction="always" />
+</menu>

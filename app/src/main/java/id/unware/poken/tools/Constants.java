@@ -9,38 +9,11 @@ public class Constants {
     public static final int TAG_HEADER_RECENT = -99;
     public static final int TAG_TRACKING = 1;
     public static final String LAST_ORIGIN = "LAST_ORIGIN";
-//    public static final int HEADER_ITEM_ID = -99;
-//    public static final String EXTRA_NEW_PACKAGE_DATA = "EXTRA_NEW_PACKAGE_DATA";
 
-    // Various STATE for view state while loading data
-//    public static final int STATE_ERROR = -2;
-//    public static final int STATE_NODATA = -1;
-//    public static final int STATE_LOADING = 0;
-//    public static final int STATE_FINISHED = 1;
-//    public static final int STATE_DEFAULT = 2;
+    // HOME SECTION ID
+    public static final int HOME_SECTION_TOP_SELLER = 2;
+    public static final int HOME_SECTION_SALE_PRODUCT = 3;
 
-    /**
-     * Waiting duration for non-immediate network request ex. autosave on profile
-     */
-//    public static final int DURATION_SUPER_LONG = 1000;
-
-    // Extra to store booking_id on an ArrayList
-//    public static final String EXTRA_ARRAYLIST_BOOKING_ID = "array_list_booking_id";
-
-    // Extra flag whether in tut mode
-//    public static final String EXTRA_IS_TUTORIAL = "is_in_tut_mode";
-//    public static final String SHARED_LEARNT_SENDER_FIELD = "new_pack_sender";
-//    public static final String SHARED_NAME = "name";
-//    public static final String SHARED_ADDRESS = "address";
-//    public static final String SHARED_POST_CODE = "post_code";
-//    public static final String SHARED_PHONE = "phone";
-//    public static final String SHARED_TUTORIAL_MODE = "is_tutorial_mode";
-//    public static final int TAG_NEW_PACKAGE = 23;
-
-    /**
-     * Max PojoBooking on database
-     */
-//    public static final int MAX_PACKAGES_ON_DB = 1000;
     public static boolean focusOnSender = false;
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 314;

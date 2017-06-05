@@ -59,13 +59,11 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class Utils {
 
-    public static final String TAG = "myjne";
+    public static final String TAG = "poken";
     private static List<String[]> resultList;
     private static final long ANIM_DUR = 500;
     private static final int height = 400;
     private static final LinkedList<PopupWindow> popupSnack = new LinkedList<>();
-
-    static int MAX_LENGTH = 1000;
 
     public static boolean isEmpty(String str) {
         return str == null || str.trim().equals("") || str.trim().toLowerCase().equals("null");
@@ -644,7 +642,7 @@ public class Utils {
 
             CustomTabsIntent.Builder customTabsIntentBuilder = new CustomTabsIntent.Builder()
                     .setShowTitle(true)
-                    .setToolbarColor(ContextCompat.getColor(ctx, R.color.myPrimaryColor));
+                    .setToolbarColor(ContextCompat.getColor(ctx, R.color.colorPrimary));
 
             CustomTabsIntent customTabsIntent = customTabsIntentBuilder.build();
 

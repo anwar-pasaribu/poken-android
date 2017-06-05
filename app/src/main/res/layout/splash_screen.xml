@@ -7,10 +7,20 @@
     tools:context="id.unware.poken.ui.splash.SplashScreen">
 
     <ImageView
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:id="@+id/ivSplash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/clickable_size_64"
+        android:layout_height="@dimen/clickable_size_64"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/bg_splash"/>
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="@dimen/clickable_size_64"
+        style="@style/PaketTextView.PageTextTitle"
+        android:layout_gravity="center"
+        android:text="Poken Psp"/>
 </FrameLayout>

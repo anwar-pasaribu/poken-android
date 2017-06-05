@@ -84,7 +84,7 @@ public class PackageServiceAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             // REG
             if (item.getId() == 0) {
-                drawable.setColor(ContextCompat.getColor(mContext, R.color.myPrimaryDarkColor));
+                drawable.setColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark));
             } else if (item.getId() == 1) {
                 drawable.setColor(ContextCompat.getColor(mContext, R.color.purple));
             } else {

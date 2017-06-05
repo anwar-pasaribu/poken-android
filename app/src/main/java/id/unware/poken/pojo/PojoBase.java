@@ -10,4 +10,7 @@ public class PojoBase {
     public int success;
     public String msg;
 
+    public String name;
+    public long id;
+
 }

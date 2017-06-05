@@ -144,7 +144,7 @@
                 android:paddingRight="@dimen/item_gap_l"
                 android:text="@string/lbl_add_bank"
                 android:textAllCaps="false"
-                android:textColor="@color/myAccentColor"
+                android:textColor="@color/colorAccent"
 
                 android:visibility="visible" />
 

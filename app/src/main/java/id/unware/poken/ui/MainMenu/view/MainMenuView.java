@@ -86,54 +86,6 @@ public class MainMenuView extends BaseFragment implements OnClickRecyclerItem {
         }
     }
 
-//    @OnClick({
-//            R.id.btnTracker,
-//            R.id.textViewTracker,
-//
-//            R.id.btnTariff,
-//            R.id.txtTariff,
-//
-//            R.id.btnBooking,
-//            R.id.textViewBooking,
-//
-//            R.id.btnPickup,
-//            R.id.textViewPickup,
-//
-//            R.id.btnNearby,
-//            R.id.textViewNearby,
-//
-//            R.id.btnWallet,
-//            R.id.textViewWallet
-//    })
-//    public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.btnTracker:
-//            case R.id.textViewTracker:
-//                gotoTracker();
-//                break;
-//            case R.id.btnBooking:
-//            case R.id.textViewBooking:
-//                gotoBooking();
-//                break;
-//            case R.id.btnPickup:
-//            case R.id.textViewPickup:
-//                gotoPickup();
-//                break;
-//            case R.id.btnWallet:
-//            case R.id.textViewWallet:
-//                gotoWallet();
-//                break;
-//            case R.id.btnNearby:
-//            case R.id.textViewNearby:
-//                gotoNearby();
-//                break;
-//            case R.id.btnTariff:
-//            case R.id.txtTariff:
-//                gotoTariff();
-//                break;
-//        }
-//    }
-
     private void gotoBooking() {
         Intent intent = new Intent(parent, AcMain.class);
         startActivity(intent);

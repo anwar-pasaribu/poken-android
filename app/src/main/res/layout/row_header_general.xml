@@ -27,6 +27,6 @@
         android:background="?attr/selectableItemBackground"
         android:text="@string/lbl_pickup_now"
         android:textSize="@dimen/text_button"
-        android:textColor="@color/myAccentColor"/>
+        android:textColor="@color/colorAccent"/>
 
 </RelativeLayout>

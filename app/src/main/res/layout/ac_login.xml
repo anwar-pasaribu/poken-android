@@ -81,7 +81,7 @@
                     android:tint="@color/colorPrimaryDark"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/helper_password_visibility"
-                    android:src="@drawable/ic_visibility_24dp" />
+                    app:srcCompat="@drawable/ic_visibility_24dp" />
 
             </LinearLayout>
 

@@ -102,8 +102,8 @@ public class AddressBookItem extends AbstractSectionableItem<AddressBookItem.Add
 
         final Context context = holder.itemView.getContext();
         final int intColor = this.pojoAddressBook.ismIsSenderData() ?
-                R.color.myAccentColor
-                : R.color.myPrimaryColor;
+                R.color.colorAccent
+                : R.color.colorPrimary;
 
         holder.imgProfileAddressBook.setColorFilter(BitmapUtil.getDrawableFilter(
                 context, intColor));
@@ -111,13 +111,13 @@ public class AddressBookItem extends AbstractSectionableItem<AddressBookItem.Add
         if (adapter.hasSearchText()) {
 
             Utils.highlightText(context, holder.txtNameAddressBook, addressBookName, adapter.getSearchText(),
-                    ContextCompat.getColor(context, R.color.myAccentColor));
+                    ContextCompat.getColor(context, R.color.colorAccent));
 
             Utils.highlightText(context, holder.txtPhoneAddressBook, addressBookPhone, adapter.getSearchText(),
-                    ContextCompat.getColor(context, R.color.myAccentColor));
+                    ContextCompat.getColor(context, R.color.colorAccent));
 
             Utils.highlightText(context, holder.txtAddressAddressBook, addressBookAddress, adapter.getSearchText(),
-                    ContextCompat.getColor(context, R.color.myAccentColor));
+                    ContextCompat.getColor(context, R.color.colorAccent));
         } else {
             holder.txtNameAddressBook.setText(addressBookName);
             holder.txtPhoneAddressBook.setText(addressBookPhone);

@@ -142,7 +142,7 @@
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/ic_check"
                                 android:tint="@color/white_100"
-                                tools:backgroundTint="@color/myPrimaryDarkColor" />
+                                tools:backgroundTint="@color/colorPrimaryDark" />
 
                             <ProgressBar
                                 android:id="@+id/progressBarRequestingPickup"
@@ -221,7 +221,7 @@
                             android:maxWidth="@dimen/clickable_size"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_pickup_bike"
-                            android:tint="@color/myAccentColor" />
+                            android:tint="@color/colorAccent" />
 
                         <TextView
                             android:id="@+id/textViewSelectedBike"
@@ -231,7 +231,7 @@
                             android:layout_below="@+id/imageViewSelectedBike"
                             android:layout_centerHorizontal="true"
                             android:text="@string/lbl_bike"
-                            android:textColor="@color/myAccentColor"
+                            android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
 
                     </RelativeLayout>

@@ -104,7 +104,7 @@ public class AdapterRecentKeyword extends RecyclerView.Adapter<RecyclerView.View
 
         String keyword = stringList.get(position);
 
-        holder.mHeaderTextView.setTextColor(ContextCompat.getColor(context, R.color.myAccentColor));
+        holder.mHeaderTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         holder.mHeaderImageView.setVisibility(View.VISIBLE);
 
         // When item state is expanded (indicate network load is succeed)

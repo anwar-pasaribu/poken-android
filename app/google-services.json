@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "374610330829",
+    "firebase_url": "https://poken-622f6.firebaseio.com",
+    "project_id": "poken-622f6",
+    "storage_bucket": "poken-622f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374610330829:android:8bd4c134f7be4b68",
+        "android_client_info": {
+          "package_name": "id.unware.poken"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374610330829-5f2qrrqd604obo5ig3s7r9k602g7rst8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.unware.poken",
+            "certificate_hash": "f8abed17297be629cabd2cdce220702380829ed6"
+          }
+        },
+        {
+          "client_id": "374610330829-t8skaeofelmhvqalf0q1ce0ovtv0un9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaOKhq88w3im7oJpn5YsDyu98C8y1eGNs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374610330829-t8skaeofelmhvqalf0q1ce0ovtv0un9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

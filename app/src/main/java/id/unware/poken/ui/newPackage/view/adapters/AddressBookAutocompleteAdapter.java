@@ -80,7 +80,7 @@ public class AddressBookAutocompleteAdapter extends ArrayAdapter<PojoAddressBook
         int intTextColor = ContextCompat.getColor(
                 super.getContext(),
                 item.ismIsSenderData()
-                        ? R.color.myAccentColor
+                        ? R.color.colorAccent
                         : R.color.black_90);
         holder.textViewName.setTextColor(intTextColor);
 

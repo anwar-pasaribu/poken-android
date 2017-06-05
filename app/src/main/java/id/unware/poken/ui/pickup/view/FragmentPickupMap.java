@@ -581,7 +581,7 @@ public class FragmentPickupMap extends BaseFragment
                 : View.GONE);
 
         // Highlight selected vehicle
-        int activeColor = R.color.myAccentColor;
+        int activeColor = R.color.colorAccent;
         int inactiveColor = R.color.style_overlay_grey;
 
         Utils.Logs('i', TAG, "Selected vehicle: " + (mSelectedVehicle == VEHICLE_ID_BIKE? " Bike." : " Car."));
@@ -813,7 +813,7 @@ public class FragmentPickupMap extends BaseFragment
         if (isChecked && radioButton.getTag() != null) {
             Utils.Log(TAG, "RadioButton tag: " + radioButton.getTag() + " is checked.");
 
-            radioButton.setTextColor(ContextCompat.getColor(parent, R.color.myAccentColor));
+            radioButton.setTextColor(ContextCompat.getColor(parent, R.color.colorAccent));
 
             // RadioButton pos define from saved tag while RadioButton creation
             int radioButtonPosition = (int) radioButton.getTag();
@@ -1031,7 +1031,7 @@ public class FragmentPickupMap extends BaseFragment
 
         int intColorDisabled = ContextCompat.getColor(parent, R.color.style_overlay_grey);
         int intColorDefault = ContextCompat.getColor(parent, R.color.black_90);
-        int intColorPrimary = ContextCompat.getColor(parent, R.color.myPrimaryDarkColor);
+        int intColorPrimary = ContextCompat.getColor(parent, R.color.colorPrimaryDark);
 
         // Get background
         GradientDrawable drawable = (GradientDrawable) imageViewRequestPickupDrawable.getBackground();
@@ -1048,7 +1048,7 @@ public class FragmentPickupMap extends BaseFragment
             txtAddress.setText(parent.getString(R.string.searching));
         } else {
 
-            drawable.setColorFilter(BitmapUtil.getDrawableFilter(parent, R.color.myPrimaryDarkColor));
+            drawable.setColorFilter(BitmapUtil.getDrawableFilter(parent, R.color.colorPrimaryDark));
             parentClickableRequestPickup.setEnabled(true);
             textViewRequestNow.setTextColor(intColorPrimary);
             txtAddress.setTextColor(intColorDefault);
@@ -1080,7 +1080,7 @@ public class FragmentPickupMap extends BaseFragment
         if (parent == null || parent.isFinishing()) return;
 
         int intColorDisabled = ContextCompat.getColor(parent, R.color.style_overlay_grey);
-        int intColorPrimary = ContextCompat.getColor(parent, R.color.myPrimaryDarkColor);
+        int intColorPrimary = ContextCompat.getColor(parent, R.color.colorPrimaryDark);
 
         if (isLoading) {
 
