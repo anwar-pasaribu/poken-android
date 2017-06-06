@@ -9,6 +9,7 @@ import java.net.URLDecoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -198,13 +199,13 @@ public class StringUtils {
         return matcher.matches();
     }
 
-    public static String formatCurrency(String value, String format) {
+    public static String formatCurrency(String value) {
         double convert = Double.parseDouble(value);
 
-        NumberFormat formatter = new DecimalFormat(format);
-        String resultFormat = formatter.format(convert);
+        DecimalFormat formatter = new DecimalFormat(
+                "#,##0", new DecimalFormatSymbols(new Locale("id", "ID")));
 
-        return resultFormat;
+        return "Rp " + formatter.format(convert);
     }
 
     public static String generateAlphaNumeric(int length) {

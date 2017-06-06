@@ -147,10 +147,10 @@
 
         <ImageView
             android:id="@+id/ivSellerAvatar"
-            android:layout_width="@dimen/clickable_size"
-            android:layout_height="@dimen/clickable_size"
+            android:layout_width="@dimen/clickable_size_32"
+            android:layout_height="@dimen/clickable_size_32"
             android:scaleType="centerCrop"
-            android:src="@drawable/product2"
+            app:srcCompat="@drawable/ic_store_black_24dp"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
             app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"

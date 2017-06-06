@@ -43,7 +43,8 @@
             android:layout_alignParentRight="true"
             android:textColor="@android:color/white"
             android:layout_marginRight="@dimen/item_gap_m"
-            android:text="Beli Sekarang"/>
+            android:textAllCaps="true"
+            android:text="@string/btn_buy_now"/>
 
     </RelativeLayout>
 
