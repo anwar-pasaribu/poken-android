@@ -13,6 +13,7 @@ public class ConstantsRetrofit {
 
     public static final String ENDPOINT_FETCH_HOME_CONTENT = "home/";
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
+    public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
 
     //final String rateUrl = Config.endpoint(String.format("mobile_api/tariff2/%s/%s/%s",
     //origin, dest, weight));

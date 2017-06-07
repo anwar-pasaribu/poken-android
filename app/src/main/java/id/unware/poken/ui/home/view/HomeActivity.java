@@ -29,6 +29,7 @@ import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
+import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
 public class HomeActivity extends AppCompatActivity implements IHomeView {
@@ -119,9 +120,16 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        } else if (id == R.id.action_shopping_cart) {
+            openShoppingCart();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openShoppingCart() {
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
+        startActivity(intent);
     }
 
     @Override

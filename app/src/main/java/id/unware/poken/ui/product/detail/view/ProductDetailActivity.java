@@ -1,11 +1,11 @@
 package id.unware.poken.ui.product.detail.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +24,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
+import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 
 public class ProductDetailActivity extends AppCompatActivity implements IProductDetailView {
 
@@ -39,6 +40,9 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     @BindView(R.id.ivSellerAvatar) ImageView ivSellerAvatar;
     @BindView(R.id.tvSellerName) TextView tvSellerName;
     @BindView(R.id.tvSellerAddress) TextView tvSellerAddress;
+
+    // BUY
+    @BindView(R.id.btnBuy) Button btnBuy;
 
     private long productId;
 
@@ -63,10 +67,23 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         // Load product detail
         presenter.getProductData(productId);
 
+        // Add product to Shopping Cart
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openShoppingCartAndInsertProduct(productId);
+            }
+        });
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void openShoppingCartAndInsertProduct(long productId) {
+        Intent shoppingCartIntent = new Intent(this, ShoppingCartActivity.class);
+        shoppingCartIntent.putExtra(Product.KEY_PRODUCT_ID, productId);
+        this.startActivity(shoppingCartIntent);
     }
 
     @Override
@@ -99,5 +116,11 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     public void showViewState(UIState uiState) {
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

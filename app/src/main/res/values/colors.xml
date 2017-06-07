@@ -30,7 +30,7 @@
     <color name="black_50_alpha">#7d000000</color>
     <color name="btn_higlight_primary">#B3E5FC</color> <!--Material: Accent color with 70% alpha-->
     <color name="btn_pressed_primary">#01579b</color> <!--Material: Accent color with 70% alpha-->
-    <color name="btn_higlight_accent">#FFCCBC</color> <!--Material: Accent color with 70% alpha-->
+    <color name="btn_higlight_accent">#ea80fc</color> <!--Material: Accent color with 70% alpha-->
     <color name="btn_pressed_accent">#af452f</color> <!--Material: Accent color with 70% alpha-->
 
     <!--Disabled colors (grey) -->

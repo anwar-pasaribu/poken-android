@@ -567,6 +567,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="btn_buy_now">Beli Sekarang</string>
+    <string name="title_activity_shopping_cart">Troli</string>
+    <string name="btn_continue">Lanjut</string>
 
 
 </resources>

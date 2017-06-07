@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ToolbarDarkOverflow"
+            app:popupTheme="@style/AppTheme.PopupOverlay"> <!--app:popuptheme when using AppCompat, or android:popupTheme when targetting SDK >=21-->
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_shopping_cart" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/tvTotalShoppingAmountLabel"
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:text="Total Belanja"
+            android:textAllCaps="true" />
+
+        <TextView
+            android:id="@+id/tvTotalShoppingAmount"
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTotalShoppingAmountLabel"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:text="Rp 450.000"
+            android:textAllCaps="true" />
+
+        <Button
+            android:id="@+id/btnContinueToPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:text="@string/btn_continue"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:theme="@style/MyButton" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

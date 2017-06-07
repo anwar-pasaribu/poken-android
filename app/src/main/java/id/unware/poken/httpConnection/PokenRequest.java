@@ -4,6 +4,7 @@ import java.util.Map;
 
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ShoppingCartDataRes;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
@@ -21,4 +22,7 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL)
     Call<Product> reqSingleProductDetail(@Path("pk") long productId);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_CART)
+    Call<ShoppingCartDataRes> reqShoppingCartContent(@HeaderMap Map<String, String> headerMap);
 }

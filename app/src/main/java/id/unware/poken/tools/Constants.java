@@ -19,15 +19,8 @@ public class Constants {
     public static final int TAG_PRODUCTS_WITH_INTENTION = 1;  // Grid/List/many product in one screen
     public static final int TAG_PRODUCT_DETAIL = 2;  // Product detail
 
-
-
-
-
-
-
-
-
-
+    // SP (Shared Preferences)
+    public static final String SP_AUTH_TOKEN = "AUTH_TOKEN";
 
 
     public static boolean focusOnSender = false;

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:layout_marginBottom="@dimen/item_gap_l"
+    android:paddingTop="@dimen/item_gap_m"
+    android:paddingBottom="@dimen/item_gap_m">
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cbSelectAllStoreItem"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/ivStoreAvatar"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_32"
+        android:layout_marginLeft="@dimen/clickable_size"
+        app:srcCompat="@drawable/ic_store_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvStoreName"
+        style="@style/TextBodyDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:layout_toRightOf="@+id/ivStoreAvatar"
+        tools:text="Kejora Busana" />
+
+    <View
+        android:id="@+id/viewStoreLine"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/cbSelectAllStoreItem"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:background="@color/separator_view_lighter" />
+
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="@dimen/clickable_size_64"
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_below="@+id/viewStoreLine"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:scaleType="centerCrop"
+        android:src="@drawable/product1" />
+
+    <TextView
+        android:id="@+id/tvProductName"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewStoreLine"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_toLeftOf="@+id/btnDeleteCartItem"
+        android:layout_marginRight="@dimen/item_gap_m"
+        android:layout_toRightOf="@+id/ivProductImage"
+        android:ellipsize="middle"
+        android:maxLines="1"
+        tools:text="Baju Orange GRATIS pengiriman" />
+
+    <ImageButton
+        android:id="@+id/btnDeleteCartItem"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/viewStoreLine"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_32"
+        android:tint="@color/btn_higlight_accent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinnerQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/clickable_size_64"
+        android:gravity="left|center_vertical"
+        android:layout_below="@+id/tvProductName"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_toRightOf="@+id/ivProductImage"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/tvProductTotalPrice"
+        style="@style/TextListTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProductName"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_toRightOf="@+id/spinnerQuantity"
+        android:ellipsize="middle"
+        android:maxLines="2"
+        tools:text="Rp 450.000"
+        android:textStyle="bold" />
+
+</RelativeLayout>
