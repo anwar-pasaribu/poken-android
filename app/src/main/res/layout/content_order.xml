@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="id.unware.poken.ui.shoppingorder.view.OrderActivity"
+    tools:showIn="@layout/activity_order">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/clickable_size_64">
+
+        <TextView
+            android:id="@+id/tvShippingAddressLabel"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_100"
+            android:paddingBottom="@dimen/item_gap_s"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="@string/lbl_shipping_destination"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/parentClickableShippingAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvShippingAddressLabel"
+            android:layout_marginTop="@dimen/item_gap_xs"
+            android:background="@color/white_100">
+
+            <TextView
+                android:id="@+id/tvShippingAddressName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/sepCenter"
+                android:ellipsize="middle"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                tools:text="Anwar Pasaribu" />
+
+            <View
+                android:id="@+id/sepCenter"
+                android:layout_width="1px"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_centerHorizontal="true"
+                android:background="@color/separator_view" />
+
+            <TextView
+                android:id="@+id/tvShippingAddressPhone"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/tvShippingAddressName"
+                android:ellipsize="end"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                tools:text="087884155479" />
+
+            <View
+                android:id="@+id/sepBelowName"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/tvShippingAddressName"
+                android:background="@color/separator_view" />
+
+            <TextView
+                android:id="@+id/tvShippingAddress"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sepBelowName"
+                android:ellipsize="end"
+                android:gravity="left|center_vertical"
+                android:maxLines="2"
+                android:minLines="2"
+                android:paddingBottom="@dimen/item_gap_m"
+                android:paddingLeft="@dimen/item_gap_l"
+                android:paddingRight="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_m"
+                tools:text="Jl. Lapangan Bola No. 3, Gg. Mawar No. 43, Jakarta Barat 11530" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvSelectedProductLabel"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/parentClickableShippingAddress"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:background="@color/white_100"
+            android:paddingBottom="@dimen/item_gap_s"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="@string/lbl_ordered_product_section"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/parentClickableSelectedProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSelectedProductLabel"
+            android:layout_marginTop="@dimen/item_gap_xs"
+            android:background="@color/white_100">
+
+            <ImageView
+                android:id="@+id/ivSelectedProduct"
+                android:layout_width="@dimen/clickable_size"
+                android:layout_height="@dimen/clickable_size"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_favo" />
+
+            <TextView
+                android:id="@+id/tvSelectedProductName"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_toRightOf="@+id/ivSelectedProduct"
+                tools:text="Baju Orange GRATIS tas Orange dan COD" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvShippingMethodLabel"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/parentClickableSelectedProduct"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:background="@color/white_100"
+            android:paddingBottom="@dimen/item_gap_s"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="@string/lbl_shipping_method_section"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/parentShippingMethods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvShippingMethodLabel"
+            android:layout_marginTop="@dimen/item_gap_xs"
+            android:background="@color/white_100"
+            android:minHeight="@dimen/clickable_size">
+
+            <TextView
+                android:id="@+id/tvSelectedShippingMethodName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m"
+                tools:text="COD" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/item_gap_xs"
+                android:layout_alignBaseline="@+id/tvSelectedShippingMethodName"
+                android:baseline="-4dp"
+                android:layout_centerVertical="false"
+                android:layout_marginLeft="@dimen/item_gap_s"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:layout_toLeftOf="@+id/tvSelectedShippingMethodFee"
+                android:layout_toRightOf="@+id/tvSelectedShippingMethodName"
+                android:src="@drawable/bg_dashed_line" />
+
+            <TextView
+                android:id="@+id/tvSelectedShippingMethodFee"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m"
+                tools:text="Rp 12.000"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+

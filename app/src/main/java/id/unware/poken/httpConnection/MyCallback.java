@@ -1,5 +1,6 @@
 package id.unware.poken.httpConnection;
 
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,7 +32,7 @@ public abstract class MyCallback implements retrofit2.Callback {
 
         Utils.Log(TAG, "response failed. Cause: " + String.valueOf(t.getMessage()));
         Utils.Log(TAG, "response failed. Cause: " + String.valueOf(call));
-        onMessage(t.getMessage());
+        onMessage(t.getMessage(), Constants.NETWORK_CALLBACK_FAILURE);
         onFinish();
 
         t.printStackTrace();
@@ -39,7 +40,7 @@ public abstract class MyCallback implements retrofit2.Callback {
 
     public abstract void onSuccess(Response response);
 
-    public abstract void onMessage(String msg);
+    public abstract void onMessage(String msg, int status);
 
     public abstract void onFinish();
 }

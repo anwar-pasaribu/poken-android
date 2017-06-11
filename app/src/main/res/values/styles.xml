@@ -176,7 +176,9 @@
 
     <style name="MyButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/btn_higlight_accent</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/btn_primary_color</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white_100</item>
     </style>
 
     <style name="ToolbarDarkOverflow" parent="Theme.AppCompat.Light.NoActionBar">

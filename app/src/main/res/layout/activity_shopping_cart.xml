@@ -56,15 +56,13 @@
 
         <Button
             android:id="@+id/btnContinueToPayment"
+            android:theme="@style/MyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/item_gap_m"
-            android:text="@string/btn_continue"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:theme="@style/MyButton" />
+            android:text="@string/btn_continue" />
 
     </RelativeLayout>
 

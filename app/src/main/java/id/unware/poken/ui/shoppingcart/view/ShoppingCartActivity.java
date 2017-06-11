@@ -1,5 +1,6 @@
 package id.unware.poken.ui.shoppingcart.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,7 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.model.ShoppingCartModel;
 import id.unware.poken.ui.shoppingcart.presenter.ShoppingCartPresenter;
 import id.unware.poken.ui.shoppingcart.view.adapter.ShoppingCartAdapter;
+import id.unware.poken.ui.shoppingorder.view.OrderActivity;
 
 import static id.unware.poken.R.id.recyclerView;
 
@@ -80,6 +82,13 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
                 presenter.getShoppingCartData();
             }
         });
+
+        btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.startShoppingOrderScreen();
+            }
+        });
     }
 
     private void setupShoppingCartList() {
@@ -119,5 +128,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     @Override
     public void updatePriceGrandTotal(String formattedPrice) {
 
+    }
+
+    @Override
+    public void openShoppingOrder() {
+        Intent shoppingOrderIntent = new Intent(this, OrderActivity.class);
+        startActivity(shoppingOrderIntent);
     }
 }

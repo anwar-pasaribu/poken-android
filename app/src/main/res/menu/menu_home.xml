@@ -16,4 +16,11 @@
         android:title="Troli"
         android:icon="@drawable/ic_shopping_cart_black_24dp"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="Profil"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        app:showAsAction="always" />
 </menu>

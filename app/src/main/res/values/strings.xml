@@ -403,7 +403,7 @@
     <string name="top_up_rules">
         <![CDATA[
         <ul>
-            <li>&nbsp;Setelah melakukan pembayaran, sistem Paket ID akan memverifikasi pembayaran secara otomatis dalam 5-10 menit. Jika Anda menghadapi kendala mengenai pembayaran, silahkan Hubungi Paket ID Support</li>
+            <li>&nbsp;Setelah melakukan pembayaran, sistem Poken Psp akan memverifikasi pembayaran secara otomatis dalam 5-10 menit. Jika Anda menghadapi kendala mengenai pembayaran, silahkan Hubungi Poken Support</li>
             <li>&nbsp;Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat</li>
             <li>&nbsp;Angka unik <b><u>%1$s</u></b> yang ditambahkan pada total biaya adalah untuk mengidentifikasi pembayaran</li>
             <li>&nbsp;Transaksi dianggap batal jika sampai dengan pukul <b><u>%2$s</u></b> pembayaran belum dilunasi</li>
@@ -452,7 +452,6 @@
     <string name="lbl_no_account_phone_number"><![CDATA[<font color="#D9534F">Nomor kosong</font>]]></string>
     <string name="lbl_no_account_email"><![CDATA[<font color="#D9534F">Email kosong</font>]]></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_nearby">Nearby</string>
@@ -569,6 +568,19 @@
     <string name="btn_buy_now">Beli Sekarang</string>
     <string name="title_activity_shopping_cart">Troli</string>
     <string name="btn_continue">Lanjut</string>
+    <string name="title_activity_order">Orderan</string>
+    <string name="btn_pay_now">BAYAR SEKARANG</string>
+    <string name="lbl_shipping_destination">Tujuan Pengiriman</string>
+    <string name="lbl_ordered_product_section">Barang Pesanan</string>
+    <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
+    <string name="title_activity_payment">Pembayaran</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_profile">Profil</string>
+    <string name="btn_confirm_payment">Konfirmasi Pembayaran</string>
+    <string name="lbl_quantity">%1$d barang</string>
 
 
 </resources>

@@ -6,16 +6,8 @@ import android.view.MenuItem;
 
 import id.unware.poken.R;
 
-/**
- * Created by marzellaalfamega on 6/29/15.
- * Activity to hadle fragments include:
- * - FragmentPackageDetail2()
- * - FragmentAddressBookDetail()
- * - FragmentPickupHistory()
- */
-public class BaseActivityWithup extends BaseActivity
-        //extends BaseActivityWithGoogleSignIn
-        {
+
+public class BaseActivityWithup extends BaseActivity {
 
     protected Toolbar mToolbar;
 
@@ -33,11 +25,6 @@ public class BaseActivityWithup extends BaseActivity
         }
 
     }
-
-//    @Override
-//    protected boolean isAutoLogginEnabled() {
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

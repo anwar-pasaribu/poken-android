@@ -99,7 +99,7 @@ public class AreaPresenter extends MyCallback implements IAreaPresenter {
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
         MyLog.FabricLog(Log.ERROR, "Failed to rates check. Message : " + message);
 
         if (view.getActivity() != null && view.isAdded()) {

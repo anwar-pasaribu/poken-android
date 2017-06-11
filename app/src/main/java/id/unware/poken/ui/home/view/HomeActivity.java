@@ -29,6 +29,7 @@ import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
+import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
@@ -66,7 +67,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         createDummyData();
 
         adapter = new HomeAdapter(this, listHome, presenter /* Presenter to trigger click event on items*/);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
@@ -122,9 +122,16 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
             return true;
         } else if (id == R.id.action_shopping_cart) {
             openShoppingCart();
+        } else if (id == R.id.action_profile) {
+            openProfile();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openProfile() {
+        Intent profileIntent = new Intent(this, ProfileActivity.class);
+        this.startActivity(profileIntent);
     }
 
     private void openShoppingCart() {

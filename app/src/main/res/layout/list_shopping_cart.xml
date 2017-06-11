@@ -62,7 +62,7 @@
         android:layout_marginTop="@dimen/item_gap_m"
         android:layout_toLeftOf="@+id/btnDeleteCartItem"
         android:layout_marginRight="@dimen/item_gap_m"
-        android:layout_toRightOf="@+id/ivProductImage"
+        android:layout_toRightOf="@id/ivProductImage"
         android:ellipsize="middle"
         android:maxLines="1"
         tools:text="Baju Orange GRATIS pengiriman" />
@@ -89,7 +89,7 @@
         android:layout_below="@+id/tvProductName"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_toRightOf="@+id/ivProductImage"
+        android:layout_toRightOf="@id/ivProductImage"
         android:textAlignment="center" />
 
     <TextView

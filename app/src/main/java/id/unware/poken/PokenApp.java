@@ -17,6 +17,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -104,6 +105,9 @@ public class PokenApp extends Application {
             SPHelper.getInstance().setPreferences(Constants.SHARED_DATABSE_VERSION, databaseVersion);
             SPHelper.getInstance().setPreferences(Constants.SHARED_LAST_UPDATE, "");
         }
+
+        Picasso.with(this.getApplicationContext()).areIndicatorsEnabled();
+        Picasso.with(this).setLoggingEnabled(true);
     }
 
     public <T> void addToRequestQueue(final View snackContainer, String url, Map<String, String> params,

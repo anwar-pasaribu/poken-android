@@ -51,7 +51,7 @@ public class NearbyPresenter extends MyCallback implements INearbyPresenter {
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
         Utils.Logs('e', "NearbyPresenter", "Message : " + msg);
     }
 

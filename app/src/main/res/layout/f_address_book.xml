@@ -15,7 +15,6 @@
     -->
 
     <!--Empty state when no package available-->
-    <!--TODO Create a singleton so this part doesn't have to re-create on every layout. Just include-->
     <RelativeLayout
         android:id="@+id/emptyStateParent"
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@
                 android:alpha="0.5"
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerInside"
-                android:src="@drawable/empty_state_package"/>
+                app:srcCompat="@drawable/empty_state_package"/>
 
             <TextView
                 android:id="@+id/txtEmptyPackage"
@@ -102,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_add_24dp"
+        app:srcCompat="@drawable/ic_add_24dp"
         android:tint="@color/white_100"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"/>

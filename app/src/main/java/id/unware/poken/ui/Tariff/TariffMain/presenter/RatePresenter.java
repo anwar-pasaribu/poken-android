@@ -82,7 +82,7 @@ public class RatePresenter extends MyCallback implements IRatePresenter {
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
         view.showMessage(msg);
     }
 

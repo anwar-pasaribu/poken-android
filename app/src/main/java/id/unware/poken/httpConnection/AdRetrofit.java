@@ -83,7 +83,7 @@ public class AdRetrofit {
                             return false;
                         }
                     })
-                    .setDateFormat("yyyy-MM-dd")
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")  // DRF default format: 2017-06-07T14:28:30.127000Z
                     .create();
 
             instance = new Retrofit.Builder()

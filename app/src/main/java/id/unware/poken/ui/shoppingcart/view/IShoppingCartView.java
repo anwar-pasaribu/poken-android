@@ -15,4 +15,6 @@ import id.unware.poken.ui.view.BaseView;
 public interface IShoppingCartView extends BaseView {
     void populateShoppingCarts(ArrayList<ShoppingCart> shoppingCarts);
     void updatePriceGrandTotal(String formattedPrice);
+
+    void openShoppingOrder();
 }

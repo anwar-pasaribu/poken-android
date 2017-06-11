@@ -55,7 +55,7 @@ public class HomeModelImpl extends MyCallback implements IHomeModel {
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
         MyLog.FabricLog(Log.INFO, "Home model message on req: " + msg);
     }
 

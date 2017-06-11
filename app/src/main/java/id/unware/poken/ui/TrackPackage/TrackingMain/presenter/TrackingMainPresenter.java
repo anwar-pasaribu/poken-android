@@ -66,13 +66,13 @@ public class TrackingMainPresenter extends MyCallback implements ITrackingMainPr
 
 //                        MyLog.FabricLog(Log.ERROR, TAG + " - Tracking CNNO not available with msg: " + firstPojoTracking.getMsg());
 //                        failed(firstPojoTracking.getMsg());
-                        onMessage(firstPojoTracking.getMsg());
+                        onMessage(firstPojoTracking.getMsg(), 0);
 
                     } else if (!TextUtils.isEmpty(firstPojoTracking.getError())) {
 
                         MyLog.FabricLog(Log.ERROR, TAG + " - Tracking CNNO not available with error field: " + firstPojoTracking.getError());
 //                        failed(firstPojoTracking.getError());
-                        onMessage(firstPojoTracking.getError());
+                        onMessage(firstPojoTracking.getError(), 0);
                     }
 
                     return;
@@ -131,7 +131,7 @@ public class TrackingMainPresenter extends MyCallback implements ITrackingMainPr
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
         view.showMessage(msg);
     }
 

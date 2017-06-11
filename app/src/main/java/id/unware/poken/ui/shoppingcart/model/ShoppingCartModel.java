@@ -54,7 +54,7 @@ public class ShoppingCartModel extends MyCallback implements IShoppingCartModel 
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
 
     }
 

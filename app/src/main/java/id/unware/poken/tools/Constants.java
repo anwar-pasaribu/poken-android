@@ -22,6 +22,8 @@ public class Constants {
     // SP (Shared Preferences)
     public static final String SP_AUTH_TOKEN = "AUTH_TOKEN";
 
+    // STATUS NUMBER FOR NETWORK CALL STATUS
+    public static final int NETWORK_CALLBACK_FAILURE = -1;
 
     public static boolean focusOnSender = false;
 

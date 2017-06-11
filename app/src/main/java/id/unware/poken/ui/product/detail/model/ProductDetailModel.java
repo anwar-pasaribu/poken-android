@@ -40,7 +40,7 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
     }
 
     @Override
-    public void onMessage(String msg) {
+    public void onMessage(String msg, int status) {
 
     }
 

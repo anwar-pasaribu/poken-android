@@ -28,15 +28,23 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".ui.splash.SplashScreen"
-            android:theme="@style/AppTheme.ActionBar.Transparent">
+            android:name=".ui.home.view.HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.splash.SplashScreen"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
+        </activity>
+
         <activity
             android:name=".ui.TrackPackage.TrackingMain.view.TrackingActivity"
             android:label="@string/title_tracking"
@@ -145,11 +153,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar.Transparent" />
         <activity
-            android:name=".ui.home.view.HomeActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:label="@string/title_activity_product_detail"
             android:parentActivityName=".ui.home.view.HomeActivity"
@@ -176,6 +179,29 @@
             android:name=".ui.shoppingcart.view.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.shoppingorder.view.OrderActivity"
+            android:label="@string/title_activity_order"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.payment.view.PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.main.view.MainActivity"
+            android:label="@string/title_activity_main">
+        </activity>
+        <activity
+            android:name=".ui.profile.view.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".ui.home.view.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
     </application>
 

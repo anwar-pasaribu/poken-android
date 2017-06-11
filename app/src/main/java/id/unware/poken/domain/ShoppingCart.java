@@ -23,27 +23,27 @@ public class ShoppingCart {
 }
 /*
 {
+  "id": 1,
+  "product": {
+    "name": "Baju Pria",
+    "images": [
+      {
+        "path": "http://192.168.1.100:8000/media/product_image/1496421469_66_2014-08-25_Matt_Look_094_2048x2048.jpeg"
+      }
+    ],
+    "size": "L",
+    "stock": 7,
+    "price": 350000,
+    "weight": 250,
+    "seller": {
       "id": 1,
-      "product": {
-        "name": "Baju Pria",
-        "images": [
-          {
-            "path": "http://192.168.1.100:8000/media/product_image/1496421469_66_2014-08-25_Matt_Look_094_2048x2048.jpeg"
-          }
-        ],
-        "size": "L",
-        "stock": 7,
-        "price": 350000,
-        "weight": 250,
-        "seller": {
-          "id": 1,
-          "store_name": "Kejora Busana",
-          "tag_line": "Harga paling murah, terpercaya",
-          "phone_number": "087884155479",
-          "location": "Jakarta Barat"
-        }
-      },
-      "date": "2017-06-01T13:18:17.071000Z",
-      "quantity": 3
+      "store_name": "Kejora Busana",
+      "tag_line": "Harga paling murah, terpercaya",
+      "phone_number": "087884155479",
+      "location": "Jakarta Barat"
     }
+  },
+  "date": "2017-06-01T13:18:17.071000Z",
+  "quantity": 3
+}
 */

@@ -36,6 +36,12 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
     }
 
     @Override
+    public void startShoppingOrderScreen() {
+        Utils.Logs('i', TAG, "Start shopping order screen");
+        view.openShoppingOrder();
+    }
+
+    @Override
     public void updateViewState(UIState uiState) {
         Utils.Logs('w', TAG, "Update view state: " + uiState);
         view.showViewState(uiState);

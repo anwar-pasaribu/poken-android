@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/clickable_size_64"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity"
-    tools:showIn="@layout/activity_shopping_cart"
-    android:paddingBottom="@dimen/clickable_size_64">
+    tools:showIn="@layout/activity_shopping_cart">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -18,7 +18,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvShoppingCart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_shopping_cart" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

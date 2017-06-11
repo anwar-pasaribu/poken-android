@@ -20,7 +20,7 @@ import id.unware.poken.tools.Utils;
 public class ControllerDate {
 
     private static ControllerDate instance;
-    private final String serverResponseFormat = "yyyy-MM-dd HH:mm:ss";
+    private final String serverResponseFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     private Locale defLocale = Locale.getDefault();
     private SimpleDateFormat defaultDateFormat = new SimpleDateFormat(serverResponseFormat, defLocale);
     private SimpleDateFormat formatPickupHistory = new SimpleDateFormat("dd MMM yyyy", defLocale);
@@ -119,7 +119,7 @@ public class ControllerDate {
         return "";
     }
 
-    public String toRecentSearchDateTime(Date date) {
+    public CharSequence getShortDateWithHourFormat(Date date) {
         return formatTrackingDate.format(date);
     }
 

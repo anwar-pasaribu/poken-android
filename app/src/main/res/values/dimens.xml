@@ -20,7 +20,7 @@
     <dimen name="item_gap_xs">3dp</dimen>
     <dimen name="item_gap_s">5dp</dimen>
     <dimen name="item_gap_m">10dp</dimen>
-    <dimen name="item_gap_l">15dp</dimen>
+    <dimen name="item_gap_l">16dp</dimen>
     <dimen name="item_gap_32">32dp</dimen>
 
     <!--Small icon -->
@@ -57,5 +57,6 @@
     <dimen name="header_slide_width_m">270dp</dimen>
     <dimen name="header_slide_height_m">140dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="profile_avatar_m">40dp</dimen>
 
 </resources>

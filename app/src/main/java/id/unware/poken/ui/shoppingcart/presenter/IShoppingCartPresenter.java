@@ -8,4 +8,6 @@ package id.unware.poken.ui.shoppingcart.presenter;
 public interface IShoppingCartPresenter {
     void getShoppingCartData();
     void deleteShoppingCartItem(long shoppingCartId);
+
+    void startShoppingOrderScreen();
 }
