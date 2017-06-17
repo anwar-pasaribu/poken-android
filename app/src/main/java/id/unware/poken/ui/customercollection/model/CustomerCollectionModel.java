@@ -1,9 +1,11 @@
-package id.unware.poken.ui.customerorder.model;
+package id.unware.poken.ui.customercollection.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.domain.CustomerCollection;
+import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import id.unware.poken.httpConnection.AdRetrofit;
@@ -12,29 +14,29 @@ import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
-import id.unware.poken.ui.customerorder.presenter.IOrdersModelPresenter;
+import id.unware.poken.ui.customercollection.presenter.ICustomerCollectionModelPresenter;
 import okhttp3.Credentials;
 import retrofit2.Response;
 
 /**
  * @author Anwar Pasaribu
- * @since Jun 07 2017
+ * @since Jun 12 2017
  */
 
-public class OrdersModel extends MyCallback implements IOrdersModel {
+public class CustomerCollectionModel extends MyCallback implements ICustomerCollectionModel {
 
-    private static final String TAG = "ShoppingOrderModel";
-
+    private static final String TAG = "CustomerCollectionModel";
     final private PokenRequest req;
 
-    private IOrdersModelPresenter presenter;
+    private ICustomerCollectionModelPresenter presenter;
 
-    public OrdersModel() {
+    public CustomerCollectionModel() {
         req = AdRetrofit.getInstancePoken().create(PokenRequest.class);
     }
 
     @Override
-    public void requestOrdersData(IOrdersModelPresenter presenter) {
+    public void requestCustomerCollectionData(ICustomerCollectionModelPresenter presenter) {
+
         this.presenter = presenter;
 
         // Loading state to view
@@ -45,7 +47,8 @@ public class OrdersModel extends MyCallback implements IOrdersModel {
         headerMap.put("Authorization", credential);
 
         // This req. response: ShoppingOrderDataRes
-        req.reqShoppingOrderContent(headerMap).enqueue(this);
+        req.reqCustomerCollectionContent(headerMap).enqueue(this);
+
     }
 
     @Override
@@ -55,9 +58,9 @@ public class OrdersModel extends MyCallback implements IOrdersModel {
 
         presenter.updateViewState(UIState.FINISHED);
 
-        ArrayList<ShoppingOrder> shoppingOrders = new ArrayList<>();
-        shoppingOrders.addAll(((ShoppingOrderDataRes) response.body()).results);
-        presenter.onOrdersDataResponse(shoppingOrders);
+        ArrayList<CustomerCollection> items = new ArrayList<>();
+        items.addAll(((CustomerCollectionDataRes) response.body()).results);
+        presenter.onCustomerCollectionDataResponse(items);
     }
 
     @Override

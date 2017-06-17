@@ -2,19 +2,11 @@ package id.unware.poken.ui.customerorder.presenter;
 
 import java.util.ArrayList;
 
-import id.unware.poken.domain.AddressBook;
-import id.unware.poken.domain.OrderDetail;
-import id.unware.poken.domain.Product;
-import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.customerorder.model.IOrdersModel;
 import id.unware.poken.ui.customerorder.view.IOrdersView;
-import id.unware.poken.ui.shoppingorder.model.IShoppingOrderModel;
-import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderModelPresenter;
-import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderPresenter;
-import id.unware.poken.ui.shoppingorder.view.IShoppingOrderView;
 
 /**
  * @author Anwar Pasaribu

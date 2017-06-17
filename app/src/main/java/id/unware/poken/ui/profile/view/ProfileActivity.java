@@ -24,25 +24,17 @@ import id.unware.poken.R;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivityWithup;
+import id.unware.poken.ui.customercollection.view.CustomerCollectionFragment;
 import id.unware.poken.ui.customerorder.view.OrdersFragment;
 import id.unware.poken.ui.customerorder.view.dummy.DummyContent;
+import id.unware.poken.ui.customersubscription.view.CustomerSubscriptionFragment;
 
 public class ProfileActivity extends BaseActivityWithup implements OrdersFragment.OnOrderFragmentListener {
 
     private static final String TAG = "ProfileActivity";
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -84,6 +76,9 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == android.R.id.home) {
+            Utils.Log(TAG, "Home navigation cliked.");
+            this.onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
@@ -152,6 +147,10 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         public Fragment getItem(int position) {
             if (position == 0) {
                 return OrdersFragment.newInstance(1 /*Column count*/);
+            } else if (position == 1) {
+                return CustomerCollectionFragment.newInstance(2);
+            } else if (position == 2) {
+                return CustomerSubscriptionFragment.newInstance(1);
             }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).

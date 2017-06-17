@@ -25,8 +25,8 @@
     <color name="package_status_deleted">#D9534F</color>
 
     <!--White color with transparency 20% alpha-->
-    <color name="white_20_alpha">#1effffff</color>
-    <color name="white_40_alpha">#3cffffff</color>
+    <color name="white_20_alpha">#55ffffff</color>
+    <color name="white_40_alpha">#81ffffff</color>
     <color name="black_50_alpha">#7d000000</color>
     <color name="btn_higlight_primary">#B3E5FC</color> <!--Material: Accent color with 70% alpha-->
     <color name="btn_pressed_primary">#01579b</color> <!--Material: Accent color with 70% alpha-->

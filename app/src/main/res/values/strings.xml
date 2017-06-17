@@ -54,6 +54,7 @@
     <string name="btn_positive_delete">Hapus</string>
     <string name="btn_positive_ok">OK</string>
     <string name="btn_positive_signout">Logout</string>
+    <string name="action_signout">Logout</string>
     <string name="btn_positive_update">Perbarui</string>
     <string name="btn_positive_yes">Ya</string>
     <string name="btn_reset">Reset</string>
@@ -581,6 +582,7 @@
     <string name="title_activity_profile">Profil</string>
     <string name="btn_confirm_payment">Konfirmasi Pembayaran</string>
     <string name="lbl_quantity">%1$d barang</string>
+    <string name="title_activity_seller">Toko</string>
 
 
 </resources>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/card_bg"
+    app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="?android:selectableItemBackground"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/img_grid_m"
+            android:background="@color/white_100"/>
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/img_grid_m"
+            android:layout_height="@dimen/img_grid_m"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2" />
+
+        <ImageButton
+            android:id="@+id/ibRemoveCollection"
+            android:layout_width="@dimen/clickable_size_32"
+            android:layout_height="@dimen/clickable_size_32"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/item_gap_s"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:background="@drawable/bg_home_item"
+            android:tint="@color/red"
+            app:srcCompat="@drawable/ic_clear_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextListSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/clickable_size_32"
+            android:layout_below="@+id/itemImage"
+            android:layout_margin="@dimen/item_gap_s"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="Nama barang yang sangat panjang sehingga akan merusak"
+            />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            style="@style/TextListSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:gravity="left"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/item_gap_m"
+            android:paddingLeft="@dimen/item_gap_s"
+            android:paddingRight="@dimen/item_gap_s"
+            android:text="Rp 599.000.000.000"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

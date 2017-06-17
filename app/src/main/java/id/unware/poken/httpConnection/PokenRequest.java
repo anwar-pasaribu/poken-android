@@ -2,8 +2,11 @@ package id.unware.poken.httpConnection;
 
 import java.util.Map;
 
+import id.unware.poken.domain.CustomerCollectionDataRes;
+import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import retrofit2.Call;
@@ -29,4 +32,14 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_ORDER)
     Call<ShoppingOrderDataRes> reqShoppingOrderContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_CUSTOMER_COLLECTION)
+    Call<CustomerCollectionDataRes> reqCustomerCollectionContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION)
+    Call<CustomerSubscriptionDataRes> reqCustomerSubscriptionContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap);
+
 }

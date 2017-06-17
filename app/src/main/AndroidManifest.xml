@@ -28,7 +28,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.home.view.HomeActivity"
             android:label="@string/app_name"
@@ -39,12 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.splash.SplashScreen"
             android:theme="@style/AppTheme.ActionBar.Transparent">
         </activity>
-
         <activity
             android:name=".ui.TrackPackage.TrackingMain.view.TrackingActivity"
             android:label="@string/title_tracking"
@@ -202,6 +199,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.seller.view.SellerActivity"
+            android:label="@string/title_activity_seller"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 
