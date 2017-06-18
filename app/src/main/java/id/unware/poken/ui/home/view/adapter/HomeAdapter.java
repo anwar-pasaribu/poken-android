@@ -176,7 +176,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             holder.itemTitle.setText(sectionName);
 
-            SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(mContext, singleSectionItems);
+            SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(mContext, singleSectionItems, homePresenter);
 
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));

@@ -94,6 +94,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     private void setupShoppingCartList() {
         // Init shopping cart list
         shoppingCartAdapter = new ShoppingCartAdapter(this, itemList, presenter);
+        shoppingCartAdapter.setHasStableIds(true);
         rvShoppingCart.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvShoppingCart.setHasFixedSize(true);
         rvShoppingCart.setAdapter(shoppingCartAdapter);

@@ -5,6 +5,9 @@ package id.unware.poken.tools;
  * Various constants.
  */
 public class Constants {
+
+    public static final String KEY_DOMAIN_ITEM_ID = "id";
+
     public static final int TAG_HEADER_RECENT = -99;
     public static final int TAG_TRACKING = 1;
     public static final String LAST_ORIGIN = "LAST_ORIGIN";

@@ -8,5 +8,5 @@ import id.unware.poken.ui.seller.presenter.ISellerPageModelPresenter;
  */
 
 public interface ISellerPageModel {
-    void requestSellerData(ISellerPageModelPresenter presenter);
+    void requestSellerData(ISellerPageModelPresenter presenter, long sellerId);
 }

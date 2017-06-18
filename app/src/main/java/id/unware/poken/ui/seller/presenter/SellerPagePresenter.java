@@ -3,6 +3,7 @@ package id.unware.poken.ui.seller.presenter;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.ui.seller.model.ISellerPageModel;
 import id.unware.poken.ui.seller.view.ISellerPageView;
@@ -23,8 +24,8 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     }
 
     @Override
-    public void getSellerPageProductData() {
-        model.requestSellerData(this);
+    public void getSellerPageProductData(long sellerId) {
+        model.requestSellerData(this, sellerId);
     }
 
     @Override
@@ -40,6 +41,11 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     @Override
     public void onSellerPageContentResponse(ArrayList<Product> products) {
         view.pupolateSellerProductList(products);
+    }
+
+    @Override
+    public void setupSellerInfo(Seller seller) {
+        view.showSellerInfo(seller);
     }
 
     @Override

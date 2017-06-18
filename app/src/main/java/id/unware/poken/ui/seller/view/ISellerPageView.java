@@ -3,6 +3,7 @@ package id.unware.poken.ui.seller.view;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.ui.view.BaseView;
 
 /**
@@ -14,4 +15,6 @@ public interface ISellerPageView extends BaseView {
     void pupolateSellerProductList(ArrayList<Product> products);
 
     void showProductDetail(Product product);
+
+    void showSellerInfo(Seller seller);
 }

@@ -1,6 +1,7 @@
 package id.unware.poken.ui.seller.presenter;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 
 /**
  * @author Anwar Pasaribu
@@ -8,7 +9,7 @@ import id.unware.poken.domain.Product;
  */
 
 public interface ISellerPagePresenter {
-    void getSellerPageProductData();
+    void getSellerPageProductData(long sellerId);
 
     void startProductDetail(Product product);
 

@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +37,7 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_collected_product, parent, false);
+                .inflate(R.layout.list_seller_product, parent, false);
         return new ViewHolder(view);
     }
 
@@ -82,7 +81,6 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
         @BindView(R.id.itemImage) ImageView itemImage;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvPrice) TextView tvPrice;
-        @BindView(R.id.ibRemoveCollection) ImageButton ibRemoveCollection;
 
         @BindDimen(R.dimen.img_grid_m) int productImageSizeM;
 

@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
@@ -32,6 +35,10 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     private static final String TAG = "SellerActivity";
 
+    @BindView(R.id.tvSellerUser) TextView tvSellerUser;
+    @BindView(R.id.tvSellerIdetifier) TextView tvSellerIdetifier;
+    @BindView(R.id.ivUserAvatar) ImageView ivUserAvatar;
+
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rvSellerProduct) RecyclerView rvSellerProduct;
 
@@ -42,7 +49,16 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     private SellerProductAdapter adapter;
     private ArrayList<Product> listItem = new ArrayList<>();
 
+    private long sellerId;
+
     private Handler handler = new Handler();
+    private Runnable reqSellerPageRun = new Runnable() {
+        @Override
+        public void run() {
+            Utils.Log(TAG, "Begin gitting seller page data.");
+            presenter.getSellerPageProductData(sellerId);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +69,12 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
         presenter = new SellerPagePresenter(new SellerPageModel(), this);
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utils.Log(TAG, "Begin gitting seller page data.");
-                presenter.getSellerPageProductData();
-            }
-        }, this.getResources().getInteger(android.R.integer.config_mediumAnimTime));
+        if (getIntent().getExtras() != null) {
+            sellerId = getIntent().getExtras().getLong(Constants.KEY_DOMAIN_ITEM_ID, -1L);
+            Utils.Logs('i', TAG, "Seller id to show: " + sellerId);
+        }
+
+        handler.postDelayed(reqSellerPageRun, this.getResources().getInteger(android.R.integer.config_mediumAnimTime));
 
         initView();
 
@@ -68,12 +83,14 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getSellerPageProductData();
+                presenter.getSellerPageProductData(sellerId);
             }
         });
 
@@ -108,8 +125,8 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
+        handler.removeCallbacks(reqSellerPageRun);
         unbinder.unbind();
 
     }
@@ -140,5 +157,11 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
         productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
         this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
+    }
+
+    @Override
+    public void showSellerInfo(Seller seller) {
+        tvSellerUser.setText(seller.store_name);
+        tvSellerIdetifier.setText(seller.phone_number);
     }
 }

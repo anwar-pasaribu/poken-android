@@ -28,7 +28,7 @@
             android:id="@+id/parentProfileInfo"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/clickable_size">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/ivUserAvatar"
@@ -38,7 +38,8 @@
                 android:layout_marginRight="@dimen/text_margin"
                 android:scaleType="fitCenter"
                 android:tint="@color/style_overlay_grey"
-                app:srcCompat="@drawable/ic_circle_24dp" />
+                app:srcCompat="@drawable/ic_circle_24dp"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tvSellerUser"
@@ -49,7 +50,7 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Kejora Busana" />
+                tools:text="Kejora Busana" />
 
             <TextView
                 android:id="@+id/tvSellerIdetifier"
@@ -61,7 +62,7 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="cs@kejora.com" />
+                tools:text="cs@kejora.com" />
 
         </RelativeLayout>
 

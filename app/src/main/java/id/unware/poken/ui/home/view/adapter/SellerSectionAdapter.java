@@ -23,15 +23,18 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
+import id.unware.poken.ui.home.presenter.IHomePresenter;
 
 public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdapter.SingleItemRowHolder> {
 
     private ArrayList<Seller> itemsList;
     private Context mContext;
+    private IHomePresenter homePresenter;
 
-    public SellerSectionAdapter(Context context, ArrayList<Seller> itemsList) {
+    public SellerSectionAdapter(Context context, ArrayList<Seller> itemsList, IHomePresenter homePresenter) {
         this.itemsList = itemsList;
         this.mContext = context;
+        this.homePresenter = homePresenter;
     }
 
     @Override
@@ -42,12 +45,19 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, int position) {
 
-        Seller singleItem = itemsList.get(i);
+        final Seller singleItem = itemsList.get(position);
 
         holder.tvTitle.setText(singleItem.store_name);
         holder.tvDescription.setText(singleItem.tag_line);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homePresenter.onSellerClick(holder.getAdapterPosition(), singleItem);
+            }
+        });
     }
 
     @Override
@@ -63,18 +73,6 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
         public SingleItemRowHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
 
         }
 

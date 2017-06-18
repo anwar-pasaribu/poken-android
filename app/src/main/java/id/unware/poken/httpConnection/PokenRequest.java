@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 /**
  * @author Anwar Pasaribu
@@ -40,6 +41,6 @@ public interface PokenRequest {
     Call<CustomerSubscriptionDataRes> reqCustomerSubscriptionContent(@HeaderMap Map<String, String> headerMap);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
-    Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap);
+    Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> sellerData);
 
 }

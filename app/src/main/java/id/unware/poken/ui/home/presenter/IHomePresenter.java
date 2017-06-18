@@ -2,6 +2,7 @@ package id.unware.poken.ui.home.presenter;
 
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
+import id.unware.poken.domain.Seller;
 
 /**
  * @author Anwar Pasaribu
@@ -13,4 +14,6 @@ public interface IHomePresenter {
     void onSectionActionClick(int position, Section section);
 
     void onProductClick(int position, Product product);
+
+    void onSellerClick(int position, Seller seller);
 }

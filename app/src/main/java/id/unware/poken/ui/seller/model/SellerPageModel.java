@@ -6,6 +6,7 @@ import java.util.Map;
 
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
@@ -34,14 +35,17 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
     }
 
     @Override
-    public void requestSellerData(ISellerPageModelPresenter presenter) {
+    public void requestSellerData(ISellerPageModelPresenter presenter, long sellerId) {
         this.presenter = presenter;
 
         String credential = Credentials.basic("anwar", "anwar_poken17");
         Map<String, String> headerMap = new HashMap<>();
         headerMap.put("Authorization", credential);
 
-        this.req.reqProductContent(headerMap).enqueue(this);
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("seller_id", String.valueOf(sellerId));
+
+        this.req.reqProductContent(headerMap, queryParams).enqueue(this);
     }
 
     @Override
@@ -49,7 +53,13 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
         presenter.updateViewState(UIState.FINISHED);
         ArrayList<Product> products = new ArrayList<>();
         products.addAll(((ProductDataRes) response.body()).results);
-        presenter.onSellerPageContentResponse(products);
+        if (products.size() > 0) {
+            presenter.onSellerPageContentResponse(products);
+
+            Seller seller = products.get(0).seller;
+
+            presenter.setupSellerInfo(seller);
+        }
 
     }
 

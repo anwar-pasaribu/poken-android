@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.unware.poken.ui.seller.view.SellerActivity"
-    tools:showIn="@layout/activity_seller">
+    tools:showIn="@layout/activity_seller"
+    android:paddingTop="@dimen/item_gap_s">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -18,7 +19,7 @@
             android:id="@+id/rvSellerProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_collected_product" />
+            tools:listitem="@layout/list_seller_product" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

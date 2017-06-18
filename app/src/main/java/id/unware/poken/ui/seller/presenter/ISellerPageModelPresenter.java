@@ -3,6 +3,7 @@ package id.unware.poken.ui.seller.presenter;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -12,4 +13,5 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface ISellerPageModelPresenter extends BasePresenter {
     void onSellerPageContentResponse(ArrayList<Product> products);
+    void setupSellerInfo(Seller seller);
 }

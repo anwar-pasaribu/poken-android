@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.models.SingleItemModel;
 import id.unware.poken.domain.Category;
@@ -30,6 +31,7 @@ import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
+import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
@@ -202,6 +204,14 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
         productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
         this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
+    }
+
+    @Override
+    public void startSellerDetailScreen(int position, Seller seller) {
+        Utils.Logs('i', TAG, "Open seller detail with id: " + seller.id);
+        Intent sellerIntent = new Intent(this, SellerActivity.class);
+        sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, seller.id);
+        this.startActivity(sellerIntent);
     }
 
     private SectionDataModel createCategoryItems() {

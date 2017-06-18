@@ -3,6 +3,7 @@ package id.unware.poken.ui.home.presenter;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
@@ -42,6 +43,11 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     public void onProductClick(int position, Product product) {
         Utils.Log(TAG, "Product on Sale section clicked. Pos: " + position + ", product ID: " + product.id);
         view.startProductDetailScreen(product);
+    }
+
+    @Override
+    public void onSellerClick(int position, Seller seller) {
+        view.startSellerDetailScreen(position, seller);
     }
 
     @Override

@@ -20,6 +20,7 @@ import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.CustomerSubscription;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
 import id.unware.poken.ui.customersubscription.model.CustomerSubscriptionModel;
@@ -140,6 +141,7 @@ public class CustomerSubscriptionFragment extends BaseFragment implements ICusto
     public void openDetail(CustomerSubscription subscription) {
         Utils.Log(TAG, "Open subs detail ID: " + subscription.id);
         Intent sellerIntent = new Intent(this.getActivity(), SellerActivity.class);
+        sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, subscription.seller_id);
         this.getActivity().startActivity(sellerIntent);
     }
 
