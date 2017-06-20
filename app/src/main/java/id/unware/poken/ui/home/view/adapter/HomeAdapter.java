@@ -10,18 +10,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
-import id.unware.poken.domain.Seller;
-import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
+import id.unware.poken.domain.Seller;
+import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
@@ -140,12 +139,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (dataList.get(pos).getSection() != null) {
             final Section section = dataList.get(pos).getSection();
             final String sectionName = section.name;
-            final int itemPos = pos;
+            final int itemPos = holder.getAdapterPosition();
             final ArrayList<Product> products = section.products;
 
             holder.itemTitle.setText(sectionName);
 
             ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(mContext, products, homePresenter);
+            itemListDataAdapter.setHasStableIds(true);
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
@@ -169,6 +169,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         // Seller section found
         if (dataList.get(pos).getSection() != null
                 && dataList.get(pos).getSection().top_sellers.size() > 0) {
+            final int itemPos = holder.getAdapterPosition();
             final Section section = dataList.get(pos).getSection();
             final String sectionName = section.name;
 
@@ -177,7 +178,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.itemTitle.setText(sectionName);
 
             SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(mContext, singleSectionItems, homePresenter);
-
+            itemListDataAdapter.setHasStableIds(true);
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
@@ -187,7 +188,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "click event on more, " + sectionName, Toast.LENGTH_SHORT).show();
+                    Utils.Log(TAG, "Click event on more, " + sectionName);
+                    homePresenter.onSectionActionClick(itemPos, section);
                 }
             });
         } else {

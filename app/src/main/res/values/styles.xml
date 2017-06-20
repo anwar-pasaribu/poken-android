@@ -150,6 +150,12 @@
         <item name="android:lineSpacingMultiplier">1.15</item>
     </style>
 
+    <style name="TextDiscountedPrice">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/style_overlay_grey</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+    </style>
+
     <!--Default background with background-->
     <style name="ButtonDefault">
         <item name="android:background">@drawable/bg_btn_default</item>

@@ -583,6 +583,8 @@
     <string name="btn_confirm_payment">Konfirmasi Pembayaran</string>
     <string name="lbl_quantity">%1$d barang</string>
     <string name="title_activity_seller">Toko</string>
+    <string name="title_activity_browse">Browse</string>
+    <string name="btn_see_all_section_content">Lihat Semua</string>
 
 
 </resources>

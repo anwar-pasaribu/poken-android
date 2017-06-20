@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingBottom="@dimen/clickable_size_32"
@@ -27,14 +28,15 @@
             android:layout_toLeftOf="@+id/btnMore"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="Sample title" />
+            tools:text="Produk Diskon" />
 
         <Button
             android:id="@+id/btnMore"
 
             style="@style/Widget.AppCompat.Button.Borderless"
             android:theme="@style/BorderlessButtonAccent"
-            android:padding="0dp"
+            android:paddingLeft="@dimen/item_gap_m"
+            android:paddingRight="0dp"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +46,7 @@
             android:layout_centerVertical="true"
             android:textAllCaps="false"
             android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-            android:text="More" />
+            android:text="@string/btn_see_all_section_content" />
 
 
     </RelativeLayout>

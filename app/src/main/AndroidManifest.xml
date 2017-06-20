@@ -205,6 +205,15 @@
             android:label="@string/title_activity_seller"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".ui.browse.view.BrowseActivity"
+            android:label="@string/title_activity_browse"
+            android:parentActivityName=".ui.home.view.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.home.view.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

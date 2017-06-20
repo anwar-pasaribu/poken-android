@@ -28,6 +28,9 @@ public class Constants {
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
+    public static final java.lang.String GENERAL_INTENT_ID = "intent_id";
+    public static final java.lang.String GENERAL_INTENT_VALUE = "intent_val";
+
     public static boolean focusOnSender = false;
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 314;
@@ -179,5 +182,9 @@ public class Constants {
 
     public static int toolbarHeight = 0;
     public static int statusBarHeight = 0;
+
+    public static int SECTION_ID_POPULAR_STORE = 2;
+    public static int SECTION_ID_SALE_PRODUCT = 3;
+
 
 }

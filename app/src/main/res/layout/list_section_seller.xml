@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:paddingBottom="@dimen/item_gap_l"
     >
@@ -26,7 +27,7 @@
             android:layout_toLeftOf="@+id/btnMore"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Seller Top" />
+            tools:text="Seller Top" />
 
         <Button
             android:id="@+id/btnMore"
@@ -34,14 +35,18 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/item_gap_m"
+            android:paddingRight="0dp"
+
+            android:visibility="invisible"
+            android:enabled="false"
 
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawableRight="@drawable/ic_chevron_right_black_24dp"
             android:gravity="right|center_vertical"
-            android:padding="0dp"
-            android:text="More"
+            android:text="@string/btn_see_all_section_content"
             android:textAllCaps="false"
             android:theme="@style/BorderlessButtonAccent" />
 

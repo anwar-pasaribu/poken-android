@@ -16,16 +16,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.domain.Category;
+import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.models.SingleItemModel;
-import id.unware.poken.domain.Category;
-import id.unware.poken.domain.Featured;
-import id.unware.poken.domain.Section;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.browse.view.BrowseActivity;
 import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
@@ -196,6 +197,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     @Override
     public void startProductCategoryScreen(Section sectionItem) {
         Utils.Logs('i', TAG, "Start Product Category Screen with intention to show Sale item. Intent id: " + sectionItem.section_action_id);
+        Intent browseSaleProducts = new Intent(this, BrowseActivity.class);
+        browseSaleProducts.putExtra(Constants.GENERAL_INTENT_ID, sectionItem.section_action_id);
+        browseSaleProducts.putExtra(Constants.GENERAL_INTENT_VALUE, sectionItem.name);
+        this.startActivity(browseSaleProducts);
     }
 
     @Override
@@ -222,6 +227,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         categories.add(new Category("Sepatu", 2, "", R.drawable.ic_shoes));
         categories.add(new Category("Topi", 3, "", R.drawable.ic_hat));
         categories.add(new Category("Semua", 4, "", R.drawable.ic_category));
+        categories.add(new Category("Test 1", 5, "", R.drawable.ic_account_balance_wallet_black_24dp));
+        categories.add(new Category("Test 2", 6, "", R.drawable.ic_add_24dp));
+        categories.add(new Category("Test 3", 7, "", R.drawable.ic_custom_marker));
         dmCategory.setCategories(categories);
         return dmCategory;
     }
