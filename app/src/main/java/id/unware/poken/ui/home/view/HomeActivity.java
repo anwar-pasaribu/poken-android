@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private void openShoppingCart() {
         Intent intent = new Intent(this, ShoppingCartActivity.class);
-        startActivity(intent);
+        this.startActivity(intent);
     }
 
     @Override
@@ -162,6 +162,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         dm.setFeaturedItems(featured_items);
         listHome.add(0, dm);
         adapter.notifyItemChanged(0);
+
+        // POPULATE CATEGORY SECTION
+        listHome.remove(1);
+        listHome.add(1, createCategoryItems());
+        adapter.notifyItemChanged(1);
 
         for (Section section : sections) {
 
@@ -187,24 +192,30 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
             }
         }
-
-        // POPULATE CATEGORY SECTION
-        listHome.remove(1);
-        listHome.add(1, createCategoryItems());
-        adapter.notifyItemChanged(1);
     }
 
     @Override
     public void startProductCategoryScreen(Section sectionItem) {
         Utils.Logs('i', TAG, "Start Product Category Screen with intention to show Sale item. Intent id: " + sectionItem.section_action_id);
         Intent browseSaleProducts = new Intent(this, BrowseActivity.class);
-        browseSaleProducts.putExtra(Constants.GENERAL_INTENT_ID, sectionItem.section_action_id);
-        browseSaleProducts.putExtra(Constants.GENERAL_INTENT_VALUE, sectionItem.name);
+        browseSaleProducts.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, sectionItem.section_action_id);
+        browseSaleProducts.putExtra(Constants.EXTRA_GENERAL_INTENT_VALUE, sectionItem.name);
         this.startActivity(browseSaleProducts);
     }
 
     @Override
-    public void startProductDetailScreen(Product product) {
+    public void showCategoryDetailScreen(Category category) {
+        Utils.Logs('i', TAG, "Start Browse by Category. id: " + category.getId());
+        Intent browsePage = new Intent(this, BrowseActivity.class);
+        browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, Constants.INTENT_BROWSE_BY_CATEGORY);
+        browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_VALUE, category.getName());
+        browsePage.putExtra(Constants.EXTRA_IS_BROWSE_BY_CATEGORY, true);
+        browsePage.putExtra(Constants.EXTRA_CATEGORY_ID, category.getId());
+        this.startActivity(browsePage);
+    }
+
+    @Override
+    public void showProductDetailScreen(Product product) {
         Utils.Logs('i', TAG, "Start Product Detail Screen. Product id: " + product.id);
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
         productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
@@ -212,7 +223,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     }
 
     @Override
-    public void startSellerDetailScreen(int position, Seller seller) {
+    public void showSellerDetailScreen(int position, Seller seller) {
         Utils.Logs('i', TAG, "Open seller detail with id: " + seller.id);
         Intent sellerIntent = new Intent(this, SellerActivity.class);
         sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, seller.id);
@@ -221,15 +232,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private SectionDataModel createCategoryItems() {
         SectionDataModel dmCategory = new SectionDataModel();
-        ArrayList<Category> categories = new ArrayList<>(5);
+        ArrayList<Category> categories = new ArrayList<>();
         categories.add(new Category("Favorit", 0, "", R.drawable.ic_favo));
-        categories.add(new Category("Baju", 1, "", R.drawable.ic_clothes));
-        categories.add(new Category("Sepatu", 2, "", R.drawable.ic_shoes));
-        categories.add(new Category("Topi", 3, "", R.drawable.ic_hat));
-        categories.add(new Category("Semua", 4, "", R.drawable.ic_category));
-        categories.add(new Category("Test 1", 5, "", R.drawable.ic_account_balance_wallet_black_24dp));
-        categories.add(new Category("Test 2", 6, "", R.drawable.ic_add_24dp));
-        categories.add(new Category("Test 3", 7, "", R.drawable.ic_custom_marker));
+        categories.add(new Category("Baju", 4, "", R.drawable.ic_clothes));
+        categories.add(new Category("Sepatu", 3, "", R.drawable.ic_shoes));
+        categories.add(new Category("Topi", 5, "", R.drawable.ic_hat));
+        categories.add(new Category("Semua", 6, "", R.drawable.ic_category));
+        categories.add(new Category("Test 1", 7, "", R.drawable.ic_account_balance_wallet_black_24dp));
+        categories.add(new Category("Test 2", 8, "", R.drawable.ic_add_24dp));
+        categories.add(new Category("Test 3", 9, "", R.drawable.ic_custom_marker));
         dmCategory.setCategories(categories);
         return dmCategory;
     }

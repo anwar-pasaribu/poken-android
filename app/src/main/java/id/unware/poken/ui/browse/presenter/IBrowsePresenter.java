@@ -1,5 +1,6 @@
 package id.unware.poken.ui.browse.presenter;
 
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 
 /**
@@ -14,6 +15,8 @@ public interface IBrowsePresenter {
      * @param intentId intention to show data.
      */
     void getProductDataByIntentId(int intentId);
+
+    void getProductByCategory(Category category);
 
     void startProductDetail(Product product);
 }

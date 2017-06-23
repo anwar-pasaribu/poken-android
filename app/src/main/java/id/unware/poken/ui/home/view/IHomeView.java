@@ -2,6 +2,7 @@ package id.unware.poken.ui.home.view;
 
 import java.util.ArrayList;
 
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
@@ -18,7 +19,10 @@ public interface IHomeView extends BaseView {
 
     void startProductCategoryScreen(Section sectionItem);
 
-    void startProductDetailScreen(Product product);
+    void showCategoryDetailScreen(Category category);
 
-    void startSellerDetailScreen(int position, Seller seller);
+    void showProductDetailScreen(Product product);
+
+    void showSellerDetailScreen(int position, Seller seller);
+
 }

@@ -1,17 +1,16 @@
 package id.unware.poken.ui.shoppingcart.view.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,17 +21,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
+import id.unware.poken.controller.ControllerDialog;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
-import id.unware.poken.ui.jnews.dummy.PojoNews.News;
 import id.unware.poken.ui.shoppingcart.presenter.IShoppingCartPresenter;
-
-import static com.google.android.gms.internal.zznu.ii;
-import static id.unware.poken.R.id.spinnerBanks;
 
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder> {
@@ -56,7 +52,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        ShoppingCart item = listData.get(position);
+        final ShoppingCart item = listData.get(position);
         if (item == null) return;
 
         // Set item val for view holder
@@ -71,17 +67,15 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         ArrayList<ProductImage> images = product.images;
         if (images.isEmpty()) return;
 
-        long shoppingCartId = item.id;
-        int quantity = item.quantity;
+        final long shoppingCartId = item.id;
         String storeName = seller.store_name;
         String productImage = images.get(0).path;
         String productName = product.name;
-        double productPrice = product.price;
-        int productStock = product.stock;
+        final double productPrice = product.price;
+        final int productStock = product.stock;
 
         // Product image thumbnail size
         int imageSize = context.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
-        Utils.Log("Image size: ", imageSize + " pixels.");
         holder.tvStoreName.setText(storeName);
         Picasso.with(context)
                 .load(productImage)
@@ -90,31 +84,55 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 .into(holder.ivProductImage);
         holder.tvProductName.setText(productName);
         holder.tvProductTotalPrice.setText(StringUtils.formatCurrency(String.valueOf(productPrice)));
+        holder.textItemQuantity.setText(
+                String.valueOf(item.quantity)
+        );
 
-        // Setup spinner
-        ArrayList<String> quantityOptionsString = new ArrayList<>();
-        int quantityLimit = Math.min(10, productStock);
-        int quantityIndex = quantity - 1;
-        for (int i = 1; i <= quantityLimit; i++) {
-            quantityOptionsString.add(String.valueOf(i));
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, quantityOptionsString);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.setNotifyOnChange(true);
-        holder.spinnerQuantity.setSelection(quantityIndex);
-        holder.spinnerQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        holder.cbSelectAllStoreItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Utils.Log("ShoppingCartAdapter", "Selected quantity: " + position);
-                Utils.Log("ShoppingCartAdapter", "Item view: " + view);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Utils.Log("ShoppingCartAdapter", " Nothing selected");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (presenter != null) {
+                    presenter.onItemChecked(holder.getAdapterPosition(), isChecked, shoppingCartId, item.quantity, productPrice, item);
+                }
             }
         });
-        holder.spinnerQuantity.setAdapter(adapter);
+
+        holder.btnAddQuantity.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        item.quantity = holder.controlItemQuantity(item.quantity, productStock, true);
+                        Utils.Log("ShoppingCartAdapter", "[add] Q: " + item.quantity + ", stok: " + productStock);
+                        holder.textItemQuantity.setText(
+                                String.valueOf(item.quantity)
+                        );
+
+                        // Change shopping cart counter on list page
+                        if (presenter != null) {
+                            presenter.onItemQuantityChanges(holder.getAdapterPosition(), shoppingCartId, item.quantity, productPrice, item);
+                        }
+                    }
+                }
+        );
+
+        holder.btnSubstractQuantity.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        item.quantity = holder.controlItemQuantity(item.quantity, productStock, false);
+                        Utils.Log("ShoppingCartAdapter", "[substract] Q: " + item.quantity + ", stok: " + productStock);
+                        holder.textItemQuantity.setText(
+                                String.valueOf(item.quantity)
+                        );
+
+                        // Change shopping cart counter on list page
+                        if (presenter != null) {
+                            presenter.onItemQuantityChanges(holder.getAdapterPosition(), shoppingCartId, item.quantity, productPrice, item);
+                        }
+                    }
+                }
+        );
+
     }
 
     @Override
@@ -132,8 +150,13 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @BindView(R.id.ivProductImage) ImageView ivProductImage;
         @BindView(R.id.tvProductName) TextView tvProductName;
         @BindView(R.id.btnDeleteCartItem) ImageButton btnDeleteCartItem;
-        @BindView(R.id.spinnerQuantity) Spinner spinnerQuantity;
         @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
+
+        // ITEM QUANTITY
+        @BindView(R.id.parentQuantityControl) CardView parentQuantityControl;
+        @BindView(R.id.btnAddQuantity) ImageButton btnAddQuantity;
+        @BindView(R.id.btnSubstractQuantity) ImageButton btnSubstractQuantity;
+        @BindView(R.id.textItemQuantity) TextView textItemQuantity;
 
         public ViewHolder(View view) {
             super(view);
@@ -144,13 +167,38 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         @Override
         public void onClick(View v) {
-            if (presenter != null) {
-                if (v.getId() == R.id.btnDeleteCartItem) {
+            if (v.getId() == R.id.btnDeleteCartItem) {
+                ControllerDialog.getInstance().showYesNoDialog(
+                    context.getString(R.string.msg_shopping_cart_confirm_deletion),
+                    context,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (DialogInterface.BUTTON_POSITIVE == which) {
+                                if (presenter != null) {
+                                    // Delete cart item
+                                    presenter.deleteShoppingCartItem(
+                                            getAdapterPosition(),
+                                            itemValue.id);
+                                }
+                            }
+                        }
+                    },
+                    context.getString(R.string.btn_shopping_cart_confirm_deletion),  // YES
+                    context.getString(R.string.btn_negative_cancel)  // NO
+                );
 
-                    // Delete cart item
-                    presenter.deleteShoppingCartItem(itemValue.id);
-                }
             }
+        }
+
+        private int controlItemQuantity(int currentQuantity, int maxQuantity, boolean isAdd) {
+            if (isAdd && currentQuantity < maxQuantity) {
+                currentQuantity = currentQuantity + 1;
+            } else if (!isAdd && currentQuantity > 1) {
+                currentQuantity = currentQuantity - 1;
+            }
+
+            return currentQuantity;
         }
     }
 }

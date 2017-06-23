@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.httpConnection.AdRetrofit;
@@ -11,6 +12,7 @@ import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.presenter.IBrowseModelPresenter;
 import okhttp3.Credentials;
@@ -35,16 +37,34 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
 
     @Override
     public void requestSellerData(IBrowseModelPresenter presenter, int actionId) {
-        this.presenter = presenter;
-
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("Authorization", credential);
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
 
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("action_id", String.valueOf(actionId));
 
-        this.req.reqProductContent(headerMap, queryParams).enqueue(this);
+        this.req.reqProductContent(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                queryParams)
+                .enqueue(this);
+    }
+
+    @Override
+    public void requestSellerDataByCategory(IBrowseModelPresenter presenter, Category category) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("category_id", String.valueOf(category.getId()));
+        queryParams.put("category_name", category.getName());
+
+        this.req.reqProductContentByCategory(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                queryParams)
+                .enqueue(this);
+
     }
 
     @Override
@@ -54,6 +74,8 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
         products.addAll(((ProductDataRes) response.body()).results);
         if (products.size() > 0) {
             presenter.onProductsResponse(products);
+        } else {
+            presenter.updateViewState(UIState.NODATA);
         }
 
     }

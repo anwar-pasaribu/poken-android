@@ -23,6 +23,7 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.model.ShoppingCartModel;
 import id.unware.poken.ui.shoppingcart.presenter.ShoppingCartPresenter;
@@ -30,6 +31,7 @@ import id.unware.poken.ui.shoppingcart.view.adapter.ShoppingCartAdapter;
 import id.unware.poken.ui.shoppingorder.view.OrderActivity;
 
 import static id.unware.poken.R.id.recyclerView;
+import static id.unware.poken.R.id.select_dialog_listview;
 
 public class ShoppingCartActivity extends AppCompatActivity implements IShoppingCartView {
 
@@ -44,6 +46,8 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     private Unbinder unbinder;
 
     private ShoppingCartPresenter presenter;
+
+    private ArrayList<ShoppingCart> selectedShoppingCart = new ArrayList<>();
 
     private ArrayList<ShoppingCart> itemList = new ArrayList<>();
     private ShoppingCartAdapter shoppingCartAdapter;
@@ -68,12 +72,12 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
         presenter.getShoppingCartData();
 
         initView();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     private void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         setupShoppingCartList();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -94,7 +98,6 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     private void setupShoppingCartList() {
         // Init shopping cart list
         shoppingCartAdapter = new ShoppingCartAdapter(this, itemList, presenter);
-        shoppingCartAdapter.setHasStableIds(true);
         rvShoppingCart.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvShoppingCart.setHasFixedSize(true);
         rvShoppingCart.setAdapter(shoppingCartAdapter);
@@ -108,12 +111,21 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
 
     @Override
     public void showViewState(UIState uiState) {
+
+        if (this.isFinishing()) return; // Abort view related operation when Activity is N/A
+
         switch (uiState) {
             case LOADING:
+                btnContinueToPayment.setEnabled(false);
                 swipeRefreshLayout.setRefreshing(true);
                 break;
             case FINISHED:
+                btnContinueToPayment.setEnabled(true);
                 swipeRefreshLayout.setRefreshing(false);
+                break;
+            case ERROR:
+                btnContinueToPayment.setEnabled(false);
+                Utils.Logs('e', TAG, "Load data error.");
                 break;
         }
     }
@@ -127,13 +139,74 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     }
 
     @Override
-    public void updatePriceGrandTotal(String formattedPrice) {
+    public void updatePriceGrandTotal(double totalPrice) {
+        Utils.Logs('i', TAG, "Update grand total: " + StringUtils.formatCurrency(String.valueOf(totalPrice)));
+        tvTotalShoppingAmount.setText(StringUtils.formatCurrency(String.valueOf(totalPrice)));
+    }
 
+    @Override
+    public void onShoppingCartItemSelected(int itemPos, boolean isChecked, ShoppingCart shoppingCart) {
+        try {
+            if (isChecked) {
+                // Add selected item
+                if (!selectedShoppingCart.contains(shoppingCart)) {
+                    selectedShoppingCart.add(shoppingCart);
+                } else {
+                    Utils.Logs('e', TAG, "Shopping item " + shoppingCart.id + " already on list.");
+                }
+            } else {
+                boolean unCheckItem = selectedShoppingCart.remove(shoppingCart);
+                Utils.Logs('w', TAG, "Item un checked success --> " + unCheckItem);
+            }
+        } catch (UnsupportedOperationException e) {
+            e.printStackTrace();
+        }
+
+        presenter.calculateSelectedShoppingCarts(selectedShoppingCart);
+    }
+
+    @Override
+    public void onShoppingCartItemQuantityChanges(int itemPos, ShoppingCart shoppingCart) {
+        boolean isItemChecked = selectedShoppingCart.contains(shoppingCart);
+        try {
+            if (isItemChecked) {
+                int selectedItemPos = selectedShoppingCart.indexOf(shoppingCart);
+                if (selectedItemPos != -1) {
+                    selectedShoppingCart.set(selectedItemPos, shoppingCart);
+                } else {
+                    Utils.Logs('w', TAG, "Item id " + shoppingCart.id + " position is not available on selected list.");
+                }
+            } else {
+                Utils.Logs('w', TAG, "Item id " + shoppingCart.id + " is not checked.");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        presenter.calculateSelectedShoppingCarts(selectedShoppingCart);
     }
 
     @Override
     public void openShoppingOrder() {
         Intent shoppingOrderIntent = new Intent(this, OrderActivity.class);
         startActivity(shoppingOrderIntent);
+    }
+
+    @Override
+    public void toggleContinueOrderButton(boolean isActive) {
+        Utils.Log(TAG, "Toggle begin order button --> " + isActive);
+        btnContinueToPayment.setEnabled(isActive);
+    }
+
+    @Override
+    public void deleteShoppingCartItem(int deletedItemPos) {
+
+        try {
+            itemList.remove(deletedItemPos);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        shoppingCartAdapter.notifyItemRemoved(deletedItemPos);
     }
 }

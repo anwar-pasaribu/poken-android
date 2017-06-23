@@ -1,9 +1,5 @@
 package id.unware.poken.ui.home.view.adapter;
 
-/**
- * Created by pratap.kesaboyina on 24-12-2014.
- */
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,18 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
+import id.unware.poken.tools.StringUtils;
+import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
+/**
+ * Horizontal adapter for products
+ * @author Anwar Pasaribu
+ */
 public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAdapter.SingleItemRowHolder> {
 
     private ArrayList<Product> itemsList;
@@ -33,28 +35,31 @@ public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAd
         this.itemsList = itemsList;
         this.mContext = context;
         this.homePresenter = homePresenter;
+
+        for (Product product : itemsList) {
+        Utils.Logs('v', "ProductSectionAdapter", "Product name: " + product.name);
+        }
     }
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card_product, null);
-        SingleItemRowHolder mh = new SingleItemRowHolder(v);
-        return mh;
+        return new SingleItemRowHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SingleItemRowHolder holder, int i) {
+    public void onBindViewHolder(final SingleItemRowHolder holder, final int position) {
 
-        Product singleItem = itemsList.get(i);
+        final Product singleItem = itemsList.get(position);
+        final double productPrice = singleItem.price;
+        final String formattedProductPrice = StringUtils.formatCurrency((String.valueOf(productPrice)));
 
         holder.tvTitle.setText(singleItem.name);
-        holder.tvPrice.setText(String.valueOf(singleItem.price));
-
-        int productDimension = mContext.getResources().getDimensionPixelSize(R.dimen.img_grid_m);
+        holder.tvPrice.setText(formattedProductPrice);
 
         Picasso.with(mContext)
                 .load(singleItem.images.get(0).path)
-                .resize(productDimension, productDimension)
+                .resize(holder.productImageSizeM, holder.productImageSizeM)
                 .centerCrop()
                 .into(holder.itemImage);
     }
@@ -70,6 +75,8 @@ public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAd
         @BindView(R.id.tvPrice) TextView tvPrice;
 
         @BindView(R.id.itemImage) ImageView itemImage;
+
+        @BindDimen(R.dimen.img_grid_m) int productImageSizeM;
 
 
         public SingleItemRowHolder(View view) {

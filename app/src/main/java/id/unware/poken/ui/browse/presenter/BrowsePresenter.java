@@ -2,6 +2,7 @@ package id.unware.poken.ui.browse.presenter;
 
 import java.util.ArrayList;
 
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.ui.browse.model.IBrowseModel;
@@ -27,6 +28,11 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     @Override
     public void getProductDataByIntentId(int actionId) {
         model.requestSellerData(this, actionId);
+    }
+
+    @Override
+    public void getProductByCategory(Category category) {
+        model.requestSellerDataByCategory(this, category);
     }
 
     @Override

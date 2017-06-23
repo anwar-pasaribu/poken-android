@@ -1,8 +1,6 @@
 package id.unware.poken.ui.shoppingcart.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
@@ -10,8 +8,10 @@ import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
+import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.presenter.IShoppingCartModelPresenter;
-import okhttp3.Credentials;
 import retrofit2.Response;
 
 /**
@@ -21,9 +21,12 @@ import retrofit2.Response;
 
 public class ShoppingCartModel extends MyCallback implements IShoppingCartModel {
 
+    private static final String TAG = "ShoppingCartModel";
     final private PokenRequest req;
 
     private IShoppingCartModelPresenter presenter;
+
+    private int deletedItemPos = -1;
 
     public ShoppingCartModel() {
         req = AdRetrofit.getInstancePoken().create(PokenRequest.class);
@@ -31,31 +34,53 @@ public class ShoppingCartModel extends MyCallback implements IShoppingCartModel 
 
     @Override
     public void requestShoppingCartData(IShoppingCartModelPresenter presenter) {
-        this.presenter = presenter;
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
 
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("Authorization", credential);
+        // noinspection unchecked
+        req.reqShoppingCartContent(PokenCredentials.getInstance().getCredentialHashMap())
+                .enqueue(this);
+    }
 
-        req.reqShoppingCartContent(headerMap).enqueue(this);
+    @Override
+    public void deleteShoppingCartData(int deleteItemPos, long shoppingCartId, IShoppingCartModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.deletedItemPos = deleteItemPos;
+
+        // noinspection unchecked
+        req.deleteShoppingCartContent(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                shoppingCartId
+        ).enqueue(this);
     }
 
     @Override
     public void onSuccess(Response response) {
-
-        presenter.updateViewState(UIState.FINISHED);
-
-        ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
-        shoppingCarts.addAll(((ShoppingCartDataRes) response.body()).results);
-        presenter.onShoppingCartDataResponse(shoppingCarts);
+        Utils.Log(TAG, "On network request success: \"" + String.valueOf(response.body()) + "\"");
+        if(response.code() == 204) {
+            // No body for data DELETE
+            Utils.Log(TAG, "No body content. Deleted item pos: " + deletedItemPos);
+            presenter.onShoppingCartDeleted(deletedItemPos);
+        } else if (response.code() == 200){
+            presenter.updateViewState(UIState.FINISHED);
+            ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
+            shoppingCarts.addAll(((ShoppingCartDataRes) response.body()).results);
+            presenter.onShoppingCartDataResponse(shoppingCarts);
+        }
     }
 
     @Override
     public void onMessage(String msg, int status) {
-
+        if (status == Constants.NETWORK_CALLBACK_FAILURE) {
+            presenter.updateViewState(UIState.ERROR);
+        }
     }
 
     @Override

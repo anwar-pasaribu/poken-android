@@ -42,6 +42,8 @@
     <dimen name="height_100dp">90dp</dimen>
     <dimen name="icon_24dp">24dp</dimen>
 
+    <dimen name="product_quantity_control_width">100dp</dimen>
+
     <dimen name="default_button_radius">0dp</dimen>
     <dimen name="shadow_height_s">3dp</dimen>
     <dimen name="dimen_column_package_detail">120dp</dimen>

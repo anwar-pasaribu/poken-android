@@ -34,6 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/clickable_size_64">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/separator_view_lighter"
+            android:layout_alignParentTop="true"/>
+
         <Button
             android:id="@+id/btnBuy"
             android:theme="@style/MyButton"

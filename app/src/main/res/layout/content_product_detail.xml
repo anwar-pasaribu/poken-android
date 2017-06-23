@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/product2"
+            tools:src="@drawable/product2"
             app:layout_constraintDimensionRatio="h,4:3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/item_gap_m"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="Nama Barang dengan batasan jumlah baris 3"
+            tools:text="Nama Barang dengan batasan jumlah baris 3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
@@ -45,7 +45,7 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="Rp 450.000"
+            tools:text="Rp 450.000"
             android:textColor="@color/colorAccent"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="45"
+            tools:text="45"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/viewSep" />
@@ -80,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_margin"
-            android:text="Stok"
+            android:text="@string/lbl_product_detail_stock"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/guideline1"
             app:layout_constraintTop_toBottomOf="@+id/tvProductStock" />
@@ -91,7 +91,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="15"
+            tools:text="15"
             app:layout_constraintLeft_toLeftOf="@+id/guideline1"
             app:layout_constraintRight_toLeftOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/viewSep" />
@@ -101,7 +101,7 @@
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Terjual"
+            android:text="@string/lbl_product_detail_sold"
             app:layout_constraintLeft_toLeftOf="@+id/guideline1"
             app:layout_constraintRight_toLeftOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/tvProductSold" />
@@ -112,7 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="30"
+            tools:text="30"
             app:layout_constraintLeft_toLeftOf="@+id/guideline2"
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/viewSep" />
@@ -122,7 +122,7 @@
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Sisa"
+            android:text="@string/lbl_product_detail_leftover"
             app:layout_constraintLeft_toLeftOf="@+id/guideline2"
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tvProductLeft" />
@@ -136,7 +136,7 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
-            android:text="@string/large_text"
+            tools:text="@string/large_text"
             android:maxLines="5"
             android:ellipsize="end"
             android:paddingBottom="@dimen/text_margin"
@@ -162,7 +162,7 @@
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Kejora Busana"
+            tools:text="Kejora Busana"
             app:layout_constraintTop_toTopOf="@+id/ivSellerAvatar"
             app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
             app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel" />
@@ -173,7 +173,7 @@
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Padangsidimpuan"
+            tools:text="Padangsidimpuan"
             app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
             app:layout_constraintTop_toBottomOf="@+id/tvSellerName"/>
 

@@ -33,6 +33,12 @@
         android:layout_gravity="bottom"
         android:background="@android:color/white">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/separator_view_lighter"
+            android:layout_alignParentTop="true"/>
+
         <TextView
             android:id="@+id/tvTotalShoppingAmountLabel"
             style="@style/TextCaption"
@@ -40,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:layout_marginTop="@dimen/item_gap_l"
-            android:text="Total Belanja"
+            android:text="@string/lbl_shopping_cart_total_amount"
             android:textAllCaps="true" />
 
         <TextView
@@ -51,7 +57,7 @@
             android:layout_below="@+id/tvTotalShoppingAmountLabel"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="Rp 450.000"
+            tools:text="Rp 450.000"
             android:textAllCaps="true" />
 
         <Button

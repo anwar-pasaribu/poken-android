@@ -13,8 +13,15 @@ import id.unware.poken.ui.view.BaseView;
  */
 
 public interface IShoppingCartView extends BaseView {
-    void populateShoppingCarts(ArrayList<ShoppingCart> shoppingCarts);
-    void updatePriceGrandTotal(String formattedPrice);
+    void deleteShoppingCartItem(int deletedItemPos);
 
+    void populateShoppingCarts(ArrayList<ShoppingCart> shoppingCarts);
+
+    void onShoppingCartItemSelected(int itemPos, boolean isChecked, ShoppingCart shoppingCart);
+    void onShoppingCartItemQuantityChanges(int itemPos, ShoppingCart shoppingCart);
     void openShoppingOrder();
+
+    void toggleContinueOrderButton(boolean isActive);
+
+    void updatePriceGrandTotal(double totalPrice);
 }

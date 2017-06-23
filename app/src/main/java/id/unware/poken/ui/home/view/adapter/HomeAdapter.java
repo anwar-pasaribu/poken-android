@@ -21,6 +21,7 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.models.SectionDataModel;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
@@ -124,7 +125,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void configureCategoryRow(CategoryRowHolder holder, int pos) {
         ArrayList<Category> singleSectionItems = dataList.get(pos).getCategories();
 
-        CategorySectionAdapter itemListDataAdapter = new CategorySectionAdapter(mContext, singleSectionItems);
+        CategorySectionAdapter itemListDataAdapter = new CategorySectionAdapter(mContext, singleSectionItems, homePresenter);
 
         holder.recycler_view_list.setHasFixedSize(true);
         holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -136,7 +137,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void configureItemProductRow(ItemRowHolder holder, int pos) {
 
         // Product section found
-        if (dataList.get(pos).getSection() != null) {
+        if (dataList.get(pos).getSection() != null
+                && dataList.get(pos).getSection().section_action_id == Constants.HOME_SECTION_SALE_PRODUCT) {
             final Section section = dataList.get(pos).getSection();
             final String sectionName = section.name;
             final int itemPos = holder.getAdapterPosition();
@@ -145,7 +147,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.itemTitle.setText(sectionName);
 
             ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(mContext, products, homePresenter);
-            itemListDataAdapter.setHasStableIds(true);
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
@@ -160,7 +161,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         } else {
-            Toast.makeText(holder.itemView.getContext(), "Product section not available", Toast.LENGTH_SHORT).show();
+            Utils.Log(TAG, "Product section not available");
         }
     }
 
@@ -168,7 +169,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         // Seller section found
         if (dataList.get(pos).getSection() != null
-                && dataList.get(pos).getSection().top_sellers.size() > 0) {
+                && dataList.get(pos).getSection().section_action_id == Constants.HOME_SECTION_TOP_SELLER) {
             final int itemPos = holder.getAdapterPosition();
             final Section section = dataList.get(pos).getSection();
             final String sectionName = section.name;
@@ -178,7 +179,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.itemTitle.setText(sectionName);
 
             SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(mContext, singleSectionItems, homePresenter);
-            itemListDataAdapter.setHasStableIds(true);
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
@@ -193,7 +193,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
         } else {
-            Toast.makeText(holder.itemView.getContext(), "Product section not available", Toast.LENGTH_SHORT).show();
+            Utils.Log(TAG, "Product section not available");
         }
     }
 

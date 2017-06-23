@@ -28,8 +28,13 @@ public class Constants {
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
-    public static final java.lang.String GENERAL_INTENT_ID = "intent_id";
-    public static final java.lang.String GENERAL_INTENT_VALUE = "intent_val";
+    public static final String EXTRA_GENERAL_INTENT_ID = "INTENT_ID";
+    public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
+    public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
+    public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
+    public static final String EXTRA_CATEGORY_NAME = "CATEGORY_NAME";
+
+    public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
     public static boolean focusOnSender = false;
 

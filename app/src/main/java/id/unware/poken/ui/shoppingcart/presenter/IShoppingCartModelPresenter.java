@@ -13,4 +13,5 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface IShoppingCartModelPresenter extends BasePresenter {
     void onShoppingCartDataResponse(ArrayList<ShoppingCart> shoppingCarts);
+    void onShoppingCartDeleted(int deletedItemPos);
 }

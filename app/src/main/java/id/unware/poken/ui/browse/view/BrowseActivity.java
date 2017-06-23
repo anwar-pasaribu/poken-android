@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
@@ -39,6 +40,11 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     private int actionId = -1;
     private String actionName = "";
 
+    // CASE BROWSE BY CATEGORY
+    private boolean isBrowseByCategory = false;
+    private int categoryId = -1;
+    private String categoryName = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +53,20 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         unbinder = ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
-            actionId = getIntent().getExtras().getInt(Constants.GENERAL_INTENT_ID, -1);
-            actionName = getIntent().getExtras().getString(Constants.GENERAL_INTENT_VALUE, "");
+            Bundle extras = getIntent().getExtras();
+
+            actionId = extras.getInt(Constants.EXTRA_GENERAL_INTENT_ID, -1);
+            actionName = extras.getString(Constants.EXTRA_GENERAL_INTENT_VALUE, "");
+
+            // Browse by category
+            if (extras.containsKey(Constants.EXTRA_IS_BROWSE_BY_CATEGORY)) {
+                isBrowseByCategory = extras.getBoolean(Constants.EXTRA_IS_BROWSE_BY_CATEGORY, false);
+                categoryId = (int) extras.getLong(Constants.EXTRA_CATEGORY_ID, -1);
+                categoryName = extras.getString(Constants.EXTRA_CATEGORY_NAME, "");
+            }
         }
 
         presenter = new BrowsePresenter(new BrowseModel(), this);
-        presenter.getProductDataByIntentId(actionId);
 
         initView();
     }
@@ -70,11 +84,28 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getProductDataByIntentId(actionId);
+                requestContent();
             }
         });
 
         initBrowseListView();
+
+        requestContent();
+    }
+
+    private void requestContent() {
+        if (!isBrowseByCategory) {
+            presenter.getProductDataByIntentId(actionId);
+        } else {
+
+            Utils.Logs('i', TAG, "Request product data by category. " +
+                    "Name: " + categoryName + ", ID: " + categoryId);
+
+            Category category = new Category();
+            category.setId(categoryId);
+            category.setName(categoryName);
+            presenter.getProductByCategory(category);
+        }
     }
 
     private void setupToolbarView() {

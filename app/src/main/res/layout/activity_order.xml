@@ -33,6 +33,12 @@
         android:layout_gravity="bottom"
         android:background="@android:color/white">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/separator_view_lighter"
+            android:layout_alignParentTop="true"/>
+
         <TextView
             android:id="@+id/tvTotalShoppingAmountLabel"
             style="@style/TextCaption"

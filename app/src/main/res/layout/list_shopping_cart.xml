@@ -2,19 +2,19 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
     android:layout_marginBottom="@dimen/item_gap_l"
-    android:paddingTop="@dimen/item_gap_m"
-    android:paddingBottom="@dimen/item_gap_m">
+    android:background="@android:color/white"
+    android:paddingBottom="@dimen/item_gap_m"
+    android:paddingTop="@dimen/item_gap_m">
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/cbSelectAllStoreItem"
-        android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l" />
 
     <ImageView
         android:id="@+id/ivStoreAvatar"
@@ -30,8 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginRight="@dimen/item_gap_l"
-        android:layout_marginTop="@dimen/item_gap_s"
         android:layout_toRightOf="@+id/ivStoreAvatar"
+        android:layout_alignBottom="@+id/ivStoreAvatar"
+        android:layout_alignTop="@+id/ivStoreAvatar"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:ellipsize="middle"
         tools:text="Kejora Busana" />
 
     <View
@@ -59,52 +63,88 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewStoreLine"
         android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_m"
         android:layout_toLeftOf="@+id/btnDeleteCartItem"
-        android:layout_marginRight="@dimen/item_gap_m"
         android:layout_toRightOf="@id/ivProductImage"
-        android:ellipsize="middle"
+        android:ellipsize="end"
         android:maxLines="1"
         tools:text="Baju Orange GRATIS pengiriman" />
 
     <ImageButton
         android:id="@+id/btnDeleteCartItem"
+        android:layout_width="@dimen/icon_24dp"
+        android:layout_height="@dimen/icon_24dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/viewStoreLine"
-        android:layout_marginTop="@dimen/item_gap_m"
         android:layout_marginRight="@dimen/item_gap_l"
-        android:layout_width="@dimen/clickable_size_32"
-        android:layout_height="@dimen/clickable_size_32"
-        android:tint="@color/btn_higlight_accent"
+        android:layout_marginTop="@dimen/item_gap_m"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@drawable/ic_close_black_24dp"/>
+        app:srcCompat="@drawable/ic_close_black_24dp" />
 
-
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spinnerQuantity"
+    <android.support.v7.widget.CardView
+        android:id="@+id/parentQuantityControl"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/clickable_size_64"
-        android:gravity="left|center_vertical"
+        android:layout_height="@dimen/clickable_size_32"
         android:layout_below="@+id/tvProductName"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_marginBottom="@dimen/item_gap_m"
         android:layout_toRightOf="@id/ivProductImage"
-        android:textAlignment="center" />
+        app:cardBackgroundColor="@color/white_100">
+
+        <RelativeLayout
+            android:layout_width="@dimen/product_quantity_control_width"
+            android:layout_height="@dimen/clickable_size_32"
+            android:minWidth="@dimen/clickable_size_64">
+
+            <ImageButton
+                android:id="@+id/btnAddQuantity"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_add_24dp" />
+
+            <TextView
+                android:id="@+id/textItemQuantity"
+                style="@style/TextListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/btnAddQuantity"
+                android:layout_toRightOf="@+id/btnSubstractQuantity"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textStyle="bold"
+                tools:text="99999" />
+
+            <ImageButton
+                android:id="@+id/btnSubstractQuantity"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_remove_24dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/tvProductTotalPrice"
         style="@style/TextListTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/parentQuantityControl"
         android:layout_below="@+id/tvProductName"
-        android:layout_marginLeft="@dimen/item_gap_m"
-        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_marginRight="@dimen/item_gap_l"
-        android:layout_toRightOf="@+id/spinnerQuantity"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_toRightOf="@+id/parentQuantityControl"
         android:ellipsize="middle"
+        android:gravity="center_vertical"
         android:maxLines="2"
-        tools:text="Rp 450.000"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="Rp 450.000" />
 
 </RelativeLayout>

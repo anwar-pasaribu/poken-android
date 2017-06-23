@@ -10,6 +10,7 @@ import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Path;
@@ -31,6 +32,9 @@ public interface PokenRequest {
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_CART)
     Call<ShoppingCartDataRes> reqShoppingCartContent(@HeaderMap Map<String, String> headerMap);
 
+    @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
+    Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);
+
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_ORDER)
     Call<ShoppingOrderDataRes> reqShoppingOrderContent(@HeaderMap Map<String, String> headerMap);
 
@@ -42,5 +46,8 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
     Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> sellerData);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    Call<ProductDataRes> reqProductContentByCategory(@HeaderMap Map<String, String> credentials, @QueryMap Map<String, String> category);
 
 }

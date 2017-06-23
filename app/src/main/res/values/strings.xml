@@ -585,6 +585,12 @@
     <string name="title_activity_seller">Toko</string>
     <string name="title_activity_browse">Browse</string>
     <string name="btn_see_all_section_content">Lihat Semua</string>
+    <string name="lbl_product_detail_stock">Stok</string>
+    <string name="lbl_product_detail_sold">Terjual</string>
+    <string name="lbl_product_detail_leftover">Sisa</string>
+    <string name="lbl_shopping_cart_total_amount">Total Belanja</string>
+    <string name="msg_shopping_cart_confirm_deletion">Anda yakin akan menghapus barang dari troli?</string>
+    <string name="btn_shopping_cart_confirm_deletion">Hapus Barang</string>
 
 
 </resources>

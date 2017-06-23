@@ -1,5 +1,6 @@
 package id.unware.poken.ui.home.presenter;
 
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
@@ -11,9 +12,11 @@ import id.unware.poken.domain.Seller;
 
 public interface IHomePresenter {
     void getHomeData();
+
     void onSectionActionClick(int position, Section section);
 
+    void onCategoryClick(int position, Category category);
+    void onSellerClick(int position, Seller seller);
     void onProductClick(int position, Product product);
 
-    void onSellerClick(int position, Seller seller);
 }

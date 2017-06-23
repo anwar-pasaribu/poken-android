@@ -9,4 +9,5 @@ import id.unware.poken.ui.shoppingcart.presenter.IShoppingCartModelPresenter;
 
 public interface IShoppingCartModel {
     void requestShoppingCartData(IShoppingCartModelPresenter presenter);
+    void deleteShoppingCartData(int deleteItemPos, long shoppingCartId, IShoppingCartModelPresenter presenter);
 }

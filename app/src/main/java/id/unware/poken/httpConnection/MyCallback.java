@@ -15,6 +15,7 @@ public abstract class MyCallback implements retrofit2.Callback {
 
     @Override
     public void onResponse(Call call, Response response) {
+        Utils.Log("MyCallback", "Network response call-request-method: " + call.request().method());
         Utils.Log("MyCallback", "Network response code: " + response.code());
 
         if (response.isSuccessful()) {
