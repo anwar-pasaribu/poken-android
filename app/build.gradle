@@ -34,7 +34,6 @@ android {
 
         resConfigs "en", "id"
 
-        // TODO Test
         buildConfigField 'String', 'TRACK_CODE_SAMPLE', '"020103975850"'
         buildConfigField 'String', 'USER_EMAIL', '"maheswara@gmail.com"'
         buildConfigField 'String', 'USER_PASSWORD', '"qwe123qwe"'
@@ -71,6 +70,10 @@ android {
 
             resValue "string", "app_name", "Poken Psp Beta"
 
+            // FOR DEBUG PURPOSE
+            minSdkVersion 21
+            resConfigs "id", "xxhdpi"
+
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
 
@@ -96,6 +99,11 @@ android {
     // Google Volley dependencies
     useLibrary 'org.apache.http.legacy'
 
+    // DISABLE PNG CRUCHING ON DEBUG MODE
+    if (project.hasProperty('devBuild')) {
+        aaptOptions.cruncherEnabled = false
+    }
+
 }
 
 dependencies {
@@ -105,7 +113,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // Advanced recycler view
     //ANDROID SUPPORT LIBRARY
     compile "com.android.support:appcompat-v7:${supportLibrary}"
     compile "com.android.support:design:${supportLibrary}"
@@ -124,22 +131,24 @@ dependencies {
     compile "com.google.android.gms:play-services-analytics:${playServices}"
     compile "com.google.android.gms:play-services-plus:${playServices}"
     compile "com.google.android.gms:play-services-auth:${playServices}"
-    //BUTTER KNIFE
-    //RETROFIT HTTP REQUEST
-    //IMAGE
-    //VIEW PAGER INDICATOR
+    // Advanced recycler view
     compile 'eu.davidea:flexible-adapter:5.0.0-b8'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //BUTTER KNIFE
     compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    //RETROFIT HTTP REQUEST
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //IMAGE
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
+    //VIEW PAGER INDICATOR
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
+
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
 
 // Firebase for google-services.json parser
