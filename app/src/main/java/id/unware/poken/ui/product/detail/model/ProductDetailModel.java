@@ -1,12 +1,21 @@
 package id.unware.poken.ui.product.detail.model;
 
+import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.ui.product.detail.presenter.IProductDetailModelPresenter;
 import retrofit2.Response;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * @author Anwar Pasaribu
@@ -26,17 +35,45 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
 
     @Override
     public void requestProductData(long productId, IProductDetailModelPresenter presenter) {
-        this.presenter = presenter;
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
 
         // Loading state to view
         presenter.updateViewState(UIState.LOADING);
 
+        // noinspection unchecked
         req.reqSingleProductDetail(productId).enqueue(this);
     }
 
     @Override
+    public void postProductToShoppingCart(long productId, IProductDetailModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        Map<String, String> postBody = new HashMap<>();
+        postBody.put("product_id", String.valueOf(productId));
+        postBody.put("quantity", "1");  // Add one quantity
+
+        // noinspection unchecked
+        req.postNewOrUpdateShoppingCart(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                postBody)
+                .enqueue(this);
+    }
+
+    @Override
     public void onSuccess(Response response) {
-        presenter.onProductDetailDataResponse((Product) response.body());
+
+        Object o = response.body();
+
+        if (o instanceof Product) {
+            presenter.onProductDetailDataResponse((Product) o);
+        } else if (o instanceof ShoppingCart) {
+            presenter.onShoppingCartCreateOrUpdateResponse((ShoppingCart) o);
+        }
+
     }
 
     @Override

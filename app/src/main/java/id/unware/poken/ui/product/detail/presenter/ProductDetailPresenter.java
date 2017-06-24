@@ -1,6 +1,7 @@
 package id.unware.poken.ui.product.detail.presenter;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
@@ -31,6 +32,7 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     @Override
     public void onBuyNow(long productId) {
         Utils.Log("Buy now on product id:", String.valueOf(productId));
+        model.postProductToShoppingCart(productId, this);
     }
 
     @Override
@@ -48,5 +50,10 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
 
         view.populateProductGeneralInfo(product);
 
+    }
+
+    @Override
+    public void onShoppingCartCreateOrUpdateResponse(ShoppingCart cart) {
+        view.showShoppingCartScreen(cart);
     }
 }

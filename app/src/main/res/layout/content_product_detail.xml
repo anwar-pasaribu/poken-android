@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayoutParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -22,7 +23,8 @@
             tools:src="@drawable/product2"
             app:layout_constraintDimensionRatio="h,4:3"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:contentDescription="@string/hint_product_images"/>
 
         <TextView
             android:id="@+id/tvProductName"
@@ -154,7 +156,8 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginTop="@dimen/text_margin"
             app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tvSellerName"
@@ -184,12 +187,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.20" />
+
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.35" />
+
         <android.support.constraint.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
@@ -200,4 +205,4 @@
     </android.support.constraint.ConstraintLayout>
 
 
-</android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

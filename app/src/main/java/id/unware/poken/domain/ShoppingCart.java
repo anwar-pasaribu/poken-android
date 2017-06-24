@@ -10,7 +10,12 @@ import java.util.Date;
  */
 
 public class ShoppingCart {
+
     public long id;
+
+    /** INSERT ONLY - API response when inserting new shopping cart*/
+    public long product_id;
+
     public Product product;
     public Date date;
     public int quantity;

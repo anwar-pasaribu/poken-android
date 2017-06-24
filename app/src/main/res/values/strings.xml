@@ -591,6 +591,7 @@
     <string name="lbl_shopping_cart_total_amount">Total Belanja</string>
     <string name="msg_shopping_cart_confirm_deletion">Anda yakin akan menghapus barang dari troli?</string>
     <string name="btn_shopping_cart_confirm_deletion">Hapus Barang</string>
+    <string name="hint_product_images">Gambar produk</string>
 
 
 </resources>

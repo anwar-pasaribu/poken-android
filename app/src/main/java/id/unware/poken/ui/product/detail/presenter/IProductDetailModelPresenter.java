@@ -1,6 +1,7 @@
 package id.unware.poken.ui.product.detail.presenter;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -10,4 +11,6 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface IProductDetailModelPresenter extends BasePresenter {
     void onProductDetailDataResponse(Product product);
+
+    void onShoppingCartCreateOrUpdateResponse(ShoppingCart cart);
 }

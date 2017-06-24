@@ -1,5 +1,6 @@
 package id.unware.poken.httpConnection;
 
+import java.net.URLEncoder;
 import java.util.Map;
 
 import id.unware.poken.domain.CustomerCollectionDataRes;
@@ -7,12 +8,16 @@ import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -31,6 +36,10 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_CART)
     Call<ShoppingCartDataRes> reqShoppingCartContent(@HeaderMap Map<String, String> headerMap);
+
+    @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_SHOPPING_CART)
+    Call<ShoppingCart> postNewOrUpdateShoppingCart(@HeaderMap Map<String, String> headerMap, @FieldMap() Map<String, String> postData);
 
     @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
     Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);

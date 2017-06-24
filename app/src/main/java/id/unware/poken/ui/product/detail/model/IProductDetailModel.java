@@ -9,4 +9,6 @@ import id.unware.poken.ui.product.detail.presenter.IProductDetailModelPresenter;
 
 public interface IProductDetailModel {
     void requestProductData(long productId, IProductDetailModelPresenter presenter);
+
+    void postProductToShoppingCart(long productId, IProductDetailModelPresenter presenter);
 }

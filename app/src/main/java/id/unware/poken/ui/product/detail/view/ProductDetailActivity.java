@@ -2,6 +2,7 @@ package id.unware.poken.ui.product.detail.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,6 +20,7 @@ import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
@@ -29,6 +31,8 @@ import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 public class ProductDetailActivity extends AppCompatActivity implements IProductDetailView {
 
     private static final String TAG = "ProductDetailActivity";
+
+    @BindView(R.id.swipeRefreshLayoutParent) SwipeRefreshLayout swipeRefreshLayoutParent;
 
     @BindView(R.id.ivProduct) ImageView ivProduct;
     @BindView(R.id.tvProductName) TextView tvProductName;
@@ -71,12 +75,24 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openShoppingCartAndInsertProduct(productId);
+                if (presenter != null) {
+                    presenter.onBuyNow(productId);
+                }
+            }
+        });
+
+        swipeRefreshLayoutParent.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (presenter != null) {
+                    presenter.getProductData(productId);
+                }
             }
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -110,6 +126,11 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     @Override
     public void updateProductPrice(String formattedPrice) {
         tvProductPrice.setText(formattedPrice);
+    }
+
+    @Override
+    public void showShoppingCartScreen(ShoppingCart shoppingCart) {
+        openShoppingCartAndInsertProduct(productId);
     }
 
     @Override

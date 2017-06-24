@@ -153,6 +153,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             holder.recycler_view_list.setNestedScrollingEnabled(false);
 
+            holder.btnMore.setVisibility(View.VISIBLE);
             holder.btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -162,6 +163,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         } else {
             Utils.Log(TAG, "Product section not available");
+            holder.btnMore.setVisibility(View.GONE);
         }
     }
 
