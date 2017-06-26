@@ -31,7 +31,8 @@
         <activity
             android:name=".ui.home.view.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +41,8 @@
         </activity>
         <activity
             android:name=".ui.splash.SplashScreen"
-            android:theme="@style/AppTheme.ActionBar.Transparent">
+            android:theme="@style/AppTheme.ActionBar.Transparent"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.TrackPackage.TrackingMain.view.TrackingActivity"
@@ -153,7 +155,8 @@
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:label="@string/title_activity_product_detail"
             android:parentActivityName=".ui.home.view.HomeActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
@@ -175,27 +178,32 @@
         <activity
             android:name=".ui.shoppingcart.view.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.shoppingorder.view.OrderActivity"
             android:label="@string/title_activity_order"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.payment.view.PaymentActivity"
             android:label="@string/title_activity_payment"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.main.view.MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.profile.view.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:parentActivityName=".ui.home.view.HomeActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
@@ -203,13 +211,15 @@
         <activity
             android:name=".ui.seller.view.SellerActivity"
             android:label="@string/title_activity_seller"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.browse.view.BrowseActivity"
             android:label="@string/title_activity_browse"
             android:parentActivityName=".ui.home.view.HomeActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
