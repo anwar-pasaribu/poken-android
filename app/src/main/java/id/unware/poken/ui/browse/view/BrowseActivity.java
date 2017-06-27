@@ -63,6 +63,8 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
                 isBrowseByCategory = extras.getBoolean(Constants.EXTRA_IS_BROWSE_BY_CATEGORY, false);
                 categoryId = (int) extras.getLong(Constants.EXTRA_CATEGORY_ID, -1);
                 categoryName = extras.getString(Constants.EXTRA_CATEGORY_NAME, "");
+
+                Utils.Log(TAG, " Browse by category. ID: " + categoryId + ", name: " + categoryName);
             }
         }
 

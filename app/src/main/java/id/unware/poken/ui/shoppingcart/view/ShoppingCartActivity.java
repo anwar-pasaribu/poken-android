@@ -2,6 +2,7 @@ package id.unware.poken.ui.shoppingcart.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -193,9 +194,16 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     }
 
     @Override
-    public void toggleContinueOrderButton(boolean isActive) {
+    public void toggleContinueOrderButton(final boolean isActive) {
         Utils.Log(TAG, "Toggle begin order button --> " + isActive);
-        btnContinueToPayment.setEnabled(isActive);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (btnContinueToPayment != null) {
+                    btnContinueToPayment.setEnabled(isActive);
+                }
+            }
+        }, this.getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
     @Override
@@ -208,5 +216,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
         }
 
         shoppingCartAdapter.notifyItemRemoved(deletedItemPos);
+
+        if (itemList.isEmpty() || shoppingCartAdapter.getItemCount() <= 0) {
+            toggleContinueOrderButton(false);
+        }
     }
 }

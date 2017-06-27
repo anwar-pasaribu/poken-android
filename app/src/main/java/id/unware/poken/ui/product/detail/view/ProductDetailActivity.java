@@ -136,6 +136,15 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     @Override
     public void showViewState(UIState uiState) {
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
+        switch (uiState) {
+            case LOADING:
+                // swipeRefreshLayoutParent.setRefreshing(true);
+                Utils.Log(TAG, "Loading ");
+                break;
+            case FINISHED:
+                swipeRefreshLayoutParent.setRefreshing(false);
+                break;
+        }
 
     }
 

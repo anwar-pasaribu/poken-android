@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import id.unware.poken.R;
 import id.unware.poken.domain.ShoppingOrder;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.customercollection.view.CustomerCollectionFragment;
@@ -37,6 +38,8 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
     private ViewPager mViewPager;
 
+    private boolean isLaunchFavorite = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,9 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -55,6 +60,17 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        // In case launch Favorite tab from Home screen
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            if (bundle.containsKey(Constants.EXTRA_IS_LAUNCH_FAVORITE)) {
+                isLaunchFavorite = bundle.getBoolean(Constants.EXTRA_IS_LAUNCH_FAVORITE, false);
+                if (isLaunchFavorite) {
+                    mViewPager.setCurrentItem(1 /*Favorite tab*/);
+                }
+            }
+        }
 
     }
 

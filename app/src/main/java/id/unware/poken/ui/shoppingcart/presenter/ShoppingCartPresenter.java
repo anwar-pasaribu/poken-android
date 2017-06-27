@@ -91,8 +91,8 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
     @Override
     public void onShoppingCartDataResponse(ArrayList<ShoppingCart> shoppingCarts) {
         view.populateShoppingCarts(shoppingCarts);
-        view.toggleContinueOrderButton(false);
         view.updatePriceGrandTotal(0D);
+        view.toggleContinueOrderButton(false);
     }
 
     @Override

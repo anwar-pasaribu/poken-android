@@ -4,8 +4,8 @@ package id.unware.poken.tools;
  * Created by marzellaalfamega on 4/7/16.
  * Various constants.
  */
-public class Constants {
 
+public class Constants {
     public static final String KEY_DOMAIN_ITEM_ID = "id";
 
     public static final int TAG_HEADER_RECENT = -99;
@@ -31,6 +31,7 @@ public class Constants {
     public static final String EXTRA_GENERAL_INTENT_ID = "INTENT_ID";
     public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
     public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
+    public static final String EXTRA_IS_LAUNCH_FAVORITE = "is_launch_favo";
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
     public static final String EXTRA_CATEGORY_NAME = "CATEGORY_NAME";
 

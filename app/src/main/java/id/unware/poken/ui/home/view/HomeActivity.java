@@ -2,6 +2,7 @@ package id.unware.poken.ui.home.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -205,13 +206,21 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     @Override
     public void showCategoryDetailScreen(Category category) {
-        Utils.Logs('i', TAG, "Start Browse by Category. id: " + category.getId());
-        Intent browsePage = new Intent(this, BrowseActivity.class);
-        browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, Constants.INTENT_BROWSE_BY_CATEGORY);
-        browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_VALUE, category.getName());
-        browsePage.putExtra(Constants.EXTRA_IS_BROWSE_BY_CATEGORY, true);
-        browsePage.putExtra(Constants.EXTRA_CATEGORY_ID, category.getId());
-        this.startActivity(browsePage);
+        Utils.Logs('i', TAG, "Start Browse by Category. id: " + category.getId() + ", name: " + category.getName());
+        if (category.getName().equals("Favorit")) {
+            Intent profileFavorite = new Intent(this, ProfileActivity.class);
+            profileFavorite.putExtra(Constants.EXTRA_IS_LAUNCH_FAVORITE, true /*Launch favorite tab*/);
+            this.startActivity(profileFavorite);
+
+        } else {
+            Intent browsePage = new Intent(this, BrowseActivity.class);
+            browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, Constants.INTENT_BROWSE_BY_CATEGORY);
+            browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_VALUE, category.getName());
+            browsePage.putExtra(Constants.EXTRA_IS_BROWSE_BY_CATEGORY, true);
+            browsePage.putExtra(Constants.EXTRA_CATEGORY_ID, category.getId());
+            browsePage.putExtra(Constants.EXTRA_CATEGORY_NAME, category.getName());
+            this.startActivity(browsePage);
+        }
     }
 
     @Override
