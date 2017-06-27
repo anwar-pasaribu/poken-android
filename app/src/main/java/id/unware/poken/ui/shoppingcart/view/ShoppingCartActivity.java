@@ -210,15 +210,25 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     public void deleteShoppingCartItem(int deletedItemPos) {
 
         try {
-            itemList.remove(deletedItemPos);
+            // Remove from selected shopping cart when available
+            ShoppingCart cartItem = itemList.get(deletedItemPos);
+            if (cartItem != null) {
+                // Remove selected item
+                boolean isSelectedItemRemoved = selectedShoppingCart.remove(cartItem);
+                if (isSelectedItemRemoved) {
+                    Utils.Logs('i', TAG, "Selected item has deleted.");
+                }
+
+                // Remove item from original list
+                itemList.remove(deletedItemPos);
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
 
         shoppingCartAdapter.notifyItemRemoved(deletedItemPos);
 
-        if (itemList.isEmpty() || shoppingCartAdapter.getItemCount() <= 0) {
-            toggleContinueOrderButton(false);
-        }
+        // Recheck shopping cart grand total
+        presenter.calculateSelectedShoppingCarts(selectedShoppingCart);
     }
 }
