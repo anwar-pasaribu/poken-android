@@ -13,25 +13,10 @@ import id.unware.poken.ui.home.view.HomeActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
-    @BindView(R.id.ivSplash) ImageView ivSplash;
-    int idx = 0;
-    private long splashDelay = 500;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
-        ButterKnife.bind(this);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gotoMainPage();
-            }
-        }, splashDelay);
-    }
 
-    private void gotoMainPage() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();

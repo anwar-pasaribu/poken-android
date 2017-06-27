@@ -28,10 +28,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <!-- S: Add SplashActivity as splash screen instead load MainActivity first -->
         <activity
-            android:name=".ui.home.view.HomeActivity"
+            android:name=".ui.splash.SplashScreen"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"
+            android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- E: Add splash screen -->
+
         <activity
-            android:name=".ui.splash.SplashScreen"
-            android:theme="@style/AppTheme.ActionBar.Transparent"
+            android:name=".ui.home.view.HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>
         <activity

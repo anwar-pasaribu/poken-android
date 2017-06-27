@@ -30,6 +30,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- Style for Splash Screen -->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <!-- Define custom dialog theme here extending from base -->
     <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <!-- Define color properties as desired -->
