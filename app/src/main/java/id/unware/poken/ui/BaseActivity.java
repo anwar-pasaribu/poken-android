@@ -5,10 +5,6 @@ import android.view.MotionEvent;
 
 import id.unware.poken.tools.Utils;
 
-/**
- * Created by marzellaalfamega on 3/13/17.
- */
-
 public class BaseActivity extends AppCompatActivity {
 
     @Override

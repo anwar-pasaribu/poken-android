@@ -1,3 +1,7 @@
+repositories {
+    mavenCentral()
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
@@ -147,6 +151,8 @@ dependencies {
     compile 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
     //VIEW PAGER INDICATOR
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
+    //FACEBOOK SDKs
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     testCompile 'junit:junit:4.12'
 }

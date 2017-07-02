@@ -31,6 +31,7 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import com.facebook.FacebookSdk;
 
 
 public class PokenApp extends Application {

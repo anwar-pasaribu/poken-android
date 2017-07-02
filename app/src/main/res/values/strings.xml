@@ -356,7 +356,6 @@
     <string name="msg_google_auth_success">Autentikasi Google berhasil.</string>
     <string name="msg_authenticating">Otentikasi akun&#8230;</string>
     <string name="btn_repickup">Pickup ulang</string>
-    <string name="facebook_app_id">1147844828613244</string>
     <string name="fb_login_protocol_scheme">fb1147844828613244</string>
     <string name="hint_input_amount">0</string>
     <string name="hint_phone_number_example">123456</string>
@@ -592,6 +591,6 @@
     <string name="msg_shopping_cart_confirm_deletion">Anda yakin akan menghapus barang dari troli?</string>
     <string name="btn_shopping_cart_confirm_deletion">Hapus Barang</string>
     <string name="hint_product_images">Gambar produk</string>
-
+    <string name="facebook_app_id">426154887744117</string>
 
 </resources>

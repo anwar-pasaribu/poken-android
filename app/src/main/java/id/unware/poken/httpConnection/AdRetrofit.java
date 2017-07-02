@@ -13,9 +13,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by marzellamega on 4/26/16.
- */
 public class AdRetrofit {
 
     private static Retrofit instance;
