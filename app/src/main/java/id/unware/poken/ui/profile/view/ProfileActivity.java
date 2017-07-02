@@ -153,7 +153,11 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private final int POS_ORDER = 0,
+                    POS_SUBSCRIPTION = 1,
+                    TOTAL_PAGE = 2;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -161,13 +165,18 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) {
+
+            if (position == this.POS_ORDER) {
                 return OrdersFragment.newInstance(1 /*Column count*/);
-            } else if (position == 1) {
+
+            /*} else if (position == 1) {
                 return CustomerCollectionFragment.newInstance(2);
-            } else if (position == 2) {
+            */
+
+            } else if (position == this.POS_SUBSCRIPTION) {
                 return CustomerSubscriptionFragment.newInstance(1);
             }
+
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(position + 1);
@@ -176,17 +185,17 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return this.TOTAL_PAGE;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0:
+                case POS_ORDER:
                     return "Pesanan";
-                case 1:
-                    return "Favorit";
-                case 2:
+//                case 1:
+//                    return "Favorit";
+                case POS_SUBSCRIPTION:
                     return "Toko Langganan";
             }
             return null;
