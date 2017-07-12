@@ -7,6 +7,9 @@ package id.unware.poken.ui.product.detail.presenter;
 
 public interface IProductDetailPresenter {
     void getProductData(long productId);
+    void getShippingOptionData(long productId);
 
-    void onBuyNow(long productId);
+    void onBuyNow(long shippingOptionId, long productId);
+
+    void startShippingOptionsScreen();
 }

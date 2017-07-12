@@ -1,11 +1,11 @@
 package id.unware.poken.ui.product.detail.model;
 
-import android.widget.TextView;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
@@ -14,8 +14,6 @@ import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.ui.product.detail.presenter.IProductDetailModelPresenter;
 import retrofit2.Response;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * @author Anwar Pasaribu
@@ -28,10 +26,18 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
 
     private IProductDetailModelPresenter presenter;
 
+    private ArrayList<Shipping> shippings = new ArrayList<>();
+    private boolean isCod = false;
+
     public ProductDetailModel() {
         req = AdRetrofit.getInstancePoken().create(PokenRequest.class);
     }
 
+
+    @Override
+    public ArrayList<Shipping> getShippingOptions() {
+        return shippings;
+    }
 
     @Override
     public void requestProductData(long productId, IProductDetailModelPresenter presenter) {
@@ -47,13 +53,14 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
     }
 
     @Override
-    public void postProductToShoppingCart(long productId, IProductDetailModelPresenter presenter) {
+    public void postProductToShoppingCart(long shippingOptionId, long productId, IProductDetailModelPresenter presenter) {
         if (this.presenter == null) {
             this.presenter = presenter;
         }
 
         Map<String, String> postBody = new HashMap<>();
         postBody.put("product_id", String.valueOf(productId));
+        postBody.put("shipping_id", String.valueOf(shippingOptionId));
         postBody.put("quantity", "1");  // Add one quantity
 
         // noinspection unchecked
@@ -64,12 +71,30 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
     }
 
     @Override
+    public void loadShippingOptions() {
+
+        shippings.add(new Shipping(1, "POS Indonesia", 0));
+        shippings.add(new Shipping(2, "COD", 15000));
+
+        this.presenter.onShippingOptionListResponse(shippings);
+    }
+
+    @Override
+    public boolean isCodAvailable() {
+        return isCod;
+    }
+
+    @Override
     public void onSuccess(Response response) {
 
         Object o = response.body();
 
         if (o instanceof Product) {
+
+            this.isCod = ((Product) o).is_cod;
+
             presenter.onProductDetailDataResponse((Product) o);
+
         } else if (o instanceof ShoppingCart) {
             presenter.onShoppingCartCreateOrUpdateResponse((ShoppingCart) o);
         }

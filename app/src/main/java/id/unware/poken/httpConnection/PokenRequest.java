@@ -1,6 +1,5 @@
 package id.unware.poken.httpConnection;
 
-import java.net.URLEncoder;
 import java.util.Map;
 
 import id.unware.poken.domain.CustomerCollectionDataRes;
@@ -39,7 +38,9 @@ public interface PokenRequest {
 
     @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_SHOPPING_CART)
-    Call<ShoppingCart> postNewOrUpdateShoppingCart(@HeaderMap Map<String, String> headerMap, @FieldMap() Map<String, String> postData);
+    Call<ShoppingCart> postNewOrUpdateShoppingCart(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
 
     @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
     Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);

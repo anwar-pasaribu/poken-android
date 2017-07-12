@@ -28,14 +28,14 @@
         style="@style/TextBodyDefault"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivStoreAvatar"
+        android:layout_alignTop="@+id/ivStoreAvatar"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginRight="@dimen/item_gap_l"
         android:layout_toRightOf="@+id/ivStoreAvatar"
-        android:layout_alignBottom="@+id/ivStoreAvatar"
-        android:layout_alignTop="@+id/ivStoreAvatar"
+        android:ellipsize="middle"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:ellipsize="middle"
         tools:text="Kejora Busana" />
 
     <View
@@ -87,9 +87,9 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/clickable_size_32"
         android:layout_below="@+id/tvProductName"
+        android:layout_marginBottom="@dimen/item_gap_m"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_marginBottom="@dimen/item_gap_m"
         android:layout_toRightOf="@id/ivProductImage"
         app:cardBackgroundColor="@color/white_100">
 
@@ -146,5 +146,37 @@
         android:maxLines="2"
         android:textStyle="bold"
         tools:text="Rp 450.000" />
+
+    <ImageView
+        android:id="@+id/ivShippingIcon"
+        android:layout_width="@dimen/item_gap_l"
+        android:layout_height="@dimen/item_gap_l"
+        android:layout_below="@+id/ivProductImage"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:tint="@color/style_overlay_grey"
+        android:src="@drawable/ic_local_shipping_black_24dp" />
+
+    <TextView
+        android:id="@+id/tvSelectedShippingMethodLbl"
+        style="@style/TextBodySecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProductImage"
+        android:layout_marginLeft="@dimen/item_gap_s"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_toRightOf="@id/ivShippingIcon"
+        android:text="@string/lbl_shipping_method" />
+
+    <TextView
+        android:id="@+id/tvSelectedShippingMethod"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivProductImage"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
+        android:text="POS Indonesia" />
 
 </RelativeLayout>

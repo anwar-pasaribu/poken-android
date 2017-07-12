@@ -17,6 +17,7 @@ public class ShoppingCart {
     public long product_id;
 
     public Product product;
+    public Shipping shipping;
     public Date date;
     public int quantity;
 

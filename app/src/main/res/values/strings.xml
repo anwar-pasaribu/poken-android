@@ -245,6 +245,7 @@
     <string name="title_dialog_update">Perbarui App</string>
     <string name="title_help_support">Bantuan</string>
     <string name="title_package">Paket</string>
+    <string name="title_shipping_options">Pengiriman</string>
     <string name="title_package_detail">Detail Paket</string>
     <string name="title_partner_location">Lokasi</string>
     <string name="title_pickup">Pickup</string>
@@ -592,5 +593,8 @@
     <string name="btn_shopping_cart_confirm_deletion">Hapus Barang</string>
     <string name="hint_product_images">Gambar produk</string>
     <string name="facebook_app_id">426154887744117</string>
+    <string name="hint_see_shipping_options">Lihat pengiriman yg tersedia</string>
+    <string name="lbl_shipping_option_section_label">Pengiriman</string>
+    <string name="lbl_shipping_method">Pengiriman:</string>
 
 </resources>

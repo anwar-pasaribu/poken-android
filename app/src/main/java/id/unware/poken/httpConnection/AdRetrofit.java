@@ -18,7 +18,7 @@ public class AdRetrofit {
     private static Retrofit instance;
 
     private static final String url = "https://tiki.id/mobile_api/";
-    private static final String POKEN_HOST = "http://192.168.43.152:8000/poken_rest/";
+    private static final String POKEN_HOST = "http://192.168.1.101:8000/poken_rest/";
 
     public static Retrofit getInstanceTiki() {
         if (instance == null) {

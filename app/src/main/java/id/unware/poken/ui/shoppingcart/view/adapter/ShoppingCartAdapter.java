@@ -25,6 +25,7 @@ import id.unware.poken.controller.ControllerDialog;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.Seller;
+import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
@@ -71,6 +72,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         String storeName = seller.store_name;
         String productImage = images.get(0).path;
         String productName = product.name;
+        String strShipping = item.shipping == null
+                ? "Metode pengiriman ditentukan oleh Poken"
+                : item.shipping.name;
         final double productPrice = product.price;
         final int productStock = product.stock;
 
@@ -83,36 +87,52 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 .centerCrop()
                 .into(holder.ivProductImage);
         holder.tvProductName.setText(productName);
-        holder.tvProductTotalPrice.setText(StringUtils.formatCurrency(String.valueOf(productPrice)));
+        holder.tvProductTotalPrice.setText(
+                StringUtils.formatCurrency(String.valueOf(productPrice))
+        );
         holder.textItemQuantity.setText(
                 String.valueOf(item.quantity)
         );
+        holder.tvSelectedShippingMethod.setText(strShipping);
 
         holder.cbSelectAllStoreItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (presenter != null) {
-                    presenter.onItemChecked(holder.getAdapterPosition(), isChecked, shoppingCartId, item.quantity, productPrice, item);
+                    presenter.onItemChecked(
+                            holder.getAdapterPosition(),
+                            isChecked,
+                            shoppingCartId,
+                            item.quantity,
+                            productPrice,
+                            item
+                    );
                 }
             }
         });
 
         holder.btnAddQuantity.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        item.quantity = holder.controlItemQuantity(item.quantity, productStock, true);
-                        Utils.Log("ShoppingCartAdapter", "[add] Q: " + item.quantity + ", stok: " + productStock);
-                        holder.textItemQuantity.setText(
-                                String.valueOf(item.quantity)
-                        );
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    item.quantity = holder.controlItemQuantity(item.quantity, productStock, true);
+                    Utils.Log("ShoppingCartAdapter", "[add] Q: " + item.quantity + ", stok: " + productStock);
+                    holder.textItemQuantity.setText(
+                            String.valueOf(item.quantity)
+                    );
 
-                        // Change shopping cart counter on list page
-                        if (presenter != null) {
-                            presenter.onItemQuantityChanges(holder.getAdapterPosition(), shoppingCartId, item.quantity, productPrice, item);
-                        }
+                    // Change shopping cart counter on list page
+                    if (presenter != null) {
+                        presenter.onItemQuantityChanges(
+                                holder.getAdapterPosition(),
+                                shoppingCartId,
+                                item.quantity,
+                                productPrice,
+                                item
+                        );
                     }
                 }
+            }
         );
 
         holder.btnSubstractQuantity.setOnClickListener(
@@ -157,6 +177,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @BindView(R.id.btnAddQuantity) ImageButton btnAddQuantity;
         @BindView(R.id.btnSubstractQuantity) ImageButton btnSubstractQuantity;
         @BindView(R.id.textItemQuantity) TextView textItemQuantity;
+        @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
 
         public ViewHolder(View view) {
             super(view);

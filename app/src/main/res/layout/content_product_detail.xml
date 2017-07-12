@@ -26,42 +26,42 @@
                 android:contentDescription="@string/hint_product_images"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="h,4:3"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/product2" />
 
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/text_margin"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_m"
                 android:ellipsize="end"
                 android:maxLines="3"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivProduct"
-                tools:text="Nama Barang dengan batasan jumlah baris 3"
-                android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginEnd="@dimen/text_margin" />
+                tools:text="Nama Barang dengan batasan jumlah baris 3" />
 
             <TextView
                 android:id="@+id/tvProductPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/text_margin"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_s"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvProductName"
-                tools:text="Rp 450.000"
-                android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginEnd="@dimen/text_margin" />
+                tools:text="Rp 450.000" />
 
             <View
                 android:id="@+id/viewSep"
@@ -79,12 +79,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_s"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/guideline1"
                 app:layout_constraintTop_toBottomOf="@+id/viewSep"
-                tools:text="45"
-                android:layout_marginStart="@dimen/text_margin" />
+                tools:text="45" />
 
             <TextView
                 android:id="@+id/tvProductStockLabel"
@@ -92,11 +92,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
                 android:text="@string/lbl_product_detail_stock"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/guideline1"
-                app:layout_constraintTop_toBottomOf="@+id/tvProductStock"
-                android:layout_marginStart="@dimen/text_margin" />
+                app:layout_constraintTop_toBottomOf="@+id/tvProductStock" />
 
             <TextView
                 android:id="@+id/tvProductSold"
@@ -146,32 +146,29 @@
                 style="@style/TextAppearance.AppCompat.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
-                android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginTop="@dimen/text_margin"
+                android:background="@color/white_100"
                 android:ellipsize="end"
                 android:maxLines="5"
-                android:paddingBottom="@dimen/text_margin"
+                android:padding="@dimen/text_margin"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivSellerAvatar"
-                tools:text="@string/large_text"
-                android:layout_marginStart="@dimen/text_margin"
-                android:layout_marginEnd="@dimen/text_margin" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parentClickableShippingMethod"
+                tools:text="@string/large_text" />
 
 
             <ImageView
                 android:id="@+id/ivSellerAvatar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
                 android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
                 android:layout_marginTop="@dimen/text_margin"
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
                 app:srcCompat="@drawable/ic_store_black_24dp"
-                tools:ignore="ContentDescription"
-                android:layout_marginStart="@dimen/text_margin" />
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tvSellerName"
@@ -179,14 +176,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/item_gap_m"
-                app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
-                app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
-                tools:text="Kejora Busana"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_marginTop="@dimen/text_margin"
-                android:layout_marginStart="@dimen/item_gap_m"
                 android:layout_marginRight="@dimen/text_margin"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:layout_marginStart="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/text_margin"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
+                tools:text="Kejora Busana" />
 
             <TextView
                 android:id="@+id/tvSellerAddress"
@@ -194,62 +191,71 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/item_gap_m"
-                app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
-                app:layout_constraintTop_toBottomOf="@+id/tvSellerName"
-                tools:text="Padangsidimpuan"
+                android:layout_marginRight="@dimen/text_margin"
                 android:layout_marginStart="@dimen/item_gap_m"
                 android:layout_marginTop="0dp"
                 app:layout_constraintHorizontal_bias="0"
-                android:layout_marginRight="@dimen/text_margin"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSellerName"
+                tools:text="Padangsidimpuan" />
 
             <!--Shipping methods-->
-            <TextView
-                android:id="@+id/tvShippingMethodLabel"
-                style="@style/TextCaption"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/text_margin"
-                android:layout_marginEnd="@dimen/text_margin"
-                android:layout_marginLeft="@dimen/text_margin"
-                android:layout_marginTop="@dimen/text_margin"
-                android:text="Pengiriman"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSellerAddress"
-                android:layout_marginStart="@dimen/text_margin" />
 
 
             <RelativeLayout
                 android:id="@+id/parentClickableShippingMethod"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/clickable_size"
+                android:layout_height="wrap_content"
 
-                android:background="?attr/selectableItemBackground"
+                android:layout_marginTop="@dimen/text_margin"
 
-                android:paddingStart="@dimen/text_margin"
+                android:background="@color/white_100"
+                android:paddingBottom="@dimen/item_gap_s"
+
                 android:paddingEnd="@dimen/text_margin"
+                android:paddingStart="@dimen/text_margin"
+
+                android:paddingTop="@dimen/item_gap_s"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvShippingMethodLabel">
+                app:layout_constraintTop_toBottomOf="@id/ivSellerAvatar">
+
+                <TextView
+                    android:id="@+id/tvShippingMethodLabel"
+                    style="@style/TextCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_shipping_option_section_label" />
 
                 <TextView
                     android:id="@+id/tvCurierName"
                     style="@style/TextCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvShippingMethodLabel"
                     android:layout_marginTop="@dimen/item_gap_s"
-                    android:text="POS Indonesia"/>
+                    tools:text="POS Indonesia" />
 
                 <TextView
                     android:id="@+id/tvCurierService"
                     style="@style/TextBodyDefault"
-                    android:layout_below="@id/tvCurierName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvCurierName"
                     android:layout_marginTop="@dimen/item_gap_s"
-                    android:text="Regular"/>
+                    tools:text="Regular" />
+
+                <ImageButton
+                    android:id="@+id/productDetailIbMoreShipping"
+                    android:layout_width="@dimen/clickable_size_32"
+                    android:layout_height="@dimen/clickable_size_32"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/hint_see_shipping_options"
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
 
             </RelativeLayout>
 
@@ -260,8 +266,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.2"
-                tools:layout_editor_absoluteY="89dp"
-                tools:layout_editor_absoluteX="120dp" />
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="89dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline2"
@@ -269,8 +275,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.35"
-                tools:layout_editor_absoluteY="89dp"
-                tools:layout_editor_absoluteX="210dp" />
+                tools:layout_editor_absoluteX="210dp"
+                tools:layout_editor_absoluteY="89dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline3"
@@ -278,8 +284,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5"
-                tools:layout_editor_absoluteY="89dp"
-                tools:layout_editor_absoluteX="300dp" />
+                tools:layout_editor_absoluteX="300dp"
+                tools:layout_editor_absoluteY="89dp" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

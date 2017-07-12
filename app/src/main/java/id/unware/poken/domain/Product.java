@@ -13,6 +13,7 @@ public class Product {
     public String name;
     public String description;
     public Seller seller;
+    public boolean is_cod;
     public boolean is_new;
     public boolean is_discount;
     public double discount_amount;

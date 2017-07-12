@@ -2,13 +2,17 @@ package id.unware.poken.ui.product.detail.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +26,14 @@ import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
+import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
-import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
+import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 
 public class ProductDetailActivity extends AppCompatActivity implements IProductDetailView {
@@ -50,7 +56,17 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     // BUY
     @BindView(R.id.btnBuy) Button btnBuy;
 
+    // SHIPPING OPTIONS
+    @BindView(R.id.parentClickableShippingMethod) ViewGroup parentClickableShippingMethod;
+    @BindView(R.id.tvCurierName) TextView tvCurierName;
+    @BindView(R.id.tvCurierService) TextView tvCurierService;
+    @BindView(R.id.productDetailIbMoreShipping) ImageButton productDetailIbMoreShipping;
+
     private long productId;
+
+    // SAVE LAST SELECTED SHIPPING OPTION INDEX FROM LIST
+    private int selectedShippingOptionsIndex = -1;
+    private Shipping selectedShipping;
 
     private Unbinder unbinder;
 
@@ -72,13 +88,25 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
         // Load product detail
         presenter.getProductData(productId);
+        presenter.getShippingOptionData(productId);  // Init Shipping option
+
+        initView();
+    }
+
+    private void initView() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // noinspection ConstantConditions
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Add product to Shopping Cart
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (presenter != null) {
-                    presenter.onBuyNow(productId);
+                    long shippingId = selectedShipping != null ? selectedShipping.id : 3;
+                    presenter.onBuyNow(shippingId, productId);
                 }
             }
         });
@@ -92,10 +120,14 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        productDetailIbMoreShipping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (presenter != null) {
+                    presenter.startShippingOptionsScreen();
+                }
+            }
+        });
     }
 
     private void openShoppingCartAndInsertProduct(long productId) {
@@ -133,6 +165,33 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     @Override
     public void showShoppingCartScreen(ShoppingCart shoppingCart) {
         openShoppingCartAndInsertProduct(productId);
+    }
+
+    @Override
+    public void showDefaultShippingOption(Shipping shipping) {
+        // NO Shipping method selected
+        if (shipping != null
+                && selectedShipping == null
+                && selectedShippingOptionsIndex == -1) {
+
+            selectedShipping = shipping;
+            selectedShippingOptionsIndex = 0;
+
+            setupSelectedShippingMethodView(selectedShipping);
+
+        }
+    }
+
+    @Override
+    public void showShippingOptionsScreen(boolean isCod, ArrayList<Shipping> shippings) {
+
+        showDialogShippingOptions(isCod, shippings);
+
+    }
+
+    @Override
+    public void populateShippingOptionsScreen(ArrayList<Shipping> shippings) {
+
     }
 
     @Override
@@ -180,5 +239,56 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    private FragmentTransaction hideDialog(String strTag) {
+
+        android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        android.support.v4.app.Fragment prev = getSupportFragmentManager().findFragmentByTag(strTag);
+
+        if (prev != null) {
+            Utils.Log(TAG, "Prev fragment is not null. Tag: " + strTag);
+
+            ((DialogFragment) prev).dismiss();
+            ft.remove(prev);
+        }
+
+        return ft;
+    }
+
+    private void showDialogShippingOptions(boolean isCod, ArrayList<Shipping> shippings) {
+        try {
+
+            String strPackagesTag = "dialog_shippings_options";
+
+            FragmentTransaction ft = hideDialog(strPackagesTag);
+            ft.addToBackStack(null);
+
+            FragmentDialogShippings shippingOptionDialog = FragmentDialogShippings.newInstance(
+                    isCod,
+                    productId,
+                    selectedShippingOptionsIndex
+            );
+            shippingOptionDialog.setupListener(new FragmentDialogShippings.OnShippingOptionDialogListener() {
+                @Override
+                public void onShippingOptionSelected(int pos, Shipping shipping) {
+                    selectedShippingOptionsIndex = pos;
+                    selectedShipping = shipping;
+                    setupSelectedShippingMethodView(shipping);
+                }
+            });
+            shippingOptionDialog.show(ft, strPackagesTag);
+
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
+    }
+
+    private void setupSelectedShippingMethodView(Shipping shipping) {
+        tvCurierName.setText(shipping.name);
+        tvCurierService.setText(StringUtils.formatCurrency(String.valueOf(shipping.fee)));
+        tvCurierService.setVisibility(View.GONE);
+
     }
 }
