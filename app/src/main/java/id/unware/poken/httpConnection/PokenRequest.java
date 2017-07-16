@@ -2,6 +2,8 @@ package id.unware.poken.httpConnection;
 
 import java.util.Map;
 
+import id.unware.poken.domain.AddressBook;
+import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.HomeDataRes;
@@ -11,11 +13,14 @@ import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
@@ -42,8 +47,18 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 
+
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_ADDRESS_BOOK)
+    Call<AddressBook> postNewAddressBook(
+            @Header("Content-Type") String contentType,
+            @HeaderMap Map<String, String> headerMap,
+            @Body AddressBook addressBook);
+
     @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
     Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_ADDRESS_BOOK)
+    Call<AddressBookDataRes> reqAddressBookContent(@HeaderMap Map<String, String> headerMap);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_ORDER)
     Call<ShoppingOrderDataRes> reqShoppingOrderContent(@HeaderMap Map<String, String> headerMap);

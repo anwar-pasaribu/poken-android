@@ -15,8 +15,10 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
     public static final String ENDPOINT_INSERT_SHOPPING_CART = "insert_cart/";
+    public static final String ENDPOINT_INSERT_ADDRESS_BOOK = "address_book/";
     public static final String ENDPOINT_DELETE_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_ORDER = "ordered_product/";
+    public static final String ENDPOINT_FETCH_ADDRESS_BOOK = "address_book/";
     public static final String ENDPOINT_FETCH_CUSTOMER_COLLECTION = "customer_collection/";
     public static final String ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION = "customer_subscription/";
     public static final String ENDPOINT_FETCH_SELLER_PRODUCTS = "product/";

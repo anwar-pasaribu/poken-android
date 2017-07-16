@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class OrderDetail {
     public long id;
+    public String order_id;  // Unique order id for presentation purpose
     /** Customer ID*/
     public long customer;
     public AddressBook address_book;
@@ -16,28 +17,3 @@ public class OrderDetail {
     public Shipping shipping;
 
 }
-
-/*
-"order_details": {
-    "id": 1,
-    "customer": 1,
-    "address_book": {
-        "id": 2,
-        "customer": 1,
-        "location": {
-            "city": "Jakarta Barat",
-            "district": "Kembangan",
-            "zip": "11620",
-            "state": "Indonesia"
-        },
-        "name": "Kantor Anwar",
-        "address": "Jl. Meruya Ilir No. 88, Kembangan",
-        "phone": "082362588301"
-    },
-    "date": "2017-06-08T13:39:04.883000Z",
-    "shipping": {
-        "name": "POS Indonesia",
-        "fee": 9000
-    }
-}
-*/

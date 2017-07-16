@@ -2,6 +2,7 @@ package id.unware.poken.ui.shoppingorder.presenter;
 
 import java.util.ArrayList;
 
+import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.ui.presenter.BasePresenter;
@@ -13,4 +14,9 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface IShoppingOrderModelPresenter extends BasePresenter {
     void onShoppingOrderDataResponse(ArrayList<ShoppingOrder> shoppingOrders);
+
+    void onAddressBookCreated(AddressBook newlyCreatedAddressBook);
+    void onAddressBookContentResponse(ArrayList<AddressBook> addressBookArrayList);
+
+
 }

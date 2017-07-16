@@ -60,5 +60,7 @@
     <dimen name="header_slide_height_m">140dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="profile_avatar_m">40dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 
 </resources>

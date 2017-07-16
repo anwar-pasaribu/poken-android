@@ -12,18 +12,13 @@ public class AddressBook {
     public String name;
     public String address;
     public String phone;
-}
 
-/*"address": {
-                    "id": 2,
-                    "customer": 1,
-                    "location": {
-                        "city": "Jakarta Barat",
-                        "district": "Kembangan",
-                        "zip": "11620",
-                        "state": "Indonesia"
-                    },
-                    "name": "Kantor Anwar",
-                    "address": "Jl. Meruya Ilir No. 88, Kembangan",
-                    "phone": "082362588301"
-                }*/
+    @Override
+    public String toString() {
+        return name
+                .concat(" (")
+                .concat(String.valueOf(phone))
+                .concat(") - ")
+                .concat(String.valueOf(address));
+    }
+}

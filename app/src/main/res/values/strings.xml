@@ -596,5 +596,8 @@
     <string name="hint_see_shipping_options">Lihat pengiriman yg tersedia</string>
     <string name="lbl_shipping_option_section_label">Pengiriman</string>
     <string name="lbl_shipping_method">Pengiriman:</string>
+    <string name="msg_order_detail_no_receiver_address">
+    <![CDATA[Klik <font color="#904799">"UBAH"</font> untuk Tambah alamat penerima.]]>
+    </string>
 
 </resources>

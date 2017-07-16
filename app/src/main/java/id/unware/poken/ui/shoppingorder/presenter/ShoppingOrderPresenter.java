@@ -35,6 +35,16 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     }
 
     @Override
+    public void addNewAddressBook(AddressBook addressBook) {
+        model.postNewAddressBook(this, addressBook);
+    }
+
+    @Override
+    public void getAddressBookData() {
+        model.getAddressBookData(this);
+    }
+
+    @Override
     public void getShoppingOrderData() {
         model.requestShoppingOrderData(this);
     }
@@ -43,6 +53,11 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     public void startPaymentScreen() {
         Utils.Logs('i', TAG, "Start Payment screen");
         view.openPaymentScreen();
+    }
+
+    @Override
+    public void startAddressBookScreen() {
+        view.showAddressBookScreen();
     }
 
     @Override
@@ -57,17 +72,48 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         if (shoppingOrders.size() > 0) {
 
+            view.showNoReceiverAddressView(false);
+
             ShoppingOrder shoppingOrder = shoppingOrders.get(0);
             OrderDetail orderDetail = shoppingOrder.order_details;
             AddressBook addressBook = orderDetail.address_book;
-            Shipping shipping = orderDetail.shipping;
+            Shipping shipping = shoppingOrder.shopping_carts.get(0).shipping;
             Product product = shoppingOrder.shopping_carts.get(0).product;
+
+            double grandTotal = 0D;
+            ArrayList<Product> productArrayList = new ArrayList<>();
+            for (ShoppingCart item : shoppingOrder.shopping_carts) {
+                productArrayList.add(item.product);
+
+                // Count Product Grand total + shipping fee
+                grandTotal += (item.product.price * item.quantity) + item.shipping.fee;
+            }
+
+            view.showOrderId(orderDetail.order_id);
+
+            view.showTotalAmount(grandTotal);
 
             view.setupShippingReceiver(addressBook);
 
-            view.setupSelectedProduct(product);
+            if (productArrayList.size() <= 1) {
+                view.setupSelectedProduct(product);
+            } else {
+                view.setupSelectedProducts(productArrayList);
+            }
 
             view.setupShippingMethod(shipping);
+        } else {
+            view.showNoReceiverAddressView(true);
         }
+    }
+
+    @Override
+    public void onAddressBookCreated(AddressBook newlyCreatedAddressBook) {
+        view.setupShippingReceiver(newlyCreatedAddressBook);
+    }
+
+    @Override
+    public void onAddressBookContentResponse(ArrayList<AddressBook> addressBookArrayList) {
+        view.pupulateAddressBookList(addressBookArrayList);
     }
 }

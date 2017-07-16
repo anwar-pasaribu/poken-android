@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.domain.AddressBook;
+import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderModelPresenter;
 import okhttp3.Credentials;
@@ -39,12 +42,33 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("Authorization", credential);
-
         // This req. response: ShoppingOrderDataRes
-        req.reqShoppingOrderContent(headerMap).enqueue(this);
+        req.reqShoppingOrderContent(PokenCredentials.getInstance().getCredentialHashMap()).enqueue(this);
+    }
+
+    @Override
+    public void postNewAddressBook(IShoppingOrderModelPresenter presenter, AddressBook addressBook) {
+
+        // Loading state to view
+        this.presenter.updateViewState(UIState.LOADING);
+
+        // HashMap<String, String> newAddressMap = new HashMap<>();
+        // newAddressMap.put()
+        req.postNewAddressBook(
+                "application/json",
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                addressBook
+        ).enqueue(this);
+    }
+
+    @Override
+    public void getAddressBookData(IShoppingOrderModelPresenter presenter) {
+        // Loading state to view
+        this.presenter.updateViewState(UIState.LOADING);
+
+        req.reqAddressBookContent(
+                PokenCredentials.getInstance().getCredentialHashMap()
+        ).enqueue(this);
     }
 
     @Override
@@ -52,11 +76,29 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
         Utils.Log(TAG, "Success response: " + response.toString());
 
-        presenter.updateViewState(UIState.FINISHED);
+        Object o = response.body();
 
-        ArrayList<ShoppingOrder> shoppingOrders = new ArrayList<>();
-        shoppingOrders.addAll(((ShoppingOrderDataRes) response.body()).results);
-        presenter.onShoppingOrderDataResponse(shoppingOrders);
+        if (o instanceof ShoppingOrderDataRes) {
+
+            presenter.updateViewState(UIState.FINISHED);
+
+            ArrayList<ShoppingOrder> shoppingOrders = new ArrayList<>();
+            shoppingOrders.addAll(((ShoppingOrderDataRes) response.body()).results);
+            presenter.onShoppingOrderDataResponse(shoppingOrders);
+
+        } else if (o instanceof AddressBook){
+
+            AddressBook addressBook = (AddressBook) o;
+            Utils.Logs('i', TAG, "Created address book: " + addressBook.toString());
+            presenter.onAddressBookCreated(addressBook);
+
+        } else if (o instanceof AddressBookDataRes) {
+
+            AddressBookDataRes addressBookDataRes = (AddressBookDataRes) o;
+            Utils.Logs('v', TAG, "All address book res size: " + addressBookDataRes.results.size());
+            presenter.onAddressBookContentResponse(addressBookDataRes.results);
+
+        }
     }
 
     @Override

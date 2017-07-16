@@ -36,8 +36,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/separator_view_lighter"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:background="@color/separator_view_lighter" />
 
         <TextView
             android:id="@+id/tvTotalShoppingAmountLabel"
@@ -57,7 +57,7 @@
             android:layout_below="@+id/tvTotalShoppingAmountLabel"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="Rp 450.000"
+            tools:text="Rp 450.000"
             android:textAllCaps="true" />
 
         <Button

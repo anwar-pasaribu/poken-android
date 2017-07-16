@@ -18,9 +18,12 @@
         <TextView
             android:id="@+id/tvShippingAddressLabel"
             style="@style/TextListTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="@dimen/clickable_size"
             android:background="@color/white_100"
+            android:gravity="center_vertical"
             android:paddingBottom="@dimen/item_gap_s"
             android:paddingLeft="@dimen/item_gap_l"
             android:paddingRight="@dimen/item_gap_l"
@@ -28,12 +31,21 @@
             android:text="@string/lbl_shipping_destination"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/orderBtnChangeReceiverAddress"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:text="Ubah"/>
+
         <RelativeLayout
             android:id="@+id/parentClickableShippingAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvShippingAddressLabel"
-            android:layout_marginTop="@dimen/item_gap_xs"
+            android:layout_marginTop="1dp"
             android:background="@color/white_100">
 
             <TextView
@@ -96,6 +108,23 @@
 
         </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/parentNoShippingAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvShippingAddressLabel"
+        android:layout_marginTop="1dp"
+        android:visibility="gone"
+        android:background="@color/white_100">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/text_margin"
+            android:text="@string/msg_order_detail_no_receiver_address"/>
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tvSelectedProductLabel"
             style="@style/TextListTitle"
@@ -126,8 +155,9 @@
                 android:layout_marginBottom="@dimen/item_gap_m"
                 android:layout_marginLeft="@dimen/item_gap_l"
                 android:layout_marginTop="@dimen/item_gap_m"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_favo" />
+                android:scaleType="centerInside"
+
+                app:srcCompat="@drawable/ic_image_black_24dp" />
 
             <TextView
                 android:id="@+id/tvSelectedProductName"
