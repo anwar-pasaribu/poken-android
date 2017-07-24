@@ -1,5 +1,6 @@
 package id.unware.poken.ui.home.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,16 +27,21 @@ import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.models.SingleItemModel;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.BrowseActivity;
 import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
+import id.unware.poken.ui.pokenaccount.LoginActivity;
+import id.unware.poken.ui.pokenaccount.login.view.fragment.FragmentLogin;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
+
+import static android.R.attr.data;
 
 public class HomeActivity extends AppCompatActivity implements IHomeView {
 
@@ -134,13 +140,50 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     }
 
     private void openProfile() {
-        Intent profileIntent = new Intent(this, ProfileActivity.class);
-        this.startActivity(profileIntent);
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            this.startActivity(profileIntent);
+
+        } else {
+            Intent accountIntent = new Intent(this, LoginActivity.class);
+            accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_PROFILE);
+            this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
+        }
     }
 
     private void openShoppingCart() {
-        Intent intent = new Intent(this, ShoppingCartActivity.class);
-        this.startActivity(intent);
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+
+            Intent intent = new Intent(this, ShoppingCartActivity.class);
+            this.startActivity(intent);
+
+        } else {
+            Intent accountIntent = new Intent(this, LoginActivity.class);
+            accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_SHOPPING_CART);
+            this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Utils.Log(TAG, "Activity result. Req: " + requestCode + ", res: " + resultCode + ", data: " + data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.TAG_LOGIN) {
+
+                int requestedPageTag = data.getIntExtra(Constants.EXTRA_REQUESTED_PAGE, -1);
+
+                if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+                    if (requestedPageTag == Constants.TAG_PROFILE) {
+                        openProfile();
+                    } else if (requestedPageTag == Constants.TAG_SHOPPING_CART) {
+                        openShoppingCart();
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -264,5 +307,10 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
                 swipeRefreshLayoutMain.setRefreshing(false);
                 break;
         }
+    }
+
+    @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
     }
 }

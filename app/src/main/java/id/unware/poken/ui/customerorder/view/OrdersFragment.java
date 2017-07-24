@@ -26,12 +26,7 @@ import id.unware.poken.ui.customerorder.model.OrdersModel;
 import id.unware.poken.ui.customerorder.presenter.OrdersPresenter;
 import id.unware.poken.ui.customerorder.view.adapter.OrdersAdapter;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnOrderFragmentListener}
- * interface.
- */
+
 public class OrdersFragment extends BaseFragment implements IOrdersView {
 
     private static final String TAG = "OrdersFragment";
@@ -152,6 +147,11 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return parent == null || parent.isFinishing();
+    }
+
+    @Override
     public void populateOrdersList(ArrayList<ShoppingOrder> orders) {
         Utils.Log(TAG, "New order list: " + orders.size());
         orderList.clear();
@@ -164,20 +164,15 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
     @Override
     public void openOrderDetail(ShoppingOrder shoppingOrder) {
         Utils.Log(TAG, "Open order detail ID: " + shoppingOrder.id);
+        try {
+            mListener.onListFragmentInteraction(shoppingOrder);
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnOrderFragmentListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(ShoppingOrder item);
     }
 }

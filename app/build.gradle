@@ -29,18 +29,18 @@ android {
         minSdkVersion 18
         targetSdkVersion 25
 
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "0.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
 
-        resConfigs "en", "id"
+        resConfigs "en", "id", "xxhdpi"
 
         buildConfigField 'String', 'TRACK_CODE_SAMPLE', '"020103975850"'
-        buildConfigField 'String', 'USER_EMAIL', '"maheswara@gmail.com"'
-        buildConfigField 'String', 'USER_PASSWORD', '"qwe123qwe"'
+        buildConfigField 'String', 'USER_EMAIL', '"anwar"'
+        buildConfigField 'String', 'USER_PASSWORD', '"anwar_poken17"'
     }
 
     signingConfigs {
@@ -59,18 +59,20 @@ android {
             signingConfig signingConfigs.config
         }
 
-        applicationVariants.all { variant ->
-            variant.outputs.each { output ->
-                def apk = output.outputFile;
-                def newName = "poken-psp-" + variant.baseName.replace("-release", "") + "-" + defaultConfig.versionName + " (" + defaultConfig.versionCode + ")" + ".apk";
-                output.outputFile = new File(apk.parentFile, newName);
-            }
-        }
+//        applicationVariants.all { variant ->
+//            variant.outputs.each { output ->
+//                def apk = output.outputFile;
+//                def newName = "poken-psp-" + variant.baseName.replace("-release", "") + "-" + defaultConfig.versionName + " (" + defaultConfig.versionCode + ")" + ".apk";
+//                output.outputFile = new File(apk.parentFile, newName);
+//            }
+//        }
     }
 
     productFlavors {
 
         development {
+
+            // applicationIdSuffix ".beta"
 
             resValue "string", "app_name", "Poken Psp Beta"
 
@@ -82,7 +84,7 @@ android {
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
 
             buildConfigField 'String', 'session_key', '"ci_session"'
-            buildConfigField 'String', 'HOST', '"http://tis.tiki.id/mobile/"'
+            buildConfigField 'String', 'HOST', '"http://192.168.1.101:8000/poken_rest/"'
             buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
 
         }
@@ -91,10 +93,10 @@ android {
             resValue "string", "app_name", "Poken Psp"
 
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
-            buildConfigField 'Boolean', 'DEV_MODE', 'false'
+            buildConfigField 'Boolean', 'DEV_MODE', 'true'
 
             buildConfigField 'String', 'session_key', '"ci_session"'
-            buildConfigField 'String', 'HOST', '"http://datacenter.tiki.co.id:8080/mobile/"'
+            buildConfigField 'String', 'HOST', '"http://139.59.245.162:8000/poken_rest/"'
             buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
 
         }
@@ -108,6 +110,63 @@ android {
         aaptOptions.cruncherEnabled = false
     }
 
+    splits {
+
+        // Configures multiple APKs based on ABI.
+        abi {
+
+            // Enables building multiple APKs per ABI ONLY for Production
+            enable gradle.startParameter.taskNames.contains(":app:assembleProductionRelease")
+
+            // By default all ABIs are included, so use reset() and include to specify that we only
+            // want APKs for x86, armeabi-v7a, and mips.
+
+            // Resets the list of ABIs that Gradle should create APKs for to none.
+            reset()
+
+            // Specifies a list of ABIs that Gradle should create APKs for.
+            include "armeabi", "armeabi-v7a"
+
+            // Specifies that we do not want to also generate a universal APK that includes all ABIs.
+            universalApk true
+        }
+    }
+
+}
+
+// Map for the version code that gives each ABI a value.
+ext.abiCodes = ['armeabi': 2, 'armeabi-v7a': 3]
+
+import com.android.build.OutputFile
+
+// For each APK output variant, override versionCode with a combination of
+// ext.abiCodes * 1000 + variant.versionCode. In this example, variant.versionCode
+// is equal to defaultConfig.versionCode. If you configure product flavors that
+// define their own versionCode, variant.versionCode uses that value instead.
+android.applicationVariants.all { variant ->
+
+    // Assigns a different version code for each output APK
+    // other than the universal APK.
+    variant.outputs.each { output ->
+
+        // Stores the value of ext.abiCodes that is associated with the ABI for this variant.
+        def baseAbiVersionCode =
+                // Determines the ABI for this variant and returns the mapped value.
+                project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
+
+        // Because abiCodes.get() returns null for ABIs that are not mapped by ext.abiCodes,
+        // the following code does not override the version code for universal APKs.
+        // However, because we want universal APKs to have the lowest version code,
+        // this outcome is desirable.
+        if (baseAbiVersionCode != null) {
+
+            // Assigns the new version code to versionCodeOverride, which changes the version code
+            // for only the output APK, not for the variant itself. Skipping this step simply
+            // causes Gradle to use the value of variant.versionCode for the APK.
+            output.versionCodeOverride =
+                    baseAbiVersionCode * 1000 + variant.versionCode
+        }
+    }
 }
 
 dependencies {

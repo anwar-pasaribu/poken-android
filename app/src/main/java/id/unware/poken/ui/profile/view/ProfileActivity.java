@@ -1,5 +1,6 @@
 package id.unware.poken.ui.profile.view;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,12 +24,14 @@ import android.widget.TextView;
 import id.unware.poken.R;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.customercollection.view.CustomerCollectionFragment;
 import id.unware.poken.ui.customerorder.view.OrdersFragment;
 import id.unware.poken.ui.customerorder.view.dummy.DummyContent;
 import id.unware.poken.ui.customersubscription.view.CustomerSubscriptionFragment;
+import id.unware.poken.ui.shoppingorder.view.OrderActivity;
 
 public class ProfileActivity extends BaseActivityWithup implements OrdersFragment.OnOrderFragmentListener {
 
@@ -90,7 +93,8 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_signout) {
+            proceedSignout();
             return true;
         } else if (id == android.R.id.home) {
             Utils.Log(TAG, "Home navigation cliked.");
@@ -100,9 +104,21 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         return super.onOptionsItemSelected(item);
     }
 
+    private void proceedSignout() {
+        PokenCredentials.getInstance().setCredential(null);
+        this.finishAfterTransition();
+    }
+
     @Override
     public void onListFragmentInteraction(ShoppingOrder item) {
         Utils.Log(TAG, "Interaction with order fragment.");
+        openOrderScreen(item);
+    }
+
+    private void openOrderScreen(ShoppingOrder item) {
+        Intent orderScreenIntent = new Intent(this, OrderActivity.class);
+        orderScreenIntent.putExtra(Constants.EXTRA_ORDER_ID, item.id);
+        this.startActivity(orderScreenIntent);
     }
 
     /**

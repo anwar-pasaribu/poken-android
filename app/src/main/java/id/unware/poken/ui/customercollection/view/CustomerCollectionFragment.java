@@ -126,6 +126,11 @@ public class CustomerCollectionFragment extends BaseFragment implements ICustome
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return parent == null || parent.isFinishing();
+    }
+
+    @Override
     public void populateCollectionList(ArrayList<CustomerCollection> collections) {
         Utils.Log(TAG, "Collection list size: " + collections.size());
         orderList.clear();

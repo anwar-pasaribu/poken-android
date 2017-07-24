@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -26,19 +29,20 @@ import id.unware.poken.R;
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.payment.view.PaymentActivity;
 import id.unware.poken.ui.shoppingorder.model.ShoppingOrderModel;
 import id.unware.poken.ui.shoppingorder.presenter.ShoppingOrderPresenter;
 import id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment;
-
-import static id.unware.poken.pojo.UIState.LOADING;
-import static id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment.newInstance;
+import id.unware.poken.ui.shoppingorder.view.fragment.OrderedProductListDialogFragment;
 
 public class OrderActivity extends AppCompatActivity implements IShoppingOrderView,
-        AddressBookDialogFragment.Listener {
+        AddressBookDialogFragment.Listener,
+        OrderedProductListDialogFragment.Listener{
 
     private static final String TAG = "OrderActivity";
 
@@ -47,6 +51,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
     // ADDRESS BOOK SECTION
     @BindView(R.id.parentNoShippingAddress) RelativeLayout parentNoShippingAddress;
+    @BindView(R.id.orderDetailNoAddressBook) TextView orderDetailNoAddressBook;
     @BindView(R.id.orderBtnChangeReceiverAddress) Button orderBtnChangeReceiverAddress;
     @BindView(R.id.tvShippingAddressName) TextView tvShippingAddressName;
     @BindView(R.id.tvShippingAddressPhone) TextView tvShippingAddressPhone;
@@ -55,6 +60,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     // SELECTED PRODUCT SECTION
     @BindView(R.id.ivSelectedProduct) ImageView ivSelectedProduct;
     @BindView(R.id.tvSelectedProductName) TextView tvSelectedProductName;
+    @BindView(R.id.orderDetailParentClickableOrderedProduct) RelativeLayout orderDetailParentClickableOrderedProduct;
+    @BindView(R.id.orderDetailTvTotalOrderedProduct) TextView orderDetailTvTotalOrderedProduct;
 
     // PAYMENT TYPE BUTTON
     @BindView(R.id.tvSelectedShippingMethodName) TextView tvSelectedShippingMethodName;
@@ -68,15 +75,26 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     // RESOURCES
     @BindDimen(R.dimen.clickable_size) int productImageSize;
 
-
     private Unbinder unbinder;
 
     private ShoppingOrderPresenter presenter;
 
+    private long[] shoppingCartIds;
+
+    // Address book dialog
     private AddressBookDialogFragment addressBookDialogFragment;
     private ArrayList<AddressBook> addressBookArrayList = new ArrayList<>();
+
+    // Shopping carts dialog
+    private OrderedProductListDialogFragment orderedProductListDialogFragment;
+    private ArrayList<ShoppingCart> selectedShoopingCarts;
+
     private long selectedAddressBookId = 0L;
     private int selectedAddressBookIndex = 0;
+
+    private long orderedProductId = -1;
+    private boolean isReadOnlyMode = false;
+    private double totalShoppingCost = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +103,25 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         unbinder = ButterKnife.bind(this);
 
+        if (getIntent().getExtras() != null) {
+            orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
+            if (orderedProductId != -1) {
+                isReadOnlyMode = true;
+            }
+
+            Utils.Log(TAG, "Ordered product id: " + orderedProductId);
+            Utils.Log(TAG, "Is read only mode --> " + isReadOnlyMode);
+        }
+
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
-        presenter.getShoppingOrderData();
+        presenter.getShoppingOrderData(orderedProductId);
+
+        // Get shopping cart ids from shopping cart screen
+        if (getIntent().getExtras() != null) {
+            shoppingCartIds = getIntent().getLongArrayExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
+            Utils.Logs('i', TAG, "Selected shopping cart id: " + Arrays.toString(shoppingCartIds));
+        }
 
         initView();
     }
@@ -95,8 +129,17 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
+        // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Setup read only mode
+        if (isReadOnlyMode) {
+            orderBtnChangeReceiverAddress.setVisibility(View.GONE);
+            btnContinueToPayment.setVisibility(View.GONE);
+        } else {
+            orderBtnChangeReceiverAddress.setVisibility(View.VISIBLE);
+            btnContinueToPayment.setVisibility(View.VISIBLE);
+        }
 
         // ADDRESS BOOK SCREEN TRIGGER
         orderBtnChangeReceiverAddress.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +148,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
                 if (presenter != null) {
 
                     if (addressBookArrayList.size() > 0) {
-                        presenter.startAddressBookScreen();
+                        presenter.startAddressBookScreen(true);
                     } else {
                         orderBtnChangeReceiverAddress.setEnabled(false);
                         presenter.getAddressBookData();
@@ -114,10 +157,19 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
             }
         });
 
+        orderDetailParentClickableOrderedProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (presenter != null) {
+                    presenter.startSelectedProductScreen();
+                }
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getShoppingOrderData();
+                presenter.getShoppingOrderData(orderedProductId);
             }
         });
 
@@ -144,21 +196,33 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
+    }
+
+    @Override
     public void openPaymentScreen() {
         Utils.Log(TAG, "Open payment screen.");
         Intent paymentIntent = new Intent(this, PaymentActivity.class);
+        paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
+        paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
         this.startActivity(paymentIntent);
     }
 
     @Override
     public void setupShippingReceiver(AddressBook addressBook) {
+
+        selectedAddressBookId = addressBook.id;
+
         tvShippingAddressName.setText(addressBook.name);
         tvShippingAddressPhone.setText(addressBook.phone);
         tvShippingAddress.setText(addressBook.address);
     }
 
     @Override
-    public void setupSelectedProduct(Product product) {
+    public void setupSelectedProduct(ShoppingCart shoppingCart) {
+
+        Product product = shoppingCart.product;
 
         Picasso.with(this)
                 .load(product.images.get(0).path)
@@ -171,9 +235,9 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
-    public void setupSelectedProducts(ArrayList<Product> products) {
-        // TODO Show multi product
-        Utils.Logs('i', TAG, "selected product size: " + products.size());
+    public void setupSelectedProducts(ArrayList<ShoppingCart> shoppingCarts) {
+        Utils.Logs('i', TAG, "Selected shopping carts size: " + shoppingCarts.size());
+        this.selectedShoopingCarts = shoppingCarts;
     }
 
     @Override
@@ -185,24 +249,34 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
     @Override
     public void showTotalAmount(double grandTotal) {
+        this.totalShoppingCost = grandTotal;
         tvTotalShoppingAmount.setText(StringUtils.formatCurrency(String.valueOf(grandTotal)));
     }
 
     @Override
     public void showNoReceiverAddressView(boolean isShow) {
         parentNoShippingAddress.setVisibility(isShow? View.VISIBLE : View.GONE);
+        // noinspection deprecation
+        orderDetailNoAddressBook.setText(Html.fromHtml(this.getString(R.string.msg_order_detail_no_receiver_address)));
+
+        parentClickableShippingAddress.setVisibility(isShow? View.INVISIBLE : View.VISIBLE);
 
     }
 
     @Override
-    public void showOrderId(String orderId) {
+    public void showOrderId(String orderDetailUniqueId, long orderedProductId) {
+
+        // #1 Order Detail Unique Identifier
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle("Order id: ".concat(orderId));
+            getSupportActionBar().setSubtitle("Order id: ".concat(orderDetailUniqueId));
         }
+
+        // #2 Ordered Product
+        this.orderedProductId = orderedProductId;
     }
 
     @Override
-    public void pupulateAddressBookList(ArrayList<AddressBook> addressBookArrayList) {
+    public void populateAddressBookList(ArrayList<AddressBook> addressBookArrayList) {
 
         // Turn "EDIT" Address Book ON
         if (orderBtnChangeReceiverAddress != null) {
@@ -212,17 +286,55 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         this.addressBookArrayList.clear();
         this.addressBookArrayList.addAll(addressBookArrayList);
 
-        if (this.addressBookArrayList.size() > 0) {
-            presenter.startAddressBookScreen();
+        presenter.startAddressBookScreen(this.addressBookArrayList.size() > 0);
+    }
+
+    @Override
+    public void showMessage(String msg, int messageStatus) {
+        if (messageStatus == Constants.NETWORK_CALLBACK_FAILURE) {
+            Utils.snackBar(swipeRefreshLayout, msg, Log.ERROR);
         }
     }
 
     @Override
-    public void showAddressBookScreen() {
+    public long[] getSelectedShoppingCartIds() {
+        return shoppingCartIds;
+    }
+
+    @Override
+    public void showSelectedProductDialog() {
+        Utils.Logs('v', TAG, "Show selected product dialog.");
+
+        orderedProductListDialogFragment =
+                OrderedProductListDialogFragment.newInstance();
+        orderedProductListDialogFragment.show(
+                this.getSupportFragmentManager(),
+                "selected-product-dialog"
+        );
+    }
+
+    @Override
+    public void showMultiSelectedProduct(boolean isMultiSelectedProduct) {
+        Utils.Logs('v', TAG, "Is multi selected product -->" + isMultiSelectedProduct);
+
+        if (isMultiSelectedProduct) {
+            orderDetailParentClickableOrderedProduct.setVisibility(View.VISIBLE);
+        } else {
+            orderDetailParentClickableOrderedProduct.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showAddressBookScreen(boolean isAddressBookAvailable) {
         Utils.Logs('v', TAG, "Show address book dialog.");
 
         addressBookDialogFragment =
-                AddressBookDialogFragment.newInstance(0, selectedAddressBookIndex);
+                AddressBookDialogFragment.newInstance(
+                        0,
+                        selectedAddressBookIndex,
+                        isAddressBookAvailable  /* Open when address book not available*/
+                );
+
         addressBookDialogFragment.show(
                 this.getSupportFragmentManager(),
                 "addressbook-dialog"
@@ -263,7 +375,25 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public void onItemClicked(int position) {
         Utils.Log(TAG, "Address book clicked item on pos: " + position);
-        this.setupShippingReceiver(this.addressBookArrayList.get(position));
+
+        AddressBook addressBook = this.addressBookArrayList.get(position);
+
+        this.selectedAddressBookIndex = position;
+        this.selectedAddressBookId = addressBook.id;
+
+        this.setupShippingReceiver(addressBook);
+        this.showNoReceiverAddressView(false);
+
+        // Update order detail with selected address book
+        this.presenter.createOrUpdateOrderDetail(
+                this.getSelectedShoppingCartIds(),
+                addressBook
+        );
+    }
+
+    @Override
+    public void onProductListDialogViewReady() {
+        orderedProductListDialogFragment.setListContent(this.selectedShoopingCarts);
     }
 
     @Override

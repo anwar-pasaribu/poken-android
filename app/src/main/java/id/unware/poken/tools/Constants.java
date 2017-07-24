@@ -24,16 +24,21 @@ public class Constants {
 
     // SP (Shared Preferences)
     public static final String SP_AUTH_TOKEN = "AUTH_TOKEN";
+    public static final String SP_AUTH_USERNAME = "AUTH_USERNAME";
+    public static final String SP_AUTH_PASSWORD = "AUTH_PASSWORD";
 
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
+    public static final String EXTRA_ORDER_ID = "SHOPPING_ORDER_ID";
     public static final String EXTRA_GENERAL_INTENT_ID = "INTENT_ID";
     public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
     public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
     public static final String EXTRA_IS_LAUNCH_FAVORITE = "is_launch_favo";
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
     public static final String EXTRA_CATEGORY_NAME = "CATEGORY_NAME";
+    public static final String EXTRA_TOTAL_SHOPPING_COST = "TOTAL_SHOPPING_COST";
+    public static final String EXTRA_REQUESTED_PAGE = "EXTRA_REQUESTED_PAGE";
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
@@ -74,26 +79,26 @@ public class Constants {
     public static final String SHARED_LOAD_AREA_LV0 = "is_load_area_lv_0";
     // [V50] Visible tabs
     public static final int TAG_PACKAGE = 0;
-    public static final int TAG_PICKUP_MAP = 22;
-    public static final int TAG_PICKUP_FORM = 25;
-    public static final int TAG_WALLET = 30;
-    public static final int TAG_TARIFF_CHECK = 5;
-    public static final int TAG_MORE = 8;
-    public static final int TAG_DRIVER = 2;
+    public static final int TAG_PROFILE = 2;
     public static final int TAG_ADDRESS = 3;
     public static final int TAG_MAP = 4;  // Drop off location
+    public static final int TAG_TARIFF_CHECK = 5;
     public static final int TAG_LOGOUT = 6;
-    public static final int TAG_LOGIN = 30;
     public static final int TAG_POSTCODE = 7;
+    public static final int TAG_MORE = 8;
     public static final int TAG_PACKAGE_DETAIL = 20;
     public static final int TAG_RATE_ON_MARKET = 21;
+    public static final int TAG_PICKUP_MAP = 22;
     public static final int TAG_NEW_PACKAGE = 23;
     public static final int TAG_PICKUP_HISTORY = 24;
+    public static final int TAG_PICKUP_FORM = 25;
     public static final int TAG_PUSH_NOTIF = 26;
     public static final int TAG_HELP = 27;
     public static final int TAG_SETTINGS = 28;
     public static final int TAG_SUPPORT = 29;
-    public static final String TAG_SUPPORT_MAP = "24";
+    public static final int TAG_LOGIN = 30;
+    public static final int TAG_SHOPPING_CART = 31;
+
     // Extra keys for cross activity/fragment
     public static final String EXTRA_FROM_NEW_PACKAGE = "fromNewPackage";
     public static final String EXTRA_ADDRESS_DETAIL = "address_detail";
@@ -111,6 +116,7 @@ public class Constants {
      * Key to store {@link android.location.Address} data on Intent extra.
      */
     public static final String EXTRA_SELECTED_ADDRESS = "selected_address";
+    public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";
     // Param keys
     public static final String PARAM_USER_EMAIL = "user_email";
     public static final String PARAM_USER_PASSWORD = "user_password";

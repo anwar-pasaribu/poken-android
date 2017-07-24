@@ -1,136 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/icon_24dp">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/loginIvAppLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/imageViewPaketLogoWhite"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginIvAppLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/item_gap_l">
+            android:layout_below="@+id/imageViewPaketLogoWhite"
+            app:errorEnabled="true"
+            android:layout_marginTop="@dimen/icon_24dp">
 
-            <TextView
-                android:id="@+id/imageViewPaketLogoWhite"
-                style="@style/TextTitle"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/clickable_size"
-                android:gravity="center"
-                android:scaleType="fitCenter"
-                android:text="@string/app_name" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayoutEmail"
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/txtEmailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewPaketLogoWhite"
-                android:layout_marginTop="@dimen/icon_24dp">
+                android:layout_gravity="center"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                tools:text="anwar"
+                android:textSize="20sp" />
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/txtEmailLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="@string/email"
-                    android:text="maheswara@gmail.com"
-                    android:inputType="textEmailAddress"
-                    android:textSize="20sp" />
-            </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/layoutPassword"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginTilPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayoutEmail"
+            android:layout_marginBottom="@dimen/item_gap_m"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/txtPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textInputLayoutEmail"
-                android:layout_marginTop="@dimen/item_gap_m"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                tools:text="anwar_poken17"
+                android:textSize="20sp" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    app:passwordToggleEnabled="false">
+        </android.support.design.widget.TextInputLayout>
 
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/txtPasswordLogin"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="sans-serif"
-                        android:hint="@string/password"
-                        android:text="qwe123qwe"
-                        android:inputType="textPassword"
-                        android:textSize="20sp" />
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageButton
-                    android:id="@+id/imageButtonTogglePassword"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:tint="@color/colorPrimaryDark"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/helper_password_visibility"
-                    app:srcCompat="@drawable/ic_visibility_24dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layoutPassword"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnRegister"
-                    android:visibility="gone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/register"
-                    android:textAllCaps="true"/>
-
-                <Button
-                    android:id="@+id/btnSignIn"
-                    style="@style/StyleBtnOrange"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/sign_in"
-                    android:textAllCaps="true" />
-
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loginTilPassword"
+            android:orientation="horizontal">
 
             <Button
-                android:visibility="gone"
-                android:id="@+id/btnResetPassword"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayoutButtons"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="@dimen/item_gap_m"
-                android:background="?attr/selectableItemBackground"
-                android:paddingLeft="@dimen/item_gap_l"
-                android:paddingRight="@dimen/item_gap_l"
-                android:text="@string/btn_forgot_password"
-                android:textAllCaps="false"
-                android:textColor="@color/white_100" />
+                android:layout_marginEnd="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_m"
+                android:layout_weight="1"
+                android:text="@string/register"
+                android:textAllCaps="true"
+                android:visibility="gone" />
 
-        </RelativeLayout>
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sign_in"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:theme="@style/MyButton" />
 
-    </ScrollView>
-</FrameLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnResetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutButtons"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="@dimen/item_gap_l"
+            android:paddingRight="@dimen/item_gap_l"
+            android:text="@string/btn_forgot_password"
+            android:textAllCaps="false"
+            android:textColor="@color/white_100"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</ScrollView>

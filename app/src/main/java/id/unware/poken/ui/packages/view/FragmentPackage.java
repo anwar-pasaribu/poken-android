@@ -34,7 +34,7 @@ import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
 import id.unware.poken.ui.detailPackage.ActivityMainWithUp;
-import id.unware.poken.ui.login.FragmentLogin;
+import id.unware.poken.ui.pokenaccount.login.view.fragment.FragmentLogin;
 import id.unware.poken.ui.main.model.CompanionButton;
 import id.unware.poken.ui.newPackage.view.AcNewPaket;
 import id.unware.poken.ui.packages.presenter.PackagesPresenterImpl;

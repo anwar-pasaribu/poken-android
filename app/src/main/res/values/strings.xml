@@ -597,7 +597,9 @@
     <string name="lbl_shipping_option_section_label">Pengiriman</string>
     <string name="lbl_shipping_method">Pengiriman:</string>
     <string name="msg_order_detail_no_receiver_address">
-    <![CDATA[Klik <font color="#904799">"UBAH"</font> untuk Tambah alamat penerima.]]>
+    <![CDATA[Klik <font color="#904799">"UBAH"</font> untuk Pilih/Tambah alamat penerima.]]>
     </string>
+    <string name="btn_order_change_address_book">Ubah</string>
+    <string name="btn_order_show_all_order">Lihat semua pesanan</string>
 
 </resources>

@@ -205,6 +205,11 @@ public class FragmentWallet extends BaseFragment implements
 
     }
 
+    @Override
+    public boolean isActivityFinishing() {
+        return parent.isFinishing();
+    }
+
     //////
     // S: Fragment Wallet (Main) View impl.
     @Override

@@ -34,10 +34,6 @@ import id.unware.poken.domain.AddressBook;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 
-import static id.unware.poken.R.id.add;
-import static id.unware.poken.R.id.container;
-import static id.unware.poken.R.id.view;
-
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
  * <p>You can show this modal bottom sheet from your activity like this:</p>
@@ -68,6 +64,7 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
 
     private ArrayList<AddressBook> listItem = new ArrayList<>();
     private int selectedAddressBookIndex = 0;
+    private boolean isAddressBookAvailable = true;
 
     private boolean isListMode = true;  // List mode as default
     private int DISPLAY_MODE_LIST = 0;
@@ -75,13 +72,15 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
 
     private static final String ARG_ITEM_COUNT = "item_count";
     private static final String ARG_SELECTED_ITEM_INDEX = "selected_item_index";
+    private static final String ARG_IS_ADDRESS_BOOK_AVAILABLE = "is_add_available";
     private Listener mListener;
 
-    public static AddressBookDialogFragment newInstance(int itemCount, int selectedAddressBookIndex) {
+    public static AddressBookDialogFragment newInstance(int itemCount, int selectedAddressBookIndex, boolean isAddressBookAvailable) {
         final AddressBookDialogFragment fragment = new AddressBookDialogFragment();
         final Bundle args = new Bundle();
         args.putInt(ARG_ITEM_COUNT, itemCount);
         args.putInt(ARG_SELECTED_ITEM_INDEX, selectedAddressBookIndex);
+        args.putBoolean(ARG_IS_ADDRESS_BOOK_AVAILABLE, isAddressBookAvailable);
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,6 +96,7 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             selectedAddressBookIndex = getArguments().getInt(ARG_SELECTED_ITEM_INDEX, 0);
+            isAddressBookAvailable = getArguments().getBoolean(ARG_IS_ADDRESS_BOOK_AVAILABLE, true);
         }
     }
 
@@ -127,8 +127,10 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
     private void initView() {
 
         // Show List Mode first
-        if (isListMode) {
+        if (isListMode && isAddressBookAvailable) {
             addressBookParentViewFlipper.setDisplayedChild(DISPLAY_MODE_LIST);
+        } else if (!isAddressBookAvailable) {
+            addressBookParentViewFlipper.setDisplayedChild(DISPLAY_MODE_INPUT);
         }
 
         addressBookBtnAdd.setOnClickListener(new View.OnClickListener() {
@@ -136,16 +138,19 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 if (isListMode) {
                     addressBookParentViewFlipper.setDisplayedChild(DISPLAY_MODE_INPUT);
-                    addressBookBtnAdd.setText("Batal");
+                    setupAddressBookVisibleView(DISPLAY_MODE_INPUT);
                 } else {
                     addressBookParentViewFlipper.setDisplayedChild(DISPLAY_MODE_LIST);
-                    addressBookBtnAdd.setText("Tambah");
+                    setupAddressBookVisibleView(DISPLAY_MODE_LIST);
                 }
 
                 isListMode = !isListMode;
 
             }
         });
+
+        int activeChildIndex = addressBookParentViewFlipper.getDisplayedChild();
+        setupAddressBookVisibleView(activeChildIndex);
 
         addressBookIbClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +168,14 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private void setupAddressBookVisibleView(int viewChildIndex) {
+        if (viewChildIndex == DISPLAY_MODE_INPUT) {
+            addressBookBtnAdd.setText("Batal");
+        } else if (viewChildIndex == DISPLAY_MODE_LIST) {
+            addressBookBtnAdd.setText("Tambah");
+        }
+    }
+
     private void proceedNewAddressBook() {
         if (isAddressBookFormReady()) {
             if (mListener != null) {
@@ -171,6 +184,7 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
                 addressBook.phone = String.valueOf(editTextPhone.getText());
                 addressBook.address = String.valueOf(editTextFullAddress.getText());
                 mListener.onNewAddressBook(addressBook);
+                dismiss();
             }
         }
     }

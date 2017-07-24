@@ -54,11 +54,17 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
 
     @Override
     public void updateViewState(UIState uiState) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 
     @Override
     public void onProductDetailDataResponse(Product product) {
+
+        if (view.isActivityFinishing()) return;
+
         view.populateProductImage(product.images);
 
         view.updateProductPrice(
@@ -71,11 +77,17 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
 
     @Override
     public void onShoppingCartCreateOrUpdateResponse(ShoppingCart cart) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showShoppingCartScreen(cart);
     }
 
     @Override
     public void onShippingOptionListResponse(ArrayList<Shipping> shippings) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showDefaultShippingOption(shippings.get(0));
     }
 }

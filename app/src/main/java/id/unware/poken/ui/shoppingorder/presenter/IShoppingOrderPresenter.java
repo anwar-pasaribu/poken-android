@@ -10,9 +10,13 @@ import id.unware.poken.domain.AddressBook;
 public interface IShoppingOrderPresenter {
     void addNewAddressBook(AddressBook addressBook);
     void getAddressBookData();  // Started when user click "UBAH"
-    void getShoppingOrderData();
+    void getShoppingOrderData(long orderedProductId);
 
     void startPaymentScreen();
 
-    void startAddressBookScreen();
+    void startAddressBookScreen(boolean isAddressBookAvailable);
+
+    void startSelectedProductScreen();
+
+    void createOrUpdateOrderDetail(long[] selectedShoppingCartIds, AddressBook addressBook);
 }

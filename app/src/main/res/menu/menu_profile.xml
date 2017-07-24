@@ -7,6 +7,5 @@
         android:id="@+id/action_signout"
         android:orderInCategory="100"
         android:title="@string/action_signout"
-        app:showAsAction="never"
-        android:visible="false"/>
+        app:showAsAction="never"/>
 </menu>

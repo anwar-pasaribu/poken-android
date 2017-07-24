@@ -17,4 +17,10 @@ public class BaseFragment extends Fragment {
         super.onAttach(context);
         parent = (AppCompatActivity) context;
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        parent = null;
+    }
 }

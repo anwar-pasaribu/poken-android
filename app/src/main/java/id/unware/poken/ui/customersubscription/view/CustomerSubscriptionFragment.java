@@ -125,6 +125,11 @@ public class CustomerSubscriptionFragment extends BaseFragment implements ICusto
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return parent == null || parent.isFinishing();
+    }
+
+    @Override
     public void populateSubscriptionList(ArrayList<CustomerSubscription> subscriptions) {
         Utils.Log(TAG, "CustomerSubscription list size: " + subscriptions.size());
         orderList.clear();

@@ -107,6 +107,8 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
                 if (presenter != null) {
                     long shippingId = selectedShipping != null ? selectedShipping.id : 3;
                     presenter.onBuyNow(shippingId, productId);
+                } else {
+                    Utils.Logs('e', TAG, "Presenter is not ready.");
                 }
             }
         });
@@ -116,6 +118,8 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
             public void onRefresh() {
                 if (presenter != null) {
                     presenter.getProductData(productId);
+                } else {
+                    Utils.Logs('e', TAG, "Presenter is not ready.");
                 }
             }
         });
@@ -125,6 +129,8 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
             public void onClick(View v) {
                 if (presenter != null) {
                     presenter.startShippingOptionsScreen();
+                } else {
+                    Utils.Logs('e', TAG, "Presenter is not ready.");
                 }
             }
         });
@@ -151,6 +157,9 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         tvProductName.setText(String.valueOf(product.name));
         tvProductDescription.setText(String.valueOf(product.description));
         tvProductStock.setText(String.valueOf(product.stock));
+
+        tvProductSold.setText(String.valueOf(0));
+        tvProductLeft.setText(String.valueOf(product.stock));
 
         // Store info
         tvSellerName.setText(product.seller.store_name);
@@ -191,7 +200,7 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void populateShippingOptionsScreen(ArrayList<Shipping> shippings) {
-
+        Utils.Logs('i', TAG, "Populate shipping options: " + shippings.size());
     }
 
     @Override
@@ -200,13 +209,19 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         switch (uiState) {
             case LOADING:
                 // swipeRefreshLayoutParent.setRefreshing(true);
+                btnBuy.setEnabled(false);
                 Utils.Log(TAG, "Loading ");
                 break;
             case FINISHED:
+                btnBuy.setEnabled(true);
                 swipeRefreshLayoutParent.setRefreshing(false);
                 break;
         }
+    }
 
+    @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
     }
 
     @Override

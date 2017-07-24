@@ -6,12 +6,15 @@ import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
+import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
+import id.unware.poken.domain.ShoppingOrderInserted;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderModelPresenter;
@@ -37,7 +40,9 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
     @Override
     public void requestShoppingOrderData(IShoppingOrderModelPresenter presenter) {
-        this.presenter = presenter;
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
 
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
@@ -72,19 +77,75 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
     }
 
     @Override
+    public void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook) {
+
+        // Loading
+        this.presenter.updateViewState(UIState.LOADING);
+
+        HashMap<String, String> postData = new HashMap<>();
+        postData.put("address_book_id", String.valueOf(addressBook.id));
+
+        req.postNewOrUpdateOrderDetails(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                postData
+        ).enqueue(this);
+    }
+
+    @Override
+    public void postOrUpdateOrderedProduct(IShoppingOrderModelPresenter presenter, OrderDetail orderDetail, long[] shoppingCartIds) {
+
+        // Loading
+        this.presenter.updateViewState(UIState.LOADING);
+
+        HashMap<String, String> postData = new HashMap<>();
+        postData.put("order_details_id", String.valueOf(orderDetail.id));
+
+        req.postNewOrderedProduct(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                postData,
+                shoppingCartIds
+        ).enqueue(this);
+
+    }
+
+    @Override
+    public void requestShoppingOrderDataById(IShoppingOrderModelPresenter presenter, long orderedProductId) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        // Loading state to view
+        this.presenter.updateViewState(UIState.LOADING);
+
+        // This req. response: ShoppingOrderDataRes
+        req.reqShoppingOrderDetail(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                orderedProductId
+        ).enqueue(this);
+    }
+
+    @Override
     public void onSuccess(Response response) {
 
         Utils.Log(TAG, "Success response: " + response.toString());
 
         Object o = response.body();
 
-        if (o instanceof ShoppingOrderDataRes) {
+        presenter.updateViewState(UIState.FINISHED);
 
-            presenter.updateViewState(UIState.FINISHED);
+        if (o instanceof ShoppingOrderDataRes) {
 
             ArrayList<ShoppingOrder> shoppingOrders = new ArrayList<>();
             shoppingOrders.addAll(((ShoppingOrderDataRes) response.body()).results);
             presenter.onShoppingOrderDataResponse(shoppingOrders);
+
+        } else if (o instanceof ShoppingOrder) {
+
+            ShoppingOrder shoppingOrder = (ShoppingOrder) o;
+
+            Utils.Log(TAG, "Order detail (single) : " + shoppingOrder);
+
+            presenter.onOrderDetailResponse(shoppingOrder);
 
         } else if (o instanceof AddressBook){
 
@@ -98,6 +159,18 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
             Utils.Logs('v', TAG, "All address book res size: " + addressBookDataRes.results.size());
             presenter.onAddressBookContentResponse(addressBookDataRes.results);
 
+        } else if (o instanceof OrderDetail) {
+
+            OrderDetail orderDetail = (OrderDetail) o;
+            Utils.Logs('v', TAG, "New/Updated order details. Address book id: " + orderDetail.address_book_id);
+            presenter.onOrderDetailCreatedOrUpdated(orderDetail);
+
+        } else if (o instanceof ShoppingOrderInserted) {
+            ShoppingOrderInserted shoppingOrderInserted = (ShoppingOrderInserted) o;
+            Utils.Logs('v', TAG, "New ordered product: " + shoppingOrderInserted);
+
+            // Load actual ordered data
+            presenter.onOrderedProductInserted(shoppingOrderInserted);
         }
     }
 
@@ -105,6 +178,10 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
     public void onMessage(String msg, int status) {
         Utils.Logs('v', TAG, "Message from network req: " + msg);
         Utils.Logs('v', TAG, "Status from network req: " + status);
+        if (status == Constants.NETWORK_CALLBACK_FAILURE) {
+            presenter.updateViewState(UIState.ERROR);
+        }
+        presenter.onNetworkMessage(msg, status);
     }
 
     @Override

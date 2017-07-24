@@ -18,7 +18,7 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.MainMenu.view.MainMenuView;
 import id.unware.poken.ui.jnews.view.NewsFragment;
 import id.unware.poken.ui.jnews.dummy.PojoNews;
-import id.unware.poken.ui.login.LoginActivity;
+import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.profile.ProfileFragment;
 
 public class MainPage extends AppCompatActivity implements

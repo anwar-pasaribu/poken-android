@@ -33,6 +33,7 @@
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         tools:visibility="gone"
+        android:animateLayoutChanges="true"
         android:layout_height="@dimen/clickable_size_64">
 
         <View

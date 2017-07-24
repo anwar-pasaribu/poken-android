@@ -7,20 +7,24 @@ import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.HomeDataRes;
+import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
+import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
+import id.unware.poken.domain.ShoppingOrderInserted;
+import id.unware.poken.domain.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
@@ -31,6 +35,11 @@ import retrofit2.http.QueryMap;
  */
 
 public interface PokenRequest {
+
+    @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_POKEN_AUTH)
+    Call<User> postPokenLogin(
+            @FieldMap() Map<String, String> postData);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_HOME_CONTENT)
     Call<HomeDataRes> reqHomeContent(@HeaderMap Map<String, String> headerMap);
@@ -47,6 +56,19 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 
+    @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_ORDER_DETAIL)
+    Call<OrderDetail> postNewOrUpdateOrderDetails(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
+
+    @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_ORDERED_PRODUCT)
+    Call<ShoppingOrderInserted> postNewOrderedProduct(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData,
+            @Field("shopping_carts") long[] shoppingCartIds);
+
 
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_ADDRESS_BOOK)
     Call<AddressBook> postNewAddressBook(
@@ -62,6 +84,9 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_ORDER)
     Call<ShoppingOrderDataRes> reqShoppingOrderContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_ORDER_DETAIL)
+    Call<ShoppingOrder> reqShoppingOrderDetail(@HeaderMap Map<String, String> headerMap, @Path("pk") long orderId);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_CUSTOMER_COLLECTION)
     Call<CustomerCollectionDataRes> reqCustomerCollectionContent(@HeaderMap Map<String, String> headerMap);

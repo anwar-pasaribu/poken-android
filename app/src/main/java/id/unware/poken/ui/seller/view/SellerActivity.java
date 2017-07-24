@@ -144,6 +144,11 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
+    }
+
+    @Override
     public void pupolateSellerProductList(ArrayList<Product> products) {
         Utils.Log(TAG, "Product response size: " + products.size());
         listItem.clear();

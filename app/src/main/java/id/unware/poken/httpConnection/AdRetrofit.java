@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import id.unware.poken.BuildConfig;
 import io.realm.RealmObject;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,7 +19,7 @@ public class AdRetrofit {
     private static Retrofit instance;
 
     private static final String url = "https://tiki.id/mobile_api/";
-    private static final String POKEN_HOST = "http://192.168.1.101:8000/poken_rest/";
+    private static final String POKEN_HOST = BuildConfig.HOST;
 
     public static Retrofit getInstanceTiki() {
         if (instance == null) {

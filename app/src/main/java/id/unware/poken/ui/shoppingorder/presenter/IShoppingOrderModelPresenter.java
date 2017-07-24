@@ -3,8 +3,10 @@ package id.unware.poken.ui.shoppingorder.presenter;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.AddressBook;
+import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
+import id.unware.poken.domain.ShoppingOrderInserted;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -19,4 +21,11 @@ public interface IShoppingOrderModelPresenter extends BasePresenter {
     void onAddressBookContentResponse(ArrayList<AddressBook> addressBookArrayList);
 
 
+    void onNetworkMessage(String msg, int messageStatus);
+
+    void onOrderDetailCreatedOrUpdated(OrderDetail orderDetail);
+
+    void onOrderedProductInserted(ShoppingOrderInserted shoppingOrderInserted);
+
+    void onOrderDetailResponse(ShoppingOrder shoppingOrder);
 }

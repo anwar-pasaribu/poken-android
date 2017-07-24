@@ -13,4 +13,6 @@ import id.unware.poken.pojo.UIState;
 public interface BaseView {
     void showViewState(UIState uiState);
 
+    boolean isActivityFinishing();
+
 }

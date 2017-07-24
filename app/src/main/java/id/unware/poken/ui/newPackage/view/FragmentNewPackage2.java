@@ -1626,6 +1626,11 @@ public class FragmentNewPackage2 extends BaseFragment implements
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return parent.isFinishing();
+    }
+
+    @Override
     public void populateAutoComplete(ArrayList<PojoAddressBook> pojoBookingArrayList) {
 
         if (!listAllContact.isEmpty()) {

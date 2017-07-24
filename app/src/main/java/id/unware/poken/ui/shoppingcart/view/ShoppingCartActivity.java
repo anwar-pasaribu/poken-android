@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,6 +27,7 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.model.ShoppingCartModel;
@@ -89,14 +91,18 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getShoppingCartData();
+                if (presenter != null) {
+                    presenter.getShoppingCartData();
+                }
             }
         });
 
         btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.startShoppingOrderScreen();
+                if (presenter != null) {
+                    presenter.startShoppingOrderScreen();
+                }
             }
         });
     }
@@ -128,6 +134,11 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
                 Utils.Logs('e', TAG, "Load data error.");
                 break;
         }
+    }
+
+    @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
     }
 
     @Override
@@ -188,8 +199,20 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
 
     @Override
     public void openShoppingOrder() {
-        Intent shoppingOrderIntent = new Intent(this, OrderActivity.class);
-        startActivity(shoppingOrderIntent);
+        if (selectedShoppingCart.size() > 0) {
+            // Collect shopping cart id to send to order screen
+            int selectedShoppingCartSize = selectedShoppingCart.size();
+            long[] shoppingCartIds = new long[selectedShoppingCart.size()];
+            for (int i = 0; i < selectedShoppingCartSize; i++) {
+                shoppingCartIds[i] = selectedShoppingCart.get(i).id;
+            }
+
+            Utils.Logs('i', TAG, "Selected shopping carts: " + Arrays.toString(shoppingCartIds));
+
+            Intent shoppingOrderIntent = new Intent(this, OrderActivity.class);
+            shoppingOrderIntent.putExtra(Constants.EXTRA_SELECTED_SHOPPING_CART, shoppingCartIds);
+            startActivity(shoppingOrderIntent);
+        }
     }
 
     @Override

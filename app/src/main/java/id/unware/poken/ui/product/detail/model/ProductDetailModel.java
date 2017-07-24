@@ -46,17 +46,25 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
         }
 
         // Loading state to view
-        presenter.updateViewState(UIState.LOADING);
+        this.presenter.updateViewState(UIState.LOADING);
 
         // noinspection unchecked
         req.reqSingleProductDetail(productId).enqueue(this);
+
     }
 
     @Override
-    public void postProductToShoppingCart(long shippingOptionId, long productId, IProductDetailModelPresenter presenter) {
+    public void postProductToShoppingCart (
+            final long shippingOptionId,
+            final long productId,
+            IProductDetailModelPresenter presenter ) {
+
         if (this.presenter == null) {
             this.presenter = presenter;
         }
+
+        // Loading state to view
+        this.presenter.updateViewState(UIState.LOADING);
 
         Map<String, String> postBody = new HashMap<>();
         postBody.put("product_id", String.valueOf(productId));
@@ -67,7 +75,9 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
         req.postNewOrUpdateShoppingCart(
                 PokenCredentials.getInstance().getCredentialHashMap(),
                 postBody)
-                .enqueue(this);
+                .enqueue(ProductDetailModel.this);
+
+
     }
 
     @Override

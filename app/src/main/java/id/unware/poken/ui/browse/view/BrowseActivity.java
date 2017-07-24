@@ -137,6 +137,11 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     }
 
     @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
+    }
+
+    @Override
     public void pupolateSellerProductList(ArrayList<Product> products) {
         listItem.clear();
         listItem.addAll(products);

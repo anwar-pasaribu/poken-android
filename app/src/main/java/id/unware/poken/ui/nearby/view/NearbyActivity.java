@@ -591,6 +591,11 @@ public class NearbyActivity extends BaseActivity
 
     }
 
+    @Override
+    public boolean isActivityFinishing() {
+        return this.isFinishing();
+    }
+
     // E: On Camera Event Listeners
     //////
 }

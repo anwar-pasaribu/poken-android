@@ -1073,6 +1073,11 @@ public class FragmentPickupMap extends BaseFragment
                 break;
         }
     }
+
+    @Override
+    public boolean isActivityFinishing() {
+        return parent.isFinishing();
+    }
     // E: Pickup View
     //////
 

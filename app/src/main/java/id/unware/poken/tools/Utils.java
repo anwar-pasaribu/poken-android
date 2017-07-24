@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -249,17 +250,30 @@ public class Utils {
 
             ViewGroup parentContent = (ViewGroup) view.findViewById(R.id.parentContent);
             TextView txtmessage = (TextView) view.findViewById(R.id.txtMessage);
+            ImageButton snackBarBtn = (ImageButton) view.findViewById(R.id.btnCloseSnackbar);
+
+            // Set snackbar message
             txtmessage.setText(strMessage);
-            txtmessage.setTranslationY(height * -1);
-            txtmessage.animate().translationY(0).setDuration(ANIM_DUR).start();
+            txtmessage.setTextColor(intColor);
+
+            // Animate content
+            parentContent.setTranslationY(height * -1);
+            parentContent.animate().translationY(0).setDuration(ANIM_DUR).start();
+
             popupWindow.setContentView(view);
-            final int location[] = new int[2];
+
+            int location[] = new int[2];
             rootView.getLocationOnScreen(location);
             popupWindow.showAtLocation(rootView, Gravity.NO_GRAVITY, 0, location[1]);
 
-            Utils.Logs('i', TAG, "Root view location: " + location);
-
             popupSnack.add(popupWindow);
+
+            snackBarBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.snackbarDismiss();
+                }
+            });
 
         } catch (WindowManager.BadTokenException ex){
             MyLog.FabricLog(Log.ERROR, "Custom snackbar exception occour.", ex);
@@ -367,7 +381,7 @@ public class Utils {
 
         FragmentTransaction ft = fragmentActivity.getSupportFragmentManager().beginTransaction();
         ft.replace(layoutFragment, fragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.setTransition(FragmentTransaction.TRANSIT_NONE);
         ft.commit();
         fragmentActivity.supportInvalidateOptionsMenu();
     }
