@@ -28,4 +28,6 @@ public interface IShoppingOrderModelPresenter extends BasePresenter {
     void onOrderedProductInserted(ShoppingOrderInserted shoppingOrderInserted);
 
     void onOrderDetailResponse(ShoppingOrder shoppingOrder);
+
+    void onShoppingCartsParseResponse(ArrayList<ShoppingCart> shoppingCartArrayList);
 }

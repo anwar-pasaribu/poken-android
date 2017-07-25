@@ -40,7 +40,9 @@ public class ShoppingSummaryActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setElevation(0F);
+        getSupportActionBar().setTitle(null);
 
         shoppingSummaryBtnShoppingAgain.setOnClickListener(new View.OnClickListener() {
             @Override

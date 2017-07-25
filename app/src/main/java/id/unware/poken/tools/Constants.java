@@ -116,6 +116,7 @@ public class Constants {
      * Key to store {@link android.location.Address} data on Intent extra.
      */
     public static final String EXTRA_SELECTED_ADDRESS = "selected_address";
+    public static final String EXTRA_SELECTED_SHOPPING_CART_IDS = "selected_shopping_cart_ids";
     public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";
     // Param keys
     public static final String PARAM_USER_EMAIL = "user_email";

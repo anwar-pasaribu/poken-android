@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -147,6 +149,9 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
         itemList.clear();
         itemList.addAll(shoppingCarts);
         shoppingCartAdapter.notifyDataSetChanged();
+
+        // Clear selected shopping cart on repopulate list
+        selectedShoppingCart.clear();
     }
 
     @Override
@@ -209,8 +214,15 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
 
             Utils.Logs('i', TAG, "Selected shopping carts: " + Arrays.toString(shoppingCartIds));
 
+            // Convert ShoppingCart data to String
+            Gson gson = new Gson();
+            String strSelectedShoppingCarts = gson.toJson(selectedShoppingCart);
+
+            Utils.Log(TAG, "JSON ArrayList<ShoppingCart>:\n" + strSelectedShoppingCarts);
+
             Intent shoppingOrderIntent = new Intent(this, OrderActivity.class);
-            shoppingOrderIntent.putExtra(Constants.EXTRA_SELECTED_SHOPPING_CART, shoppingCartIds);
+            shoppingOrderIntent.putExtra(Constants.EXTRA_SELECTED_SHOPPING_CART_IDS, shoppingCartIds);
+            shoppingOrderIntent.putExtra(Constants.EXTRA_SELECTED_SHOPPING_CART, strSelectedShoppingCarts);
             startActivity(shoppingOrderIntent);
         }
     }

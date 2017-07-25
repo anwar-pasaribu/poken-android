@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
     android:paddingBottom="@dimen/list_item_spacing_half"
     android:paddingLeft="@dimen/list_item_spacing"
     android:paddingRight="@dimen/list_item_spacing"
@@ -14,29 +16,26 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextListTitle"
         android:layout_toLeftOf="@+id/rbIsSelected"
         android:textStyle="bold"
-        tools:text="Hello" />
+        tools:text="Anwar Pasaribu" />
 
     <TextView
         android:id="@+id/phone"
         android:layout_below="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
         android:layout_toLeftOf="@+id/rbIsSelected"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:text="Hello" />
+        android:textAppearance="@style/TextListSubtitle"
+        tools:text="087884155479" />
 
     <TextView
         android:id="@+id/address"
         android:layout_below="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextListSubtitle"
         android:layout_toLeftOf="@+id/rbIsSelected"
         tools:text="Jl. Lapangan Bola No. 3\nLine 2\nLine 3" />
 

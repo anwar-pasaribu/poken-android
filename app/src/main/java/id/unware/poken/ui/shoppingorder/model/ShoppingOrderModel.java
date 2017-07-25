@@ -1,12 +1,22 @@
 package id.unware.poken.ui.shoppingorder.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.OrderDetail;
+import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import id.unware.poken.domain.ShoppingOrderInserted;
@@ -18,7 +28,6 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderModelPresenter;
-import okhttp3.Credentials;
 import retrofit2.Response;
 
 /**
@@ -48,17 +57,25 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
         this.presenter.updateViewState(UIState.LOADING);
 
         // This req. response: ShoppingOrderDataRes
-        req.reqShoppingOrderContent(PokenCredentials.getInstance().getCredentialHashMap()).enqueue(this);
+        // noinspection unchecked
+        req.reqShoppingOrderContent(
+                PokenCredentials.getInstance().getCredentialHashMap()
+        ).enqueue(this);
     }
 
     @Override
     public void postNewAddressBook(IShoppingOrderModelPresenter presenter, AddressBook addressBook) {
+
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
 
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
         // HashMap<String, String> newAddressMap = new HashMap<>();
         // newAddressMap.put()
+        // noinspection unchecked
         req.postNewAddressBook(
                 "application/json",
                 PokenCredentials.getInstance().getCredentialHashMap(),
@@ -68,9 +85,15 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
     @Override
     public void getAddressBookData(IShoppingOrderModelPresenter presenter) {
+
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
+        // noinspection unchecked
         req.reqAddressBookContent(
                 PokenCredentials.getInstance().getCredentialHashMap()
         ).enqueue(this);
@@ -79,12 +102,17 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
     @Override
     public void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook) {
 
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
         // Loading
         this.presenter.updateViewState(UIState.LOADING);
 
         HashMap<String, String> postData = new HashMap<>();
         postData.put("address_book_id", String.valueOf(addressBook.id));
 
+        // noinspection unchecked
         req.postNewOrUpdateOrderDetails(
                 PokenCredentials.getInstance().getCredentialHashMap(),
                 postData
@@ -94,12 +122,17 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
     @Override
     public void postOrUpdateOrderedProduct(IShoppingOrderModelPresenter presenter, OrderDetail orderDetail, long[] shoppingCartIds) {
 
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
         // Loading
         this.presenter.updateViewState(UIState.LOADING);
 
         HashMap<String, String> postData = new HashMap<>();
         postData.put("order_details_id", String.valueOf(orderDetail.id));
 
+        // noinspection unchecked
         req.postNewOrderedProduct(
                 PokenCredentials.getInstance().getCredentialHashMap(),
                 postData,
@@ -118,10 +151,36 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
         this.presenter.updateViewState(UIState.LOADING);
 
         // This req. response: ShoppingOrderDataRes
+        // noinspection unchecked
         req.reqShoppingOrderDetail(
                 PokenCredentials.getInstance().getCredentialHashMap(),
                 orderedProductId
         ).enqueue(this);
+    }
+
+    @Override
+    public void parseSelectedShoppingCarts(IShoppingOrderModelPresenter presenter, String shoppingCartArrayListJsonString) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
+
+        Gson gson = new Gson();
+        try {
+            shoppingCarts =
+                    gson.fromJson(
+                            shoppingCartArrayListJsonString,
+                            new TypeToken<ArrayList<ShoppingCart>>() {}.getType()
+                    );
+
+            Utils.Log(TAG, "ArrayList of ShoppingCart size: " + shoppingCarts.size());
+
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        }
+
+        this.presenter.onShoppingCartsParseResponse(shoppingCarts);
     }
 
     @Override
@@ -147,7 +206,7 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
             presenter.onOrderDetailResponse(shoppingOrder);
 
-        } else if (o instanceof AddressBook){
+        } else if (o instanceof AddressBook) {
 
             AddressBook addressBook = (AddressBook) o;
             Utils.Logs('i', TAG, "Created address book: " + addressBook.toString());

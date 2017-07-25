@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.OrderDetail;
-import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
@@ -57,8 +56,10 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
     @Override
     public void startPaymentScreen() {
-        Utils.Logs('i', TAG, "Start Payment screen");
-        view.openPaymentScreen();
+        if (view.isOrderReady()) {
+            Utils.Logs('i', TAG, "Start Payment screen");
+            view.openPaymentScreen();
+        }
     }
 
     @Override
@@ -80,6 +81,19 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         model.postOrUpdateOrderDetails(
                 this,
                 addressBook
+        );
+    }
+
+    @Override
+    public void prepareOrderFromShoppingCart(String shoppingCartArrayListJsonString) {
+
+        // Load address book online
+        model.getAddressBookData(this);
+
+        // Parse String of ArrayList<ShoppingCart> then show on view.
+        model.parseSelectedShoppingCarts(
+                this,
+                shoppingCartArrayListJsonString
         );
     }
 
@@ -133,7 +147,19 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         if (view.isActivityFinishing()) return;
 
-        view.populateAddressBookList(addressBookArrayList);
+        if (addressBookArrayList.isEmpty()) {
+            view.showNoReceiverAddressView(true);
+        } else {
+            view.showNoReceiverAddressView(false);
+            view.setupShippingReceiver(addressBookArrayList.get(0));
+            view.populateAddressBookList(addressBookArrayList);
+
+            model.postOrUpdateOrderDetails(
+                    this,
+                    addressBookArrayList.get(0)
+            );
+        }
+
     }
 
     @Override
@@ -175,39 +201,44 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         setupOrderDetailView(shoppingOrder);
     }
 
-    private void setupOrderDetailView(ShoppingOrder shoppingOrder) {
-        ArrayList<ShoppingCart> shoppingCarts = shoppingOrder.shopping_carts;
-        OrderDetail orderDetail = shoppingOrder.order_details;
-        AddressBook addressBook = orderDetail.address_book;
-        Shipping shipping = shoppingOrder.shopping_carts.get(0).shipping;
-        Product product = shoppingOrder.shopping_carts.get(0).product;
+    @Override
+    public void onShoppingCartsParseResponse(ArrayList<ShoppingCart> shoppingCartArrayList) {
+        setupSelectedProduct(shoppingCartArrayList);
+    }
 
-        // Save current order detail id to prevent recreate order detail
-        previousOrderDetailId = orderDetail.id;
+    private void setupSelectedProduct(ArrayList<ShoppingCart> shoppingCarts) {
 
+        // Count Product Grand total + shipping fee
         double grandTotal = 0D;
-        ArrayList<Product> productArrayList = new ArrayList<>();
         for (ShoppingCart item : shoppingCarts) {
-            productArrayList.add(item.product);
-
-            // Count Product Grand total + shipping fee
             grandTotal += (item.product.price * item.quantity) + item.shipping.fee;
         }
 
-        view.showOrderId(orderDetail.order_id, shoppingOrder.id);
-
         view.showTotalAmount(grandTotal);
 
-        view.setupShippingReceiver(addressBook);
-
-        Utils.Log(TAG, "All selected product size: " + productArrayList.size());
-        view.showMultiSelectedProduct(shoppingCarts.size() > 1);
+        view.showMultiSelectedProduct(shoppingCarts.size());
         if (shoppingCarts.size() <= 1) {
             view.setupSelectedProduct(shoppingCarts.get(0));
         } else {
             view.setupSelectedProduct(shoppingCarts.get(0));
             view.setupSelectedProducts(shoppingCarts);
         }
+    }
+
+    private void setupOrderDetailView(ShoppingOrder shoppingOrder) {
+        ArrayList<ShoppingCart> shoppingCarts = shoppingOrder.shopping_carts;
+        OrderDetail orderDetail = shoppingOrder.order_details;
+        AddressBook addressBook = orderDetail.address_book;
+        Shipping shipping = shoppingCarts.get(0).shipping;
+
+        // Save current order detail id to prevent recreate order detail
+        previousOrderDetailId = orderDetail.id;
+
+        view.showOrderId(orderDetail.order_id, shoppingOrder.id);
+
+        view.setupShippingReceiver(addressBook);
+
+        setupSelectedProduct(shoppingCarts);
 
         view.setupShippingMethod(shipping);
     }

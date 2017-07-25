@@ -19,4 +19,6 @@ public interface IShoppingOrderPresenter {
     void startSelectedProductScreen();
 
     void createOrUpdateOrderDetail(long[] selectedShoppingCartIds, AddressBook addressBook);
+
+    void prepareOrderFromShoppingCart(String shoppingCartArrayListJsonString);
 }

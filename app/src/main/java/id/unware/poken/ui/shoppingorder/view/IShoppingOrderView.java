@@ -14,6 +14,9 @@ import id.unware.poken.ui.view.BaseView;
  */
 
 public interface IShoppingOrderView extends BaseView {
+
+    boolean isOrderReady();
+
     void openPaymentScreen();
 
     void setupShippingReceiver(AddressBook addressBook);
@@ -34,5 +37,5 @@ public interface IShoppingOrderView extends BaseView {
 
     void showSelectedProductDialog();
 
-    void showMultiSelectedProduct(boolean isMultiSelectedProduct);
+    void showMultiSelectedProduct(int selectedProductSize);
 }

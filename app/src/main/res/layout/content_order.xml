@@ -192,7 +192,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/item_gap_l"
-                android:text="@string/btn_order_show_all_order"
+                android:text="@string/btn_order_show_other_order"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent" />
 
@@ -202,7 +202,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/item_gap_l"
-                android:src="@drawable/ic_chevron_right_black_24dp" />
+                android:src="@drawable/ic_chevron_right_black_24dp"
+                android:contentDescription="@string/btn_order_show_all_order"/>
 
         </RelativeLayout>
 

@@ -601,5 +601,7 @@
     </string>
     <string name="btn_order_change_address_book">Ubah</string>
     <string name="btn_order_show_all_order">Lihat semua pesanan</string>
+    <string name="btn_order_show_other_order">Lihat %1$d pesanan lainnya</string>
+    <string name="msg_order_receiver_empty">Silahkan tentukan tujuan pengiriman barang pesanan.</string>
 
 </resources>

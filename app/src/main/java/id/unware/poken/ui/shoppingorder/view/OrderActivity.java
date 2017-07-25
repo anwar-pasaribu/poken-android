@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -80,6 +79,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private ShoppingOrderPresenter presenter;
 
     private long[] shoppingCartIds;
+    private String shoppingCartArrayListJsonString;
 
     // Address book dialog
     private AddressBookDialogFragment addressBookDialogFragment;
@@ -89,7 +89,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private OrderedProductListDialogFragment orderedProductListDialogFragment;
     private ArrayList<ShoppingCart> selectedShoopingCarts;
 
-    private long selectedAddressBookId = 0L;
+    private long selectedAddressBookId = -1L;
     private int selectedAddressBookIndex = 0;
 
     private long orderedProductId = -1;
@@ -104,23 +104,29 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         unbinder = ButterKnife.bind(this);
 
         if (getIntent().getExtras() != null) {
+
+            // Get shopping cart ids from shopping cart screen
+            shoppingCartIds = getIntent().getLongArrayExtra(Constants.EXTRA_SELECTED_SHOPPING_CART_IDS);
+
+            // Get ShoppingCart arrayList JSON String
+            shoppingCartArrayListJsonString = getIntent().getStringExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
+
             orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
             if (orderedProductId != -1) {
                 isReadOnlyMode = true;
             }
 
-            Utils.Log(TAG, "Ordered product id: " + orderedProductId);
-            Utils.Log(TAG, "Is read only mode --> " + isReadOnlyMode);
         }
 
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
-        presenter.getShoppingOrderData(orderedProductId);
+        // Load address book first
+        presenter.getAddressBookData();
 
-        // Get shopping cart ids from shopping cart screen
-        if (getIntent().getExtras() != null) {
-            shoppingCartIds = getIntent().getLongArrayExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
-            Utils.Logs('i', TAG, "Selected shopping cart id: " + Arrays.toString(shoppingCartIds));
+        if (orderedProductId != -1) {
+            presenter.getShoppingOrderData(orderedProductId);
+        } else {
+            presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
         }
 
         initView();
@@ -147,12 +153,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
             public void onClick(View v) {
                 if (presenter != null) {
 
-                    if (addressBookArrayList.size() > 0) {
-                        presenter.startAddressBookScreen(true);
-                    } else {
-                        orderBtnChangeReceiverAddress.setEnabled(false);
-                        presenter.getAddressBookData();
-                    }
+                    presenter.startAddressBookScreen(true);
+
                 }
             }
         });
@@ -186,10 +188,12 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         switch (uiState) {
             case LOADING:
                 swipeRefreshLayout.setRefreshing(true);
+                orderBtnChangeReceiverAddress.setEnabled(false);
                 btnContinueToPayment.setEnabled(false);
                 break;
             case FINISHED:
                 swipeRefreshLayout.setRefreshing(false);
+                orderBtnChangeReceiverAddress.setEnabled(true);
                 btnContinueToPayment.setEnabled(true);
                 break;
         }
@@ -198,6 +202,17 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public boolean isActivityFinishing() {
         return this.isFinishing();
+    }
+
+    @Override
+    public boolean isOrderReady() {
+
+        if (selectedAddressBookId == -1) {
+            this.showMessage(this.getString(R.string.msg_order_receiver_empty), Log.WARN);
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -286,7 +301,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         this.addressBookArrayList.clear();
         this.addressBookArrayList.addAll(addressBookArrayList);
 
-        presenter.startAddressBookScreen(this.addressBookArrayList.size() > 0);
+        // presenter.startAddressBookScreen(this.addressBookArrayList.size() > 0);
     }
 
     @Override
@@ -294,6 +309,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         if (messageStatus == Constants.NETWORK_CALLBACK_FAILURE) {
             Utils.snackBar(swipeRefreshLayout, msg, Log.ERROR);
         }
+
+        Utils.snackBar(swipeRefreshLayout, msg, messageStatus);
     }
 
     @Override
@@ -314,11 +331,12 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
-    public void showMultiSelectedProduct(boolean isMultiSelectedProduct) {
-        Utils.Logs('v', TAG, "Is multi selected product -->" + isMultiSelectedProduct);
+    public void showMultiSelectedProduct(int selectedProductSize) {
+        Utils.Logs('v', TAG, "Is multi selected product: " + selectedProductSize);
 
-        if (isMultiSelectedProduct) {
+        if (selectedProductSize > 1) {
             orderDetailParentClickableOrderedProduct.setVisibility(View.VISIBLE);
+            orderDetailTvTotalOrderedProduct.setText(this.getString(R.string.btn_order_show_other_order, selectedProductSize - 1));
         } else {
             orderDetailParentClickableOrderedProduct.setVisibility(View.GONE);
         }

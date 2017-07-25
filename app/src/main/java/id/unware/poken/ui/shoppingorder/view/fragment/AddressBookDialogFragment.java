@@ -34,14 +34,7 @@ import id.unware.poken.domain.AddressBook;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 
-/**
- * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
- * <p>You can show this modal bottom sheet from your activity like this:</p>
- * <pre>
- *     ItemListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
- * </pre>
- * <p>You activity (or fragment) needs to implement {@link AddressBookDialogFragment.Listener}.</p>
- */
+
 public class AddressBookDialogFragment extends BottomSheetDialogFragment {
 
     @BindView(R.id.addressBookIbClose) ImageButton addressBookIbClose;
