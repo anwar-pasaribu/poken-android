@@ -13,6 +13,7 @@ import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.customercollection.presenter.ICustomerCollectionModelPresenter;
 import okhttp3.Credentials;
@@ -42,12 +43,10 @@ public class CustomerCollectionModel extends MyCallback implements ICustomerColl
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("Authorization", credential);
-
         // This req. response: ShoppingOrderDataRes
-        req.reqCustomerCollectionContent(headerMap).enqueue(this);
+        req.reqCustomerCollectionContent(
+                PokenCredentials.getInstance().getCredentialHashMap()
+        ).enqueue(this);
 
     }
 
