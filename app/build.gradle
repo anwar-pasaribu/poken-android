@@ -29,8 +29,8 @@ android {
         minSdkVersion 18
         targetSdkVersion 25
 
-        versionCode 3
-        versionName "0.0.1"
+        versionCode 5
+        versionName "0.0.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -54,7 +54,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -96,7 +96,7 @@ android {
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
 
             buildConfigField 'String', 'session_key', '"ci_session"'
-            buildConfigField 'String', 'HOST', '"http://139.59.245.162:8000/poken_rest/"'
+            buildConfigField 'String', 'HOST', '"http://139.59.245.162:80/poken_rest/"'
             buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
 
         }
@@ -128,7 +128,7 @@ android {
             include "armeabi", "armeabi-v7a"
 
             // Specifies that we do not want to also generate a universal APK that includes all ABIs.
-            universalApk true
+            universalApk false
         }
     }
 
@@ -211,7 +211,7 @@ dependencies {
     //VIEW PAGER INDICATOR
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
     //FACEBOOK SDKs
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.facebook.android:facebook-android-sdk:4.23.0'
 
     testCompile 'junit:junit:4.12'
 }

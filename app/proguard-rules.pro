@@ -23,3 +23,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# S: RETOROFIT/OKHTTP STUFF
+-dontwarn okio.**
+-dontwarn com.squareup.picasso.**
+-dontwarn retrofit2.Platform$Java8
+# E: RETOROFIT STUFF
+
+# S: Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { *; }
+-keep class id.unware.poken.pojo.** { *; }
+-keep class id.unware.poken.domain.** { *; }
+# E: Application classes that will be serialized/deserialized over Gson
+
