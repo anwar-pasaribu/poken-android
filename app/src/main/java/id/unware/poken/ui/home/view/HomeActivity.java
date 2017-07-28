@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.models.SingleItemModel;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.BrowseActivity;
@@ -39,6 +43,7 @@ import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 
 import static android.R.attr.data;
@@ -153,6 +158,9 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     }
 
     private void openShoppingCart() {
+
+        MyLog.FabricTrackContentView("Shopping Cart", "Page", "05");
+
         if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
 
             Intent intent = new Intent(this, ShoppingCartActivity.class);
@@ -163,6 +171,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
             accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_SHOPPING_CART);
             this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
         }
+
     }
 
     @Override

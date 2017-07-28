@@ -17,6 +17,8 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.squareup.picasso.Picasso;
 
 import java.util.Map;
@@ -29,6 +31,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import com.facebook.FacebookSdk;
@@ -109,6 +112,8 @@ public class PokenApp extends Application {
 
         Picasso.with(this.getApplicationContext()).areIndicatorsEnabled();
         Picasso.with(this).setLoggingEnabled(true);
+
+        Fabric.with(this, new Crashlytics(), new Answers());
     }
 
     public <T> void addToRequestQueue(final View snackContainer, String url, Map<String, String> params,

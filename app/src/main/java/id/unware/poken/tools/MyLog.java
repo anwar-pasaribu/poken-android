@@ -1,5 +1,9 @@
 package id.unware.poken.tools;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import id.unware.poken.BuildConfig;
 
 /*
@@ -24,7 +28,7 @@ public class MyLog extends Utils{
                 msg = String.format("%s [...]", msg.substring(0, 256));
             }
 
-//            Crashlytics.log(logPriority, TAG, String.format("\"%s\"", msg));
+            Crashlytics.log(logPriority, TAG, String.format("\"%s\"", msg));
         }
     }
 
@@ -47,10 +51,10 @@ public class MyLog extends Utils{
                 msg = String.format("%s [...]", msg.substring(0, 256));
             }
 
-//            Crashlytics.log(logPriority, TAG, String.format("General msg: \"%s\". \nException msg: \"%s\"", msg, exception.getMessage()));
+            Crashlytics.log(logPriority, TAG, String.format("General msg: \"%s\". \nException msg: \"%s\"", msg, exception.getMessage()));
 
             // Log stacktrace for Fabric
-//            Crashlytics.logException(exception);
+            Crashlytics.logException(exception);
         }
 
     }
@@ -71,5 +75,22 @@ public class MyLog extends Utils{
 //            Crashlytics.setUserEmail(spHelper.getSharedPreferences(Config.USER_EMAIL, "NO_EMAIL"));
 //            Crashlytics.setUserName(spHelper.getSharedPreferences(Config.USER_NAME, "NO_USERNAME"));
         }
+    }
+
+    /**
+     * Collect user behavior to determine which feature is used most.
+     *
+     * @param strName Name of opened feature/page/facility (e.g. Tariff)
+     * @param strType Type of opened feature/page/facility (e.g. Main/Secondary)
+     * @param strId Identification of opened stuff (e.g. Fragment TAG)
+     *
+     * @since V47 - Collect user behavior.
+     */
+    public static void FabricTrackContentView(String strName, String strType, String strId) {
+
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName(strName)
+                .putContentType(strType)
+                .putContentId(strId));
     }
 }

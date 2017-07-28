@@ -3,6 +3,8 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -13,6 +15,9 @@ buildscript {
 
         // Firebase to parse google-services.json
         classpath 'com.google.gms:google-services:3.0.0'
+
+        // Fabric
+        classpath 'io.fabric.tools:gradle:1.22.0'
     }
 }
 
