@@ -77,10 +77,12 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         Utils.Log(TAG, "Create Or Update Order Detail with address book id: " + addressBook.id);
         Utils.Log(TAG, "Selected shopping cart ids: " + Arrays.toString(selectedShoppingCartIds));
+        Utils.Log(TAG, "Previous order id: " + previousOrderDetailId);
 
         model.postOrUpdateOrderDetails(
                 this,
-                addressBook
+                addressBook,
+                previousOrderDetailId
         );
     }
 
@@ -138,8 +140,8 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         Utils.Log(TAG, "New address book created. Now, create order detail with address  book id: " + newlyCreatedAddressBook.id);
         model.postOrUpdateOrderDetails(
                 this,
-                newlyCreatedAddressBook
-        );
+                newlyCreatedAddressBook,
+                previousOrderDetailId);
     }
 
     @Override
@@ -156,8 +158,8 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
             model.postOrUpdateOrderDetails(
                     this,
-                    addressBookArrayList.get(0)
-            );
+                    addressBookArrayList.get(0),
+                    previousOrderDetailId);
         }
 
     }
@@ -177,6 +179,10 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         // Begin add ordered product
         if (previousOrderDetailId == -1) {
+
+            // Save previous order detail id
+            previousOrderDetailId = orderDetail.id;
+
             // Begin to create new Ordered Product
             long[] shoppingCartIds = view.getSelectedShoppingCartIds();
 
@@ -186,6 +192,8 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
                     orderDetail,
                     shoppingCartIds
             );
+        } else {
+            Utils.Logs('w', TAG, "ORDER DETAIL DATA UPDATED.");
         }
 
     }

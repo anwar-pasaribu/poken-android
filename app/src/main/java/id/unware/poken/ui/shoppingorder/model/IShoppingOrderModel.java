@@ -17,7 +17,7 @@ public interface IShoppingOrderModel {
 
     void getAddressBookData(IShoppingOrderModelPresenter presenter);
 
-    void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook);
+    void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook, long previousOrderDetailId);
 
     void postOrUpdateOrderedProduct(IShoppingOrderModelPresenter presenter, OrderDetail orderDetail, long[] shoppingCartIds);
 

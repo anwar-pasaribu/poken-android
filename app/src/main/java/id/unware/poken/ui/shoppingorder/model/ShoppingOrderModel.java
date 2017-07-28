@@ -1,14 +1,8 @@
 package id.unware.poken.ui.shoppingorder.model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +94,7 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
     }
 
     @Override
-    public void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook) {
+    public void postOrUpdateOrderDetails(IShoppingOrderModelPresenter presenter, AddressBook addressBook, long previousOrderDetailId) {
 
         if (this.presenter == null) {
             this.presenter = presenter;
@@ -111,6 +105,7 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
         HashMap<String, String> postData = new HashMap<>();
         postData.put("address_book_id", String.valueOf(addressBook.id));
+        postData.put("order_details_id", String.valueOf(previousOrderDetailId));
 
         // noinspection unchecked
         req.postNewOrUpdateOrderDetails(

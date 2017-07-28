@@ -120,10 +120,10 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
-        // Load address book first
-        presenter.getAddressBookData();
 
         if (orderedProductId != -1) {
+            // Load address book first
+            presenter.getAddressBookData();
             presenter.getShoppingOrderData(orderedProductId);
         } else {
             presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
@@ -419,6 +419,11 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         Utils.Logs('i', TAG, "Begin to add: " + addressBook);
         if (presenter != null) {
             presenter.addNewAddressBook(addressBook);
+        }
+
+        // Add new address book to list in order to show on address book seletion
+        if (!this.addressBookArrayList.contains(addressBook)) {
+            this.addressBookArrayList.add(0, addressBook);
         }
     }
 
