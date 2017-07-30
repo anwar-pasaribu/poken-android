@@ -1,5 +1,6 @@
 package id.unware.poken.ui.browse.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.model.BrowseModel;
 import id.unware.poken.ui.browse.presenter.BrowsePresenter;
 import id.unware.poken.ui.browse.view.adapter.BrowseProductAdapter;
+import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 
 public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
@@ -151,6 +153,9 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     @Override
     public void showProductDetail(Product product) {
         Utils.Logs('i', TAG, "Show product detail with id: " + product.id);
+        Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
+        productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
+        this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
     }
 
     @Override

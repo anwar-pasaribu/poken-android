@@ -42,11 +42,17 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
 
     @Override
     public void onProductsResponse(ArrayList<Product> products) {
+
+        if (view.isActivityFinishing()) return;
+
         view.pupolateSellerProductList(products);
     }
 
     @Override
     public void updateViewState(UIState uiState) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 }

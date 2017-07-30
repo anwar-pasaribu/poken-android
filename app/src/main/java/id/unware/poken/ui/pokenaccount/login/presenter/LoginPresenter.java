@@ -1,5 +1,6 @@
 package id.unware.poken.ui.pokenaccount.login.presenter;
 
+import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.User;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.ui.pokenaccount.login.model.ILoginModel;
@@ -27,11 +28,27 @@ public class LoginPresenter implements ILoginPresenter, ILoginModelPresenter {
 
     @Override
     public void updateViewState(UIState uiState) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 
     @Override
-    public void onLoginResponse(String userToken) {
+    public void onLoginTokenResponse(String userToken) {
+        model.getCustomerDataByToken(userToken, this);
+    }
+
+    @Override
+    public void onLoginSuccess(Customer customer) {
+
+        if (view.isActivityFinishing()) return;
+
         view.onLoginSuccess();
+    }
+
+    @Override
+    public void onLoginError(String msg, int status) {
+        view.showMessage(msg, status);
     }
 }

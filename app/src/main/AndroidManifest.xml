@@ -50,90 +50,6 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.TrackPackage.TrackingMain.view.TrackingActivity"
-            android:label="@string/title_tracking"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.Tariff.TariffMain.view.RateActivity"
-            android:label="@string/title_tariff"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.pickup.view.PickupActivity"
-            android:label="@string/title_pickup"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.pickup.history.view.PickupHistoryActivity"
-            android:label="@string/title_pickup"
-            android:parentActivityName=".ui.pickup.view.PickupActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.pickup.view.PickupActivity" />
-        </activity>
-        <activity
-            android:name=".ui.wallet.main.view.WalletActivity"
-            android:label="@string/title_wallet"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.pokenaccount.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.nearby.view.NearbyActivity"
-            android:label="@string/title_activity_nearby"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="id.unware.poken.ui.MainPage.MainPage" />
-        </activity>
-        <activity
-            android:name=".ui.newPackage.view.AcNewPaket"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/action_new_package"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.packages.view.AcMain"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_package"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
-        <!-- Activity to contain FragmentAddressBook and set bundle "fromNewPackage" to true -->
-        <activity
             android:name=".ui.addressBook.AcAddressBook"
             android:label="@string/title_activity_address_book"
             android:screenOrientation="portrait"
@@ -146,16 +62,7 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.detailPackage.ActivityMainWithUp"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/paket"
-            android:parentActivityName=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.MainPage.MainPage"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ActionBar.Transparent" />
+
         <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:label="@string/title_activity_product_detail"
@@ -166,28 +73,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
-
-        <!-- ///////////////////////////////////////////////////////////////////////////// -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <!-- Google Places API - Places AutoComplete -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAcQQ9KEmVxEgtraDeSxpbVC03MDVTqLYI" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="e403eadd6dec46812b5d690e54098baf8eff3904"
-            />
-
-        <service
-            android:name=".services.FetchAddressIntentService"
-            android:exported="false" />
-
         <activity
             android:name=".ui.shoppingcart.view.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
@@ -206,11 +91,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-        <activity
-            android:name=".ui.main.view.MainActivity"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait">
-        </activity>
+
         <activity
             android:name=".ui.profile.view.ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -237,8 +118,34 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
-        <activity android:name=".ui.shoppingsummary.view.ShoppingSummaryActivity">
+        <activity android:name=".ui.shoppingsummary.view.ShoppingSummaryActivity"
+                  android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".ui.pokenaccount.LoginActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+
+        <!-- ///////////////////////////////////////////////////////////////////////////// -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!-- Google Places API - Places AutoComplete -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcQQ9KEmVxEgtraDeSxpbVC03MDVTqLYI" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e403eadd6dec46812b5d690e54098baf8eff3904"
+            />
+
+        <service
+            android:name=".services.FetchAddressIntentService"
+            android:exported="false" />
     </application>
 
 </manifest>

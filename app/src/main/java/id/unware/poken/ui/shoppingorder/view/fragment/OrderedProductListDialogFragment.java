@@ -171,7 +171,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
         final TextView tvShippingCost;
         final ImageView ivProductImage;
 
-        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
 
             super(inflater.inflate(R.layout.list_order_selected_product, parent, false));
 

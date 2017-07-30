@@ -1,5 +1,6 @@
 package id.unware.poken.ui.pokenaccount.login.presenter;
 
+import id.unware.poken.domain.Customer;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -8,5 +9,9 @@ import id.unware.poken.ui.presenter.BasePresenter;
  */
 
 public interface ILoginModelPresenter extends BasePresenter {
-    void onLoginResponse(String userToken);
+    void onLoginTokenResponse(String userToken);
+
+    void onLoginSuccess(Customer customer);
+
+    void onLoginError(String msg, int status);
 }

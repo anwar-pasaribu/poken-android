@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvPrice2"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:layout_toLeftOf="@+id/tvDiscountAmount"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        tools:text="Rp 1.000.000" />
+
+    <TextView
+        android:id="@+id/tvDiscountedPrice"
+        style="@style/TextListSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvPrice2"
+        android:layout_marginRight="@dimen/item_gap_s"
+        android:layout_toLeftOf="@+id/tvDiscountAmount"
+        android:gravity="left"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/item_gap_m"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        android:textStyle="bold"
+        tools:text="Rp 500.000" />
+
+    <TextView
+        android:id="@+id/tvDiscountAmount"
+        style="@style/TextListSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/item_gap_s"
+        android:background="@drawable/bg_badge_red"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:minLines="1"
+        android:minWidth="@dimen/clickable_size_32"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        android:textColor="@color/white_100"
+        tools:text="5%"
+        />
+
+</RelativeLayout>

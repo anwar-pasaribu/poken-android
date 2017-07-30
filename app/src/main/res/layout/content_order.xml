@@ -152,8 +152,8 @@
 
             <ImageView
                 android:id="@+id/ivSelectedProduct"
-                android:layout_width="@dimen/clickable_size"
-                android:layout_height="@dimen/clickable_size"
+                android:layout_width="@dimen/clickable_size_64"
+                android:layout_height="@dimen/clickable_size_64"
                 android:layout_marginBottom="@dimen/item_gap_m"
                 android:layout_marginLeft="@dimen/item_gap_l"
                 android:layout_marginTop="@dimen/item_gap_m"
@@ -162,15 +162,120 @@
 
             <TextView
                 android:id="@+id/tvSelectedProductName"
-                style="@style/TextBodyDefault"
+                style="@style/TextListTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/item_gap_m"
                 android:layout_marginRight="@dimen/item_gap_l"
                 android:layout_marginTop="@dimen/item_gap_m"
                 android:layout_toRightOf="@+id/ivSelectedProduct"
+                android:singleLine="true"
                 tools:text="Baju Orange GRATIS tas Orange dan COD" />
+
+            <TextView
+                android:id="@+id/tvProductQuantity"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSelectedShippingMethodLbl"
+                android:layout_below="@+id/tvSelectedProductName"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_toRightOf="@+id/ivSelectedProduct"
+                android:ellipsize="middle"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="Kuantitas: 5 barang" />
+
+            <TextView
+                android:id="@+id/tvProductTotalPrice"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSelectedShippingMethodLbl"
+                android:layout_below="@+id/tvSelectedProductName"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_toRightOf="@+id/tvProductQuantity"
+                android:ellipsize="middle"
+                android:gravity="right|bottom"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="Rp 450.000" />
+
+            <ImageView
+                android:id="@+id/ivShippingIcon"
+                android:layout_width="@dimen/item_gap_l"
+                android:layout_height="@dimen/item_gap_l"
+                android:layout_below="@id/ivSelectedProduct"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:src="@drawable/ic_local_shipping_black_24dp"
+                android:tint="@color/style_overlay_grey" />
+
+            <TextView
+                android:id="@+id/tvSelectedShippingMethodLbl"
+                style="@style/TextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivSelectedProduct"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_s"
+                android:layout_toRightOf="@id/ivShippingIcon"
+                android:text="@string/lbl_shipping_method" />
+
+            <TextView
+                android:id="@+id/tvSelectedShippingMethod"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivSelectedProduct"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
+                tools:text="POS Indonesia" />
+
+            <TextView
+                android:id="@+id/tvSelectedShippingFee"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivSelectedProduct"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_toRightOf="@id/tvSelectedShippingMethod"
+                android:gravity="right"
+                tools:text="Rp 10.000" />
+
+            <TextView
+                android:id="@+id/tvTotalLabel"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSelectedShippingMethod"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
+                android:text="@string/lbl_order_total_cost" />
+
+            <TextView
+                android:id="@+id/tvTotalFee"
+                style="@style/TextBodyDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSelectedShippingFee"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_toRightOf="@id/tvTotalLabel"
+                android:gravity="right"
+                android:textStyle="bold"
+                tools:text="Rp 460.000" />
 
         </RelativeLayout>
 
@@ -179,8 +284,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/clickable_size"
             android:layout_below="@+id/parentClickableSelectedProduct"
-            android:clickable="true"
             android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:visibility="gone"
             tools:visibility="visible">
 
@@ -202,8 +307,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/item_gap_l"
-                android:src="@drawable/ic_chevron_right_black_24dp"
-                android:contentDescription="@string/btn_order_show_all_order"/>
+                android:contentDescription="@string/btn_order_show_all_order"
+                android:src="@drawable/ic_chevron_right_black_24dp" />
 
         </RelativeLayout>
 
@@ -215,23 +320,23 @@
             android:layout_below="@id/orderDetailParentClickableOrderedProduct"
             android:layout_marginTop="@dimen/item_gap_l"
             android:background="@color/white_100"
-            android:visibility="gone"
             android:paddingBottom="@dimen/item_gap_s"
             android:paddingLeft="@dimen/item_gap_l"
             android:paddingRight="@dimen/item_gap_l"
             android:paddingTop="@dimen/item_gap_s"
             android:text="@string/lbl_shipping_method_section"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/parentShippingMethods"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvShippingMethodLabel"
             android:layout_marginTop="@dimen/item_gap_xs"
             android:background="@color/white_100"
-            android:minHeight="@dimen/clickable_size">
+            android:minHeight="@dimen/clickable_size"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvSelectedShippingMethodName"

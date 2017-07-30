@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
@@ -39,9 +40,8 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card_seller, null);
-        SingleItemRowHolder mh = new SingleItemRowHolder(v);
-        return mh;
+        View v = LayoutInflater.from(this.mContext).inflate(R.layout.list_single_card_seller, viewGroup, false);
+        return new SingleItemRowHolder(v);
     }
 
     @Override
@@ -58,6 +58,14 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
                 homePresenter.onSellerClick(holder.getAdapterPosition(), singleItem);
             }
         });
+
+        if (position == 0) {
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.leftMargin = holder.itemGapL;
+        } else if (position == itemsList.size() - 1) {
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.rightMargin = holder.itemGapL;
+        }
     }
 
     @Override
@@ -69,6 +77,8 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
 
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
+
+        @BindDimen(R.dimen.item_gap_l) int itemGapL;
 
         public SingleItemRowHolder(View view) {
             super(view);

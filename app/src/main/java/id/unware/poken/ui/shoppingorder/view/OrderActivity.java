@@ -2,6 +2,7 @@ package id.unware.poken.ui.shoppingorder.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -26,11 +28,14 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.AddressBook;
+import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
+import id.unware.poken.models.OrderStatus;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.payment.view.PaymentActivity;
@@ -59,6 +64,11 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     // SELECTED PRODUCT SECTION
     @BindView(R.id.ivSelectedProduct) ImageView ivSelectedProduct;
     @BindView(R.id.tvSelectedProductName) TextView tvSelectedProductName;
+    @BindView(R.id.tvProductQuantity) TextView tvProductQuantity;
+    @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
+    @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
+    @BindView(R.id.tvSelectedShippingFee) TextView tvSelectedShippingFee;
+    @BindView(R.id.tvTotalFee) TextView tvTotalFee;
     @BindView(R.id.orderDetailParentClickableOrderedProduct) RelativeLayout orderDetailParentClickableOrderedProduct;
     @BindView(R.id.orderDetailTvTotalOrderedProduct) TextView orderDetailTvTotalOrderedProduct;
 
@@ -72,7 +82,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @BindView(R.id.btnContinueToPayment) Button btnContinueToPayment;
 
     // RESOURCES
-    @BindDimen(R.dimen.clickable_size) int productImageSize;
+    @BindDimen(R.dimen.clickable_size_64) int productImageSize;
 
     private Unbinder unbinder;
 
@@ -95,6 +105,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private long orderedProductId = -1;
     private boolean isReadOnlyMode = false;
     private double totalShoppingCost = 0;
+    private Date paymentDue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +133,6 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
 
         if (orderedProductId != -1) {
-            // Load address book first
-            presenter.getAddressBookData();
             presenter.getShoppingOrderData(orderedProductId);
         } else {
             presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
@@ -141,10 +150,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         // Setup read only mode
         if (isReadOnlyMode) {
             orderBtnChangeReceiverAddress.setVisibility(View.GONE);
-            btnContinueToPayment.setVisibility(View.GONE);
         } else {
             orderBtnChangeReceiverAddress.setVisibility(View.VISIBLE);
-            btnContinueToPayment.setVisibility(View.VISIBLE);
         }
 
         // ADDRESS BOOK SCREEN TRIGGER
@@ -217,11 +224,18 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
     @Override
     public void openPaymentScreen() {
-        Utils.Log(TAG, "Open payment screen.");
-        Intent paymentIntent = new Intent(this, PaymentActivity.class);
-        paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
-        paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
-        this.startActivity(paymentIntent);
+        if (totalShoppingCost != 0
+                && orderedProductId != -1
+                && paymentDue != null) {
+            Utils.Log(TAG, "Open payment screen.");
+            Intent paymentIntent = new Intent(this, PaymentActivity.class);
+            paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
+            paymentIntent.putExtra(Constants.EXTRA_PAYMENT_DUE, paymentDue);
+            this.startActivity(paymentIntent);
+        } else {
+            MyLog.FabricLog(Log.ERROR, "Payment activity is not ready to open.");
+        }
     }
 
     @Override
@@ -238,6 +252,11 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     public void setupSelectedProduct(ShoppingCart shoppingCart) {
 
         Product product = shoppingCart.product;
+        int totalProductCount = shoppingCart.quantity;
+        double productTotalPrice = shoppingCart.quantity * shoppingCart.product.price;
+        double shippingFee = shoppingCart.shipping.fee;
+        String shippingMethod = shoppingCart.shipping.name;
+        double grandTotal = productTotalPrice + shippingFee;
 
         Picasso.with(this)
                 .load(product.images.get(0).path)
@@ -246,7 +265,11 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
                 .into(ivSelectedProduct);
 
         tvSelectedProductName.setText(product.name);
-
+        tvProductQuantity.setText(this.getString(R.string.lbl_quantity, totalProductCount));
+        tvProductTotalPrice.setText(StringUtils.formatCurrency(String.valueOf(productTotalPrice)));
+        tvSelectedShippingMethod.setText(shippingMethod);
+        tvSelectedShippingFee.setText(StringUtils.formatCurrency(String.valueOf(shippingFee)));
+        tvTotalFee.setText(StringUtils.formatCurrency(String.valueOf(grandTotal)));
     }
 
     @Override
@@ -283,7 +306,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         // #1 Order Detail Unique Identifier
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setSubtitle("Order id: ".concat(orderDetailUniqueId));
+            getSupportActionBar().setSubtitle(this.getString(R.string.lbl_order_ref_id, orderDetailUniqueId));
         }
 
         // #2 Ordered Product
@@ -336,9 +359,26 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         if (selectedProductSize > 1) {
             orderDetailParentClickableOrderedProduct.setVisibility(View.VISIBLE);
-            orderDetailTvTotalOrderedProduct.setText(this.getString(R.string.btn_order_show_other_order, selectedProductSize - 1));
+            orderDetailTvTotalOrderedProduct.setText(
+                    this.getString(R.string.btn_order_show_other_order, selectedProductSize - 1)
+            );
         } else {
             orderDetailParentClickableOrderedProduct.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setupPaymentView(OrderDetail orderDetail) {
+        this.paymentDue = orderDetail.payment_expiration_date;
+    }
+
+    @Override
+    public void showPayNowView(boolean isShow) {
+        Utils.Logs('i', TAG, "Show Pay Now View --> " + isShow);
+        if (isShow) {
+            btnContinueToPayment.setVisibility(View.VISIBLE);
+        } else {
+            btnContinueToPayment.setVisibility(View.GONE);
         }
     }
 

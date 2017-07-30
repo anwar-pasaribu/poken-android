@@ -3,6 +3,7 @@ package id.unware.poken.ui.shoppingorder.view;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.AddressBook;
+import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
@@ -38,4 +39,8 @@ public interface IShoppingOrderView extends BaseView {
     void showSelectedProductDialog();
 
     void showMultiSelectedProduct(int selectedProductSize);
+
+    void setupPaymentView(OrderDetail orderDetail);
+
+    void showPayNowView(boolean isShow);
 }

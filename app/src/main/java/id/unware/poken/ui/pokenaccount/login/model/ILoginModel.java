@@ -10,4 +10,5 @@ import id.unware.poken.ui.pokenaccount.login.presenter.ILoginModelPresenter;
 
 public interface ILoginModel {
     void postLogin(User user, ILoginModelPresenter presenter);
+    void getCustomerDataByToken(String userToken, ILoginModelPresenter presenter);
 }

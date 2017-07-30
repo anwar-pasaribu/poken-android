@@ -45,8 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_gap_l"
-            android:layout_marginTop="@dimen/item_gap_l"
-            android:text="Total Belanja"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="@string/lbl_order_total_shopping_fee"
             android:textAllCaps="true" />
 
         <TextView
@@ -56,8 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTotalShoppingAmountLabel"
             android:layout_marginLeft="@dimen/item_gap_l"
-            android:layout_marginTop="@dimen/item_gap_s"
             tools:text="Rp 450.000"
+            android:textStyle="bold"
             android:textAllCaps="true" />
 
         <Button

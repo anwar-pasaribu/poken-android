@@ -23,7 +23,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/imageViewPaketLogoWhite"
+            android:id="@+id/loginTvTitle"
             style="@style/TextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:id="@+id/textInputLayoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageViewPaketLogoWhite"
+            android:layout_below="@+id/loginTvTitle"
             app:errorEnabled="true"
             android:layout_marginTop="@dimen/icon_24dp">
 

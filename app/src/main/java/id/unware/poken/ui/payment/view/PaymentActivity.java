@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.controller.ControllerDate;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyTagHandler;
 import id.unware.poken.tools.StringUtils;
@@ -32,6 +35,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Unbinder unbinder;
 
     private double shoppingCost = 0;
+    private Date paymentDue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
             shoppingCost = getIntent().getDoubleExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, 0D);
+            paymentDue = (Date) getIntent().getSerializableExtra(Constants.EXTRA_PAYMENT_DUE);
         }
 
         unbinder = ButterKnife.bind(this);
@@ -64,7 +69,8 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-        String strRules = this.getString(R.string.top_up_rules, "000", "-");
+        String strRules = this.getString(R.string.top_up_rules,
+                ControllerDate.getInstance().getShortDateWithHourFormat(paymentDue));
         //noinspection deprecation
         textViewInstructions.setText(Html.fromHtml(strRules, null, new MyTagHandler()));
     }

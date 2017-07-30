@@ -18,6 +18,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import butterknife.BindDimen;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Featured;
 
@@ -33,9 +36,8 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_single_card_header, null);
-        SingleItemRowHolder mh = new SingleItemRowHolder(v);
-        return mh;
+        View v = LayoutInflater.from(this.mContext).inflate(R.layout.list_single_card_header, viewGroup, false);
+        return new SingleItemRowHolder(v);
     }
 
     @Override
@@ -45,14 +47,19 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
 
         holder.tvTitle.setText(String.format(Locale.ENGLISH, "%d/%d", position + 1, itemsList.size()));
 
-        int featuredSlideWidth = mContext.getResources().getDimensionPixelSize(R.dimen.header_slide_width_m);
-        int featuredSlideHeight = mContext.getResources().getDimensionPixelSize(R.dimen.header_slide_height_m);
-
         Picasso.with(mContext)
                 .load(singleItem.image)
-                .resize(featuredSlideWidth, featuredSlideHeight)
+                .resize(holder.featuredSlideWidth, holder.featuredSlideHeight)
                 .centerCrop()
                 .into(holder.itemImage);
+
+        if (position == 0) {
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.leftMargin = holder.itemGapL;
+        } else if (position == itemsList.size() - 1) {
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.rightMargin = holder.itemGapL;
+        }
     }
 
     @Override
@@ -60,33 +67,29 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
         return (null != itemsList ? itemsList.size() : 0);
     }
 
-    public class SingleItemRowHolder extends RecyclerView.ViewHolder {
+    public class SingleItemRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView tvTitle;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.itemImage) ImageView itemImage;
 
-        protected ImageView itemImage;
+        @BindDimen(R.dimen.header_slide_width_m) int featuredSlideWidth;
+        @BindDimen(R.dimen.header_slide_height_m) int featuredSlideHeight;
+        @BindDimen(R.dimen.item_gap_l) int itemGapL;
 
 
         public SingleItemRowHolder(View view) {
             super(view);
 
-            this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-            this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
+            ButterKnife.bind(this, view);
 
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                    Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
+            view.setOnClickListener(this);
 
         }
 
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

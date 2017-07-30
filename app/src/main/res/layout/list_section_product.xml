@@ -6,15 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/clickable_size_32"
-    >
+    android:paddingBottom="@dimen/clickable_size_32">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/item_gap_l"
         android:paddingRight="@dimen/item_gap_s">
-
 
         <TextView
             android:id="@+id/itemTitle"
@@ -38,6 +36,9 @@
             android:paddingLeft="@dimen/item_gap_m"
             android:paddingRight="0dp"
 
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -57,7 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />
-
 
 </LinearLayout>
 

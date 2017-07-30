@@ -7,6 +7,7 @@ package id.unware.poken.httpConnection;
 
 public class ConstantsRetrofit {
     public static final String ENDPOINT_POKEN_AUTH = "api-token-auth/";
+    public static final String ENDPOINT_GET_CUSTOMER = "customer/{pk}";
     public static final String ENDPOINT_TRACKING = "track3/{resi}";
     public static final String ENDPOINT_SEARCH_AREA = "area/{query}";
     public static final String ENDPOINT_CHECK_TARIFF = "tariff2/{origin}/{dest}/{weight}";

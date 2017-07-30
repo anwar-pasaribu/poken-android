@@ -1,5 +1,6 @@
 package id.unware.poken.ui.seller.view.adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +43,7 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Product item = mValues.get(position);
 
         String  strProductImageUrl = String.valueOf(item.images.get(0).path),
@@ -58,17 +58,6 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
 
         holder.tvTitle.setText(strProductName);
         holder.tvPrice.setText(StringUtils.formatCurrency(String.valueOf(productPrice)));
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.startDetailScreen(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
@@ -76,21 +65,28 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        @BindView(R.id.parentSellerProduct) CardView parentSellerProduct;
         @BindView(R.id.itemImage) ImageView itemImage;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvPrice) TextView tvPrice;
 
         @BindDimen(R.dimen.img_grid_m) int productImageSizeM;
 
-        public final View mView;
-        public Product mItem;
-
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            mView = view;
+            parentSellerProduct.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (null != mListener) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                mListener.startDetailScreen(mValues.get(getAdapterPosition()));
+            }
         }
     }
 }

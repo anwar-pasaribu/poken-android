@@ -9,7 +9,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_list"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_slide_height_m"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />
 

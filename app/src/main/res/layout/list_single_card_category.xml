@@ -2,20 +2,20 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardElevation="0dp"
     app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardElevation="0dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
-        android:padding="@dimen/item_gap_s"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/item_gap_s">
 
         <ImageView
             android:id="@+id/itemImage"
@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/item_gap_s"
-            android:text="Favorite"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            tools:text="Favorite" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

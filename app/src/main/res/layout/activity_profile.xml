@@ -41,6 +41,17 @@
                 android:tint="@color/style_overlay_grey"
                 app:srcCompat="@drawable/ic_circle_24dp" />
 
+            <ImageView
+                android:id="@+id/ivUserAvatarPeople"
+                android:layout_width="@dimen/profile_avatar_m"
+                android:layout_height="@dimen/profile_avatar_m"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_xs"
+                android:scaleType="center"
+                android:tint="@color/separator_view_lighter"
+                app:srcCompat="@drawable/ic_person_black_24dp" />
+
             <TextView
                 android:id="@+id/tvProfileUser"
                 style="@style/TextTitle"
@@ -50,7 +61,7 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Anwar Pasaribu" />
+                android:text="user" />
 
             <TextView
                 android:id="@+id/tvProfileIdetifier"
@@ -62,7 +73,7 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="anwar_pasaribu@live.com" />
+                android:text="email" />
 
         </RelativeLayout>
 

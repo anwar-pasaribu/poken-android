@@ -60,10 +60,16 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
         queryParams.put("category_id", String.valueOf(category.getId()));
         queryParams.put("category_name", category.getName());
 
-        this.req.reqProductContentByCategory(
-                PokenCredentials.getInstance().getCredentialHashMap(),
-                queryParams)
-                .enqueue(this);
+        if (PokenCredentials.getInstance().getCredentialHashMap() == null) {
+            this.req.reqProductContentByCategory(
+                    queryParams)
+                    .enqueue(this);
+        } else {
+            this.req.reqProductContentByCategory(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams)
+                    .enqueue(this);
+        }
 
     }
 

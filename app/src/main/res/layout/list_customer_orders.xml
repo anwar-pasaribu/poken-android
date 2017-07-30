@@ -1,88 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/parentOrderedProduct"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/item_gap_m"
-    android:background="@android:color/white"
-    android:paddingBottom="@dimen/item_gap_l"
-    android:paddingTop="@dimen/item_gap_l">
+    android:layout_marginBottom="@dimen/item_gap_s"
+    android:layout_marginTop="@dimen/item_gap_s"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white_100"
+    app:cardCornerRadius="@dimen/default_button_radius"
+    app:cardElevation="@dimen/default_button_radius"
+    app:cardUseCompatPadding="false">
 
-    <ImageView
-        android:id="@+id/ivProductImage"
-        android:layout_width="@dimen/clickable_size_64"
-        android:layout_height="@dimen/clickable_size_64"
-        android:layout_marginLeft="@dimen/item_gap_l"
-        android:scaleType="centerCrop"
-        android:src="@drawable/product1" />
-
-    <TextView
-        android:id="@+id/tvProductName"
-        style="@style/TextBodyDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/item_gap_m"
-        android:layout_marginRight="@dimen/text_margin"
-        android:layout_toRightOf="@id/ivProductImage"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        tools:text="Baju Orange GRATIS pengiriman" />
-
-    <TextView
-        android:id="@+id/tvProductQuantity"
-        style="@style/TextListTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvProductName"
-        android:layout_marginLeft="@dimen/item_gap_m"
-        android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_toRightOf="@id/ivProductImage"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        tools:text="5 barang" />
-
-    <TextView
-        android:id="@+id/tvProductTotalPrice"
-        style="@style/TextListTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvProductName"
-        android:layout_marginLeft="@dimen/item_gap_m"
-        android:layout_marginRight="@dimen/item_gap_l"
-        android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_toRightOf="@+id/tvProductQuantity"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        android:textStyle="bold"
-        tools:text="Rp 450.000" />
+        android:paddingBottom="@dimen/item_gap_l"
+        android:paddingTop="@dimen/item_gap_l">
 
-    <TextView
-        android:id="@+id/tvOrderStatus"
-        style="@style/TextBodyDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/ivProductImage"
-        android:layout_marginRight="@dimen/text_margin"
-        android:layout_marginTop="@dimen/item_gap_m"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        tools:text="Order diterima" />
+        <ImageView
+            android:id="@+id/ivProductImage"
+            android:layout_width="@dimen/clickable_size_64"
+            android:layout_height="@dimen/clickable_size_64"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_image_black_24dp" />
 
-    <TextView
-        android:id="@+id/tvOrderStatusUpdatedOn"
-        style="@style/TextBodySecondary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ivProductImage"
-        android:layout_marginLeft="@dimen/item_gap_m"
-        android:layout_marginRight="@dimen/item_gap_m"
-        android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_toLeftOf="@id/tvOrderStatus"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        tools:text="9 Juni" />
+        <TextView
+            android:id="@+id/tvProductName"
+            style="@style/TextBodyDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_toRightOf="@id/ivProductImage"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            tools:text="Baju Orange GRATIS pengiriman" />
 
+        <TextView
+            android:id="@+id/tvProductQuantity"
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvProductName"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:layout_toRightOf="@id/ivProductImage"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            tools:text="5 barang" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvProductTotalPrice"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvProductName"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:layout_toRightOf="@+id/tvProductQuantity"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:textStyle="bold"
+            tools:text="Rp 450.000" />
+
+        <LinearLayout
+            android:id="@+id/parentOtherOrderedProduct"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/clickable_size_32"
+            android:layout_below="@id/ivProductImage"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_marginRight="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:gravity="center_vertical|left"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/ivOtherProductImage1"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/ivOtherProductImage2"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/ivOtherProductImage3"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/customerOrderTvOtherProducts"
+                style="@style/TextListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="3 Barang lainnya." />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvOrderStatus"
+            style="@style/TextBodyDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/parentOtherOrderedProduct"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            tools:text="Order diterima" />
+
+        <TextView
+            android:id="@+id/tvOrderStatusUpdatedOn"
+            style="@style/TextBodySecondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/parentOtherOrderedProduct"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:layout_toLeftOf="@id/tvOrderStatus"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            tools:text="9 Juni" />
+
+        <include
+            layout="@layout/include_waiting_for_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvOrderStatusUpdatedOn"
+            android:layout_marginBottom="@dimen/item_gap_m"
+            android:layout_marginLeft="@dimen/item_gap_l"
+
+            android:layout_marginRight="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_m" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

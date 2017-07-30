@@ -2,9 +2,14 @@ package id.unware.poken.tools;
 
 import android.support.annotation.Nullable;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.domain.Customer;
+import id.unware.poken.domain.PokenApiBase;
 import id.unware.poken.domain.User;
 import id.unware.poken.helper.SPHelper;
 import okhttp3.Credentials;
@@ -59,5 +64,18 @@ public class PokenCredentials {
         this.spHelper.setPreferences(Constants.SP_AUTH_USERNAME, username);
         this.spHelper.setPreferences(Constants.SP_AUTH_PASSWORD, password);
         this.spHelper.setPreferences(Constants.SP_AUTH_TOKEN, token);
+    }
+
+    public void setPokenCustomer(Customer customer) {
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String customerStringData = gson.toJson(customer, Customer.class);
+        Utils.Log("PokenCredentials", "Customer data: " + customerStringData);
+        this.spHelper.setPreferences(Constants.SP_AUTH_CUSTOMER_DATA, customerStringData);
+    }
+
+    public void setPokenCustomer(String customerStringData) {
+        Utils.Log("PokenCredentials", "Customer data: " + customerStringData);
+        this.spHelper.setPreferences(Constants.SP_AUTH_CUSTOMER_DATA, customerStringData);
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -155,7 +156,8 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         this.setTitle(String.valueOf(product.name));
 
         tvProductName.setText(String.valueOf(product.name));
-        tvProductDescription.setText(String.valueOf(product.description));
+        // noinspection deprecation
+        tvProductDescription.setText(Html.fromHtml(String.valueOf(product.description)));
         tvProductStock.setText(String.valueOf(product.stock));
 
         tvProductSold.setText(String.valueOf(0));

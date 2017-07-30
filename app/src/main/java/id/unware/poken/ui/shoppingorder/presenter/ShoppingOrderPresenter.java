@@ -9,6 +9,7 @@ import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderInserted;
+import id.unware.poken.models.OrderStatus;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingorder.model.IShoppingOrderModel;
@@ -174,6 +175,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
     @Override
     public void onOrderDetailCreatedOrUpdated(OrderDetail orderDetail) {
+
+        if (view.isActivityFinishing()) return;
+
         Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id);
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
@@ -206,11 +210,17 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
     @Override
     public void onOrderDetailResponse(ShoppingOrder shoppingOrder) {
+
+        if (view.isActivityFinishing()) return;
+
         setupOrderDetailView(shoppingOrder);
     }
 
     @Override
     public void onShoppingCartsParseResponse(ArrayList<ShoppingCart> shoppingCartArrayList) {
+
+        if (view.isActivityFinishing()) return;
+
         setupSelectedProduct(shoppingCartArrayList);
     }
 
@@ -241,6 +251,16 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         // Save current order detail id to prevent recreate order detail
         previousOrderDetailId = orderDetail.id;
+
+        // Set payment due time
+        view.setupPaymentView(orderDetail);
+
+        // Show pay now when order still unpaid
+        if (orderDetail.order_status == OrderStatus.ORDERED) {
+            view.showPayNowView(true);
+        } else {
+            view.showPayNowView(false);
+        }
 
         view.showOrderId(orderDetail.order_id, shoppingOrder.id);
 

@@ -9,4 +9,6 @@ import id.unware.poken.ui.view.BaseView;
 
 public interface ILoginView extends BaseView {
     void onLoginSuccess();
+
+    void showMessage(String msg, int status);
 }

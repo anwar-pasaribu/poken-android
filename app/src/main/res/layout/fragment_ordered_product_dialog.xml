@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white_100">
 
         <ImageButton
             android:id="@+id/addressBookIbClose"
@@ -35,6 +36,6 @@
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:paddingTop="@dimen/list_item_spacing_half"
         tools:context="id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment"
-        tools:listitem="@layout/fragment_item_list_dialog_item" />
+        tools:listitem="@layout/list_order_selected_product" />
 
 </RelativeLayout>

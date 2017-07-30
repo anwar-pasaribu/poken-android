@@ -4,13 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import butterknife.BindColor;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,6 +24,7 @@ import id.unware.poken.PokenApp;
 import id.unware.poken.R;
 import id.unware.poken.domain.User;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
@@ -33,12 +39,18 @@ public class FragmentLogin extends BaseFragment implements
 
     private static final String TAG = "FragmentLogin";
 
+    @BindView(R.id.loginTvTitle) TextView loginTvTitle;
     @BindView(R.id.txtEmailLogin) AppCompatEditText txtEmailLogin;
     @BindView(R.id.txtPasswordLogin) AppCompatEditText txtPasswordLogin;
     @BindView(R.id.btnSignIn) Button btnSignIn;
     @BindView(R.id.btnRegister) Button btnRegister;
     @BindView(R.id.btnResetPassword) Button btnResetPassword;
     @BindView(R.id.parentView) FrameLayout parentView;
+
+    // RESOURCE
+    @BindString(R.string.app_name) String strAppName;
+    @BindColor(R.color.red) int colorRed;
+    @BindColor(R.color.colorPrimaryDark) int colorPrimaryDark;
 
     private Unbinder unbinder;
 
@@ -48,6 +60,24 @@ public class FragmentLogin extends BaseFragment implements
 
     private PokenLoginListener pokenLoginListener;
 
+    private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Utils.Log(TAG, "After text change: " + s);
+            prepareLogin(s);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,11 +86,22 @@ public class FragmentLogin extends BaseFragment implements
 
         presenter = new LoginPresenter(new LoginModel(), this);
 
-        initView();
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        txtEmailLogin.addTextChangedListener(loginTextWatcher);
+        txtPasswordLogin.addTextChangedListener(loginTextWatcher);
+    }
 
     private void initView() {
         Utils.Log(TAG, "Init view");
@@ -71,6 +112,9 @@ public class FragmentLogin extends BaseFragment implements
             txtPasswordLogin.setText(BuildConfig.USER_PASSWORD);
         }
 
+        // Initially set sign button disabled
+        btnSignIn.setEnabled(false);
+
         // Button Sign In
         btnSignIn.setOnClickListener(this);
         // Button Register
@@ -78,6 +122,23 @@ public class FragmentLogin extends BaseFragment implements
         // Reset password
         btnResetPassword.setOnClickListener(this);
 
+    }
+
+    private void prepareLogin(Editable s) {
+        if (s.hashCode() == txtEmailLogin.getText().hashCode()) {
+            Utils.Log(TAG, "Typing on email: " + String.valueOf(s));
+        } else if (s.hashCode() == txtPasswordLogin.hashCode()) {
+            Utils.Log(TAG, "Typing on password: " + String.valueOf(s));
+        }
+
+        if (!StringUtils.isEmpty(String.valueOf(txtEmailLogin.getText()))
+                && !StringUtils.isEmpty(String.valueOf(txtPasswordLogin.getText()))) {
+            btnSignIn.setEnabled(true);
+        } else {
+            btnSignIn.setEnabled(false);
+        }
+
+        showMessage("", 0);
     }
 
     @Override
@@ -191,6 +252,19 @@ public class FragmentLogin extends BaseFragment implements
             pokenLoginListener.onLoginSuccess();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String msg, int status) {
+        Utils.Log(TAG, "Show message: " + msg + ", status: " + status);
+        loginTvTitle.setText(msg);
+
+        if (status == Constants.NETWORK_CALLBACK_FAILURE) {
+            loginTvTitle.setTextColor(colorRed);
+        } else {
+            loginTvTitle.setText(strAppName);
+            loginTvTitle.setTextColor(colorPrimaryDark);
         }
     }
 

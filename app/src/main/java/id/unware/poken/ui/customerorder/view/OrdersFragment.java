@@ -41,9 +41,7 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
     private List<ShoppingOrder> orderList = new ArrayList<>();;
     private OrdersAdapter adapter;
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnOrderFragmentListener mListener;
 
@@ -54,7 +52,6 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
     public OrdersFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static OrdersFragment newInstance(int columnCount) {
         OrdersFragment fragment = new OrdersFragment();

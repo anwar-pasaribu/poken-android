@@ -26,6 +26,7 @@ public class Constants {
     public static final String SP_AUTH_TOKEN = "AUTH_TOKEN";
     public static final String SP_AUTH_USERNAME = "AUTH_USERNAME";
     public static final String SP_AUTH_PASSWORD = "AUTH_PASSWORD";
+    public static final String SP_AUTH_CUSTOMER_DATA = "AUTH_CUSTOMER_DATA";
 
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
@@ -38,6 +39,7 @@ public class Constants {
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
     public static final String EXTRA_CATEGORY_NAME = "CATEGORY_NAME";
     public static final String EXTRA_TOTAL_SHOPPING_COST = "TOTAL_SHOPPING_COST";
+    public static final String EXTRA_PAYMENT_DUE = "PAYMENT_DUE";
     public static final String EXTRA_REQUESTED_PAGE = "EXTRA_REQUESTED_PAGE";
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;

@@ -18,7 +18,17 @@ public class OrderDetail {
     public long address_book_id;
 
     public AddressBook address_book;
-    public Date date;
     public Shipping shipping;
 
+    public Date date;
+    public Date payment_expiration_date;
+    public Date order_expiration_date;
+
+    /**
+     * Refer to {@link id.unware.poken.models.OrderStatus}
+     */
+    public int order_status;
+
+    public OrderDetail() {
+    }
 }

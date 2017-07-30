@@ -12,6 +12,7 @@ public class OrderStatus {
     public static final int RECEIVED = 3;
     public static final int SUCCESS = 4;
     public static final int REFUND = 5;
+    public static final int ORDER_EXPIRE = 6;
 
     public OrderStatus() {
     }
@@ -30,6 +31,8 @@ public class OrderStatus {
                 return "Pembelian berhasil";
             case REFUND:
                 return "Pengembalian barang";
+            case ORDER_EXPIRE:
+                return "Pesanan Hangus";
         }
 
         return "";

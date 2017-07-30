@@ -12,6 +12,7 @@ import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.seller.presenter.ISellerPageModelPresenter;
 import okhttp3.Credentials;
@@ -38,14 +39,13 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
     public void requestSellerData(ISellerPageModelPresenter presenter, long sellerId) {
         this.presenter = presenter;
 
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        Map<String, String> headerMap = new HashMap<>();
-        headerMap.put("Authorization", credential);
-
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("seller_id", String.valueOf(sellerId));
 
-        this.req.reqProductContent(headerMap, queryParams).enqueue(this);
+        this.req.reqProductContent(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                queryParams
+        ).enqueue(this);
     }
 
     @Override

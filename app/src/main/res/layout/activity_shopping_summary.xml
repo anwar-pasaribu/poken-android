@@ -60,7 +60,7 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Belanja Lagi"
+            android:text="Kembali ke Home"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:theme="@style/MyButton" />

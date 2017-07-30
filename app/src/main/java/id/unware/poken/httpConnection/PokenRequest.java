@@ -4,6 +4,7 @@ import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
+import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.HomeDataRes;
@@ -40,6 +41,9 @@ public interface PokenRequest {
     @POST(ConstantsRetrofit.ENDPOINT_POKEN_AUTH)
     Call<User> postPokenLogin(
             @FieldMap() Map<String, String> postData);
+
+    @GET(ConstantsRetrofit.ENDPOINT_GET_CUSTOMER)
+    Call<Customer> getCustomerData(@Path("pk") String customerIdOrToken);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_HOME_CONTENT)
     Call<HomeDataRes> reqHomeContent(@HeaderMap Map<String, String> headerMap);
@@ -98,6 +102,14 @@ public interface PokenRequest {
     Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> sellerData);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
-    Call<ProductDataRes> reqProductContentByCategory(@HeaderMap Map<String, String> credentials, @QueryMap Map<String, String> category);
+    Call<ProductDataRes> reqProductContentByCategory(
+            @HeaderMap Map<String, String> credentials,
+            @QueryMap Map<String, String> category
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    Call<ProductDataRes> reqProductContentByCategory(
+            @QueryMap Map<String, String> category
+    );
 
 }

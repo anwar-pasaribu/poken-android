@@ -404,10 +404,9 @@
     <string name="top_up_rules">
         <![CDATA[
         <ul>
-            <li>&nbsp;Setelah melakukan pembayaran, sistem Poken Psp akan memverifikasi pembayaran secara otomatis dalam 5-10 menit. Jika Anda menghadapi kendala mengenai pembayaran, silahkan Hubungi Poken Support</li>
+            <li>&nbsp;Setelah melakukan pembayaran, silahkan klik "Konfirmasi Pembayaran". Jika Anda menghadapi kendala mengenai pembayaran, silahkan Hubungi Poken Support</li>
             <li>&nbsp;Pembayaran dengan angka yang tidak tepat akan menyebabkan verifikasi pembayaran menjadi terhambat</li>
-            <li>&nbsp;Angka unik <b><u>%1$s</u></b> yang ditambahkan pada total biaya adalah untuk mengidentifikasi pembayaran</li>
-            <li>&nbsp;Transaksi dianggap batal jika sampai dengan pukul <b><u>%2$s</u></b> pembayaran belum dilunasi</li>
+            <li>&nbsp;Transaksi dianggap batal jika sampai dengan <b><u>%1$s</u></b> pembayaran belum dilunasi</li>
         </ul>
         ]]>
     </string>
@@ -581,7 +580,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_profile">Profil</string>
     <string name="btn_confirm_payment">Konfirmasi Pembayaran</string>
-    <string name="lbl_quantity">%1$d barang</string>
+    <string name="lbl_quantity">Kuantitas: %1$d barang</string>
     <string name="title_activity_seller">Toko</string>
     <string name="title_activity_browse">Browse</string>
     <string name="btn_see_all_section_content">Lihat Semua</string>
@@ -603,5 +602,9 @@
     <string name="btn_order_show_all_order">Lihat semua pesanan</string>
     <string name="btn_order_show_other_order">Lihat %1$d pesanan lainnya</string>
     <string name="msg_order_receiver_empty">Silahkan tentukan tujuan pengiriman barang pesanan.</string>
+    <string name="lbl_order_payment_expires">Batas pembayaran %1$s</string>
+    <string name="lbl_order_ref_id">ORDER REF: %1$s</string>
+    <string name="lbl_order_total_cost">Total</string>
+    <string name="lbl_order_total_shopping_fee">Total Belanja</string>
 
 </resources>
