@@ -1,6 +1,8 @@
 package id.unware.poken.ui.home.view.adapter;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -161,6 +163,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     homePresenter.onSectionActionClick(itemPos, section);
                 }
             });
+
+            try {
+                PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+                String versionNumber = pInfo.versionName;
+                int versionCode = pInfo.versionCode;
+
+                String strAppVersion = "V".concat(versionNumber).concat(" (").concat(String.valueOf(versionCode).concat(") "));
+                holder.tvAppVersion.setText(strAppVersion);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
             Utils.Log(TAG, "Product section not available");
             holder.btnMore.setVisibility(View.GONE);
@@ -211,6 +224,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         protected RecyclerView recycler_view_list;
 
         protected Button btnMore;
+        protected TextView tvAppVersion;
 
 
 
@@ -218,6 +232,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(view);
 
             this.itemTitle = (TextView) view.findViewById(R.id.itemTitle);
+            this.tvAppVersion = (TextView) view.findViewById(R.id.tvAppVersion);
             this.recycler_view_list = (RecyclerView) view.findViewById(R.id.recycler_view_list);
             this.btnMore= (Button) view.findViewById(R.id.btnMore);
 

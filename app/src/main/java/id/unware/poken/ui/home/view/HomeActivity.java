@@ -3,7 +3,6 @@ package id.unware.poken.ui.home.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,9 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -38,15 +34,11 @@ import id.unware.poken.ui.home.model.HomeModelImpl;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
-import id.unware.poken.ui.pokenaccount.login.view.fragment.FragmentLogin;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
-import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
-
-import static android.R.attr.data;
 
 public class HomeActivity extends AppCompatActivity implements IHomeView {
 
@@ -79,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        createDummyData();
+        createInitialHomeData();
 
         adapter = new HomeAdapter(this, listHome, presenter /* Presenter to trigger click event on items*/);
         recyclerView.setHasFixedSize(true);
@@ -98,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     }
 
-    public void createDummyData() {
+    public void createInitialHomeData() {
         for (int i = 1; i <= 4; i++) {
 
             SectionDataModel dm = new SectionDataModel();
@@ -146,6 +138,8 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private void openProfile() {
         if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+
+            MyLog.FabricTrackContentView("Poken Account", "Page", "06");
 
             Intent profileIntent = new Intent(this, ProfileActivity.class);
             this.startActivity(profileIntent);
