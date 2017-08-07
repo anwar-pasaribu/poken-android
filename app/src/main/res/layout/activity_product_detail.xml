@@ -1,59 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ToolbarDarkOverflow"
-            app:popupTheme="@style/AppTheme.PopupOverlay"> <!--app:popuptheme when using AppCompat, or android:popupTheme when targetting SDK >=21-->
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_product_detail" />
 
     <RelativeLayout
-        android:background="@android:color/white"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        tools:visibility="gone"
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
-        android:layout_height="@dimen/clickable_size_64">
+        android:background="@android:color/white"
+        tools:visibility="visible">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/separator_view_lighter"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:background="@color/separator_view_lighter" />
 
         <Button
             android:id="@+id/btnBuy"
-            android:theme="@style/MyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/item_gap_m"
+            android:text="@string/btn_buy_now"
             android:textAllCaps="true"
-            android:text="@string/btn_buy_now"/>
+            android:textColor="@android:color/white"
+            android:theme="@style/MyButton" />
 
     </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    <!-- Empty frame to set toolbar below status bar-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar
+            style="@style/AppTheme.Toolbar.Transparent" />
+
+
+    </FrameLayout>
+
+
+</merge>

@@ -6,7 +6,6 @@
     android:id="@+id/swipeRefreshLayoutParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity"
     tools:showIn="@layout/activity_product_detail">
 
@@ -19,17 +18,29 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/clickable_size_64">
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPagerProductImages"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/hint_product_images"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <ImageView
                 android:id="@+id/ivProduct"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:contentDescription="@string/hint_product_images"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="h,4:3"
+                android:scaleType="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/product2" />
+                tools:src="@drawable/ic_image_black_24dp"
+                android:visibility="visible"
+                app:layout_constraintDimensionRatio="h,1:1" />
 
             <TextView
                 android:id="@+id/tvProductName"
@@ -44,7 +55,7 @@
                 android:maxLines="3"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivProduct"
+                app:layout_constraintTop_toBottomOf="@+id/viewPagerProductImages"
                 tools:text="Nama Barang dengan batasan jumlah baris 3" />
 
             <TextView

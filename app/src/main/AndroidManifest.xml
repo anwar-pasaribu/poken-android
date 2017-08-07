@@ -51,10 +51,10 @@
         </activity>
         <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
-            android:label="@string/title_activity_product_detail"
+            android:label="@null"
             android:parentActivityName=".ui.home.view.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />

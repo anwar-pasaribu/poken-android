@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,16 +35,20 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
+import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
 import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 
-public class ProductDetailActivity extends AppCompatActivity implements IProductDetailView {
+public class ProductDetailActivity extends AppCompatActivity
+        implements IProductDetailView, ViewPager.OnPageChangeListener {
 
     private static final String TAG = "ProductDetailActivity";
 
     @BindView(R.id.swipeRefreshLayoutParent) SwipeRefreshLayout swipeRefreshLayoutParent;
 
     @BindView(R.id.ivProduct) ImageView ivProduct;
+    @BindView(R.id.viewPagerProductImages) ViewPager viewPagerProductImages;
+
     @BindView(R.id.tvProductName) TextView tvProductName;
     @BindView(R.id.tvProductPrice) TextView tvProductPrice;
     @BindView(R.id.tvProductStock) TextView tvProductStock;
@@ -145,15 +150,24 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
 
     @Override
     public void populateProductImage(ArrayList<ProductImage> productImages) {
-        Picasso.with(this)
-                .load(String.valueOf(productImages.get(0).path))
-                .into(ivProduct);
+//        Picasso.with(this)
+//                .load(String.valueOf(productImages.get(0).path))
+//                .into(ivProduct);
+
+        if (!productImages.isEmpty()) {
+            ivProduct.setVisibility(View.GONE);
+            viewPagerProductImages.setAdapter(new ProductImagesPagerAdapter(viewPagerProductImages, productImages, null));
+            viewPagerProductImages.addOnPageChangeListener(this);
+            viewPagerProductImages.setPageMargin(getResources().getDimensionPixelSize(R.dimen.item_gap_m));
+        } else {
+            ivProduct.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void populateProductGeneralInfo(Product product) {
 
-        this.setTitle(String.valueOf(product.name));
+        this.setTitle(null);
 
         tvProductName.setText(String.valueOf(product.name));
         // noinspection deprecation
@@ -307,5 +321,28 @@ public class ProductDetailActivity extends AppCompatActivity implements IProduct
         tvCurierService.setText(StringUtils.formatCurrency(String.valueOf(shipping.fee)));
         tvCurierService.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Utils.Logs('i', TAG, "Page selected: " + position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        Utils.Logs('v', TAG, "Page scroll state change: " + state);
+        enableDisableSwipeRefresh( state == ViewPager.SCROLL_STATE_IDLE );
+
+    }
+
+    private void enableDisableSwipeRefresh(boolean enable) {
+        if (swipeRefreshLayoutParent != null) {
+            swipeRefreshLayoutParent.setEnabled(enable);
+        }
     }
 }
