@@ -42,6 +42,20 @@
                 android:visibility="visible"
                 app:layout_constraintDimensionRatio="h,1:1" />
 
+            <com.pixelcan.inkpageindicator.InkPageIndicator
+                android:id="@+id/inkPageIndicator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:dotDiameter="@dimen/item_gap_m"
+                app:dotGap="@dimen/item_gap_m"
+                app:animationDuration="320"
+                app:pageIndicatorColor="@color/style_overlay_grey"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductName"
+                android:layout_marginBottom="@dimen/item_gap_l"
+                app:currentPageIndicatorColor="@color/colorAccent"/>
+
             <TextView
                 android:id="@+id/tvProductName"
                 android:layout_width="0dp"

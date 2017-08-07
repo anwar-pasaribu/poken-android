@@ -48,6 +48,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
     @BindView(R.id.ivProduct) ImageView ivProduct;
     @BindView(R.id.viewPagerProductImages) ViewPager viewPagerProductImages;
+    @BindView(R.id.inkPageIndicator) com.pixelcan.inkpageindicator.InkPageIndicator inkPageIndicator;
 
     @BindView(R.id.tvProductName) TextView tvProductName;
     @BindView(R.id.tvProductPrice) TextView tvProductPrice;
@@ -105,6 +106,7 @@ public class ProductDetailActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.setTitle(null);
 
         // Add product to Shopping Cart
         btnBuy.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +161,8 @@ public class ProductDetailActivity extends AppCompatActivity
             viewPagerProductImages.setAdapter(new ProductImagesPagerAdapter(viewPagerProductImages, productImages, null));
             viewPagerProductImages.addOnPageChangeListener(this);
             viewPagerProductImages.setPageMargin(getResources().getDimensionPixelSize(R.dimen.item_gap_m));
+
+            inkPageIndicator.setViewPager(viewPagerProductImages);
         } else {
             ivProduct.setVisibility(View.VISIBLE);
         }
@@ -166,8 +170,6 @@ public class ProductDetailActivity extends AppCompatActivity
 
     @Override
     public void populateProductGeneralInfo(Product product) {
-
-        this.setTitle(null);
 
         tvProductName.setText(String.valueOf(product.name));
         // noinspection deprecation
@@ -224,15 +226,31 @@ public class ProductDetailActivity extends AppCompatActivity
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
         switch (uiState) {
             case LOADING:
-                // swipeRefreshLayoutParent.setRefreshing(true);
-                btnBuy.setEnabled(false);
-                Utils.Log(TAG, "Loading ");
+                showLoadingIndicator(true);
                 break;
             case FINISHED:
-                btnBuy.setEnabled(true);
-                swipeRefreshLayoutParent.setRefreshing(false);
+                showLoadingIndicator(false);
                 break;
         }
+    }
+
+    private void showLoadingIndicator(boolean isLoading) {
+        if (isLoading) {
+
+            btnBuy.setEnabled(false);
+
+            if (!swipeRefreshLayoutParent.isRefreshing()) {
+                swipeRefreshLayoutParent.setRefreshing(true);
+            }
+        } else {
+
+            btnBuy.setEnabled(true);
+
+            if (swipeRefreshLayoutParent.isRefreshing()) {
+                swipeRefreshLayoutParent.setRefreshing(false);
+            }
+        }
+
     }
 
     @Override
@@ -255,7 +273,10 @@ public class ProductDetailActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            if (presenter != null) {
+                presenter.getProductData(productId);
+            }
             return true;
         } else if (id == android.R.id.home) {
             Utils.Log(TAG, "Home navigation clicked.");
