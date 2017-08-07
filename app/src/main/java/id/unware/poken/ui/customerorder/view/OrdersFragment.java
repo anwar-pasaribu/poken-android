@@ -38,7 +38,7 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
 
     private OrdersPresenter presenter;
 
-    private List<ShoppingOrder> orderList = new ArrayList<>();;
+    private List<ShoppingOrder> orderList = new ArrayList<>();
     private OrdersAdapter adapter;
 
     private static final String ARG_COLUMN_COUNT = "column-count";

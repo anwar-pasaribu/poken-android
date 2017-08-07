@@ -10,6 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 
@@ -30,12 +34,13 @@ import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.BrowseActivity;
-import id.unware.poken.ui.home.model.HomeModelImpl;
+import id.unware.poken.ui.home.model.HomeModel;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
+import id.unware.poken.ui.search.view.SearchActivity;
 import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
@@ -44,8 +49,19 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private final String TAG = "HomeAcivity";
 
+    // View states for home screen
+    private final int HOME_VIEW_DEFAULT = 0;
+    private final int HOME_VIEW_ERROR = 1;
+
+    @BindView(R.id.vFHome) ViewFlipper vFHome;
     @BindView(R.id.swipeRefreshLayoutMain) SwipeRefreshLayout swipeRefreshLayoutMain;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+    // ERROR VIEW WIDGETS
+    @BindView(R.id.tvErrorTitle) TextView tvErrorTitle;
+    @BindView(R.id.tvErrorContent) TextView tvErrorContent;
+    @BindView(R.id.btnErrorRetry) Button btnErrorRetry;
+
 
     private Unbinder unbinder;
     private Realm realm;
@@ -63,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         unbinder = ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
 
-        HomeModelImpl model = new HomeModelImpl(realm);
+        HomeModel model = new HomeModel(realm);
         presenter = new HomePresenter(model, HomeActivity.this);
 
         listHome = new ArrayList<>();
@@ -126,7 +142,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            return true;
+            openSearchScreen();
         } else if (id == R.id.action_shopping_cart) {
             openShoppingCart();
         } else if (id == R.id.action_profile) {
@@ -134,6 +150,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openSearchScreen() {
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        this.startActivity(searchIntent);
     }
 
     private void openProfile() {
@@ -195,6 +216,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         super.onDestroy();
         unbinder.unbind();
         realm.close();
+    }
+
+    @Override
+    public void showMessage(String msg, int status) {
+        if (status == Constants.NETWORK_CALLBACK_FAILURE) {
+            tvErrorTitle.setText(R.string.msg_title_network_error);
+            tvErrorContent.setText(String.valueOf(status).concat(msg));
+            setupHomeViewErrorState(true);
+        }
     }
 
     @Override
@@ -293,9 +323,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         categories.add(new Category("Sepatu", 3, "", R.drawable.ic_shoes));
         categories.add(new Category("Topi", 5, "", R.drawable.ic_hat));
         categories.add(new Category("Semua", 6, "", R.drawable.ic_category));
-        categories.add(new Category("Test 1", 7, "", R.drawable.ic_account_balance_wallet_black_24dp));
-        categories.add(new Category("Test 2", 8, "", R.drawable.ic_add_24dp));
-        categories.add(new Category("Test 3", 9, "", R.drawable.ic_custom_marker));
         dmCategory.setCategories(categories);
         return dmCategory;
     }
@@ -304,12 +331,46 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     public void showViewState(UIState uiState) {
         switch (uiState) {
             case LOADING:
-                swipeRefreshLayoutMain.setRefreshing(true);
+                showLoadingIndicator(true);
                 break;
             case FINISHED:
-                swipeRefreshLayoutMain.setRefreshing(false);
+                showLoadingIndicator(false);
+                break;
+            case ERROR:
+                setupHomeViewErrorState(true);
                 break;
         }
+    }
+
+    private void showLoadingIndicator(boolean isLoading) {
+
+        if (vFHome.getDisplayedChild() == this.HOME_VIEW_ERROR) {
+            vFHome.setDisplayedChild(this.HOME_VIEW_DEFAULT);
+        }
+
+        if (isLoading) {
+            swipeRefreshLayoutMain.setRefreshing(true);
+        } else {
+            swipeRefreshLayoutMain.setRefreshing(false);
+        }
+    }
+
+    private void setupHomeViewErrorState(boolean isError) {
+
+        if (isError) {
+            vFHome.setDisplayedChild(this.HOME_VIEW_ERROR);
+            btnErrorRetry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (presenter != null) {
+                        presenter.getHomeData();
+                    }
+                }
+            });
+        } else {
+            vFHome.setDisplayedChild(this.HOME_VIEW_DEFAULT);
+        }
+
     }
 
     @Override

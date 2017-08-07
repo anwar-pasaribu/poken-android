@@ -50,20 +50,6 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.addressBook.AcAddressBook"
-            android:label="@string/title_activity_address_book"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:label="@string/title_activity_product_detail"
             android:parentActivityName=".ui.home.view.HomeActivity"
@@ -91,7 +77,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
         </activity>
-
         <activity
             android:name=".ui.profile.view.ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -118,12 +103,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
-        <activity android:name=".ui.shoppingsummary.view.ShoppingSummaryActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.shoppingsummary.view.ShoppingSummaryActivity"
+            android:screenOrientation="portrait">
         </activity>
-
-        <activity android:name=".ui.pokenaccount.LoginActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.pokenaccount.LoginActivity"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- ///////////////////////////////////////////////////////////////////////////// -->
@@ -137,15 +123,30 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="e403eadd6dec46812b5d690e54098baf8eff3904"
-            />
+            android:value="e403eadd6dec46812b5d690e54098baf8eff3904" />
 
         <service
             android:name=".services.FetchAddressIntentService"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.search.view.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".ui.home.view.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.home.view.HomeActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

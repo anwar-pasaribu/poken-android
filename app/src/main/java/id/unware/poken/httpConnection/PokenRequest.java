@@ -99,7 +99,15 @@ public interface PokenRequest {
     Call<CustomerSubscriptionDataRes> reqCustomerSubscriptionContent(@HeaderMap Map<String, String> headerMap);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
-    Call<ProductDataRes> reqProductContent(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String, String> sellerData);
+    Call<ProductDataRes> reqProductContent(
+            @HeaderMap Map<String, String> headerMap,
+            @QueryMap Map<String, String> sellerData
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_SEARCH_PRODUCTS)
+    Call<ProductDataRes> reqSearchProductContent(
+            @QueryMap Map<String, String> sellerData
+    );
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
     Call<ProductDataRes> reqProductContentByCategory(

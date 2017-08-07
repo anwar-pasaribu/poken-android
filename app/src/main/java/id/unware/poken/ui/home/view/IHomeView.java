@@ -15,6 +15,9 @@ import id.unware.poken.ui.view.BaseView;
  */
 
 public interface IHomeView extends BaseView {
+
+    void showMessage(String msg, int status);
+
     void populateHomeView(ArrayList<Featured> featured_items, ArrayList<Section> sections);
 
     void startProductCategoryScreen(Section sectionItem);

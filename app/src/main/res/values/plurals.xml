@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="lbl_est_day">
-        <item quantity="zero">Same day</item>  <!--Ignored in English plural-->
-        <item quantity="one">One day</item>
-        <item quantity="two">%d Days</item>
-        <item quantity="other">%d Days</item>
-    </plurals>
 
-    <plurals name="lbl_plural_header_picked_package_count">
-        <item quantity="one">One package picked</item>
-        <item quantity="two">%d packages picked</item>
-        <item quantity="other">%d packages picked</item>
-    </plurals>
-
-    <plurals name="lbl_package_count">
-        <item quantity="one">One package</item>
-        <item quantity="two">%d packages</item>
-        <item quantity="other">%d packages</item>
-    </plurals>
-
-    <plurals name="lbl_package_ready_to_ship">
-        <item quantity="one">Satu paket siap dikirim.</item>
-        <item quantity="two">%d paket siap dikirim.</item>
-        <item quantity="other">%d paket siap dikirim.</item>
-    </plurals>
 </resources>

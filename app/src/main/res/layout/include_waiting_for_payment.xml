@@ -29,7 +29,7 @@
             android:minLines="1"
             android:singleLine="true"
             android:textColor="@color/white_100"
-            android:text="PEMBAYARAN BELUM DIKONFIRMASI" />
+            android:text="@string/msg_waiting_for_payment" />
 
         <TextView
             android:id="@+id/tvSubtitle"
@@ -44,7 +44,6 @@
             android:textColor="@color/white_100"
             android:text="@string/lbl_order_payment_expires"
             android:textStyle="bold" />
-
 
     </RelativeLayout>
 

@@ -49,6 +49,9 @@ public class LoginPresenter implements ILoginPresenter, ILoginModelPresenter {
 
     @Override
     public void onLoginError(String msg, int status) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showMessage(msg, status);
     }
 }

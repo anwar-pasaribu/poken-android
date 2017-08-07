@@ -4,6 +4,8 @@ apply plugin: 'realm-android'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    // For stetho (https://facebook.github.io/stetho/) Realm Inspector (https://github.com/uPhyca/stetho-realm)
+    maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
 }
 
 // S: Read keystore file
@@ -15,15 +17,15 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
 
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
 
         applicationId "id.unware.poken"
 
-        minSdkVersion 18
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
 
         versionCode 8
         versionName "0.0.5-beta"
@@ -34,7 +36,6 @@ android {
 
         resConfigs "en", "id", "xxhdpi"
 
-        buildConfigField 'String', 'TRACK_CODE_SAMPLE', '"020103975850"'
         buildConfigField 'String', 'USER_EMAIL', '"anwar"'
         buildConfigField 'String', 'USER_PASSWORD', '"poken_psp17"'
     }
@@ -76,17 +77,21 @@ android {
             minSdkVersion 21
             resConfigs "id", "xxhdpi"
 
+            buildConfigField 'Integer', 'DATABASE_VERSION', '8'
+
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
 
             buildConfigField 'String', 'session_key', '"ci_session"'
-            buildConfigField 'String', 'HOST', '"http://192.168.1.105:8000/poken_rest/"'
+            buildConfigField 'String', 'HOST', '"http://192.168.1.102:8000/poken_rest/"'
             buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
 
         }
 
         production {
             resValue "string", "app_name", "Poken Psp"
+
+            buildConfigField 'Integer', 'DATABASE_VERSION', '8'
 
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
@@ -97,9 +102,6 @@ android {
 
         }
     }
-
-    // Google Volley dependencies
-    useLibrary 'org.apache.http.legacy'
 
     // DISABLE PNG CRUCHING ON DEBUG MODE
     if (project.hasProperty('devBuild')) {
@@ -166,8 +168,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    String playServices = "9.6.1"  // Firebase tut:10.2.6
-    String supportLibrary = "25.2.0"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     // FABRIC
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
@@ -175,48 +176,38 @@ dependencies {
     compile('com.crashlytics.sdk.android:answers:1.3.13@aar') {
         transitive = true;
     }
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //ANDROID SUPPORT LIBRARY
-    compile "com.android.support:appcompat-v7:${supportLibrary}"
-    compile "com.android.support:design:${supportLibrary}"
-    compile "com.android.support:recyclerview-v7:${supportLibrary}"
-    compile "com.android.support:cardview-v7:${supportLibrary}"
-    compile "com.android.support:support-v4:${supportLibrary}"
-    // For Chrome tab
-    compile "com.android.support:customtabs:${supportLibrary}"
-    // FIREBASE
-    compile "com.google.firebase:firebase-core:${playServices}"
-    //PLAY SERVICES
-    compile "com.google.android.gms:play-services-location:${playServices}"
-    compile "com.google.android.gms:play-services-places:${playServices}"
-    compile "com.google.android.gms:play-services-gcm:${playServices}"
-    compile "com.google.android.gms:play-services-maps:${playServices}"
-    compile "com.google.android.gms:play-services-analytics:${playServices}"
-    compile "com.google.android.gms:play-services-plus:${playServices}"
-    compile "com.google.android.gms:play-services-auth:${playServices}"
-    // Advanced recycler view
-    compile 'eu.davidea:flexible-adapter:5.0.0-b8'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:customtabs:$rootProject.ext.supportLibVersion"
+    //PLAY SERVICES / FIREBASE
+    compile "com.google.firebase:firebase-core:$rootProject.ext.playServicesVersion"
+    compile "com.google.android.gms:play-services-location:$rootProject.ext.playServicesVersion"
+    compile "com.google.android.gms:play-services-places:$rootProject.ext.playServicesVersion"
+    compile "com.google.android.gms:play-services-gcm:$rootProject.ext.playServicesVersion"
+    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesVersion"
+    compile "com.google.android.gms:play-services-auth:$rootProject.ext.playServicesVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    //BUTTER KNIFE
     compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    //RETROFIT HTTP REQUEST
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    //IMAGE
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
-    //VIEW PAGER INDICATOR
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
-    //FACEBOOK SDKs
+    compile 'com.github.rubensousa:gravitysnaphelper:1.3'
     compile 'com.facebook.android:facebook-android-sdk:4.23.0'
-
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    debugCompile 'com.facebook.stetho:stetho:1.5.0'
+    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    debugCompile 'com.uphyca:stetho_realm:2.0.0'
 }
 
 // Firebase for google-services.json parser

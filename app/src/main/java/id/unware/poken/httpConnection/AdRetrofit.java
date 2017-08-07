@@ -1,5 +1,6 @@
 package id.unware.poken.httpConnection;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -18,44 +19,7 @@ public class AdRetrofit {
 
     private static Retrofit instance;
 
-    private static final String url = "https://tiki.id/mobile_api/";
     private static final String POKEN_HOST = BuildConfig.HOST;
-
-    public static Retrofit getInstanceTiki() {
-        if (instance == null) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
-                    .writeTimeout(60, TimeUnit.SECONDS)
-                    .addInterceptor(interceptor).build();
-
-            Gson gson = new GsonBuilder()
-                    .serializeNulls()
-                    .setExclusionStrategies(new ExclusionStrategy() {
-                        @Override
-                        public boolean shouldSkipField(FieldAttributes f) {
-                            return f.getDeclaringClass().equals(RealmObject.class);
-                        }
-
-                        @Override
-                        public boolean shouldSkipClass(Class<?> clazz) {
-                            return false;
-                        }
-                    })
-                    .setDateFormat("yyyy-MM-dd")
-                    .create();
-
-            instance = new Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(client)
-                    .build();
-        }
-
-        return instance;
-    }
 
     public static Retrofit getInstancePoken() {
         if (instance == null) {
@@ -66,6 +30,7 @@ public class AdRetrofit {
                     .readTimeout(60, TimeUnit.SECONDS)
                     .writeTimeout(60, TimeUnit.SECONDS)
                     .addInterceptor(interceptor)
+                    .addNetworkInterceptor(new StethoInterceptor())  // TODO Stetho Network Inspector
                     .build();
 
             Gson gson = new GsonBuilder()

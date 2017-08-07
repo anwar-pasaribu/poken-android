@@ -36,7 +36,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     private Unbinder unbinder;
 
-    private List<Product> listItem = new ArrayList<>();
+    private ArrayList<Product> listItem = new ArrayList<>();
     private BrowseProductAdapter adapter;
 
     private BrowsePresenter presenter;

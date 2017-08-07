@@ -115,11 +115,6 @@
     </style>
 
     <!--Style for dimmed text-->
-    <style name="TextDimmmed">
-        <item name="android:textColor">@color/black_50_alpha</item>
-        <item name="android:lineSpacingExtra">3dp</item>
-        <item name="android:gravity">center</item>
-    </style>
 
     <!-- Page Style-->
     <style name="PaketTextView.PageTextTitle" parent="PaketTextView">
@@ -155,35 +150,7 @@
         <item name="android:lineSpacingMultiplier">1.15</item>
     </style>
 
-    <style name="TextDiscountedPrice">
-        <item name="android:textSize">@dimen/text_body</item>
-        <item name="android:textColor">@color/style_overlay_grey</item>
-        <item name="android:lineSpacingMultiplier">1.15</item>
-    </style>
-
     <!--Default background with background-->
-    <style name="ButtonDefault">
-        <item name="android:background">@drawable/bg_btn_default</item>
-
-        <item name="android:gravity">center</item>
-
-        <item name="android:textSize">@dimen/text_button</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white_100</item>
-        <item name="android:textAllCaps">true</item>
-
-    </style>
-
-    <style name="ButtonDefault.HeaderButton" parent="ButtonDefault">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/clickable_size</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
-        <item name="android:paddingLeft">@dimen/item_gap_l</item>
-        <item name="android:paddingRight">@dimen/item_gap_l</item>
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:minWidth">@dimen/clickable_size</item>
-    </style>
 
     <style name="MyButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/btn_higlight_accent</item>
@@ -219,28 +186,6 @@
         <!-- <item name="android:background">@color/color_primary</item> -->
     </style>
 
-    <style name="PaketImageButton">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-        <item name="android:scaleType">center</item>
-    </style>
-
-    <style name="PaketImageButton.HeaderBack" parent="PaketImageButton">
-        <item name="android:layout_width">@dimen/clickable_size</item>
-        <item name="android:layout_height">@dimen/clickable_size</item>
-        <item name="android:src">@drawable/ic_arrow_back_black_32dp</item>
-        <item name="android:tint">@color/black_90</item>
-        <item name="android:padding">@dimen/item_gap_xs</item>
-    </style>
-
-    <style name="ImageButtonAccentSmall">
-        <item name="android:layout_height">@dimen/clickable_size_32</item>
-        <item name="android:layout_width">@dimen/clickable_size_32</item>
-        <item name="android:background">@drawable/bg_btn_accent</item>
-        <item name="android:tint">@color/white_100</item>
-        <item name="android:layout_marginLeft">@dimen/item_gap_s</item>
-        <item name="android:layout_marginRight">@dimen/item_gap_s</item>
-    </style>
-
     <!--<style name="MyButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless"></style>-->
     <style name="ButtonSelection" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:button">@null</item>
@@ -250,22 +195,8 @@
     </style>
 
     <!-- Layout style parent-->
-    <style name="PaketLayout">
-        <item name="android:background">@color/white_100</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
 
     <!-- Layout style for page header-->
-    <style name="PaketLayout.PageHeader" parent="PaketLayout">
-        <item name="android:layout_height">@dimen/clickable_size</item>
-        <!--<item name="android:layout_marginLeft">@dimen/item_gap_32</item>-->
-        <item name="android:background">@color/white_100</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="PaketLayout.PageHeader.SubpageHeader">
-        <item name="android:layout_marginLeft">@dimen/item_gap_l</item>
-    </style>
 
     <style name="PaketTextView">
         <item name="android:textColor">@color/black_90</item>
@@ -288,13 +219,6 @@
     <!--</style>-->
 
     <!--Style for small thumbnail for text representation icon-->
-    <style name="ThumbnailSmallDefault">
-        <item name="android:layout_width">@dimen/item_gap_l</item>
-        <item name="android:layout_height">@dimen/item_gap_l</item>
-        <item name="android:layout_marginRight">@dimen/item_gap_m</item>
-        <item name="android:tint">@color/black_90</item>
-        <item name="android:scaleType">fitCenter</item>
-    </style>
 
     <!--Style for default text on white background-->
     <style name="TextDefault" parent="TextAppearance.AppCompat.Body1">
@@ -345,8 +269,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="HomeButtonLabel">
-        <item name="android:textColor">@color/white_100</item>
-        <item name="android:textSize">@dimen/text_button</item>
-    </style>
 </resources>

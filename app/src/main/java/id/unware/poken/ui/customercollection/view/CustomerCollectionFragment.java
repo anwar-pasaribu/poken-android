@@ -40,7 +40,7 @@ public class CustomerCollectionFragment extends BaseFragment implements ICustome
 
     private CustomerCollectionPresenter presenter;
 
-    private List<CustomerCollection> orderList = new ArrayList<>();;
+    private List<CustomerCollection> orderList = new ArrayList<>();
     private CustomerCollectionAdapter adapter;
 
     private static final String ARG_COLUMN_COUNT = "column-count";

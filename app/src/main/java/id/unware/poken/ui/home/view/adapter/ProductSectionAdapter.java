@@ -56,7 +56,8 @@ public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAd
         holder.tvPrice.setText(formattedProductPrice);
 
         Picasso.with(mContext)
-                .load(singleItem.images.get(0).path)
+                .load(singleItem.images.get(0).thumbnail)
+                .error(R.drawable.bg_gradient_poken)
                 .resize(holder.productImageSizeM, holder.productImageSizeM)
                 .centerCrop()
                 .into(holder.itemImage);

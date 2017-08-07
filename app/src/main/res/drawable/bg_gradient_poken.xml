@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    For shadow effect purpore in order to support "elevation" attribute
+    on pre-lollipop device.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:thickness="0dp"
+       android:shape="rectangle">
+
+    <gradient
+        android:startColor="#5d2364"
+        android:centerColor="#904799"
+        android:endColor="#904799"
+        android:angle="90"/>
+
+</shape>

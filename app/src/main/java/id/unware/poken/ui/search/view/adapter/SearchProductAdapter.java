@@ -1,4 +1,4 @@
-package id.unware.poken.ui.browse.view.adapter;
+package id.unware.poken.ui.search.view.adapter;
 
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -21,17 +21,19 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.ui.browse.presenter.IBrowsePresenter;
+import id.unware.poken.ui.search.presenter.ISearchPresenter;
 
 /**
  * @author Anwar Pasaribu
- * @since Jul 7 2017
+ * @since Jun 17 2017
  */
-public class BrowseProductAdapter extends RecyclerView.Adapter<BrowseProductAdapter.ViewHolder> {
+
+public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdapter.ViewHolder> {
 
     private final ArrayList<Product> mValues;
-    private final IBrowsePresenter mListener;
+    private final ISearchPresenter mListener;
 
-    public BrowseProductAdapter(ArrayList<Product> items, IBrowsePresenter listener) {
+    public SearchProductAdapter(ArrayList<Product> items, ISearchPresenter listener) {
         mValues = items;
         mListener = listener;
     }

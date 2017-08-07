@@ -39,7 +39,7 @@ public class CustomerSubscriptionFragment extends BaseFragment implements ICusto
 
     private CustomerSubscriptionPresenter presenter;
 
-    private List<CustomerSubscription> orderList = new ArrayList<>();;
+    private List<CustomerSubscription> orderList = new ArrayList<>();
     private CustomerSubscriptionAdapter adapter;
 
     private static final String ARG_COLUMN_COUNT = "column-count";

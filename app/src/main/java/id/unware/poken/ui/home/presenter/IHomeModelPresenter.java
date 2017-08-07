@@ -10,4 +10,6 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface IHomeModelPresenter extends BasePresenter {
     void onHomeDataResponse(HomeDataRes homeDataRes);
+
+    void showMessage(String msg, int msgStatus);
 }

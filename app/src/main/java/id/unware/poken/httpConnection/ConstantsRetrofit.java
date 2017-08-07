@@ -27,6 +27,7 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_CUSTOMER_COLLECTION = "customer_collection/";
     public static final String ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION = "customer_subscription/";
     public static final String ENDPOINT_FETCH_SELLER_PRODUCTS = "product/";
+    public static final String ENDPOINT_SEARCH_PRODUCTS = "product/";
 
     //final String rateUrl = Config.endpoint(String.format("mobile_api/tariff2/%s/%s/%s",
     //origin, dest, weight));

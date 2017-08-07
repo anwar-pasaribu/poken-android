@@ -40,7 +40,9 @@ public abstract class MyCallback implements retrofit2.Callback {
 
         if (response.isSuccessful()) {
             onSuccess(response);
+            onFinish();
         } else {
+            String errorMsg = "Request jaringan bermasalah.";
             try {
                 String strErrorResponse = response.errorBody().string();
                 Utils.Log("MyCallback", "Network response error body: " + strErrorResponse);
@@ -48,19 +50,20 @@ public abstract class MyCallback implements retrofit2.Callback {
                 PokenApiBase apiBase = gson.fromJson(strErrorResponse, PokenApiBase.class);
 
                 if (apiBase != null) {
-                    String msg = apiBase.detail != null
+                    errorMsg = apiBase.detail != null
                             ? apiBase.detail
                             : apiBase.non_field_errors.length != 0
                             ? String.valueOf(apiBase.non_field_errors[0])
-                            : "Request jaringan bermasalah.";
+                            : errorMsg;
 
-                    this.onMessage(msg, Constants.NETWORK_CALLBACK_FAILURE);
+
                 } else {
                     Utils.Logs('e', "MyCallback", "no poken api base");
-                    this.onMessage(response.code() + ": " + response.message(), Constants.NETWORK_CALLBACK_FAILURE);
+                    errorMsg = response.code() + ": " + response.message();
                 }
             } catch (IOException | com.google.gson.JsonSyntaxException e) {
                 e.printStackTrace();
+                errorMsg = e.getMessage();
             }
 
             Utils.Logs('w', TAG, "Response errorBody: " + String.valueOf(response.errorBody()));
@@ -68,9 +71,10 @@ public abstract class MyCallback implements retrofit2.Callback {
             Utils.Logs('w', TAG, "Raw response body: " + String.valueOf(response));
 
             MyLog.FabricLog(Log.ERROR, "Response failed. Body: " + String.valueOf(response.errorBody().toString()));
-        }
 
-        onFinish();
+            this.onFinish();
+            this.onMessage(errorMsg, Constants.NETWORK_CALLBACK_FAILURE);
+        }
     }
 
     @Override
@@ -78,8 +82,10 @@ public abstract class MyCallback implements retrofit2.Callback {
 
         Utils.Log(TAG, "response failed. Cause: " + String.valueOf(t.getMessage()));
         Utils.Log(TAG, "response failed. Cause: " + String.valueOf(call));
-        onMessage(t.getMessage(), Constants.NETWORK_CALLBACK_FAILURE);
         onFinish();
+
+        // Send message to client
+        onMessage(t.getMessage(), Constants.NETWORK_CALLBACK_FAILURE);
 
         t.printStackTrace();
     }

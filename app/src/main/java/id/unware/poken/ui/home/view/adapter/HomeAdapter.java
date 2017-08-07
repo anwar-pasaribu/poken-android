@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
@@ -31,7 +36,7 @@ import id.unware.poken.ui.home.presenter.IHomePresenter;
  * Created by Anwar Pasaribu on June 2017
  * Main list adapter.
  */
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements GravitySnapHelper.SnapListener{
 
     private final int TYPE_HEADER = 1,
             TYPE_ITEM_CATEGORY = 2,
@@ -113,12 +118,17 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void configureHeaderRow(HeaderRowHolder holder, int pos) {
-        ArrayList<Featured> singleSectionItems = dataList.get(pos).getFeaturedItems();
+        ArrayList<Featured> singleSectionItems = new ArrayList<>();
+
+        if (dataList.get(pos).getFeaturedItems() != null) {
+            singleSectionItems.addAll(dataList.get(pos).getFeaturedItems());
+        }
 
         HeaderSectionAdapter itemListDataAdapter = new HeaderSectionAdapter(mContext, singleSectionItems);
-
-        holder.recycler_view_list.setHasFixedSize(true);
         holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        SnapHelper snapHelper = new LinearSnapHelper();
+        holder.recycler_view_list.setOnFlingListener(null);
+        snapHelper.attachToRecyclerView(holder.recycler_view_list);
         holder.recycler_view_list.setAdapter(itemListDataAdapter);
 
         holder.recycler_view_list.setNestedScrollingEnabled(false);
@@ -149,8 +159,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder.itemTitle.setText(sectionName);
 
             ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(mContext, products, homePresenter);
-            holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+            SnapHelper snapHelper = new GravitySnapHelper(Gravity.START, false, this);
+            holder.recycler_view_list.setOnFlingListener(null);
+            snapHelper.attachToRecyclerView(holder.recycler_view_list);
             holder.recycler_view_list.setAdapter(itemListDataAdapter);
 
             holder.recycler_view_list.setNestedScrollingEnabled(false);
@@ -164,6 +176,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
+            // SHOW APP VERSION
             try {
                 PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
                 String versionNumber = pInfo.versionName;
@@ -215,6 +228,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return (null != dataList ? dataList.size() : 0);
+    }
+
+    @Override
+    public void onSnap(int position) {
+        Utils.Log(TAG, "Snap to pos: " + String.valueOf(position));
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {

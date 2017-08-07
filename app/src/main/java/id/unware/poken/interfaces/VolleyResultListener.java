@@ -8,11 +8,11 @@ import id.unware.poken.pojo.PojoBase;
  *
  */
 public interface VolleyResultListener {
-    public void onStart(PojoBase clazz);
+    void onStart(PojoBase clazz);
 
-    public void onSuccess(PojoBase clazz);
+    void onSuccess(PojoBase clazz);
 
-    public void onFinish(PojoBase clazz);
+    void onFinish(PojoBase clazz);
 
-    public boolean onError(PojoBase clazz);
+    boolean onError(PojoBase clazz);
 }

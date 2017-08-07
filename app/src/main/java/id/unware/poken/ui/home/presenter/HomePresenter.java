@@ -69,6 +69,11 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     }
 
     @Override
+    public void showMessage(String msg, int msgStatus) {
+        view.showMessage(msg, msgStatus);
+    }
+
+    @Override
     public void updateViewState(UIState uiState) {
         view.showViewState(uiState);
     }

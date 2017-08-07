@@ -241,7 +241,6 @@ public class FragmentLogin extends BaseFragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        values.cancelPendingRequests(FragmentLogin.class);
         unbinder.unbind();
     }
 

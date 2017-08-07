@@ -3,8 +3,6 @@ package id.unware.poken.ui.shoppingcart.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +18,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +33,6 @@ import id.unware.poken.ui.shoppingcart.model.ShoppingCartModel;
 import id.unware.poken.ui.shoppingcart.presenter.ShoppingCartPresenter;
 import id.unware.poken.ui.shoppingcart.view.adapter.ShoppingCartAdapter;
 import id.unware.poken.ui.shoppingorder.view.OrderActivity;
-
-import static id.unware.poken.R.id.recyclerView;
-import static id.unware.poken.R.id.select_dialog_listview;
 
 public class ShoppingCartActivity extends AppCompatActivity implements IShoppingCartView {
 
