@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.home.presenter.IHomePresenter;
 
 /**
  * "Feature" or "Kolom Promosi"
@@ -33,10 +34,12 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
     private static final String TAG = "HeaderSectionAdapter";
     private ArrayList<Featured> itemsList;
     private Context mContext;
+    private IHomePresenter homePresenter;
 
-    public HeaderSectionAdapter(Context context, ArrayList<Featured> itemsList) {
+    public HeaderSectionAdapter(Context context, ArrayList<Featured> itemsList, IHomePresenter homePresenter) {
         this.itemsList = itemsList;
         this.mContext = context;
+        this.homePresenter = homePresenter;
 
         // Preloaded featured images
         for (Featured i : this.itemsList) {
@@ -111,7 +114,9 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), tvTitle.getText(), Toast.LENGTH_SHORT).show();
+            if (homePresenter != null) {
+                homePresenter.onFeaturedItemClicked(getAdapterPosition(), itemsList.get(getAdapterPosition()));
+            }
         }
 
         @Override

@@ -1,4 +1,4 @@
-package id.unware.poken.ui.browse.view.adapter;
+package id.unware.poken.ui.featured.view.adapter;
 
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,6 @@ import android.widget.ViewFlipper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -21,17 +20,18 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.ui.browse.presenter.IBrowsePresenter;
+import id.unware.poken.ui.featured.presenter.IFeaturedPresenter;
 
 /**
  * @author Anwar Pasaribu
  * @since Jul 7 2017
  */
-public class BrowseProductAdapter extends RecyclerView.Adapter<BrowseProductAdapter.ViewHolder> {
+public class FeaturedRelatedProductAdapter extends RecyclerView.Adapter<FeaturedRelatedProductAdapter.ViewHolder> {
 
     private final ArrayList<Product> mValues;
-    private final IBrowsePresenter mListener;
+    private final IFeaturedPresenter mListener;
 
-    public BrowseProductAdapter(ArrayList<Product> items, IBrowsePresenter listener) {
+    public FeaturedRelatedProductAdapter(ArrayList<Product> items, IFeaturedPresenter listener) {
         mValues = items;
         mListener = listener;
     }

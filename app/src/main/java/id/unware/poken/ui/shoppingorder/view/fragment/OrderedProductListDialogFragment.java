@@ -169,6 +169,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
         final TextView tvProductTotalPrice;
         final TextView tvSelectedShippingMethod;
         final TextView tvShippingCost;
+        final TextView tvTotalFee;
         final ImageView ivProductImage;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -180,6 +181,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
             tvProductTotalPrice = (TextView) itemView.findViewById(R.id.tvProductTotalPrice);
             tvSelectedShippingMethod = (TextView) itemView.findViewById(R.id.tvSelectedShippingMethod);
             tvShippingCost = (TextView) itemView.findViewById(R.id.tvShippingCost);
+            tvTotalFee = (TextView) itemView.findViewById(R.id.tvTotalFee);
             ivProductImage = (ImageView) itemView.findViewById(R.id.ivProductImage);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -209,15 +211,20 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
         public void onBindViewHolder(ViewHolder holder, int position) {
             ShoppingCart item = this.listItem.get(position);
             String quantityString = holder.itemView.getContext().getString(R.string.lbl_quantity, item.quantity);
-            double totalPrice = item.product.price * item.quantity;
+            double originalProductPrice = item.product.price;
+            double discountAmount = item.product.discount_amount;
+            double afterDiscountProductPrice = originalProductPrice - ((originalProductPrice * discountAmount) / 100);
+            double totalPrice = afterDiscountProductPrice * item.quantity;
             String shippingMethod = item.shipping.name;
             double shippingCost = item.shipping.fee;
+            double grandTotal = totalPrice + shippingCost;
 
             holder.tvProductName.setText(String.valueOf(item.product.name));
             holder.tvProductQuantity.setText(quantityString);
             holder.tvProductTotalPrice.setText(StringUtils.formatCurrency(String.valueOf(totalPrice)));
             holder.tvSelectedShippingMethod.setText(shippingMethod);
             holder.tvShippingCost.setText(StringUtils.formatCurrency(String.valueOf(shippingCost)));
+            holder.tvTotalFee.setText(StringUtils.formatCurrency(String.valueOf(grandTotal)));
 
             int clickableSize64 = holder.itemView.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
             Picasso.with(holder.itemView.getContext())

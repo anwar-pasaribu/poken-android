@@ -18,4 +18,6 @@ public interface IProductDetailModelPresenter extends BasePresenter {
     void onShoppingCartCreateOrUpdateResponse(ShoppingCart cart);
 
     void onShippingOptionListResponse(ArrayList<Shipping> shippings);
+
+    void startLogin();
 }

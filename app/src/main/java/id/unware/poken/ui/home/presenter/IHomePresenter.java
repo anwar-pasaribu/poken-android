@@ -1,6 +1,7 @@
 package id.unware.poken.ui.home.presenter;
 
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
@@ -19,4 +20,5 @@ public interface IHomePresenter {
     void onSellerClick(int position, Seller seller);
     void onProductClick(int position, Product product);
 
+    void onFeaturedItemClicked(int position, Featured featured);
 }

@@ -60,7 +60,6 @@
         android:ellipsize="middle"
         android:gravity="right|bottom"
         android:maxLines="1"
-        android:textStyle="bold"
         tools:text="Rp 450.000" />
 
     <ImageView
@@ -93,6 +92,7 @@
         android:layout_below="@+id/ivProductImage"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_marginBottom="@dimen/item_gap_m"
         android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
         tools:text="POS Indonesia" />
 
@@ -105,18 +105,43 @@
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginRight="@dimen/item_gap_l"
         android:layout_marginTop="@dimen/item_gap_l"
+        android:layout_marginBottom="@dimen/item_gap_m"
         android:layout_toRightOf="@id/tvSelectedShippingMethod"
         android:ellipsize="middle"
         android:maxLines="1"
         android:gravity="right"
-        android:textStyle="bold"
         tools:text="Rp 4.000" />
+
+    <TextView
+        android:id="@+id/tvTotalLabel"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSelectedShippingMethod"
+        android:layout_marginBottom="@dimen/item_gap_m"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
+        android:text="@string/lbl_order_total_cost" />
+
+    <TextView
+        android:id="@+id/tvTotalFee"
+        style="@style/TextBodyDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvShippingCost"
+        android:layout_marginBottom="@dimen/item_gap_m"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_toRightOf="@id/tvTotalLabel"
+        android:gravity="right"
+        android:textStyle="bold"
+        tools:text="Rp 460.000" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="@dimen/item_gap_l"
-        android:layout_below="@+id/tvShippingCost"
+        android:layout_below="@+id/tvTotalFee"
         android:background="@color/separator_view"/>
 
 </RelativeLayout>

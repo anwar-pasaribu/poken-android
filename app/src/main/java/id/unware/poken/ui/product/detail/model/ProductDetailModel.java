@@ -57,7 +57,8 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
     public void postProductToShoppingCart (
             final long shippingOptionId,
             final long productId,
-            IProductDetailModelPresenter presenter ) {
+            IProductDetailModelPresenter presenter,
+            boolean continueShopping) {
 
         if (this.presenter == null) {
             this.presenter = presenter;
@@ -71,11 +72,16 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
         postBody.put("shipping_id", String.valueOf(shippingOptionId));
         postBody.put("quantity", "1");  // Add one quantity
 
-        // noinspection unchecked
-        req.postNewOrUpdateShoppingCart(
-                PokenCredentials.getInstance().getCredentialHashMap(),
-                postBody)
-                .enqueue(ProductDetailModel.this);
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            // noinspection unchecked
+            req.postNewOrUpdateShoppingCart(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    postBody)
+                    .enqueue(ProductDetailModel.this);
+        } else {
+            // User not logged in
+            this.presenter.startLogin();
+        }
 
 
     }

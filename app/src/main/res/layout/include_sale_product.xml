@@ -15,6 +15,7 @@
         android:layout_toLeftOf="@+id/tvDiscountAmount"
         android:paddingLeft="@dimen/item_gap_s"
         android:paddingRight="@dimen/item_gap_s"
+        android:alpha="0.7"
         tools:text="Rp 1.000.000" />
 
     <TextView
@@ -50,7 +51,7 @@
         android:paddingLeft="@dimen/item_gap_s"
         android:paddingRight="@dimen/item_gap_s"
         android:textColor="@color/white_100"
-        tools:text="5%"
+        tools:text="50%"
         />
 
 </RelativeLayout>

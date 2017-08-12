@@ -253,7 +253,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         Product product = shoppingCart.product;
         int totalProductCount = shoppingCart.quantity;
-        double productTotalPrice = shoppingCart.quantity * shoppingCart.product.price;
+        double productTotalPrice = shoppingCart.total_price;
         double shippingFee = shoppingCart.shipping.fee;
         String shippingMethod = shoppingCart.shipping.name;
         double grandTotal = productTotalPrice + shippingFee;

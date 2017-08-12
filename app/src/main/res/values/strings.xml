@@ -203,5 +203,9 @@
     <string name="msg_waiting_for_payment">PEMBAYARAN BELUM DIKONFIRMASI</string>
     <string name="msg_title_network_error">Oops!</string>
     <string name="msg_content_network_error">Terjadi kesalahan saat mengambil data Poken</string>
+    <string name="title_product_added_to_cart">Barang telah masuk ke Troli</string>
+    <string name="hint_close_dialog">Tutup</string>
+    <string name="title_activity_featured">Featured</string>
+    <string name="action_share">Bagikan</string>
 
 </resources>

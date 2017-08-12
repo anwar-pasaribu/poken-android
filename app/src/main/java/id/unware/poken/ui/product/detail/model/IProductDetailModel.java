@@ -16,7 +16,7 @@ public interface IProductDetailModel {
 
     void requestProductData(long productId, IProductDetailModelPresenter presenter);
 
-    void postProductToShoppingCart(long shippingOptionId, long productId, IProductDetailModelPresenter presenter);
+    void postProductToShoppingCart(long shippingOptionId, long productId, IProductDetailModelPresenter presenter, boolean continueShopping);
 
     void loadShippingOptions();
 

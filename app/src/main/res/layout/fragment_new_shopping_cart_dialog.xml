@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white_100">
+
+        <ImageButton
+            android:id="@+id/addressBookIbClose"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close_red_24dp"
+            android:contentDescription="@string/hint_close_dialog"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            style="@style/TextListTitle"
+            android:layout_toRightOf="@+id/addressBookIbClose"
+            android:text="@string/title_product_added_to_cart" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/separator_view" />
+
+    </RelativeLayout>
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/list_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:background="@color/separator_view" />
+
+            <TextView
+                style="@style/TextBodySecondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:text="@string/lbl_order_total_cost" />
+
+            <TextView
+                android:id="@+id/tvNewShoppingCartTotalCost"
+                style="@style/TextListTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                tools:text="Rp 449.550.000"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnContinueToPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/item_gap_m"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/btn_buy_now"
+                android:theme="@style/MyButton" />
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

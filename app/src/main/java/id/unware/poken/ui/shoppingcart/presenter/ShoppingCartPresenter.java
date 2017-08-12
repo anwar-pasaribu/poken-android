@@ -34,7 +34,8 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
         double totalPrice = 0D;
         for (ShoppingCart item : shoppingCarts) {
             totalQuantity = totalQuantity + item.quantity;
-            totalPrice = totalPrice + (item.product.price * item.quantity);
+            double originalProductPrice = (item.product.price * item.quantity);
+            totalPrice = totalPrice + (originalProductPrice - ((originalProductPrice * item.product.discount_amount) / 100));
         }
 
         Utils.Log(TAG, "Total price: " + StringUtils.formatCurrency(String.valueOf(totalPrice)));

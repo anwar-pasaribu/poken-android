@@ -18,6 +18,8 @@ import id.unware.poken.ui.browse.presenter.IBrowseModelPresenter;
 import okhttp3.Credentials;
 import retrofit2.Response;
 
+import static android.R.attr.category;
+
 /**
  * @author Anwar Pasaribu
  * @since Jun 18 2017
@@ -44,10 +46,14 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("action_id", String.valueOf(actionId));
 
-        this.req.reqProductContent(
-                PokenCredentials.getInstance().getCredentialHashMap(),
-                queryParams)
-                .enqueue(this);
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            this.req.reqProductContent(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams)
+                    .enqueue(this);
+        } else {
+            this.req.reqProductContentByActionId(queryParams).enqueue(this);
+        }
     }
 
     @Override

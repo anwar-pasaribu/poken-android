@@ -7,6 +7,7 @@ import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
+import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
@@ -47,6 +48,9 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_HOME_CONTENT)
     Call<HomeDataRes> reqHomeContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_GET_FEATURED)
+    Call<Featured> reqSingleFeaturedItemDetail(@Path("pk") String featuredId);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL)
     Call<Product> reqSingleProductDetail(@Path("pk") long productId);
@@ -98,7 +102,7 @@ public interface PokenRequest {
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION)
     Call<CustomerSubscriptionDataRes> reqCustomerSubscriptionContent(@HeaderMap Map<String, String> headerMap);
 
-    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCTS)
     Call<ProductDataRes> reqProductContent(
             @HeaderMap Map<String, String> headerMap,
             @QueryMap Map<String, String> sellerData
@@ -109,14 +113,19 @@ public interface PokenRequest {
             @QueryMap Map<String, String> sellerData
     );
 
-    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCTS)
     Call<ProductDataRes> reqProductContentByCategory(
             @HeaderMap Map<String, String> credentials,
             @QueryMap Map<String, String> category
     );
 
-    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLER_PRODUCTS)
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCTS)
     Call<ProductDataRes> reqProductContentByCategory(
+            @QueryMap Map<String, String> category
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCTS)
+    Call<ProductDataRes> reqProductContentByActionId(
             @QueryMap Map<String, String> category
     );
 

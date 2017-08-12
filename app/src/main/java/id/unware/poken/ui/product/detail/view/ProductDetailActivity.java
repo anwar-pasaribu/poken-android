@@ -1,11 +1,12 @@
 package id.unware.poken.ui.product.detail.view;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -16,9 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 
@@ -31,20 +32,27 @@ import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
 import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
 import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
+import id.unware.poken.ui.product.detail.view.fragment.NewlyShoppingCartDialogFragment;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
+
+import static id.unware.poken.R.id.tvPrice;
+
 
 public class ProductDetailActivity extends AppCompatActivity
         implements IProductDetailView, ViewPager.OnPageChangeListener {
 
     private static final String TAG = "ProductDetailActivity";
 
-    @BindView(R.id.swipeRefreshLayoutParent) SwipeRefreshLayout swipeRefreshLayoutParent;
+    @BindView(R.id.progressBarDetailProduct) ProgressBar progressBarDetailProduct;
 
     @BindView(R.id.ivProduct) ImageView ivProduct;
     @BindView(R.id.viewPagerProductImages) ViewPager viewPagerProductImages;
@@ -60,7 +68,14 @@ public class ProductDetailActivity extends AppCompatActivity
     @BindView(R.id.tvSellerName) TextView tvSellerName;
     @BindView(R.id.tvSellerAddress) TextView tvSellerAddress;
 
-    // BUY
+    // Sale item
+    @BindView(R.id.tvPrice2) TextView tvPrice2;
+    @BindView(R.id.tvDiscountedPrice) TextView tvDiscountedPrice;
+    @BindView(R.id.tvDiscountAmount) TextView tvDiscountAmount;
+    @BindView(R.id.viewFlipperProductPrice) ViewFlipper viewFlipperProductPrice;
+
+    // BUY OR ADD TO CART
+    @BindView(R.id.btnAddCart) Button btnAddCart;
     @BindView(R.id.btnBuy) Button btnBuy;
 
     // SHIPPING OPTIONS
@@ -108,24 +123,26 @@ public class ProductDetailActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(null);
 
-        // Add product to Shopping Cart
+        // Set initial price view to prevent view flashing
+        viewFlipperProductPrice.setDisplayedChild(Constants.VIEWFLIPPER_CHILD_DEFAULT);
+
+        btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (presenter != null) {
+                    long shippingId = selectedShipping != null ? selectedShipping.id : 3;
+                    presenter.onBuyNow(shippingId, productId, false);
+                }
+            }
+        });
+
+        // Add product to Shopping Cart and open Shopping cart screen
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (presenter != null) {
                     long shippingId = selectedShipping != null ? selectedShipping.id : 3;
-                    presenter.onBuyNow(shippingId, productId);
-                } else {
-                    Utils.Logs('e', TAG, "Presenter is not ready.");
-                }
-            }
-        });
-
-        swipeRefreshLayoutParent.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (presenter != null) {
-                    presenter.getProductData(productId);
+                    presenter.onBuyNow(shippingId, productId, true);
                 } else {
                     Utils.Logs('e', TAG, "Presenter is not ready.");
                 }
@@ -184,9 +201,15 @@ public class ProductDetailActivity extends AppCompatActivity
         tvSellerAddress.setText(product.seller.location);
     }
 
+    /**
+     * Default price view for non SALE product.
+     * @param formattedPrice Product price with ID format.
+     */
     @Override
     public void updateProductPrice(String formattedPrice) {
         tvProductPrice.setText(formattedPrice);
+
+        viewFlipperProductPrice.setDisplayedChild(Constants.VIEWFLIPPER_CHILD_DEFAULT);
     }
 
     @Override
@@ -222,6 +245,47 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     @Override
+    public void showAddedShoppingCartItem(ShoppingCart newlyAddedShoppingCart) {
+        Utils.Log(TAG, "Show newly created shopping cart item.");
+
+        String strAddedShoppingCartTag = "dialog-added-shopping-cart";
+        FragmentTransaction ft = hideDialog(strAddedShoppingCartTag);
+        ft.addToBackStack(null);
+
+        NewlyShoppingCartDialogFragment f = new NewlyShoppingCartDialogFragment(
+                newlyAddedShoppingCart,
+                presenter);
+        f.show(ft, strAddedShoppingCartTag);
+
+    }
+
+    @Override
+    public void showSaleProduct(Product product) {
+
+        tvProductPrice.setText(StringUtils.formatCurrency(String.valueOf(product.price)));
+
+        // tvPrice2 to show SALE item
+        tvPrice2.setText(StringUtils.formatCurrency(String.valueOf(product.price)));
+        tvPrice2.setPaintFlags(tvProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);  // Strike
+        tvDiscountedPrice.setText(StringUtils.formatCurrency(String.valueOf(product.getDiscountedPrice())));
+        tvDiscountAmount.setText((int) product.discount_amount + "%");
+
+        // Discount view
+        if (product.discount_amount > 0D) {
+            viewFlipperProductPrice.setDisplayedChild(Constants.VIEWFLIPPER_CHILD_SALE);
+        } else {
+            viewFlipperProductPrice.setDisplayedChild(Constants.VIEWFLIPPER_CHILD_DEFAULT);
+        }
+    }
+
+    @Override
+    public void showLoginScreen() {
+        Intent accountIntent = new Intent(this, LoginActivity.class);
+        accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_ADD_SHOPPING_CART);
+        this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
+    }
+
+    @Override
     public void showViewState(UIState uiState) {
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
         switch (uiState) {
@@ -237,18 +301,15 @@ public class ProductDetailActivity extends AppCompatActivity
     private void showLoadingIndicator(boolean isLoading) {
         if (isLoading) {
 
+            btnAddCart.setEnabled(false);
             btnBuy.setEnabled(false);
+            progressBarDetailProduct.animate().alpha(1F);
 
-            if (!swipeRefreshLayoutParent.isRefreshing()) {
-                swipeRefreshLayoutParent.setRefreshing(true);
-            }
         } else {
 
+            btnAddCart.setEnabled(true);
             btnBuy.setEnabled(true);
-
-            if (swipeRefreshLayoutParent.isRefreshing()) {
-                swipeRefreshLayoutParent.setRefreshing(false);
-            }
+            progressBarDetailProduct.animate().alpha(0F);
         }
 
     }
@@ -256,6 +317,33 @@ public class ProductDetailActivity extends AppCompatActivity
     @Override
     public boolean isActivityFinishing() {
         return this.isFinishing();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Utils.Log(TAG, "Activity result. Req: " + requestCode + ", res: " + resultCode + ", data: " + data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.TAG_LOGIN) {
+
+                int requestedPageTag = data.getIntExtra(Constants.EXTRA_REQUESTED_PAGE, -1);
+
+                if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+                    if (requestedPageTag == Constants.TAG_ADD_SHOPPING_CART
+                            || requestedPageTag == Constants.TAG_BUY_NOW) {
+                        // Login success, continue add product to shopping cart
+                        if (presenter != null) {
+                            long shippingId = selectedShipping != null ? selectedShipping.id : 3;
+                            presenter.onBuyNow(shippingId, productId, false);
+                        }
+                    }
+                }
+            }
+        } else {
+            Utils.Logs('w', TAG, "Result not OK.");
+            showLoadingIndicator(false);
+        }
     }
 
     @Override
@@ -357,13 +445,7 @@ public class ProductDetailActivity extends AppCompatActivity
     @Override
     public void onPageScrollStateChanged(int state) {
         Utils.Logs('v', TAG, "Page scroll state change: " + state);
-        enableDisableSwipeRefresh( state == ViewPager.SCROLL_STATE_IDLE );
 
     }
 
-    private void enableDisableSwipeRefresh(boolean enable) {
-        if (swipeRefreshLayoutParent != null) {
-            swipeRefreshLayoutParent.setEnabled(enable);
-        }
-    }
 }

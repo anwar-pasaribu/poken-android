@@ -1,6 +1,7 @@
 package id.unware.poken.ui.home.presenter;
 
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
@@ -49,6 +50,11 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     public void onProductClick(int position, Product product) {
         Utils.Log(TAG, "Product on Sale section clicked. Pos: " + position + ", product ID: " + product.id);
         view.showProductDetailScreen(product);
+    }
+
+    @Override
+    public void onFeaturedItemClicked(int position, Featured featured) {
+        view.showFeaturedScreen(position, featured);
     }
 
     @Override

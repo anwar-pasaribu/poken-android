@@ -51,7 +51,6 @@
         </activity>
         <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
-            android:label="@null"
             android:parentActivityName=".ui.home.view.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar.Transparent">
@@ -143,9 +142,19 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.featured.view.FeaturedActivity"
+            android:label="@string/title_activity_featured"
+            android:parentActivityName=".ui.home.view.HomeActivity"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
     </application>
 

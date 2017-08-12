@@ -42,10 +42,14 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("seller_id", String.valueOf(sellerId));
 
-        this.req.reqProductContent(
-                PokenCredentials.getInstance().getCredentialHashMap(),
-                queryParams
-        ).enqueue(this);
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            this.req.reqProductContent(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams
+            ).enqueue(this);
+        } else {
+            this.req.reqProductContentByActionId(queryParams).enqueue(this);
+        }
     }
 
     @Override

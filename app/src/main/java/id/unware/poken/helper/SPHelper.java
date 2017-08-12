@@ -3,12 +3,12 @@ package id.unware.poken.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import id.unware.poken.BuildConfig;
 import id.unware.poken.PokenApp;
 
-/**
- * Created by marzellaalfamega on 6/23/15.
- */
 public class SPHelper {
+
+    private final String preferenceName = BuildConfig.APPLICATION_ID + ".pref";
     private static SPHelper instance;
     private static Context context;
 
@@ -20,9 +20,7 @@ public class SPHelper {
         return instance;
     }
 
-    //
-    private final String preferenceName = "myJNE_app_preference";
-
+    @SuppressWarnings("unused")
     public int getSharedPreferences(String key, int defValue) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         return p.getInt(key, defValue);
@@ -33,38 +31,43 @@ public class SPHelper {
         return p.getString(key, defValue);
     }
 
+    @SuppressWarnings("unused")
     public boolean getSharedPreferences(String key, boolean defValue) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         return p.getBoolean(key, defValue);
     }
 
+    @SuppressWarnings("unused")
     public void setPreferences(String key, boolean value) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = p.edit();
         e.putBoolean(key, value);
-        e.commit();
+        e.apply();
     }
 
+    @SuppressWarnings("unused")
     public void setPreferences(String key, CharSequence value) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = p.edit();
         e.putString(key, value.toString());
-        e.commit();
+        e.apply();
     }
 
+    @SuppressWarnings("unused")
     public void setPreferences(String key, int value) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = p.edit();
         e.putInt(key, value);
-        e.commit();
+        e.apply();
     }
 
     /**
      * [IMPORTANT] Removing all Shared Preference data.
      */
+    @SuppressWarnings("unused")
     public void clearData() {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = p.edit().clear();
-        e.commit();
+        e.apply();
     }
 }

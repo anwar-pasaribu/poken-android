@@ -27,7 +27,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/product1" />
+            tools:src="@drawable/product1" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -44,19 +44,34 @@
             tools:text="Nama barang yang sangat panjang sehingga akan merusak"
             />
 
-        <TextView
-            android:id="@+id/tvPrice"
-            style="@style/TextListSubtitle"
-            android:layout_width="match_parent"
+        <ViewFlipper
+            android:id="@+id/viewFlipperProductPrice"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTitle"
-            android:gravity="left"
-            android:maxLines="1"
-            android:paddingBottom="@dimen/item_gap_m"
-            android:paddingLeft="@dimen/item_gap_s"
-            android:paddingRight="@dimen/item_gap_s"
-            android:textStyle="bold"
-            tools:text="Rp 599.000.000.000" />
+            android:layout_below="@+id/tvTitle">
+
+            <include
+                layout="@layout/include_sale_product"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    style="@style/TextListSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_gap_s"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/item_gap_m"
+                    android:textStyle="bold"
+                    tools:text="Rp 1.000.000" />
+
+            </RelativeLayout>
+
+        </ViewFlipper>
 
     </RelativeLayout>
 

@@ -44,6 +44,12 @@ public class Constants {
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
+    public static final int VIEWFLIPPER_CHILD_SALE = 0;
+    public static final int VIEWFLIPPER_CHILD_DEFAULT = 1;
+    public static final String FABRIC_CONTENT_TYPE = "Page";
+
+    public static final String EXTRA_DOMAIN_SERIALIZED_STRING = "EXTRA_DOMAIN_SERIALIZED_STRING";
+
     public static boolean focusOnSender = false;
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 314;
@@ -79,65 +85,16 @@ public class Constants {
     public static final String SHARED_LAST_UPDATE = "last_update";
     public static final String SHARED_DATABSE_VERSION = "db_version";
     public static final String SHARED_LOAD_AREA_LV0 = "is_load_area_lv_0";
-    // [V50] Visible tabs
-    public static final int TAG_PACKAGE = 0;
+
     public static final int TAG_PROFILE = 2;
-    public static final int TAG_ADDRESS = 3;
-    public static final int TAG_MAP = 4;  // Drop off location
-    public static final int TAG_TARIFF_CHECK = 5;
-    public static final int TAG_LOGOUT = 6;
-    public static final int TAG_POSTCODE = 7;
-    public static final int TAG_MORE = 8;
-    public static final int TAG_PACKAGE_DETAIL = 20;
-    public static final int TAG_RATE_ON_MARKET = 21;
-    public static final int TAG_PICKUP_MAP = 22;
-    public static final int TAG_NEW_PACKAGE = 23;
-    public static final int TAG_PICKUP_HISTORY = 24;
-    public static final int TAG_PICKUP_FORM = 25;
-    public static final int TAG_PUSH_NOTIF = 26;
-    public static final int TAG_HELP = 27;
-    public static final int TAG_SETTINGS = 28;
-    public static final int TAG_SUPPORT = 29;
     public static final int TAG_LOGIN = 30;
     public static final int TAG_SHOPPING_CART = 31;
+    public static final int TAG_ADD_SHOPPING_CART = 32;
+    public static final int TAG_BUY_NOW = 33;
+    public static final int TAG_FEATURED = 34;
 
-    // Extra keys for cross activity/fragment
-    public static final String EXTRA_FROM_NEW_PACKAGE = "fromNewPackage";
-    public static final String EXTRA_ADDRESS_DETAIL = "address_detail";
-    public static final String EXTRA_PHONE_NUMBER = "phone_number";
-    // Extra for PojoBooking
-    public static final String EXTRA_POJO_BOOKING_DATA = "data";
-    // Extra to decide refresh Package list.
-    public static final String EXTRA_REFRESH_PAGE = "refresh";
-    public static final String EXTRA_TRIGGER_TUTORIAL = "trigger_tut";
-    // Extra to store booking_id on an ArrayList
-    public static final String EXTRA_ARRAYLIST_BOOKING_ID = "array_list_booking_id";
-    // Extra flag whether in tut mode
-    public static final String EXTRA_IS_TUTORIAL = "is_in_tut_mode";
-    /**
-     * Key to store {@link android.location.Address} data on Intent extra.
-     */
-    public static final String EXTRA_SELECTED_ADDRESS = "selected_address";
     public static final String EXTRA_SELECTED_SHOPPING_CART_IDS = "selected_shopping_cart_ids";
     public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";
-    // Param keys
-    public static final String PARAM_USER_EMAIL = "user_email";
-    public static final String PARAM_USER_PASSWORD = "user_password";
-    public static final String PARAM_POSITION = "position";
-    // Shared Preferences to record whether tutorial is learnt or not
-    // 3 Main tutorials: (1) Open New Package, (2) Create New Package, (3) Request Pickup
-    public static final String SHARED_TUTORIAL_MODE = "is_tutorial_mode";
-    public static final String SHARED_LEARNT_OPEN_CREATE_PACKAGE = "new_pack_open_new_pack";
-    public static final String SHARED_LEARNT_SENDER_FIELD = "new_pack_sender";
-    public static final String SHARED_LEARNT_RECEIVER_FIELD = "new_pack_receiver";
-    public static final String SHARED_LEARNT_PROCEDD_CREATE = "new_pack_proceed_create";
-    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
-    public static final String REGISTRATION_COMPLETE = "registrationComplete";
-    // Shared Preferences key to track when no package available
-    public static final String SHARED_IS_PACKAGE_EMPTY = "is_package_empty";
-    // Shared Pref. key for last origin and destination (Tariff check)
-    public static final String SHARED_LAST_ORIGIN = "last_origin";
-    public static final String SHARED_LAST_DESTINATION = "last_destination";
     // Shared number of OTW driver
     public static final String SHARED_OTW_DRIVER = "otw_driver";
     // Shared to identify whether user has modified Expandable RecyclerView

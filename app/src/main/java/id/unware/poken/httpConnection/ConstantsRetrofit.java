@@ -8,6 +8,7 @@ package id.unware.poken.httpConnection;
 public class ConstantsRetrofit {
     public static final String ENDPOINT_POKEN_AUTH = "api-token-auth/";
     public static final String ENDPOINT_GET_CUSTOMER = "customer/{pk}";
+    public static final String ENDPOINT_GET_FEATURED = "featured/{pk}";
     public static final String ENDPOINT_TRACKING = "track3/{resi}";
     public static final String ENDPOINT_SEARCH_AREA = "area/{query}";
     public static final String ENDPOINT_CHECK_TARIFF = "tariff2/{origin}/{dest}/{weight}";
@@ -26,7 +27,7 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_ADDRESS_BOOK = "address_book/";
     public static final String ENDPOINT_FETCH_CUSTOMER_COLLECTION = "customer_collection/";
     public static final String ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION = "customer_subscription/";
-    public static final String ENDPOINT_FETCH_SELLER_PRODUCTS = "product/";
+    public static final String ENDPOINT_FETCH_PRODUCTS = "product/";
     public static final String ENDPOINT_SEARCH_PRODUCTS = "product/";
 
     //final String rateUrl = Config.endpoint(String.format("mobile_api/tariff2/%s/%s/%s",

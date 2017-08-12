@@ -23,14 +23,17 @@ public class AdRetrofit {
 
     public static Retrofit getInstancePoken() {
         if (instance == null) {
+
+            int timeOut = BuildConfig.DEV_MODE? 10 : 60;
+
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
             OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
-                    .writeTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(timeOut, TimeUnit.SECONDS)
+                    .readTimeout(timeOut, TimeUnit.SECONDS)
+                    .writeTimeout(timeOut, TimeUnit.SECONDS)
                     .addInterceptor(interceptor)
-                    .addNetworkInterceptor(new StethoInterceptor())  // TODO Stetho Network Inspector
+                    .addNetworkInterceptor(new StethoInterceptor())  // Stetho Network Inspector
                     .build();
 
             Gson gson = new GsonBuilder()

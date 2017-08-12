@@ -21,6 +21,12 @@ public class ShoppingCart {
     public Date date;
     public int quantity;
 
+    /** Shopping item price without additional fee */
+    public double total_price;
+
+    /** Shopping item price include all additional fee (ex. shipping, tax, etc.) */
+    public double grand_total_price;
+
     public static String KEY_SHOPPING_CART_ID = "id";
 
 

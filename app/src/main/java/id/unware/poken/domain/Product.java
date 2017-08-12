@@ -30,4 +30,12 @@ public class Product {
 
     public Product() {
     }
+
+    public double getDiscountedPrice() {
+        double originalProductPrice = this.price;
+        double discountAmount = this.discount_amount;
+
+        return (originalProductPrice - ((originalProductPrice * discountAmount) / 100));
+
+    }
 }

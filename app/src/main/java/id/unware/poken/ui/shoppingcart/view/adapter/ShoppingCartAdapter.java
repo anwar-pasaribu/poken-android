@@ -2,6 +2,7 @@ package id.unware.poken.ui.shoppingcart.view.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.squareup.picasso.Picasso;
 
@@ -75,7 +77,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         String strShipping = item.shipping == null
                 ? "Metode pengiriman ditentukan oleh Poken"
                 : item.shipping.name;
-        final double productPrice = product.price;
+        final double originalProductPrice = product.price;
+        final double discountAmount = product.discount_amount;
+        final double afterDiscountProductPrice = originalProductPrice - ((originalProductPrice * discountAmount) / 100);
         final int productStock = product.stock;
 
         // Product image thumbnail size
@@ -88,8 +92,22 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 .into(holder.ivProductImage);
         holder.tvProductName.setText(productName);
         holder.tvProductTotalPrice.setText(
-                StringUtils.formatCurrency(String.valueOf(productPrice))
+                StringUtils.formatCurrency(String.valueOf(originalProductPrice))
         );
+
+        // tvPrice2 to show SALE item
+        holder.tvPrice2.setText(StringUtils.formatCurrency(String.valueOf(originalProductPrice)));
+        holder.tvPrice2.setPaintFlags(holder.tvProductTotalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);  // Strike
+        holder.tvDiscountedPrice.setText(StringUtils.formatCurrency(String.valueOf(afterDiscountProductPrice)));
+        holder.tvDiscountAmount.setText((int) discountAmount + "%");
+
+        // Discount view
+        if (discountAmount > 0D) {
+            holder.viewFlipperProductPrice.setDisplayedChild(0);
+        } else {
+            holder.viewFlipperProductPrice.setDisplayedChild(1);
+        }
+
         holder.textItemQuantity.setText(
                 String.valueOf(item.quantity)
         );
@@ -104,7 +122,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                             isChecked,
                             shoppingCartId,
                             item.quantity,
-                            productPrice,
+                            afterDiscountProductPrice,
                             item
                     );
                 }
@@ -115,6 +133,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // Check item on adding quantity
+                    holder.cbSelectAllStoreItem.setChecked(true);
+
                     item.quantity = holder.controlItemQuantity(item.quantity, productStock, true);
                     Utils.Log("ShoppingCartAdapter", "[add] Q: " + item.quantity + ", stok: " + productStock);
                     holder.textItemQuantity.setText(
@@ -127,7 +149,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                                 holder.getAdapterPosition(),
                                 shoppingCartId,
                                 item.quantity,
-                                productPrice,
+                                afterDiscountProductPrice,
                                 item
                         );
                     }
@@ -147,7 +169,11 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
                         // Change shopping cart counter on list page
                         if (presenter != null) {
-                            presenter.onItemQuantityChanges(holder.getAdapterPosition(), shoppingCartId, item.quantity, productPrice, item);
+                            presenter.onItemQuantityChanges(
+                                    holder.getAdapterPosition(),
+                                    shoppingCartId,
+                                    item.quantity,
+                                    afterDiscountProductPrice, item);
                         }
                     }
                 }
@@ -170,7 +196,15 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @BindView(R.id.ivProductImage) ImageView ivProductImage;
         @BindView(R.id.tvProductName) TextView tvProductName;
         @BindView(R.id.btnDeleteCartItem) ImageButton btnDeleteCartItem;
+
+        // Normal price
         @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
+
+        // Sale product
+        @BindView(R.id.tvPrice2) TextView tvPrice2;
+        @BindView(R.id.tvDiscountedPrice) TextView tvDiscountedPrice;
+        @BindView(R.id.tvDiscountAmount) TextView tvDiscountAmount;
+        @BindView(R.id.viewFlipperProductPrice) ViewFlipper viewFlipperProductPrice;
 
         // ITEM QUANTITY
         @BindView(R.id.parentQuantityControl) CardView parentQuantityControl;

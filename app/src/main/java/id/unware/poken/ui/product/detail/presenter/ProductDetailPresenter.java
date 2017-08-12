@@ -23,6 +23,8 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     private final IProductDetailModel model;
     private final IProductDetailView view;
 
+    private boolean isContinueShopping = true;
+
 
     public ProductDetailPresenter(IProductDetailModel model, IProductDetailView view) {
         this.model = model;
@@ -40,9 +42,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     }
 
     @Override
-    public void onBuyNow(long shippingOptionId, long productId) {
+    public void onBuyNow(long shippingOptionId, long productId, boolean continueShopping) {
         Utils.Log(TAG, "Buy now on product id:" + String.valueOf(productId));
-        model.postProductToShoppingCart(shippingOptionId, productId, this);
+        this.isContinueShopping = continueShopping;
+
+        model.postProductToShoppingCart(shippingOptionId, productId, this, true /* TRUE Continue shopping*/);
     }
 
     @Override
@@ -50,6 +54,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         Utils.Log(TAG, "Start shipping options screen");
         boolean isCod = model.isCodAvailable();
         view.showShippingOptionsScreen(isCod, model.getShippingOptions());
+    }
+
+    @Override
+    public void startShoppingCartScreen(ShoppingCart shoppingCart) {
+        view.showShoppingCartScreen(shoppingCart);
     }
 
     @Override
@@ -71,6 +80,10 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
                 StringUtils.formatCurrency(String.valueOf(product.price))
         );
 
+        if (product.is_discount && product.discount_amount > 0D) {
+            view.showSaleProduct(product);
+        }
+
         view.populateProductGeneralInfo(product);
 
     }
@@ -80,7 +93,15 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
 
         if (view.isActivityFinishing()) return;
 
-        view.showShoppingCartScreen(cart);
+        if (isContinueShopping) {
+
+            view.showShoppingCartScreen(cart);
+
+        } else {
+
+            view.showAddedShoppingCartItem(cart);
+
+        }
     }
 
     @Override
@@ -89,5 +110,10 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         if (view.isActivityFinishing()) return;
 
         view.showDefaultShippingOption(shippings.get(0));
+    }
+
+    @Override
+    public void startLogin() {
+        view.showLoginScreen();
     }
 }

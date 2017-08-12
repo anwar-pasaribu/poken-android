@@ -124,7 +124,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             singleSectionItems.addAll(dataList.get(pos).getFeaturedItems());
         }
 
-        HeaderSectionAdapter itemListDataAdapter = new HeaderSectionAdapter(mContext, singleSectionItems);
+        HeaderSectionAdapter itemListDataAdapter = new HeaderSectionAdapter(mContext, singleSectionItems, homePresenter);
         holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         SnapHelper snapHelper = new LinearSnapHelper();
         holder.recycler_view_list.setOnFlingListener(null);

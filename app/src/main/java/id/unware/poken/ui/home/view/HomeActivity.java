@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -34,6 +38,7 @@ import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.BrowseActivity;
+import id.unware.poken.ui.featured.view.FeaturedActivity;
 import id.unware.poken.ui.home.model.HomeModel;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
@@ -313,6 +318,20 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         Intent sellerIntent = new Intent(this, SellerActivity.class);
         sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, seller.id);
         this.startActivity(sellerIntent);
+    }
+
+    @Override
+    public void showFeaturedScreen(int position, Featured featured) {
+        MyLog.FabricTrackContentView("Featured", Constants.FABRIC_CONTENT_TYPE, String.valueOf(Constants.TAG_FEATURED));
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String featuredString = gson.toJson(featured, Featured.class);
+        Utils.Log(TAG, "Featured data: " + featuredString);
+
+        Intent featuredIntent = new Intent(this, FeaturedActivity.class);
+        featuredIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, featured.id);
+        featuredIntent.putExtra(Constants.EXTRA_DOMAIN_SERIALIZED_STRING, featuredString);
+        this.startActivity(featuredIntent);
     }
 
     private SectionDataModel createCategoryItems() {

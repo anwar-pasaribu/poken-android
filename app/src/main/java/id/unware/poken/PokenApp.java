@@ -42,6 +42,12 @@ public class PokenApp extends Application {
         Picasso.with(this.getApplicationContext()).areIndicatorsEnabled();
         Picasso.with(this).setLoggingEnabled(true);
 
-        Fabric.with(this, new Crashlytics(), new Answers());
+        // Debug fabric
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics(), new Answers())
+                .debuggable(BuildConfig.DEV_MODE)
+                .build();
+
+        Fabric.with(fabric);
     }
 }

@@ -14,13 +14,15 @@
         android:id="@+id/cbSelectAllStoreItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         android:layout_marginLeft="@dimen/item_gap_l" />
 
     <ImageView
         android:id="@+id/ivStoreAvatar"
         android:layout_width="@dimen/clickable_size_32"
         android:layout_height="@dimen/clickable_size_32"
-        android:layout_marginLeft="@dimen/clickable_size"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_toRightOf="@+id/cbSelectAllStoreItem"
         app:srcCompat="@drawable/ic_store_black_24dp" />
 
     <TextView
@@ -42,7 +44,7 @@
         android:id="@+id/viewStoreLine"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:layout_below="@+id/cbSelectAllStoreItem"
+        android:layout_below="@+id/ivStoreAvatar"
         android:layout_marginTop="@dimen/item_gap_m"
         android:background="@color/separator_view_lighter" />
 
@@ -53,8 +55,8 @@
         android:layout_below="@+id/viewStoreLine"
         android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_marginTop="@dimen/item_gap_m"
-        android:scaleType="centerCrop"
-        android:src="@drawable/product1" />
+        android:scaleType="center"
+        android:src="@drawable/ic_image_black_24dp" />
 
     <TextView
         android:id="@+id/tvProductName"
@@ -130,22 +132,30 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvProductTotalPrice"
-        style="@style/TextListTitle"
-        android:layout_width="match_parent"
+    <ViewFlipper
+        android:id="@+id/viewFlipperProductPrice"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/parentQuantityControl"
-        android:layout_below="@+id/tvProductName"
-        android:layout_marginLeft="@dimen/item_gap_l"
-        android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_s"
         android:layout_marginTop="@dimen/item_gap_m"
         android:layout_toRightOf="@+id/parentQuantityControl"
-        android:ellipsize="middle"
-        android:gravity="center_vertical"
-        android:maxLines="2"
-        android:textStyle="bold"
-        tools:text="Rp 450.000" />
+        android:layout_below="@+id/tvProductName">
+
+        <include
+            layout="@layout/include_sale_product"/>
+
+        <TextView
+            android:id="@+id/tvProductTotalPrice"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:maxLines="2"
+            android:textStyle="bold"
+            tools:text="Rp 450.000" />
+
+        </ViewFlipper>
 
     <ImageView
         android:id="@+id/ivShippingIcon"

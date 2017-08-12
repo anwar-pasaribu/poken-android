@@ -23,4 +23,10 @@ public interface IProductDetailView extends BaseView {
     void showDefaultShippingOption(Shipping shipping);
     void showShippingOptionsScreen(boolean isCod, ArrayList<Shipping> shippings);
     void populateShippingOptionsScreen(ArrayList<Shipping> shippings);
+
+    void showAddedShoppingCartItem(ShoppingCart newlyAddedShoppingCart);
+
+    void showSaleProduct(Product product);
+
+    void showLoginScreen();
 }
