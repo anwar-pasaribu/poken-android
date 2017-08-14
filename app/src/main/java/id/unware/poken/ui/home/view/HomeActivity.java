@@ -3,6 +3,7 @@ package id.unware.poken.ui.home.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +39,7 @@ import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.BrowseActivity;
+import id.unware.poken.ui.category.view.CategoryActivity;
 import id.unware.poken.ui.featured.view.FeaturedActivity;
 import id.unware.poken.ui.home.model.HomeModel;
 import id.unware.poken.ui.home.presenter.HomePresenter;
@@ -293,6 +295,12 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
             profileFavorite.putExtra(Constants.EXTRA_IS_LAUNCH_FAVORITE, true /*Launch favorite tab*/);
             this.startActivity(profileFavorite);
 
+        } else if (category.getId() == Constants.PRODUCT_CATEGORY_ALL) {
+
+            // Open category sceen
+            Intent intentCategories = new Intent(this, CategoryActivity.class);
+            this.startActivity(intentCategories);
+
         } else {
             Intent browsePage = new Intent(this, BrowseActivity.class);
             browsePage.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, Constants.INTENT_BROWSE_BY_CATEGORY);
@@ -337,11 +345,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     private SectionDataModel createCategoryItems() {
         SectionDataModel dmCategory = new SectionDataModel();
         ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category("Favorit", 0, "", R.drawable.ic_favo));
+        // categories.add(new Category("Favorit", 0, "", R.drawable.ic_favo));
         categories.add(new Category("Baju", 4, "", R.drawable.ic_clothes));
         categories.add(new Category("Sepatu", 3, "", R.drawable.ic_shoes));
         categories.add(new Category("Topi", 5, "", R.drawable.ic_hat));
-        categories.add(new Category("Semua", 6, "", R.drawable.ic_category));
+        categories.add(new Category("Semua", Constants.PRODUCT_CATEGORY_ALL, "", R.drawable.ic_category));
         dmCategory.setCategories(categories);
         return dmCategory;
     }

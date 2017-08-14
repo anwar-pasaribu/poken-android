@@ -207,5 +207,6 @@
     <string name="hint_close_dialog">Tutup</string>
     <string name="title_activity_featured">Featured</string>
     <string name="action_share">Bagikan</string>
+    <string name="title_activity_category">Kategori</string>
 
 </resources>

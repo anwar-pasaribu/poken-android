@@ -6,8 +6,8 @@ package id.unware.poken.domain;
  */
 
 public class Category {
-    private String name;
     private long id;
+    private String name;
     private String imageUrl;
     private int imageResource;
 

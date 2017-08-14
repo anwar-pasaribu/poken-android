@@ -145,10 +145,8 @@ public class Constants {
      * Minimum amount to withdraw.
      */
     public static long MIN_WITHDRAW_VALUE = 10000;
-    /**
-     * Maximum amount to withdraw.
-     */
-    public static int MAX_WITHDRAW_VALUE = 79890000;
+
+    public static int PRODUCT_CATEGORY_ALL = -99;
     // Flag to indicate in tutorial mode on/off
     public static boolean isTutorialMode = false;
 
