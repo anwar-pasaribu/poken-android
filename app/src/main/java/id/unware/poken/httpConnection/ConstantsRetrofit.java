@@ -15,6 +15,7 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_NEARBY_BRANCHES = "location/{lat}/{lon}";
 
     public static final String ENDPOINT_FETCH_HOME_CONTENT = "home/";
+    public static final String ENDPOINT_FETCH_PRODUCT_CATEGORY = "product_category/";
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
     public static final String ENDPOINT_INSERT_SHOPPING_CART = "insert_cart/";

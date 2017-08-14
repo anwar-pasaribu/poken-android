@@ -4,6 +4,7 @@ import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
+import id.unware.poken.domain.CategoryDataRes;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
@@ -48,6 +49,9 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_HOME_CONTENT)
     Call<HomeDataRes> reqHomeContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCT_CATEGORY)
+    Call<CategoryDataRes> reqProductCategoriesContent(@HeaderMap Map<String, String> headerMap);
 
     @GET(ConstantsRetrofit.ENDPOINT_GET_FEATURED)
     Call<Featured> reqSingleFeaturedItemDetail(@Path("pk") String featuredId);

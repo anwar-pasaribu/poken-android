@@ -1,5 +1,8 @@
 package id.unware.poken.ui.category.presenter;
 
+import java.util.ArrayList;
+
+import id.unware.poken.domain.Category;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -9,4 +12,7 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface ICategoryModelPresenter extends BasePresenter {
 
+    void onCategoryListResponse(ArrayList<Category> categories);
+
+    void onMessageResponse(String msg, int status);
 }

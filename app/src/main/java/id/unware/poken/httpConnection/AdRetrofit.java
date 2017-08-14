@@ -1,6 +1,6 @@
 package id.unware.poken.httpConnection;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
+//import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -33,7 +33,7 @@ public class AdRetrofit {
                     .readTimeout(timeOut, TimeUnit.SECONDS)
                     .writeTimeout(timeOut, TimeUnit.SECONDS)
                     .addInterceptor(interceptor)
-                    .addNetworkInterceptor(new StethoInterceptor())  // Stetho Network Inspector
+                    // .addNetworkInterceptor(new StethoInterceptor())  // Stetho Network Inspector
                     .build();
 
             Gson gson = new GsonBuilder()
