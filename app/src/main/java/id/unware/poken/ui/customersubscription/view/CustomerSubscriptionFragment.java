@@ -77,7 +77,7 @@ public class CustomerSubscriptionFragment extends BaseFragment implements ICusto
 
         presenter = new CustomerSubscriptionPresenter(new CustomerSubscriptionModel(), this /*View*/);
 
-        adapter = new CustomerSubscriptionAdapter(orderList, presenter);
+        adapter = new CustomerSubscriptionAdapter(parent, orderList, presenter);
         adapter.setHasStableIds(true);
         presenter.getCustomerSubscriptionData();
 

@@ -4,8 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,13 +26,10 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
-import id.unware.poken.ui.browse.view.adapter.BrowseProductAdapter;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.search.model.SearchModel;
 import id.unware.poken.ui.search.presenter.SearchPresenter;
 import id.unware.poken.ui.search.view.adapter.SearchProductAdapter;
-
-import static id.unware.poken.R.id.rvProductBrowsing;
 
 public class SearchActivity extends AppCompatActivity
         implements ISearchView, SearchView.OnQueryTextListener {

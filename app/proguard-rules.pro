@@ -36,3 +36,7 @@
 -keep class id.unware.poken.domain.** { *; }
 # E: Application classes that will be serialized/deserialized over Gson
 
+# S: SearchView crash on release version
+-keep class android.support.v7.widget.SearchView { *; }
+# E: SearchView crash on release version
+

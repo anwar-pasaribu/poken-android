@@ -2,6 +2,7 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -18,7 +19,7 @@
         android:layout_marginRight="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_l"
         android:scaleType="centerCrop"
-        android:src="@drawable/product2" />
+        tools:src="@drawable/product2" />
 
     <TextView
         android:id="@+id/tvSellerName"
@@ -32,7 +33,7 @@
         android:gravity="left|center_vertical"
         android:maxLines="1"
         android:minLines="1"
-        android:text="Kejora Busana Cabang Sadabuan"/>
+        tools:text="Kejora Busana Cabang Sadabuan" />
 
     <TextView
         android:id="@+id/tvSellerTagLine"
@@ -41,27 +42,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSellerName"
         android:layout_marginRight="@dimen/item_gap_l"
-        android:layout_toRightOf="@+id/itemImage"
         android:layout_marginTop="@dimen/item_gap_xs"
+        android:layout_toRightOf="@+id/itemImage"
+        android:ellipsize="middle"
         android:gravity="left"
         android:maxLines="1"
-        android:ellipsize="middle"
-        android:text="Menyediakan kebutuhan busana paling lengkap" />
+        tools:text="Menyediakan kebutuhan busana paling lengkap" />
 
     <TextView
         android:id="@+id/tvSellerLocation"
         style="@style/TextBodySecondary"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/item_gap_xs"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSellerTagLine"
         android:layout_marginRight="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_xs"
         android:layout_toRightOf="@+id/itemImage"
+        android:ellipsize="middle"
         android:gravity="left|center_vertical"
         android:maxLines="1"
-        android:ellipsize="middle"
         android:paddingBottom="@dimen/item_gap_s"
-        android:text="Padang Sidempuan" />
+        tools:text="Padang Sidempuan" />
 
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ package id.unware.poken.domain;
 
 public class Seller {
     public long id;
+    public String store_avatar;
     public String store_name;
     public String tag_line;
     public String phone_number;

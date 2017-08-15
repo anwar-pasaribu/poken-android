@@ -1,8 +1,12 @@
 package id.unware.poken.ui.seller.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +16,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import java.util.ArrayList;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -22,6 +31,7 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
@@ -29,6 +39,8 @@ import id.unware.poken.ui.seller.model.SellerPageModel;
 import id.unware.poken.ui.seller.presenter.SellerPagePresenter;
 import id.unware.poken.ui.seller.view.adapter.SellerProductAdapter;
 
+import static android.R.attr.bitmap;
+import static id.unware.poken.R.id.itemImage;
 import static id.unware.poken.R.id.rvOrderedItem;
 
 public class SellerActivity extends BaseActivity implements ISellerPageView {
@@ -41,6 +53,8 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rvSellerProduct) RecyclerView rvSellerProduct;
+
+    @BindDimen(R.dimen.profile_avatar_m) int profile_avatar_m;
 
     private Unbinder unbinder;
 
@@ -168,5 +182,35 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     public void showSellerInfo(Seller seller) {
         tvSellerUser.setText(seller.store_name);
         tvSellerIdetifier.setText(seller.phone_number);
+
+        if (!StringUtils.isEmpty(seller.store_avatar)) {
+            Picasso.with(this)
+                    .load(seller.store_avatar)
+                    .resize(profile_avatar_m, profile_avatar_m)
+                    .onlyScaleDown()
+                    .noFade()
+                    .centerCrop()
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            Utils.Logs('i', TAG, "Image Loaded from: " + from.name());
+
+                            RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory
+                                    .create(SellerActivity.this.getResources(), bitmap);
+                            drawable.setCircular(true);
+                            ivUserAvatar.setImageDrawable(drawable);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+                            Utils.Logs('e', TAG, "Bitmap failed");
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                            Utils.Logs('v', TAG, "Prepare loading image.");
+                        }
+                    });
+        }
     }
 }

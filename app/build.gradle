@@ -27,8 +27,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode 9
-        versionName "0.0.6-beta"
+        versionCode 11
+        versionName "0.0.8-beta"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -55,14 +55,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
-
-//        applicationVariants.all { variant ->
-//            variant.outputs.each { output ->
-//                def apk = output.outputFile;
-//                def newName = "poken-psp-" + variant.baseName.replace("-release", "") + "-" + defaultConfig.versionName + " (" + defaultConfig.versionCode + ")" + ".apk";
-//                output.outputFile = new File(apk.parentFile, newName);
-//            }
-//        }
     }
 
     productFlavors {
@@ -100,6 +92,27 @@ android {
             buildConfigField 'String', 'HOST', '"http://139.59.245.162:80/poken_rest/"'
             buildConfigField 'String', 'FORGET_PASSWORD_URL', '"https://demo.paket.id/login/forgetPass"'
 
+        }
+    }
+
+    // FORMAT OUTPUT FILE NAME
+    // ref: https://stackoverflow.com/a/40016854
+    // ex. output: myProject_dev_debug_1.3.6_131016_1047.apk
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+
+            // get the key for the abi component
+            def abiKey = output.getFilter(OutputFile.ABI) == null ? "all" : output.getFilter(OutputFile.ABI)
+
+            def project = "poken-psp"
+            def SEP = "-"
+            def flavor = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName + " (" + variant.versionCode + ")"
+
+            def newApkName = project + SEP + flavor + SEP + buildType + SEP + abiKey + SEP + version + ".apk"
+
+            output.outputFile = new File(output.outputFile.parent, newApkName)
         }
     }
 

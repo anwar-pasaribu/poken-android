@@ -1,5 +1,12 @@
 package id.unware.poken.ui.customersubscription.view.adapter;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alexvasilkov.gestures.commons.circle.CircleImageView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -16,16 +25,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.CustomerSubscription;
+import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.customersubscription.presenter.ICustomerSubscriptionPresenter;
+
+import static android.R.attr.bitmap;
 
 public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSubscriptionAdapter.ViewHolder> {
 
-    private final List<CustomerSubscription> mValues;
-    private final ICustomerSubscriptionPresenter mListener;
+    private static final String TAG = "CustomerSubscriptionAdapter";
 
-    public CustomerSubscriptionAdapter(List<CustomerSubscription> items, ICustomerSubscriptionPresenter listener) {
+    private Context context;
+    private List<CustomerSubscription> mValues;
+    private ICustomerSubscriptionPresenter mListener;
+
+    public CustomerSubscriptionAdapter(Context context, List<CustomerSubscription> items, ICustomerSubscriptionPresenter listener) {
         mValues = items;
         mListener = listener;
+
+        for (CustomerSubscription item : items) {
+            Picasso.with(context).load(item.seller_profile_pic).fetch();
+        }
     }
 
     @Override
@@ -51,7 +70,8 @@ public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSu
                 .error(R.drawable.ic_circle_24dp)
                 .resize(holder._64dp, holder._64dp)
                 .centerCrop()
-                .into(holder.itemImage);
+                .into(holder);
+
 
         holder.tvSellerName.setText(strSellerName);
         holder.tvSellerTagLine.setText(strSellerTagLine);
@@ -74,7 +94,7 @@ public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSu
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements Target {
 
         @BindView(R.id.itemImage) ImageView itemImage;
         @BindView(R.id.tvSellerName) TextView tvSellerName;
@@ -90,6 +110,26 @@ public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSu
             super(view);
             ButterKnife.bind(this, view);
             mView = view;
+        }
+
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            Utils.Logs('i', TAG, "Image Loaded from: " + from.name());
+
+            RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory
+                    .create(itemImage.getResources(), bitmap);
+            drawable.setCircular(true);
+            itemImage.setImageDrawable(drawable);
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            Utils.Logs('e', TAG, "Bitmap failed");
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+            Utils.Logs('v', TAG, "Prepare loading image.");
         }
     }
 }
