@@ -3,6 +3,9 @@ package id.unware.poken.ui.home.view.adapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +18,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
@@ -30,6 +35,7 @@ import id.unware.poken.domain.Seller;
 import id.unware.poken.models.SectionDataModel;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
 /**
@@ -45,14 +51,20 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     private final String TAG = "HomeAdapter";
 
-    private ArrayList<SectionDataModel> dataList;
     private Context mContext;
+    private ArrayList<SectionDataModel> dataList;
+    private GlideRequests glideRequests;
     private IHomePresenter homePresenter;
 
-    public HomeAdapter(Context context, ArrayList<SectionDataModel> dataList, IHomePresenter homePresenter) {
-        this.dataList = dataList;
+    public HomeAdapter(Context context,
+                       ArrayList<SectionDataModel> dataList,
+                       GlideRequests glideRequests,
+                       IHomePresenter homePresenter) {
         this.mContext = context;
+        this.dataList = dataList;
+        this.glideRequests = glideRequests;
         this.homePresenter = homePresenter;
+
     }
 
     @Override
@@ -118,18 +130,32 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     private void configureHeaderRow(HeaderRowHolder holder, int pos) {
-        ArrayList<Featured> singleSectionItems = new ArrayList<>();
+        ArrayList<Featured> featuredItems = new ArrayList<>();
 
         if (dataList.get(pos).getFeaturedItems() != null) {
-            singleSectionItems.addAll(dataList.get(pos).getFeaturedItems());
+            featuredItems.addAll(dataList.get(pos).getFeaturedItems());
         }
 
-        HeaderSectionAdapter itemListDataAdapter = new HeaderSectionAdapter(mContext, singleSectionItems, homePresenter);
-        holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        HeaderSectionAdapter adapter = new HeaderSectionAdapter(
+                mContext,
+                featuredItems,
+                homePresenter,
+                glideRequests);
+        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 1);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        holder.recycler_view_list.setLayoutManager(layoutManager);
+        holder.recycler_view_list.setHasFixedSize(true);
+
+        // Snap on item
         SnapHelper snapHelper = new LinearSnapHelper();
         holder.recycler_view_list.setOnFlingListener(null);
         snapHelper.attachToRecyclerView(holder.recycler_view_list);
-        holder.recycler_view_list.setAdapter(itemListDataAdapter);
+
+        RecyclerViewPreloader<Featured> preloader =
+                new RecyclerViewPreloader<>(glideRequests, adapter, adapter, 3);
+
+        holder.recycler_view_list.addOnScrollListener(preloader);
+        holder.recycler_view_list.setAdapter(adapter);
 
         holder.recycler_view_list.setNestedScrollingEnabled(false);
     }
@@ -158,7 +184,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             holder.itemTitle.setText(sectionName);
 
-            ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(mContext, products, homePresenter);
+            ProductSectionAdapter itemListDataAdapter = new ProductSectionAdapter(
+                    mContext,
+                    products,
+                    homePresenter,
+                    glideRequests);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             SnapHelper snapHelper = new GravitySnapHelper(Gravity.START, false, this);
             holder.recycler_view_list.setOnFlingListener(null);
@@ -237,44 +267,31 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView itemTitle;
-
-        protected RecyclerView recycler_view_list;
-
-        protected Button btnMore;
-        protected TextView tvAppVersion;
-
+        @BindView(R.id.itemTitle) TextView itemTitle;
+        @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
+        @BindView(R.id.btnMore) Button btnMore;
+        @BindView(R.id.tvAppVersion) TextView tvAppVersion;
 
 
         public ItemRowHolder(View view) {
             super(view);
-
-            this.itemTitle = (TextView) view.findViewById(R.id.itemTitle);
-            this.tvAppVersion = (TextView) view.findViewById(R.id.tvAppVersion);
-            this.recycler_view_list = (RecyclerView) view.findViewById(R.id.recycler_view_list);
-            this.btnMore= (Button) view.findViewById(R.id.btnMore);
-
-
+            ButterKnife.bind(this, view);
         }
 
     }
 
     public class TopSellerRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView itemTitle;
-
-        protected RecyclerView recycler_view_list;
-
-        protected Button btnMore;
-
+        @BindView(R.id.itemTitle) TextView itemTitle;
+        @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
+        @BindView(R.id.btnMore) Button btnMore;
 
 
         public TopSellerRowHolder(View view) {
             super(view);
 
-            this.itemTitle = (TextView) view.findViewById(R.id.itemTitle);
-            this.recycler_view_list = (RecyclerView) view.findViewById(R.id.recycler_view_list);
-            this.btnMore= (Button) view.findViewById(R.id.btnMore);
+            ButterKnife.bind(this, view);
+
         }
 
     }

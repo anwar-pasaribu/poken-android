@@ -75,7 +75,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         int totalProductCount = 0;
         double totalPrice = shoppingOrder.total_shopping;
         Picasso.with(holder.itemView.getContext())
-                .load(product.images.get(0).path)
+                .load(product.images.get(0).thumbnail)
                 .resize(holder.clickableSize64, holder.clickableSize64)
                 .centerCrop()
                 .into(holder.ivProductImage);

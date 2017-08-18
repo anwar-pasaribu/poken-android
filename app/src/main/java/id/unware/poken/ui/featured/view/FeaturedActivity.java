@@ -1,24 +1,19 @@
 package id.unware.poken.ui.featured.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -27,12 +22,12 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
-import id.unware.poken.httpConnection.UrlComposer;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
-import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.featured.model.FeaturedModel;
 import id.unware.poken.ui.featured.presenter.FeaturedPresenter;
@@ -44,6 +39,7 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
     private static final String TAG = "FeaturedActivity";
 
     @BindView(R.id.toolbar_layout) CollapsingToolbarLayout toolbar_layout;
+    @BindView(R.id.featuredHeaderImage) ImageView featuredHeaderImage;
     @BindView(R.id.featuredProgress) ProgressBar featuredProgress;
     @BindView(R.id.featuredRv) RecyclerView featuredRv;
 
@@ -54,11 +50,15 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
     private ArrayList<Product> listItem = new ArrayList<>();
     private FeaturedRelatedProductAdapter adapter;
 
+    private GlideRequests glideRequests;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_featured);
         ButterKnife.bind(this);
+
+        glideRequests = GlideApp.with(this);
 
         if (getIntent().getExtras() != null) {
             String strFeatured = getIntent().getExtras().getString(Constants.EXTRA_DOMAIN_SERIALIZED_STRING);
@@ -90,8 +90,9 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.setTitle(null);
 
-        adapter = new FeaturedRelatedProductAdapter(listItem, presenter);
+        adapter = new FeaturedRelatedProductAdapter(listItem, presenter, glideRequests);
         adapter.setHasStableIds(true);
         featuredRv.setHasFixedSize(true);
         featuredRv.setLayoutManager(new GridLayoutManager(this, 2));
@@ -145,33 +146,8 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
     }
 
     private void loadFeaturedHeaderImage(String imgUrl) {
-        Drawable drawable = toolbar_layout.getBackground();
-        Utils.Log(TAG, "Current drawable: " + String.valueOf(drawable));
 
-
-        Picasso.with(this).load(imgUrl).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-
-                Utils.Log(TAG, "Bitmap loaded.");
-
-                toolbar_layout.setBackground(new BitmapDrawable(
-                        FeaturedActivity.this.getResources(),
-                        bitmap
-                ));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                MyLog.FabricLog(Log.ERROR, "Picasso error to load Featured image");
-                Utils.Logs('e', TAG, "Picasso error to load Featured image");
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                Utils.Log(TAG, "Prepare loading featured image.");
-            }
-        });
+        glideRequests.asDrawable().load(imgUrl).into(featuredHeaderImage);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -198,8 +198,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:background="@color/white_100"
-            android:ellipsize="end"
-            android:maxLines="5"
             android:padding="@dimen/text_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -261,8 +259,8 @@
             android:background="@color/white_100"
             android:paddingBottom="@dimen/item_gap_s"
 
-            android:paddingEnd="@dimen/text_margin"
-            android:paddingStart="@dimen/text_margin"
+            android:paddingRight="@dimen/text_margin"
+            android:paddingLeft="@dimen/text_margin"
 
             android:paddingTop="@dimen/item_gap_s"
 
@@ -303,7 +301,7 @@
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/hint_see_shipping_options"
-                android:src="@drawable/ic_chevron_right_black_24dp" />
+                android:src="@drawable/ic_chevron_right_24dp" />
 
         </RelativeLayout>
 
@@ -336,5 +334,6 @@
             tools:layout_editor_absoluteY="89dp" />
 
     </android.support.constraint.ConstraintLayout>
-</ScrollView>
+
+</android.support.v4.widget.NestedScrollView>
 

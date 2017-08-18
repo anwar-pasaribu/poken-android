@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="id.unware.poken.ui.featured.view.FeaturedActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -22,6 +23,14 @@
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/featuredHeaderImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/product2"
+                android:fitsSystemWindows="true"/>
 
             <android.support.v7.widget.Toolbar
                 style="@style/AppTheme.Toolbar.Transparent"

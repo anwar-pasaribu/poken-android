@@ -308,7 +308,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/item_gap_l"
                 android:contentDescription="@string/btn_order_show_all_order"
-                android:src="@drawable/ic_chevron_right_black_24dp" />
+                android:src="@drawable/ic_chevron_right_24dp" />
 
         </RelativeLayout>
 

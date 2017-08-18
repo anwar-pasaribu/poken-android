@@ -2,6 +2,7 @@ package id.unware.poken.ui.home.view.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideRequest;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
 /**
@@ -34,11 +37,13 @@ public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAd
     private ArrayList<Product> itemsList;
     private Context mContext;
     private IHomePresenter homePresenter;
+    private final GlideRequest<Drawable> requestBuilder;
 
-    public ProductSectionAdapter(Context context, ArrayList<Product> itemsList, IHomePresenter homePresenter) {
+    public ProductSectionAdapter(Context context, ArrayList<Product> itemsList, IHomePresenter homePresenter, GlideRequests glideRequest) {
         this.itemsList = itemsList;
         this.mContext = context;
         this.homePresenter = homePresenter;
+        requestBuilder = glideRequest.asDrawable().fitCenter();
     }
 
     @Override
@@ -58,11 +63,9 @@ public class ProductSectionAdapter extends RecyclerView.Adapter<ProductSectionAd
                 discountedPrice = productPrice - ((productPrice * discountAmount) / 100);
         final String formattedProductPrice = StringUtils.formatCurrency((String.valueOf(productPrice)));
 
-        Picasso.with(mContext)
+        requestBuilder
+                .clone()
                 .load(strProductImageUrl)
-                .error(R.drawable.bg_gradient_poken)
-                .resize(holder.productImageSizeM, holder.productImageSizeM)
-                .centerCrop()
                 .into(holder.itemImage);
 
         holder.tvTitle.setText(strProductName);

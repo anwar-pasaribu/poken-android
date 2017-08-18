@@ -46,7 +46,7 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         Product item = mValues.get(position);
 
-        String  strProductImageUrl = String.valueOf(item.images.get(0).path),
+        String  strProductImageUrl = String.valueOf(item.images.get(0).thumbnail),
                 strProductName = item.name;
         double productPrice = item.price;
 

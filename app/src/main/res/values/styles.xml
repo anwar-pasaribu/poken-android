@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <!-- TODO : This is ugly!-->
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
@@ -21,23 +22,13 @@
     </style>
 
     <style name="AppTheme.Toolbar.Transparent">
-        <item name="android:background">@drawable/bg_shadow_top</item>
-    </style>
-
-    <style name="MyTheme.ActionMode" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionModeBackground">@color/colorAccent</item>
-        <item name="actionModeBackground">@color/colorAccent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="colorPrimary">@android:color/transparent</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -254,15 +245,6 @@
         <item name="android:textAllCaps">true</item>
 
     </style>
-
-    <!--Style for EditText-->
-    <!--<style name="PaketEditText">-->
-    <!--<item name="android:textColorHint">@color/material_color_grey_400</item>-->
-    <!--</style>-->
-
-    <!--<style name="PaketEditText.Default" parent="PaketEditText">-->
-    <!--<item name="android:textColor">@color/black_90</item>-->
-    <!--</style>-->
 
     <style name="TextCaption">
         <item name="android:textSize">@dimen/text_caption</item>

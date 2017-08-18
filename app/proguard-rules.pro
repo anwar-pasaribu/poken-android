@@ -40,3 +40,12 @@
 -keep class android.support.v7.widget.SearchView { *; }
 # E: SearchView crash on release version
 
+# S: Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+# E: Glide
+

@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity">
 
+    <!-- Content rendered first then appbar, in order to fix content overlap appbar problem-->
     <include layout="@layout/content_product_detail" />
+
+    <!-- Exceptional height "app_bar_height = 180dp". To fix toolbar behind status bar-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:statusBarScrim="@android:color/transparent"
+            app:contentScrim="@android:color/transparent"
+            app:layout_scrollFlags="snap"
+            app:titleEnabled="false">
+
+            <android.support.v7.widget.Toolbar
+                style="@style/AppTheme.Toolbar.Transparent"
+                app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,17 +80,4 @@
 
     </RelativeLayout>
 
-    <!-- Empty frame to set toolbar below status bar-->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.v7.widget.Toolbar
-            style="@style/AppTheme.Toolbar.Transparent" />
-
-
-    </FrameLayout>
-
-
-</merge>
+</android.support.design.widget.CoordinatorLayout>

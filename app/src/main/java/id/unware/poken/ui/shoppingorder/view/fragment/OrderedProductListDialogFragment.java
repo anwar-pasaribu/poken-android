@@ -228,7 +228,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
 
             int clickableSize64 = holder.itemView.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
             Picasso.with(holder.itemView.getContext())
-                    .load(item.product.images.get(0).path)
+                    .load(item.product.images.get(0).thumbnail)
                     .resize(clickableSize64, clickableSize64)
                     .centerCrop()
                     .into(holder.ivProductImage);

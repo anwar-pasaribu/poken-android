@@ -48,7 +48,7 @@ public class BrowseProductAdapter extends RecyclerView.Adapter<BrowseProductAdap
         holder.mItem = mValues.get(position);
         Product item = mValues.get(position);
 
-        String  strProductImageUrl = String.valueOf(item.images.get(0).path),
+        String  strProductImageUrl = String.valueOf(item.images.get(0).thumbnail),
                 strProductName = item.name;
         double  productPrice = item.price,
                 discountAmount = item.discount_amount,

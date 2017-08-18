@@ -3,7 +3,6 @@ package id.unware.poken.ui.home.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,9 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.MemoryCategory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,6 +37,8 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.browse.view.BrowseActivity;
 import id.unware.poken.ui.category.view.CategoryActivity;
 import id.unware.poken.ui.featured.view.FeaturedActivity;
@@ -78,16 +79,22 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     private HomeAdapter adapter;
     private ArrayList<SectionDataModel> listHome;
 
+    private GlideRequests glideRequests;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
+
+        glideRequests = GlideApp.with(this);
+
         unbinder = ButterKnife.bind(this);
         realm = Realm.getDefaultInstance();
 
-        HomeModel model = new HomeModel(realm);
-        presenter = new HomePresenter(model, HomeActivity.this);
+        presenter = new HomePresenter(new HomeModel(realm), HomeActivity.this);
 
         listHome = new ArrayList<>();
 
@@ -96,7 +103,11 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
         createInitialHomeData();
 
-        adapter = new HomeAdapter(this, listHome, presenter /* Presenter to trigger click event on items*/);
+        adapter = new HomeAdapter(
+                this,
+                listHome,
+                glideRequests,  /* Glide request*/
+                presenter /* Presenter to trigger click event on items*/);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);

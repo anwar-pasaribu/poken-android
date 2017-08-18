@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingBottom="@dimen/clickable_size_32">
@@ -24,31 +24,26 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_toLeftOf="@+id/btnMore"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             tools:text="Produk Diskon" />
 
         <Button
             android:id="@+id/btnMore"
-
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:theme="@style/BorderlessButtonAccent"
-            android:paddingLeft="@dimen/item_gap_m"
-            android:paddingRight="0dp"
-
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:gravity="right|center_vertical"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:gravity="right|center_vertical"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingLeft="@dimen/item_gap_m"
+            android:paddingRight="@dimen/item_gap_m"
+            android:text="@string/btn_see_all_section_content"
             android:textAllCaps="false"
-            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-            android:text="@string/btn_see_all_section_content" />
-
+            android:theme="@style/BorderlessButtonAccent" />
 
     </RelativeLayout>
 
@@ -60,21 +55,21 @@
         android:orientation="horizontal" />
 
     <TextView
-        android:layout_marginTop="@dimen/clickable_size"
         style="@style/TextBodySecondary"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/clickable_size"
         android:text="@string/app_name"
         />
 
     <TextView
         android:id="@+id/tvAppVersion"
         style="@style/TextCaption"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="V0.0.8 (8)"/>
+        android:layout_gravity="center"
+        tools:text="V0.0.8 (8)" />
 
 </LinearLayout>
 

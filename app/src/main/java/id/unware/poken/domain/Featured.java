@@ -26,6 +26,10 @@ public class Featured {
     public String image;
 
     @Expose
+    @SerializedName("thumbnail")
+    public String thumbnail;
+
+    @Expose
     @SerializedName("expiry_date")
     public Date expiry_date;
 
@@ -38,5 +42,10 @@ public class Featured {
 
 
     public Featured() {
+    }
+
+    public enum Type {
+        IMAGE,
+        VIDEO
     }
 }

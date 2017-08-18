@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/item_gap_l"
-    >
+    android:paddingBottom="@dimen/item_gap_l">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/item_gap_l"
         android:paddingRight="@dimen/item_gap_s">
-
 
         <TextView
             android:id="@+id/itemTitle"
@@ -35,23 +33,23 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/item_gap_m"
-            android:paddingRight="0dp"
-
-            android:visibility="invisible"
-            android:enabled="false"
-
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+
             android:layout_centerVertical="true"
-            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+
+            android:enabled="false"
             android:gravity="right|center_vertical"
+
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingLeft="@dimen/item_gap_m"
+            android:paddingRight="0dp"
             android:text="@string/btn_see_all_section_content"
             android:textAllCaps="false"
-            android:theme="@style/BorderlessButtonAccent" />
+            android:theme="@style/BorderlessButtonAccent"
+            android:visibility="invisible"
+            tools:visibility="visible" />
 
 
     </RelativeLayout>

@@ -1,6 +1,7 @@
 package id.unware.poken.ui.featured.view.adapter;
 
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,8 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
-import id.unware.poken.ui.browse.presenter.IBrowsePresenter;
+import id.unware.poken.tools.glide.GlideRequest;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.featured.presenter.IFeaturedPresenter;
 
 /**
@@ -31,9 +31,13 @@ public class FeaturedRelatedProductAdapter extends RecyclerView.Adapter<Featured
     private final ArrayList<Product> mValues;
     private final IFeaturedPresenter mListener;
 
-    public FeaturedRelatedProductAdapter(ArrayList<Product> items, IFeaturedPresenter listener) {
+    private final GlideRequest<Drawable> requestBuilder;
+
+    public FeaturedRelatedProductAdapter(ArrayList<Product> items, IFeaturedPresenter listener, GlideRequests glideRequest) {
         mValues = items;
         mListener = listener;
+
+        requestBuilder = glideRequest.asDrawable().fitCenter();
     }
 
     @Override
@@ -48,16 +52,15 @@ public class FeaturedRelatedProductAdapter extends RecyclerView.Adapter<Featured
         holder.mItem = mValues.get(position);
         Product item = mValues.get(position);
 
-        String  strProductImageUrl = String.valueOf(item.images.get(0).path),
+        String  strProductImageUrl = String.valueOf(item.images.get(0).thumbnail),
                 strProductName = item.name;
         double  productPrice = item.price,
                 discountAmount = item.discount_amount,
                 discountedPrice = productPrice - ((productPrice * discountAmount) / 100);
 
-        Picasso.with(holder.itemView.getContext())
+        requestBuilder
+                .clone()
                 .load(strProductImageUrl)
-                .resize(holder.productImageSizeM, holder.productImageSizeM)
-                .centerCrop()
                 .into(holder.itemImage);
 
         holder.tvTitle.setText(strProductName);

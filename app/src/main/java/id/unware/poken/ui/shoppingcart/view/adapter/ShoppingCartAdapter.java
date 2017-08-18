@@ -72,7 +72,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         final long shoppingCartId = item.id;
         String storeName = seller.store_name;
-        String productImage = images.get(0).path;
+        String productImage = images.get(0).thumbnail;
         String productName = product.name;
         String strShipping = item.shipping == null
                 ? "Metode pengiriman ditentukan oleh Poken"

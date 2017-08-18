@@ -2,6 +2,7 @@ package id.unware.poken;
 
 import android.app.Application;
 
+import com.bumptech.glide.annotation.GlideModule;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.squareup.picasso.Picasso;
@@ -9,7 +10,6 @@ import com.squareup.picasso.Picasso;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-
 
 public class PokenApp extends Application {
 
@@ -30,7 +30,7 @@ public class PokenApp extends Application {
 
         instance = this;
         // use version code to handle database migration.
-        int databaseVersion = BuildConfig.DATABASE_VERSION;
+        int databaseVersion = 1;
 
         // Configure Realm for the application
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
