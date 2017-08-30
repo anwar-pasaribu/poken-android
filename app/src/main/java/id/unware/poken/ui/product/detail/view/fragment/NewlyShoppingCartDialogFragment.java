@@ -3,6 +3,7 @@ package id.unware.poken.ui.product.detail.view.fragment;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,6 +38,8 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.presenter.IProductDetailPresenter;
 
+import static id.unware.poken.R.id.tvPrice;
+
 
 public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
 
@@ -50,9 +53,9 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.ivProductImage) ImageView ivProductImage;
     @BindView(R.id.tvProductName) TextView tvProductName;
     @BindView(R.id.btnDeleteCartItem) ImageButton btnDeleteCartItem;
-    @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
 
-    // Sale product
+    // PRODUCT PRICE
+    @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
     @BindView(R.id.tvPrice2) TextView tvPrice2;
     @BindView(R.id.tvDiscountedPrice) TextView tvDiscountedPrice;
     @BindView(R.id.tvDiscountAmount) TextView tvDiscountAmount;
@@ -64,6 +67,11 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.btnSubstractQuantity) ImageButton btnSubstractQuantity;
     @BindView(R.id.textItemQuantity) TextView textItemQuantity;
     @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
+
+    // Extra note
+    @BindView(R.id.rowCartExtraNoteSeparator) View rowCartExtraNoteSeparator;
+    @BindView(R.id.rowCartAddNoteIcon) ImageView rowCartAddNoteIcon;
+    @BindView(R.id.rowCartAddNoteTextView) TextView rowCartAddNoteTextView;
 
     @BindView(R.id.tvNewShoppingCartTotalCost) TextView tvNewShoppingCartTotalCost;
 
@@ -105,6 +113,11 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
 
     private void initView() {
 
+        // Hide extra note field
+        rowCartExtraNoteSeparator.setVisibility(View.GONE);
+        rowCartAddNoteIcon.setVisibility(View.GONE);
+        rowCartAddNoteTextView.setVisibility(View.GONE);
+
         addressBookIbClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +141,9 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
         String strShipping = item.shipping == null
                 ? "Metode pengiriman ditentukan oleh Poken"
                 : item.shipping.name;
-        final double productPrice = product.price;
+        double  productPrice = product.price,
+                discountAmount = product.discount_amount,
+                discountedPrice = productPrice - ((productPrice * discountAmount) / 100);
         final int productStock = product.stock;
 
         cbSelectAllStoreItem.setVisibility(View.GONE);
@@ -150,6 +165,19 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
                 String.valueOf(item.quantity)
         );
         tvSelectedShippingMethod.setText(strShipping);
+
+        // tvPrice2 to show SALE item
+        tvPrice2.setText(StringUtils.formatCurrency(String.valueOf(productPrice)));
+        tvPrice2.setPaintFlags(tvPrice2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);  // Strike
+        tvDiscountedPrice.setText(StringUtils.formatCurrency(String.valueOf(discountedPrice)));
+        tvDiscountAmount.setText((int) discountAmount + "%");
+
+        // Discount view
+        if (discountAmount > 0D) {
+            viewFlipperProductPrice.setDisplayedChild(0);
+        } else {
+            viewFlipperProductPrice.setDisplayedChild(1);
+        }
 
         btnDeleteCartItem.setVisibility(View.GONE);
         cbSelectAllStoreItem.setVisibility(View.GONE);

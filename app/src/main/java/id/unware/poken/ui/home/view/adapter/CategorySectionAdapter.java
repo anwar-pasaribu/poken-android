@@ -1,6 +1,7 @@
 package id.unware.poken.ui.home.view.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,11 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Category;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideRequest;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
+
+import static java.lang.System.load;
 
 /**
  * Created by pratap.kesaboyina on 24-12-2014.
@@ -30,11 +35,18 @@ public class CategorySectionAdapter extends RecyclerView.Adapter<CategorySection
     private ArrayList<Category> itemsList;
     private Context mContext;
     private IHomePresenter homePresenter;
+    private final GlideRequest<Drawable> requestBuilder;
 
-    public CategorySectionAdapter(Context context, ArrayList<Category> itemsList, IHomePresenter homePresenter) {
+    public CategorySectionAdapter(Context context,
+                                  ArrayList<Category> itemsList,
+                                  IHomePresenter homePresenter,
+                                  GlideRequests glideRequest) {
         this.itemsList = itemsList;
         this.mContext = context;
         this.homePresenter = homePresenter;
+
+        requestBuilder = glideRequest.asDrawable().fitCenter();
+
     }
 
     @Override
@@ -46,21 +58,17 @@ public class CategorySectionAdapter extends RecyclerView.Adapter<CategorySection
     @Override
     public void onBindViewHolder(final SingleItemRowHolder holder, int i) {
 
-        final Category singleItem = itemsList.get(i);
+        holder.tvTitle.setText(itemsList.get(i).getName());
 
-        holder.tvTitle.setText(singleItem.getName());
+        if (itemsList.get(i).getImageResource() != 0) {
+            holder.itemImage.setImageResource(itemsList.get(i).getImageResource());
+        } else if (itemsList.get(i).getImageResource() == 0
+                && !StringUtils.isEmpty(itemsList.get(i).getImageUrl())) {
 
-        if (singleItem.getImageResource() != 0) {
-            holder.itemImage.setImageResource(singleItem.getImageResource());
-        } else if (singleItem.getImageResource() == 0
-                && !StringUtils.isEmpty(singleItem.getImageUrl())) {
-
-            Utils.Logs('i', "CategorySectionAdapter", "Category image dimension: " + holder.clickableSize64);
-
-            Picasso.with(mContext)
-                    .load(singleItem.getImageUrl())
-                    .resize(holder.clickableSize64, holder.clickableSize64)
-                    .centerCrop()
+            this.requestBuilder
+                    .clone()
+                    .load(itemsList.get(i).getImageUrl())
+                    .dontTransform()
                     .into(holder.itemImage);
         }
 
@@ -68,7 +76,7 @@ public class CategorySectionAdapter extends RecyclerView.Adapter<CategorySection
             @Override
             public void onClick(View v) {
                 if (homePresenter != null) {
-                    homePresenter.onCategoryClick(holder.getAdapterPosition(), singleItem);
+                    homePresenter.onCategoryClick(holder.getAdapterPosition(), itemsList.get(holder.getAdapterPosition()));
                 }
             }
         });
@@ -83,7 +91,8 @@ public class CategorySectionAdapter extends RecyclerView.Adapter<CategorySection
 
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.itemImage) ImageView itemImage;
-        @BindDimen(R.dimen.clickable_size_64) int clickableSize64;
+        @BindDimen(R.dimen.clickable_size_64) int iconWidth;
+        @BindDimen(R.dimen.clickable_size_64) int iconHeight;
 
         public SingleItemRowHolder(View view) {
             super(view);

@@ -171,6 +171,8 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
         final TextView tvShippingCost;
         final TextView tvTotalFee;
         final ImageView ivProductImage;
+        final TextView selectedProductTvExtraNote;
+        final TextView selectedProductTvExtraNoteLbl;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
 
@@ -183,6 +185,9 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
             tvShippingCost = (TextView) itemView.findViewById(R.id.tvShippingCost);
             tvTotalFee = (TextView) itemView.findViewById(R.id.tvTotalFee);
             ivProductImage = (ImageView) itemView.findViewById(R.id.ivProductImage);
+
+            selectedProductTvExtraNote = (TextView) itemView.findViewById(R.id.selectedProductTvExtraNote);
+            selectedProductTvExtraNoteLbl = (TextView) itemView.findViewById(R.id.selectedProductTvExtraNoteLbl);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -225,6 +230,15 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
             holder.tvSelectedShippingMethod.setText(shippingMethod);
             holder.tvShippingCost.setText(StringUtils.formatCurrency(String.valueOf(shippingCost)));
             holder.tvTotalFee.setText(StringUtils.formatCurrency(String.valueOf(grandTotal)));
+
+            if (StringUtils.isEmpty(item.extra_note)) {
+                holder.selectedProductTvExtraNote.setVisibility(View.GONE);
+                holder.selectedProductTvExtraNoteLbl.setVisibility(View.GONE);
+            } else {
+                holder.selectedProductTvExtraNote.setVisibility(View.VISIBLE);
+                holder.selectedProductTvExtraNoteLbl.setVisibility(View.VISIBLE);
+                holder.selectedProductTvExtraNote.setText(item.extra_note);
+            }
 
             int clickableSize64 = holder.itemView.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
             Picasso.with(holder.itemView.getContext())

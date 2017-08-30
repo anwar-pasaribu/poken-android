@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.MemoryCategory;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -33,6 +34,8 @@ import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.seller.model.SellerPageModel;
@@ -47,9 +50,12 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     private static final String TAG = "SellerActivity";
 
-    @BindView(R.id.tvSellerUser) TextView tvSellerUser;
-    @BindView(R.id.tvSellerIdetifier) TextView tvSellerIdetifier;
     @BindView(R.id.ivUserAvatar) ImageView ivUserAvatar;
+
+    @BindView(R.id.tvSellerUser) TextView tvSellerUser;
+
+    @BindView(R.id.sellerIconLocation) ImageView sellerIconLocation;
+    @BindView(R.id.tvSellerIdetifier) TextView tvSellerIdetifier;
 
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rvSellerProduct) RecyclerView rvSellerProduct;
@@ -74,10 +80,17 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
         }
     };
 
+    private GlideRequests glideRequests;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller);
+
+        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
+
+        glideRequests = GlideApp.with(this);
 
         unbinder = ButterKnife.bind(this);
 
@@ -113,10 +126,9 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     }
 
     private void initSellerPageList() {
-        adapter = new SellerProductAdapter(listItem, presenter);
+        adapter = new SellerProductAdapter(listItem, presenter, glideRequests);
         adapter.setHasStableIds(true);
         rvSellerProduct.setLayoutManager(new GridLayoutManager(this, 2));
-        rvSellerProduct.setHasFixedSize(true);
         rvSellerProduct.setAdapter(adapter);
 
     }
@@ -180,37 +192,27 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     @Override
     public void showSellerInfo(Seller seller) {
+
         tvSellerUser.setText(seller.store_name);
-        tvSellerIdetifier.setText(seller.phone_number);
+
+        tvSellerIdetifier.setText(seller.location);  // Alpha still 0
+        sellerIconLocation.animate().alpha(1F).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                tvSellerIdetifier.animate().alpha(1F);
+            }
+        });
+
+
+        Utils.Log(TAG, "Seller img url: " + seller.store_avatar);
 
         if (!StringUtils.isEmpty(seller.store_avatar)) {
-            Picasso.with(this)
+            glideRequests.asDrawable()
+                    .clone()
                     .load(seller.store_avatar)
-                    .resize(profile_avatar_m, profile_avatar_m)
-                    .onlyScaleDown()
-                    .noFade()
-                    .centerCrop()
-                    .into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Utils.Logs('i', TAG, "Image Loaded from: " + from.name());
-
-                            RoundedBitmapDrawable drawable = RoundedBitmapDrawableFactory
-                                    .create(SellerActivity.this.getResources(), bitmap);
-                            drawable.setCircular(true);
-                            ivUserAvatar.setImageDrawable(drawable);
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Drawable errorDrawable) {
-                            Utils.Logs('e', TAG, "Bitmap failed");
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-                            Utils.Logs('v', TAG, "Prepare loading image.");
-                        }
-                    });
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_circle_24dp)
+                    .into(ivUserAvatar);
         }
     }
 }

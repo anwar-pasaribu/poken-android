@@ -9,6 +9,7 @@ import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.Featured;
+import id.unware.poken.domain.FeaturedCategoryProductDataRes;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
@@ -28,6 +29,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
@@ -53,6 +55,9 @@ public interface PokenRequest {
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCT_CATEGORY)
     Call<CategoryDataRes> reqProductCategoriesContent(@HeaderMap Map<String, String> headerMap);
 
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_FEATURED_CATEGORY)
+    Call<FeaturedCategoryProductDataRes> reqFeaturedProductCategoriesContent(@HeaderMap Map<String, String> headerMap);
+
     @GET(ConstantsRetrofit.ENDPOINT_GET_FEATURED)
     Call<Featured> reqSingleFeaturedItemDetail(@Path("pk") String featuredId);
 
@@ -65,6 +70,13 @@ public interface PokenRequest {
     @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_SHOPPING_CART)
     Call<ShoppingCart> postNewOrUpdateShoppingCart(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
+
+    @FormUrlEncoded
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_SHOPPING_CART)
+    Call<ShoppingCart> patchShoppingCartExtraNote(
+            @Path("pk") long itemId,
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 

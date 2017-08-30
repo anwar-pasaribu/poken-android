@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -152,21 +154,30 @@ public class ControllerDialog {
             CharSequence dialogTitle,
             CharSequence inputText,
             CharSequence inputTextHint,
-            Context context, final InputDialogListener listener) {
+            int inputType,
+            final Context context, final InputDialogListener listener) {
 
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(context);
-        @SuppressLint("InflateParams")
         View mView = layoutInflaterAndroid.inflate(R.layout.dialog_input_text, null);
 
         final TextView title = (TextView) mView.findViewById(R.id.title);
+        final TextView textViewHelper = (TextView) mView.findViewById(R.id.textViewHelper);
         final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
 
         title.setText(dialogTitle);
+
+        if (inputType == InputType.TYPE_CLASS_NUMBER) {
+            userInputDialogEditText.setSelectAllOnFocus(true);
+        }
+
         userInputDialogEditText.setText(inputText);
-        userInputDialogEditText.setHint(inputTextHint);
         userInputDialogEditText.requestFocusFromTouch();
+        userInputDialogEditText.requestFocus();
+        userInputDialogEditText.setRawInputType(inputType);
+        textViewHelper.setText(inputTextHint);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
         builder.setTitle(null);
         builder.setView(mView);
 
@@ -175,6 +186,10 @@ public class ControllerDialog {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 listener.onInputTextDone(userInputDialogEditText.getText());
+
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(userInputDialogEditText.getWindowToken(), 0);
+
                 dialog.dismiss();
             }
         });
@@ -182,9 +197,17 @@ public class ControllerDialog {
         builder.setNegativeButton(context.getString(R.string.btn_negative_cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(userInputDialogEditText.getWindowToken(), 0);
+
                 dialog.dismiss();
             }
         });
+
+        // Force keyboard to show
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
 
         return builder.show();
     }

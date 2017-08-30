@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.FeaturedCategoryProduct;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
@@ -33,7 +34,7 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
     private CategoryPresenter presenter;
 
     private CategoryAdapter adapter;
-    private ArrayList<Category> listItem = new ArrayList<>();
+    private ArrayList<FeaturedCategoryProduct> listItem = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,9 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
     @Override
     public void pupulateCategories(ArrayList<Category> categories) {
         Utils.Log(TAG, "Category list size: " + categories.size());
-        listItem.clear();
-        listItem.addAll(categories);
-        adapter.notifyDataSetChanged();
+        // listItem.clear();
+        // listItem.addAll(categories);
+        // adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -118,5 +119,12 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
         } else {
             Utils.snackBar(categoryRvMain, msg);
         }
+    }
+
+    @Override
+    public void pupulateFeaturedCategories(ArrayList<FeaturedCategoryProduct> featuredCategoryProducts) {
+        listItem.clear();
+        listItem.addAll(featuredCategoryProducts);
+        adapter.notifyDataSetChanged();
     }
 }

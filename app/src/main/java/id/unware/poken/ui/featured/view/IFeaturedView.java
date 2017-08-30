@@ -13,6 +13,6 @@ import id.unware.poken.ui.view.BaseView;
 
 public interface IFeaturedView extends BaseView {
     void setupFeaturedView(Featured featured);
-    void populateFeaturedRelatedProducts(ArrayList<Product> related_products);
+    void populateFeaturedRelatedProducts(String featured_text);
     void showProductDetail(Product product);
 }

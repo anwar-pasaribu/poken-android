@@ -22,4 +22,8 @@ public interface IShoppingCartPresenter {
     void onItemChecked(int itemPos, boolean isChecked, long shoppingCartId, int quantity, double price, ShoppingCart shoppingCart);
 
     void onItemQuantityChanges(int itemPos, long shoppingCartId, int quantity, double price, ShoppingCart shoppingCart);
+
+    void addExtraNote(int adapterPosition, ShoppingCart item);
+
+    boolean isItemSelected(ShoppingCart cartItem);
 }

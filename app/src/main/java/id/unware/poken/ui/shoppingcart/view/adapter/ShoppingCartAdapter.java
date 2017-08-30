@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
@@ -29,12 +31,15 @@ import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
+import id.unware.poken.interfaces.InputDialogListener;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.presenter.IShoppingCartPresenter;
 
 
 public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder> {
+
+    private static final String TAG = "ShoppingCartAdapter";
 
     private Context context;
     private List<ShoppingCart> listData;
@@ -71,6 +76,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         if (images.isEmpty()) return;
 
         final long shoppingCartId = item.id;
+        // TODO Need more efficient way
+        boolean isSelected = presenter.isItemSelected(item);
         String storeName = seller.store_name;
         String productImage = images.get(0).thumbnail;
         String productName = product.name;
@@ -84,6 +91,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         // Product image thumbnail size
         int imageSize = context.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
+        holder.cbSelectAllStoreItem.setChecked(isSelected);
         holder.tvStoreName.setText(storeName);
         Picasso.with(context)
                 .load(productImage)
@@ -179,6 +187,52 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 }
         );
 
+        Utils.Log(TAG, "Extra note: \"" + item.extra_note + "\"");
+        String extraNote;
+        if (StringUtils.isEmpty(item.extra_note)) {
+            Utils.Logs('w', TAG, "Extra note is empty.");
+            extraNote = holder.hint_cart_add_note;
+        } else {
+            Utils.Logs('i', TAG, "Extra note is available.");
+            extraNote = item.extra_note;
+        }
+        holder.rowCartAddNoteTextView.setText(extraNote);
+
+        holder.rowCartAddNoteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Input text dialog.
+                ControllerDialog.getInstance().showInputDialog(
+                        "Tambah catatan",
+                        item.extra_note,
+                        "Cth. warna baju, tipe hape, dsb.",
+                        InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE,
+                        context,
+                        new InputDialogListener() {
+                            @Override
+                            public void onInputTextDone(CharSequence text) {
+                                Utils.Log(TAG, "Input extra note: \"" + text + "\"");
+                                if (StringUtils.isEmpty(String.valueOf(text))) {
+                                    holder.rowCartAddNoteTextView.setText(holder.hint_cart_add_note);
+                                } else {
+                                    holder.rowCartAddNoteTextView.setText(text);
+                                }
+
+                                item.extra_note = text + "";
+
+                                if (presenter != null) {
+                                    presenter.addExtraNote(
+                                            holder.getAdapterPosition(),
+                                            item
+                                    );
+                                }
+                            }
+                        }
+
+                );
+            }
+        });
+
     }
 
     @Override
@@ -212,6 +266,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @BindView(R.id.btnSubstractQuantity) ImageButton btnSubstractQuantity;
         @BindView(R.id.textItemQuantity) TextView textItemQuantity;
         @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
+
+        // ADD EXTRA NOTE
+        @BindView(R.id.rowCartAddNoteTextView) TextView rowCartAddNoteTextView;
+
+        // RESOURCE
+        @BindString(R.string.hint_cart_add_note) String hint_cart_add_note;
 
         public ViewHolder(View view) {
             super(view);

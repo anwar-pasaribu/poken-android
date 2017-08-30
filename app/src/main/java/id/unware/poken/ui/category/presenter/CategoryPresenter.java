@@ -3,6 +3,7 @@ package id.unware.poken.ui.category.presenter;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.FeaturedCategoryProductDataRes;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.ui.category.model.ICategoryModel;
 import id.unware.poken.ui.category.view.ICategoryView;
@@ -24,7 +25,8 @@ public class CategoryPresenter implements ICategoryPresenter, ICategoryModelPres
 
     @Override
     public void loadCategoryList() {
-        model.reqProductCategory(this);
+        // model.reqProductCategory(this);
+        model.reqFeaturedCategory(this);
     }
 
     @Override
@@ -55,5 +57,10 @@ public class CategoryPresenter implements ICategoryPresenter, ICategoryModelPres
 
         view.showMessage(msg, status);
 
+    }
+
+    @Override
+    public void onFeaturedProductPerCategoryResponse(FeaturedCategoryProductDataRes categoryDataRes) {
+        view.pupulateFeaturedCategories(categoryDataRes.results);
     }
 }

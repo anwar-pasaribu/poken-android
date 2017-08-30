@@ -38,12 +38,16 @@ public class OrdersPresenter implements IOrdersPresenter, IOrdersModelPresenter 
     @Override
     public void updateViewState(UIState uiState) {
         Utils.Logs('w', TAG, "Update view state: " + uiState);
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 
     @Override
     public void onOrdersDataResponse(ArrayList<ShoppingOrder> shoppingOrders) {
         Utils.Logs('i', TAG, "onShoppingOrderDataResponse. Size: " + shoppingOrders.size());
+
+        if (view.isActivityFinishing()) return;
 
         if (shoppingOrders.size() > 0) {
 

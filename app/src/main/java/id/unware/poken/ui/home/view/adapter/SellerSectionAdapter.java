@@ -6,6 +6,7 @@ package id.unware.poken.ui.home.view.adapter;
  */
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
+import id.unware.poken.tools.glide.GlideRequest;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
 public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdapter.SingleItemRowHolder> {
@@ -31,11 +34,16 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
     private ArrayList<Seller> itemsList;
     private Context mContext;
     private IHomePresenter homePresenter;
+    private final GlideRequest<Drawable> requestBuilder;
 
-    public SellerSectionAdapter(Context context, ArrayList<Seller> itemsList, IHomePresenter homePresenter) {
+    public SellerSectionAdapter(Context context,
+                                ArrayList<Seller> itemsList,
+                                IHomePresenter homePresenter,
+                                GlideRequests glideRequest) {
         this.itemsList = itemsList;
         this.mContext = context;
         this.homePresenter = homePresenter;
+        this.requestBuilder = glideRequest.asDrawable().fitCenter();
     }
 
     @Override
@@ -51,6 +59,13 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
 
         holder.tvTitle.setText(singleItem.store_name);
         holder.tvDescription.setText(singleItem.tag_line);
+
+        this.requestBuilder
+                .clone()
+                .load(singleItem.store_avatar)
+                .circleCrop()
+                .placeholder(R.drawable.ic_store_black_24dp)
+                .into(holder.featuredSellerIvAvatar);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +92,7 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
 
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
+        @BindView(R.id.featuredSellerIvAvatar) ImageView featuredSellerIvAvatar;
 
         @BindDimen(R.dimen.item_gap_l) int itemGapL;
 

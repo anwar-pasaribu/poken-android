@@ -208,5 +208,9 @@
     <string name="title_activity_featured">Featured</string>
     <string name="action_share">Bagikan</string>
     <string name="title_activity_category">Kategori</string>
+    <string name="poken_bank_account_number_bri">0135-01-047199-50-4</string>
+    <string name="poken_bank_account_name">ULFAH KHAIRANI</string>
+    <string name="hint_cart_add_note">Tambah catatan&#8230;</string>
+    <string name="lbl_selected_product_extra_note">Catatan untuk penjual</string>
 
 </resources>

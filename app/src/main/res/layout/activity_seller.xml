@@ -26,18 +26,21 @@
 
         <RelativeLayout
             android:id="@+id/parentProfileInfo"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="wrap_content"
+
+            android:paddingBottom="@dimen/item_gap_s">
 
             <ImageView
                 android:id="@+id/ivUserAvatar"
                 android:layout_width="@dimen/profile_avatar_m"
                 android:layout_height="@dimen/profile_avatar_m"
+                android:layout_alignBottom="@+id/tvSellerIdetifier"
+                android:layout_alignTop="@+id/tvSellerUser"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
+                android:foregroundGravity="center"
                 android:scaleType="fitCenter"
-                android:tint="@color/style_overlay_grey"
                 app:srcCompat="@drawable/ic_circle_24dp"
                 tools:ignore="ContentDescription" />
 
@@ -46,6 +49,7 @@
                 style="@style/TextTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_gap_xs"
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
@@ -58,11 +62,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvSellerUser"
+                android:layout_marginLeft="@dimen/item_gap_s"
                 android:layout_marginRight="@dimen/text_margin"
-                android:layout_toRightOf="@+id/ivUserAvatar"
+                android:layout_toRightOf="@+id/sellerIconLocation"
                 android:ellipsize="end"
+                android:gravity="center_vertical"
                 android:maxLines="1"
-                tools:text="cs@kejora.com" />
+                android:alpha="0"
+                tools:text="Padang Laccat"
+                tools:alpha="1"/>
+
+            <ImageView
+                android:id="@+id/sellerIconLocation"
+                android:layout_width="@dimen/item_gap_m"
+                android:layout_height="@dimen/item_gap_m"
+                android:layout_alignBottom="@id/tvSellerIdetifier"
+                android:layout_alignTop="@id/tvSellerIdetifier"
+                android:layout_toRightOf="@+id/ivUserAvatar"
+                android:alpha="0"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:tint="@color/style_overlay_grey"
+                tools:alpha="1" />
 
         </RelativeLayout>
 

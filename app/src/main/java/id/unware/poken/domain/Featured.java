@@ -37,8 +37,8 @@ public class Featured {
     @SerializedName("target_id")
     public int target_id;
 
-    @SerializedName("related_products")
-    public ArrayList<Product> related_products;
+    @SerializedName("featured_text")
+    public String featured_text;
 
 
     public Featured() {

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.ShoppingCart;
+import id.unware.poken.ui.shoppingcart.presenter.IShoppingCartModelPresenter;
+import id.unware.poken.ui.shoppingcart.presenter.ShoppingCartPresenter;
 import id.unware.poken.ui.view.BaseView;
 
 /**
@@ -24,4 +26,6 @@ public interface IShoppingCartView extends BaseView {
     void toggleContinueOrderButton(boolean isActive);
 
     void updatePriceGrandTotal(double totalPrice);
+
+    void updateItem(int updatedItemIndex, ShoppingCart shoppingCart);
 }

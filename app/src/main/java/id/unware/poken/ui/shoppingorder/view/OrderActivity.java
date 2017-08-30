@@ -71,6 +71,9 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @BindView(R.id.tvTotalFee) TextView tvTotalFee;
     @BindView(R.id.orderDetailParentClickableOrderedProduct) RelativeLayout orderDetailParentClickableOrderedProduct;
     @BindView(R.id.orderDetailTvTotalOrderedProduct) TextView orderDetailTvTotalOrderedProduct;
+    // Extra note (hide when no extra note)
+    @BindView(R.id.orderTvExtraNoteLbl) TextView orderTvExtraNoteLbl;
+    @BindView(R.id.orderTvExtraNote) TextView orderTvExtraNote;
 
     // PAYMENT TYPE BUTTON
     @BindView(R.id.tvSelectedShippingMethodName) TextView tvSelectedShippingMethodName;
@@ -270,6 +273,18 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         tvSelectedShippingMethod.setText(shippingMethod);
         tvSelectedShippingFee.setText(StringUtils.formatCurrency(String.valueOf(shippingFee)));
         tvTotalFee.setText(StringUtils.formatCurrency(String.valueOf(grandTotal)));
+
+        // Extra note
+        if (StringUtils.isEmpty(shoppingCart.extra_note)) {
+            orderTvExtraNoteLbl.setVisibility(View.GONE);
+            orderTvExtraNote.setVisibility(View.GONE);
+        } else {
+
+            orderTvExtraNoteLbl.setVisibility(View.VISIBLE);
+            orderTvExtraNote.setVisibility(View.VISIBLE);
+
+            orderTvExtraNote.setText(shoppingCart.extra_note);
+        }
     }
 
     @Override

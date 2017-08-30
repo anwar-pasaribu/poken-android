@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:foreground="?android:selectableItemBackground"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="@dimen/item_gap_s"
     app:cardElevation="0dp"
@@ -13,7 +14,6 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground"
         android:orientation="vertical"
         android:padding="@dimen/item_gap_s">
 
@@ -23,19 +23,19 @@
             android:layout_height="@dimen/clickable_size_64"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_circle_64dp"
-            android:padding="@dimen/item_gap_l"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_category" />
+            tools:src="@drawable/ic_category" />
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/TextAppearance.AppCompat.Caption"
+            style="@style/TextCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="@dimen/item_gap_s"
+            android:paddingTop="@dimen/item_gap_s"
+            android:paddingBottom="@dimen/item_gap_s"
             android:textColor="@color/colorAccent"
-            tools:text="Favorite" />
+            android:lines="2"
+            tools:text="Makanan &amp; Minuman" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

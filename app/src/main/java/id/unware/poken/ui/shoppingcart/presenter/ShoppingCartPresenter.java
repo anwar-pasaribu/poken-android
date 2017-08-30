@@ -20,6 +20,8 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
 
     private final IShoppingCartModel model;
     private final IShoppingCartView view;
+    private ArrayList<ShoppingCart> currentShoppingCarts = new ArrayList<>();
+    private ArrayList<ShoppingCart> selectedShoppingCart = new ArrayList<>();
 
     public ShoppingCartPresenter(IShoppingCartModel model, IShoppingCartView view) {
         this.model = model;
@@ -29,6 +31,10 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
     @Override
     public void calculateSelectedShoppingCarts(ArrayList<ShoppingCart> shoppingCarts) {
         Utils.Log(TAG, "Selected item size: " + shoppingCarts.size());
+
+        // Set selected shopping cart
+        selectedShoppingCart.clear();
+        selectedShoppingCart.addAll(shoppingCarts);
 
         int totalQuantity = 0;
         double totalPrice = 0D;
@@ -74,7 +80,26 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
         Utils.Logs('i', TAG, "Shopping cart item quantity change. ID: " + shoppingCartId +
                 " pos: " + itemPos + ", quantity: " + quantity + ", price: " + price);
 
+        model.updateItemQuantity(this, shoppingCart);
+
         view.onShoppingCartItemQuantityChanges(itemPos, shoppingCart);
+    }
+
+    @Override
+    public void addExtraNote(int adapterPosition, ShoppingCart item) {
+        Utils.Log(TAG, "Add extra note to shopping cart: \"" + String.valueOf(item.extra_note) + "\"");
+        model.patchExtraNote(this, item);
+    }
+
+    @Override
+    public boolean isItemSelected(ShoppingCart cartItem) {
+        if (selectedShoppingCart.isEmpty()) return false;
+        for (ShoppingCart item : selectedShoppingCart) {
+            if (item.id == cartItem.id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -91,6 +116,10 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
 
     @Override
     public void onShoppingCartDataResponse(ArrayList<ShoppingCart> shoppingCarts) {
+
+        this.currentShoppingCarts.clear();
+        this.currentShoppingCarts.addAll(shoppingCarts);
+
         view.populateShoppingCarts(shoppingCarts);
         view.updatePriceGrandTotal(0D);
         view.toggleContinueOrderButton(false);
@@ -99,5 +128,22 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
     @Override
     public void onShoppingCartDeleted(int deletedItemPos) {
         view.deleteShoppingCartItem(deletedItemPos);
+    }
+
+    @Override
+    public void onShoppingCartItemUpdated(ShoppingCart shoppingCart) {
+
+        int updatedItemIndex = 0;
+        for (ShoppingCart item : this.currentShoppingCarts) {
+            if (item.id == shoppingCart.id) {
+                Utils.Log(TAG, "Updated item found with id: " + shoppingCart.id + " on pos: " + updatedItemIndex);
+                break;
+            }
+
+            updatedItemIndex++;
+        }
+
+        view.updateItem(updatedItemIndex, shoppingCart);
+
     }
 }

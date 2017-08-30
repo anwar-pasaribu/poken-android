@@ -11,7 +11,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/clickable_size_64">
+        android:background="@color/white_100">
 
         <ProgressBar
             android:id="@+id/progressBarDetailProduct"
@@ -28,7 +28,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@string/hint_product_images"
-            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -117,10 +116,11 @@
             android:id="@+id/viewSep"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/item_gap_m"
-            android:background="@color/separator_view"
+            android:background="@color/separator_view_lighter"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
             app:layout_constraintTop_toBottomOf="@+id/viewFlipperProductPrice" />
 
         <TextView
@@ -190,6 +190,146 @@
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tvProductLeft" />
 
+        <include
+            android:id="@+id/viewSepMainFlat"
+            layout="@layout/include_sep_small"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_gap_s"
+            android:background="@color/separator_view_lighter"
+            android:layout_marginTop="@dimen/item_gap_m"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductLeftLabel"/>
+
+        <RelativeLayout
+            android:id="@+id/parentSellerSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/item_gap_m"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewSepMainFlat" >
+
+            <ImageView
+                android:id="@+id/ivSellerAvatar"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:scaleType="centerCrop"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_store_black_24dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvSellerName"
+                style="@style/TextBodyDefault"
+                android:layout_toRightOf="@id/ivSellerAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/text_margin"
+                tools:text="Kejora Busana" />
+
+            <TextView
+                android:id="@+id/tvSellerAddress"
+                style="@style/TextCaption"
+                android:layout_toRightOf="@id/ivSellerAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSellerName"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/text_margin"
+                tools:text="Padangsidimpuan" />
+
+            <ImageView
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:src="@drawable/ic_chevron_right_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+                android:layout_marginRight="@dimen/text_margin"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_below="@+id/tvSellerAddress"
+                android:background="@color/separator_view_lighter"
+                android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+        <!--Shipping methods-->
+        <RelativeLayout
+            android:id="@+id/parentClickableShippingMethod"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parentSellerSection">
+
+            <TextView
+                android:id="@+id/tvShippingMethodLabel"
+                style="@style/TextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:text="@string/lbl_shipping_option_section_label" />
+
+            <TextView
+                android:id="@+id/tvCurierName"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_below="@id/tvShippingMethodLabel"
+                android:layout_marginTop="@dimen/item_gap_s"
+                tools:text="POS Indonesia" />
+
+            <ImageButton
+                android:id="@+id/productDetailIbMoreShipping"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/text_margin"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/hint_see_shipping_options"
+                android:src="@drawable/ic_chevron_right_24dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_below="@+id/tvCurierName"
+                android:background="@color/separator_view_lighter"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/viewSepAfterShipping"
+            layout="@layout/include_sep_small"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/item_gap_s"
+            android:background="@color/separator_view_lighter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parentClickableShippingMethod"/>
+
 
         <TextView
             android:id="@+id/tvProductDescription"
@@ -201,109 +341,8 @@
             android:padding="@dimen/text_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parentClickableShippingMethod"
+            app:layout_constraintTop_toBottomOf="@id/viewSepAfterShipping"
             tools:text="@string/large_text" />
-
-
-        <ImageView
-            android:id="@+id/ivSellerAvatar"
-            android:layout_width="@dimen/clickable_size_32"
-            android:layout_height="@dimen/clickable_size_32"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginTop="@dimen/text_margin"
-            android:scaleType="centerCrop"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
-            app:srcCompat="@drawable/ic_store_black_24dp"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/tvSellerName"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_gap_m"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_marginStart="@dimen/item_gap_m"
-            android:layout_marginTop="@dimen/text_margin"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductStockLabel"
-            tools:text="Kejora Busana" />
-
-        <TextView
-            android:id="@+id/tvSellerAddress"
-            style="@style/TextCaption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_gap_m"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_marginStart="@dimen/item_gap_m"
-            android:layout_marginTop="0dp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintLeft_toRightOf="@+id/ivSellerAvatar"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSellerName"
-            tools:text="Padangsidimpuan" />
-
-        <!--Shipping methods-->
-        <RelativeLayout
-            android:id="@+id/parentClickableShippingMethod"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="@dimen/text_margin"
-
-            android:background="@color/white_100"
-            android:paddingBottom="@dimen/item_gap_s"
-
-            android:paddingRight="@dimen/text_margin"
-            android:paddingLeft="@dimen/text_margin"
-
-            android:paddingTop="@dimen/item_gap_s"
-
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivSellerAvatar">
-
-            <TextView
-                android:id="@+id/tvShippingMethodLabel"
-                style="@style/TextCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_shipping_option_section_label" />
-
-            <TextView
-                android:id="@+id/tvCurierName"
-                style="@style/TextCaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvShippingMethodLabel"
-                android:layout_marginTop="@dimen/item_gap_s"
-                tools:text="POS Indonesia" />
-
-            <TextView
-                android:id="@+id/tvCurierService"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvCurierName"
-                android:layout_marginTop="@dimen/item_gap_s"
-                tools:text="Regular" />
-
-            <ImageButton
-                android:id="@+id/productDetailIbMoreShipping"
-                android:layout_width="@dimen/clickable_size_32"
-                android:layout_height="@dimen/clickable_size_32"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/hint_see_shipping_options"
-                android:src="@drawable/ic_chevron_right_24dp" />
-
-        </RelativeLayout>
 
         <!-- Guideline for product stock counter-->
         <android.support.constraint.Guideline

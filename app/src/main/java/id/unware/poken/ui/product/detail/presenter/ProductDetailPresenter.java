@@ -62,6 +62,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     }
 
     @Override
+    public void startSellerScreen() {
+        view.openSellerScreen();
+    }
+
+    @Override
     public void updateViewState(UIState uiState) {
 
         if (view.isActivityFinishing()) return;

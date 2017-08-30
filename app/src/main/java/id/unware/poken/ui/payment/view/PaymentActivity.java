@@ -1,18 +1,24 @@
 package id.unware.poken.ui.payment.view;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Date;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,9 +34,14 @@ public class PaymentActivity extends AppCompatActivity {
 
     private static final String TAG = "PaymentActivity";
 
+    @BindView(R.id.parentView) ViewGroup parentView;
     @BindView(R.id.btnConfirmPayment) Button btnConfirmPayment;
     @BindView(R.id.textViewAmountToTransfer) TextView textViewAmountToTransfer;
     @BindView(R.id.textViewInstructions) TextView textViewInstructions;
+    @BindView(R.id.buttonCopyBankAccountNumber) Button buttonCopyBankAccountNumber;
+
+    // Bank account number
+    @BindString(R.string.poken_bank_account_number_bri) String poken_bank_account_number_bri;
 
     private Unbinder unbinder;
 
@@ -66,6 +77,28 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openShoppingSummaryScreen();
+            }
+        });
+
+        buttonCopyBankAccountNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String clearBankAccNumber = poken_bank_account_number_bri.replace("-", "");
+                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
+                        clipboard.setPrimaryClip(clip);
+
+                        Utils.snackBar(
+                                parentView,
+                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
+                                Log.INFO
+                        );
+                    }
+                }, 150);
             }
         });
 

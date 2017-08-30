@@ -18,8 +18,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import com.alexvasilkov.gestures.views.interfaces.GestureView;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,7 @@ import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
@@ -36,19 +40,20 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
 import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
 import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
 import id.unware.poken.ui.product.detail.view.fragment.NewlyShoppingCartDialogFragment;
+import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
-
-import static id.unware.poken.R.id.tvPrice;
 
 
 public class ProductDetailActivity extends AppCompatActivity
-        implements IProductDetailView, ViewPager.OnPageChangeListener {
+        implements IProductDetailView, ViewPager.OnPageChangeListener, GestureSettingsSetupListener {
 
     private static final String TAG = "ProductDetailActivity";
 
@@ -64,6 +69,9 @@ public class ProductDetailActivity extends AppCompatActivity
     @BindView(R.id.tvProductSold) TextView tvProductSold;
     @BindView(R.id.tvProductLeft) TextView tvProductLeft;
     @BindView(R.id.tvProductDescription) TextView tvProductDescription;
+
+    // SELLER SECTION
+    @BindView(R.id.parentSellerSection) RelativeLayout parentSellerSection;
     @BindView(R.id.ivSellerAvatar) ImageView ivSellerAvatar;
     @BindView(R.id.tvSellerName) TextView tvSellerName;
     @BindView(R.id.tvSellerAddress) TextView tvSellerAddress;
@@ -81,7 +89,6 @@ public class ProductDetailActivity extends AppCompatActivity
     // SHIPPING OPTIONS
     @BindView(R.id.parentClickableShippingMethod) ViewGroup parentClickableShippingMethod;
     @BindView(R.id.tvCurierName) TextView tvCurierName;
-    @BindView(R.id.tvCurierService) TextView tvCurierService;
     @BindView(R.id.productDetailIbMoreShipping) ImageButton productDetailIbMoreShipping;
 
     private long productId;
@@ -89,10 +96,15 @@ public class ProductDetailActivity extends AppCompatActivity
     // SAVE LAST SELECTED SHIPPING OPTION INDEX FROM LIST
     private int selectedShippingOptionsIndex = -1;
     private Shipping selectedShipping;
+    private Seller currentSeller;
 
     private Unbinder unbinder;
 
     private ProductDetailPresenter presenter;
+
+
+    private GlideRequests glideRequests;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +112,8 @@ public class ProductDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_product_detail);
 
         unbinder = ButterKnife.bind(this);
-
         presenter = new ProductDetailPresenter(new ProductDetailModel(), this);
+        glideRequests = GlideApp.with(this);
 
         if (getIntent().getExtras() != null) {
             productId = getIntent().getExtras().getLong(Product.KEY_PRODUCT_ID, -1L);
@@ -149,6 +161,15 @@ public class ProductDetailActivity extends AppCompatActivity
             }
         });
 
+        parentSellerSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (presenter != null) {
+                    presenter.startSellerScreen();
+                }
+            }
+        });
+
         productDetailIbMoreShipping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,13 +190,17 @@ public class ProductDetailActivity extends AppCompatActivity
 
     @Override
     public void populateProductImage(ArrayList<ProductImage> productImages) {
-//        Picasso.with(this)
-//                .load(String.valueOf(productImages.get(0).path))
-//                .into(ivProduct);
 
         if (!productImages.isEmpty()) {
             ivProduct.setVisibility(View.GONE);
-            viewPagerProductImages.setAdapter(new ProductImagesPagerAdapter(viewPagerProductImages, productImages, null));
+            viewPagerProductImages.setAdapter(
+                    new ProductImagesPagerAdapter(
+                            viewPagerProductImages,
+                            productImages,
+                            glideRequests,
+                            this
+                    )
+            );
             viewPagerProductImages.addOnPageChangeListener(this);
             viewPagerProductImages.setPageMargin(getResources().getDimensionPixelSize(R.dimen.item_gap_m));
 
@@ -199,6 +224,16 @@ public class ProductDetailActivity extends AppCompatActivity
         // Store info
         tvSellerName.setText(product.seller.store_name);
         tvSellerAddress.setText(product.seller.location);
+        glideRequests.asDrawable()
+                .clone()
+                .load(product.seller.store_avatar)
+                .error(R.drawable.ic_store_black_24dp)
+                .placeholder(R.drawable.ic_circle_24dp)
+                .circleCrop()
+                .into(ivSellerAvatar);
+
+        // Set seller info
+        this.currentSeller = product.seller;
     }
 
     /**
@@ -283,6 +318,14 @@ public class ProductDetailActivity extends AppCompatActivity
         Intent accountIntent = new Intent(this, LoginActivity.class);
         accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_ADD_SHOPPING_CART);
         this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
+    }
+
+    @Override
+    public void openSellerScreen() {
+        Utils.Logs('i', TAG, "Open seller detail with id: " + currentSeller.id);
+        Intent sellerIntent = new Intent(this, SellerActivity.class);
+        sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, currentSeller.id);
+        this.startActivity(sellerIntent);
     }
 
     @Override
@@ -427,9 +470,6 @@ public class ProductDetailActivity extends AppCompatActivity
 
     private void setupSelectedShippingMethodView(Shipping shipping) {
         tvCurierName.setText(shipping.name);
-        tvCurierService.setText(StringUtils.formatCurrency(String.valueOf(shipping.fee)));
-        tvCurierService.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -448,4 +488,8 @@ public class ProductDetailActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onSetupGestureView(GestureView view) {
+        Utils.Log(TAG, "Gesture view: " + view);
+    }
 }

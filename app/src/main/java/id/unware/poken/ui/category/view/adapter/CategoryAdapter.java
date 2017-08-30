@@ -5,23 +5,31 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.FeaturedCategoryProduct;
+import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ProductImage;
 import id.unware.poken.ui.category.presenter.ICategoryPresenter;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.SingleItemRowHolder> {
 
-    private ArrayList<Category> itemsList;
+    private ArrayList<FeaturedCategoryProduct> itemsList;
     private Context mContext;
     private ICategoryPresenter homePresenter;
 
-    public CategoryAdapter(Context context, ArrayList<Category> itemsList, ICategoryPresenter homePresenter) {
+    public CategoryAdapter(Context context, ArrayList<FeaturedCategoryProduct> itemsList, ICategoryPresenter homePresenter) {
         this.itemsList = itemsList;
         this.mContext = context;
         this.homePresenter = homePresenter;
@@ -36,17 +44,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Single
     @Override
     public void onBindViewHolder(final SingleItemRowHolder holder, int position) {
 
-        Category singleItem = itemsList.get(position);
+        FeaturedCategoryProduct singleItem = itemsList.get(position);
+        ArrayList<Product> products = singleItem.products;
+        holder.tvTitle.setText(singleItem.product_category.getName());
 
-        holder.tvTitle.setText(singleItem.getName());
-        holder.tvDescription.setText(String.valueOf(singleItem.getId()));
+        for (int i = 0; i < holder.imgs.size(); i++) {
+            if (!products.get(i).images.isEmpty()) {
+                Picasso.with(mContext)
+                        .load(products.get(i).images.get(0).thumbnail)
+                        .into(holder.imgs.get(i));
+
+            }
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 homePresenter.onCategoryClick(
                         holder.getAdapterPosition(),
-                        itemsList.get(holder.getAdapterPosition())
+                        itemsList.get(holder.getAdapterPosition()).product_category
                 );
             }
         });
@@ -60,7 +76,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Single
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvDescription) TextView tvDescription;
+        @BindViews({R.id.img1, R.id.img2, R.id.img3}) List<ImageView> imgs;
 
         public SingleItemRowHolder(View view) {
             super(view);

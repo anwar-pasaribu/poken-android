@@ -155,6 +155,28 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     }
 
     @Override
+    public void updateItem(int updatedItemIndex, ShoppingCart shoppingCart) {
+        Utils.Log(TAG, "Updated item pos: " + updatedItemIndex + ", item: " + shoppingCart.product.name);
+        if (updatedItemIndex < 0 || updatedItemIndex >= itemList.size()) return;
+
+        itemList.set(updatedItemIndex, shoppingCart);
+        shoppingCartAdapter.notifyItemChanged(updatedItemIndex);
+
+        // Update selected item too
+        if (!selectedShoppingCart.isEmpty()) {
+            int itemPosOnSelectedList = 0;
+            for (ShoppingCart item : selectedShoppingCart) {
+                if (item.id == shoppingCart.id) {
+                    break;
+                }
+                itemPosOnSelectedList++;
+            }
+            selectedShoppingCart.set(itemPosOnSelectedList, shoppingCart);
+            presenter.calculateSelectedShoppingCarts(selectedShoppingCart);
+        }
+    }
+
+    @Override
     public void onShoppingCartItemSelected(int itemPos, boolean isChecked, ShoppingCart shoppingCart) {
         try {
             if (isChecked) {

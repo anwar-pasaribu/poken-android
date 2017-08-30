@@ -1,5 +1,6 @@
 package id.unware.poken.ui.seller.view.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
+import id.unware.poken.tools.glide.GlideRequest;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.seller.presenter.ISellerPagePresenter;
 
 /**
@@ -29,10 +32,14 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
 
     private final List<Product> mValues;
     private final ISellerPagePresenter mListener;
+    private final GlideRequest<Drawable> requestBuilder;
 
-    public SellerProductAdapter(List<Product> items, ISellerPagePresenter listener) {
+    public SellerProductAdapter(List<Product> items, ISellerPagePresenter listener,
+                                GlideRequests glideRequests) {
         mValues = items;
         mListener = listener;
+
+        requestBuilder = glideRequests.asDrawable().fitCenter();
     }
 
     @Override
@@ -50,10 +57,9 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
                 strProductName = item.name;
         double productPrice = item.price;
 
-        Picasso.with(holder.itemView.getContext())
+        requestBuilder
+                .clone()
                 .load(strProductImageUrl)
-                .resize(holder.productImageSizeM, holder.productImageSizeM)
-                .centerCrop()
                 .into(holder.itemImage);
 
         holder.tvTitle.setText(strProductName);

@@ -16,4 +16,6 @@ public interface IProductDetailPresenter {
     void startShippingOptionsScreen();
 
     void startShoppingCartScreen(ShoppingCart shoppingCart);
+
+    void startSellerScreen();
 }

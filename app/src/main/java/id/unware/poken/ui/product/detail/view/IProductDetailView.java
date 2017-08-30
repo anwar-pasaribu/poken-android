@@ -29,4 +29,6 @@ public interface IProductDetailView extends BaseView {
     void showSaleProduct(Product product);
 
     void showLoginScreen();
+
+    void openSellerScreen();
 }

@@ -100,6 +100,9 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
                 .load(singleItem.thumbnail)
                 .into(holder.itemImage);
 
+        Utils.Logs('w', TAG, "Width: " + holder.featuredSlideWidth);
+        Utils.Logs('w', TAG, "Height: " + holder.featuredSlideHeight);
+
         if (position == 0) {
             RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
             recyclerViewLayoutParams.leftMargin = holder.itemGapL;

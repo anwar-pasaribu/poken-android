@@ -3,6 +3,7 @@ package id.unware.poken.ui.category.model;
 import java.util.HashMap;
 
 import id.unware.poken.domain.CategoryDataRes;
+import id.unware.poken.domain.FeaturedCategoryProductDataRes;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
@@ -36,6 +37,11 @@ public class CategoryModel extends MyCallback implements ICategoryModel {
 
             Utils.Log(TAG, "category data response.");
             this.presenter.onCategoryListResponse(((CategoryDataRes) response.body()).results);
+        } else if (response.body() instanceof FeaturedCategoryProductDataRes) {
+
+            Utils.Log(TAG, "Featured product per category found.");
+            this.presenter.onFeaturedProductPerCategoryResponse((FeaturedCategoryProductDataRes) response.body());
+
         }
 
     }
@@ -64,5 +70,16 @@ public class CategoryModel extends MyCallback implements ICategoryModel {
 
         this.req.reqProductCategoriesContent(new HashMap<String, String>()).enqueue(this);
 
+    }
+
+    @Override
+    public void reqFeaturedCategory(ICategoryModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        this.req.reqFeaturedProductCategoriesContent(new HashMap<String, String>()).enqueue(this);
     }
 }

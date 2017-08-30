@@ -151,10 +151,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         holder.recycler_view_list.setOnFlingListener(null);
         snapHelper.attachToRecyclerView(holder.recycler_view_list);
 
-        RecyclerViewPreloader<Featured> preloader =
-                new RecyclerViewPreloader<>(glideRequests, adapter, adapter, 3);
-
-        holder.recycler_view_list.addOnScrollListener(preloader);
+//        RecyclerViewPreloader<Featured> preloader =
+//                new RecyclerViewPreloader<>(glideRequests, adapter, adapter, 3);
+//
+//        holder.recycler_view_list.addOnScrollListener(preloader);
         holder.recycler_view_list.setAdapter(adapter);
 
         holder.recycler_view_list.setNestedScrollingEnabled(false);
@@ -163,7 +163,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private void configureCategoryRow(CategoryRowHolder holder, int pos) {
         ArrayList<Category> singleSectionItems = dataList.get(pos).getCategories();
 
-        CategorySectionAdapter itemListDataAdapter = new CategorySectionAdapter(mContext, singleSectionItems, homePresenter);
+        CategorySectionAdapter itemListDataAdapter = new CategorySectionAdapter(
+                mContext,
+                singleSectionItems,
+                homePresenter,
+                glideRequests);
 
         holder.recycler_view_list.setHasFixedSize(true);
         holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -236,7 +240,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
             holder.itemTitle.setText(sectionName);
 
-            SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(mContext, singleSectionItems, homePresenter);
+            SellerSectionAdapter itemListDataAdapter = new SellerSectionAdapter(
+                    mContext,
+                    singleSectionItems,
+                    homePresenter,
+                    glideRequests
+            );
             holder.recycler_view_list.setHasFixedSize(true);
             holder.recycler_view_list.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
             holder.recycler_view_list.setAdapter(itemListDataAdapter);

@@ -1,8 +1,11 @@
 package id.unware.poken.ui.featured.presenter;
 
+import android.util.Log;
+
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.ui.featured.model.IFeaturedModel;
 import id.unware.poken.ui.featured.view.IFeaturedView;
 
@@ -43,13 +46,11 @@ public class FeaturedPresenter implements IFeaturedPresenter, IFeaturedModelPres
 
         view.setupFeaturedView(featured);
 
-        if (featured.related_products != null
-                && featured.related_products.size() > 0) {
-            view.populateFeaturedRelatedProducts(featured.related_products);
-        }
+        view.populateFeaturedRelatedProducts(featured.featured_text);
     }
 
     @Override
     public void showMessage(String msg, int msgStatus) {
+        MyLog.FabricLog(Log.INFO, "FeaturedPresenter - msg: " + msgStatus);
     }
 }

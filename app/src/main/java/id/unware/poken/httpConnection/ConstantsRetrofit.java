@@ -16,8 +16,10 @@ public class ConstantsRetrofit {
 
     public static final String ENDPOINT_FETCH_HOME_CONTENT = "home/";
     public static final String ENDPOINT_FETCH_PRODUCT_CATEGORY = "product_category/";
+    public static final String ENDPOINT_FETCH_FEATURED_CATEGORY = "product_category_featured/";
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
+    public static final String ENDPOINT_PATCH_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_INSERT_SHOPPING_CART = "insert_cart/";
     public static final String ENDPOINT_INSERT_ORDER_DETAIL = "insert_order_detail/";
     public static final String ENDPOINT_INSERT_ORDERED_PRODUCT = "insert_ordered_product/";
@@ -30,7 +32,4 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION = "customer_subscription/";
     public static final String ENDPOINT_FETCH_PRODUCTS = "product/";
     public static final String ENDPOINT_SEARCH_PRODUCTS = "product/";
-
-    //final String rateUrl = Config.endpoint(String.format("mobile_api/tariff2/%s/%s/%s",
-    //origin, dest, weight));
 }

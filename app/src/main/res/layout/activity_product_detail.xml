@@ -9,7 +9,10 @@
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity">
 
     <!-- Content rendered first then appbar, in order to fix content overlap appbar problem-->
-    <include layout="@layout/content_product_detail" />
+    <include layout="@layout/content_product_detail"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginBottom="@dimen/clickable_size_64"/>
 
     <!-- Exceptional height "app_bar_height = 180dp". To fix toolbar behind status bar-->
     <android.support.design.widget.AppBarLayout
@@ -57,8 +60,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/item_gap_s"
-            android:layout_toLeftOf="@+id/btnBuy"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_alignParentLeft="true"
             android:drawableLeft="@drawable/ic_add_shopping_cart_24dp"
             android:minWidth="0dp"
             android:text="@null"

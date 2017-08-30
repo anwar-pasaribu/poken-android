@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parentView"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.unware.poken.ui.payment.view.PaymentActivity"
     tools:showIn="@layout/activity_payment">
@@ -78,7 +79,7 @@
                 android:layout_height="@dimen/clickable_size"
                 android:layout_marginRight="@dimen/item_gap_m"
                 android:contentDescription="@string/lbl_transfer_to"
-                app:srcCompat="@drawable/ic_bank_logo_bca"/>
+                android:src="@drawable/ic_bank_bri_logo"/>
 
             <TextView
                 android:id="@+id/textViewBankAccountName"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_gap_s"
                 android:layout_toRightOf="@+id/imageViewBankLogo"
-                android:text="Poken Inc."/>
+                android:text="@string/poken_bank_account_name"/>
 
             <Button
                 android:id="@+id/buttonAccountNumber"
@@ -103,7 +104,7 @@
 
                 android:gravity="left|center_vertical"
 
-                android:text="1234 5678"/>
+                android:text="@string/poken_bank_account_number_bri"/>
 
             <Button
                 android:id="@+id/buttonCopyBankAccountNumber"

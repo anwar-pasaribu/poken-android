@@ -7,15 +7,15 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/item_gap_l"
     android:background="@android:color/white"
-    android:paddingBottom="@dimen/item_gap_m"
+    android:paddingBottom="@dimen/item_gap_s"
     android:paddingTop="@dimen/item_gap_m">
 
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/cbSelectAllStoreItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_marginLeft="@dimen/item_gap_l" />
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivStoreAvatar"
@@ -50,8 +50,8 @@
 
     <ImageView
         android:id="@+id/ivProductImage"
-        android:layout_width="@dimen/clickable_size_64"
-        android:layout_height="@dimen/clickable_size_64"
+        android:layout_width="@dimen/clickable_size"
+        android:layout_height="@dimen/clickable_size"
         android:layout_below="@+id/viewStoreLine"
         android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_marginTop="@dimen/item_gap_m"
@@ -119,7 +119,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textStyle="bold"
-                tools:text="99999" />
+                tools:text="99" />
 
             <ImageButton
                 android:id="@+id/btnSubstractQuantity"
@@ -136,14 +136,14 @@
         android:id="@+id/viewFlipperProductPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvProductName"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginRight="@dimen/item_gap_s"
         android:layout_marginTop="@dimen/item_gap_m"
-        android:layout_toRightOf="@+id/parentQuantityControl"
-        android:layout_below="@+id/tvProductName">
+        android:layout_toRightOf="@+id/parentQuantityControl">
 
         <include
-            layout="@layout/include_sale_product"/>
+            layout="@layout/include_sale_product" />
 
         <TextView
             android:id="@+id/tvProductTotalPrice"
@@ -155,24 +155,24 @@
             android:textStyle="bold"
             tools:text="Rp 450.000" />
 
-        </ViewFlipper>
+    </ViewFlipper>
 
     <ImageView
         android:id="@+id/ivShippingIcon"
         android:layout_width="@dimen/item_gap_l"
         android:layout_height="@dimen/item_gap_l"
-        android:layout_below="@+id/ivProductImage"
+        android:layout_below="@id/parentQuantityControl"
         android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_marginTop="@dimen/item_gap_l"
-        android:tint="@color/style_overlay_grey"
-        android:src="@drawable/ic_local_shipping_black_24dp" />
+        android:src="@drawable/ic_local_shipping_black_24dp"
+        android:tint="@color/style_overlay_grey" />
 
     <TextView
         android:id="@+id/tvSelectedShippingMethodLbl"
         style="@style/TextBodySecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProductImage"
+        android:layout_below="@id/parentQuantityControl"
         android:layout_marginLeft="@dimen/item_gap_s"
         android:layout_marginTop="@dimen/item_gap_l"
         android:layout_toRightOf="@id/ivShippingIcon"
@@ -183,10 +183,46 @@
         style="@style/TextBodyDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProductImage"
+        android:layout_below="@id/parentQuantityControl"
         android:layout_marginLeft="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_l"
         android:layout_toRightOf="@id/tvSelectedShippingMethodLbl"
-        android:text="POS Indonesia" />
+        tools:text="POS Indonesia" />
+
+    <View
+        android:id="@+id/rowCartExtraNoteSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/separator_view_lighter"
+        android:layout_below="@id/ivShippingIcon"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"/>
+
+    <ImageView
+        android:id="@+id/rowCartAddNoteIcon"
+        android:layout_below="@id/rowCartExtraNoteSeparator"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_width="@dimen/item_gap_l"
+        android:layout_height="@dimen/item_gap_l"
+        android:layout_alignTop="@+id/rowCartAddNoteTextView"
+        android:layout_alignBottom="@+id/rowCartAddNoteTextView"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:tint="@color/style_overlay_grey"/>
+
+    <TextView
+        android:id="@+id/rowCartAddNoteTextView"
+        style="@style/TextBodySecondary"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:paddingLeft="35dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:paddingRight="@dimen/text_margin"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/clickable_size_32"
+        android:gravity="center_vertical"
+        android:layout_below="@id/rowCartExtraNoteSeparator"
+        android:text="@string/hint_cart_add_note"/>
 
 </RelativeLayout>

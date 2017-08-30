@@ -2,48 +2,70 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/item_gap_s"
     android:layout_marginBottom="@dimen/item_gap_s"
     android:layout_marginLeft="@dimen/item_gap_m"
+    android:layout_marginTop="@dimen/item_gap_s"
     app:cardCornerRadius="@dimen/item_gap_s"
+    android:foreground="?attr/selectableItemBackground"
     app:cardUseCompatPadding="false">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="@dimen/img_grid_m"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/clickable_size_64"
-        android:background="?android:selectableItemBackground"
         android:gravity="center"
-        android:paddingLeft="@dimen/item_gap_m"
-        android:paddingRight="@dimen/item_gap_m"
-        android:paddingTop="@dimen/item_gap_s"
-        android:paddingBottom="@dimen/item_gap_s"
-        android:orientation="vertical">
+        android:minHeight="@dimen/clickable_size_64">
+
+        <ImageView
+            android:id="@+id/featuredSellerIvAvatar"
+            android:layout_width="@dimen/profile_avatar_m"
+            android:layout_height="@dimen/profile_avatar_m"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/item_gap_m"
+            android:tint="@color/package_status_picked"/>
 
         <TextView
             android:id="@+id/tvTitle"
             style="@style/TextListTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textStyle="bold"
-            android:minLines="1"
-            android:maxLines="1"
+            android:layout_below="@+id/featuredSellerIvAvatar"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_s"
             android:ellipsize="end"
-            android:text="Kejora Line 2" />
+            android:gravity="left"
+            android:maxLines="1"
+            android:minLines="1"
+            android:textStyle="bold"
+            tools:text="Kejora Line 2" />
 
         <TextView
             android:id="@+id/tvDescription"
-            style="@style/TextBodySecondary"
+            style="@style/TextCaption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:maxLines="1"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginBottom="@dimen/item_gap_m"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
             android:ellipsize="middle"
-            android:text="Menyediakan seluruh kebutuhan pakaian Anda."/>
+            android:gravity="left"
+            android:maxLines="2"
+            android:minLines="2"
+            tools:text="Menyediakan Anda." />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

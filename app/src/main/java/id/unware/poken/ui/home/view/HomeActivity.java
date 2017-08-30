@@ -356,10 +356,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     private SectionDataModel createCategoryItems() {
         SectionDataModel dmCategory = new SectionDataModel();
         ArrayList<Category> categories = new ArrayList<>();
-        // categories.add(new Category("Favorit", 0, "", R.drawable.ic_favo));
-        categories.add(new Category("Baju", 4, "", R.drawable.ic_clothes));
-        categories.add(new Category("Sepatu", 3, "", R.drawable.ic_shoes));
-        categories.add(new Category("Topi", 5, "", R.drawable.ic_hat));
+        categories.add(new Category("Fashion Wanita", 2, "", R.drawable.ic_category_women_fashion));
+        categories.add(new Category("Fashion Pria", 7, "", R.drawable.ic_category_men_fashion));
+        categories.add(new Category("Fashion Anak", 9, "", R.drawable.ic_category_kids_fashion));
+        categories.add(new Category("Rumah Tangga", 10, "", R.drawable.ic_category_home_appliance));
+        categories.add(new Category("Makanan & Minuman", 8, "", R.drawable.ic_category_food_and_baverage));
+        categories.add(new Category("Handphone", 12, "", R.drawable.ic_category_accesories));
+        categories.add(new Category("Kerajinan Daerah", 13, "", R.drawable.ic_category_local_gifts));
         categories.add(new Category("Semua", Constants.PRODUCT_CATEGORY_ALL, "", R.drawable.ic_category));
         dmCategory.setCategories(categories);
         return dmCategory;

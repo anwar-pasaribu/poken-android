@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="@dimen/item_gap_s"
     android:layout_marginBottom="@dimen/item_gap_s"
     android:layout_marginLeft="@dimen/item_gap_m"
@@ -33,17 +34,45 @@
             android:minLines="1"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="Kejora Line 2" />
+            tools:text="Kejora Line 2" />
 
-        <TextView
-            android:id="@+id/tvDescription"
-            style="@style/TextBodySecondary"
+
+        <LinearLayout
+            android:id="@+id/parentFeaturedCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:maxLines="1"
-            android:ellipsize="middle"
-            android:text="Menyediakan seluruh kebutuhan pakaian Anda."/>
+            android:minHeight="@dimen/header_slide_height_m"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/header_slide_height_m"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/product2"/>
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_weight="1"
+                android:layout_height="@dimen/header_slide_height_m"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/product2"/>
+
+            <ImageView
+                android:id="@+id/img3"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/item_gap_m"
+                android:layout_weight="1"
+                android:layout_height="@dimen/header_slide_height_m"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/product2"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

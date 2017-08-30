@@ -47,6 +47,7 @@ public class SearchModel extends MyCallback implements ISearchModel {
 
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("name", String.valueOf(query));
+        queryParams.put("category_name", String.valueOf(query));
 
         this.req.reqSearchProductContent(
                 queryParams)

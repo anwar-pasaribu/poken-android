@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +29,6 @@ import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.featured.model.FeaturedModel;
 import id.unware.poken.ui.featured.presenter.FeaturedPresenter;
-import id.unware.poken.ui.featured.view.adapter.FeaturedRelatedProductAdapter;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 
 public class FeaturedActivity extends BaseActivityWithup implements IFeaturedView {
@@ -41,14 +38,11 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
     @BindView(R.id.toolbar_layout) CollapsingToolbarLayout toolbar_layout;
     @BindView(R.id.featuredHeaderImage) ImageView featuredHeaderImage;
     @BindView(R.id.featuredProgress) ProgressBar featuredProgress;
-    @BindView(R.id.featuredRv) RecyclerView featuredRv;
+    @BindView(R.id.featuredTvMain) TextView featuredTvMain;
 
     private FeaturedPresenter presenter;
 
     private Featured currentFeatured;
-
-    private ArrayList<Product> listItem = new ArrayList<>();
-    private FeaturedRelatedProductAdapter adapter;
 
     private GlideRequests glideRequests;
 
@@ -91,12 +85,6 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.setTitle(null);
-
-        adapter = new FeaturedRelatedProductAdapter(listItem, presenter, glideRequests);
-        adapter.setHasStableIds(true);
-        featuredRv.setHasFixedSize(true);
-        featuredRv.setLayoutManager(new GridLayoutManager(this, 2));
-        featuredRv.setAdapter(adapter);
 
         if (currentFeatured != null) {
 
@@ -151,12 +139,10 @@ public class FeaturedActivity extends BaseActivityWithup implements IFeaturedVie
     }
 
     @Override
-    public void populateFeaturedRelatedProducts(ArrayList<Product> related_products) {
-        Utils.Log(TAG, "Realted product size: " + related_products.size());
+    public void populateFeaturedRelatedProducts(String featured_text) {
+        Utils.Log(TAG, "Realted product size: " + featured_text);
 
-        listItem.clear();
-        listItem.addAll(related_products);
-        adapter.notifyDataSetChanged();
+        featuredTvMain.setText(Html.fromHtml(featured_text));
 
     }
 

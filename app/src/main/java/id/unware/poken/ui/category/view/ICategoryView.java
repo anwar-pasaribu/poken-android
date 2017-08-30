@@ -3,6 +3,7 @@ package id.unware.poken.ui.category.view;
 import java.util.ArrayList;
 
 import id.unware.poken.domain.Category;
+import id.unware.poken.domain.FeaturedCategoryProduct;
 import id.unware.poken.ui.view.BaseView;
 
 /**
@@ -16,4 +17,6 @@ public interface ICategoryView extends BaseView {
     void showCategoryDetail(Category category);
 
     void showMessage(String msg, int status);
+
+    void pupulateFeaturedCategories(ArrayList<FeaturedCategoryProduct> featuredCategoryProducts);
 }
