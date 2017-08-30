@@ -45,7 +45,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_image_black_24dp" />
+            android:src="@drawable/ic_image_black_24dp" />
 
         <com.pixelcan.inkpageindicator.InkPageIndicator
             android:id="@+id/inkPageIndicator"
@@ -219,7 +219,7 @@
                 android:layout_marginLeft="@dimen/text_margin"
                 android:scaleType="centerCrop"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_store_black_24dp"
+                android:src="@drawable/ic_store_black_24dp"
                 tools:ignore="ContentDescription" />
 
             <TextView

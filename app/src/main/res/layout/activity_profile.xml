@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/item_gap_xs"
                 android:scaleType="center"
                 android:tint="@color/separator_view_lighter"
-                app:srcCompat="@drawable/ic_person_black_24dp" />
+                android:src="@drawable/ic_person_black_24dp" />
 
             <TextView
                 android:id="@+id/tvProfileUser"

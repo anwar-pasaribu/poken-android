@@ -15,10 +15,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.presenter.IBrowseModelPresenter;
-import okhttp3.Credentials;
 import retrofit2.Response;
-
-import static android.R.attr.category;
 
 /**
  * @author Anwar Pasaribu

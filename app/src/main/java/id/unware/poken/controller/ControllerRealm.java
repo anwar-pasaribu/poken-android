@@ -204,34 +204,6 @@ public class ControllerRealm implements RealmChangeListener<RealmResults<PojoBoo
 
     }
 
-    /**
-     * Insert {@link PojoArea} to Realm
-     *
-     * @param pojoAreas Array of {@link PojoArea}
-     * @since Nov 28 2016 - NEW!
-     */
-//    public void addAllArea(final PojoArea[] pojoAreas) {
-//
-//        Utils.Logs('i', TAG, "Begin saving area data");
-//
-//        Realm realm = null;
-//        try {
-//            realm = Realm.getDefaultInstance();
-//            realm.executeTransaction(new Realm.Transaction() {
-//                @Override
-//                public void execute(Realm realm) {
-//                    int areaDataSize = realm.copyToRealmOrUpdate(Arrays.asList(pojoAreas)).size();
-//
-//                    Utils.Log(TAG, "New area size: " + areaDataSize);
-//                }
-//            });
-//        } finally {
-//            if (realm != null) {
-//                realm.close();
-//            }
-//        }
-//    }
-
     public void addAllVendorLocation(final PojoCourierLocation[] pojoCourierLocation) {
 
         Utils.Logs('i', TAG, "Begin saving vendor location");

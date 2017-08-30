@@ -125,7 +125,7 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
     private void proceedSignout() {
         PokenCredentials.getInstance().setCredential(null);
-        this.finishAfterTransition();
+        this.finish();
     }
 
     @Override

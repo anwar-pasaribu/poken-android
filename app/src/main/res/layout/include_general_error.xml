@@ -14,7 +14,7 @@
         android:layout_alignLeft="@+id/tvErrorContent"
         android:layout_alignRight="@+id/tvErrorContent"
         android:tint="@color/style_overlay_grey"
-        app:srcCompat="@drawable/ic_error_black_24dp" />
+        android:src="@drawable/ic_error_black_24dp" />
 
     <TextView
         android:id="@+id/tvErrorTitle"

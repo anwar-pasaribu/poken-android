@@ -162,7 +162,7 @@
                     android:layout_marginLeft="@dimen/item_gap_l"
                     android:layout_marginTop="@dimen/item_gap_m"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_image_black_24dp" />
+                    android:src="@drawable/ic_image_black_24dp" />
 
                 <TextView
                     android:id="@+id/tvSelectedProductName"

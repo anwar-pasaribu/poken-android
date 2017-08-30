@@ -28,7 +28,7 @@
             android:layout_height="@dimen/clickable_size_64"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_image_black_24dp" />
+            android:src="@drawable/ic_image_black_24dp" />
 
         <TextView
             android:id="@+id/tvProductName"
@@ -89,7 +89,7 @@
                 android:layout_height="@dimen/clickable_size_32"
                 android:layout_marginRight="@dimen/item_gap_s"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:src="@drawable/ic_image_black_24dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
@@ -99,7 +99,7 @@
                 android:layout_height="@dimen/clickable_size_32"
                 android:layout_marginRight="@dimen/item_gap_s"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:src="@drawable/ic_image_black_24dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
@@ -109,7 +109,7 @@
                 android:layout_height="@dimen/clickable_size_32"
                 android:layout_marginRight="@dimen/item_gap_s"
                 android:scaleType="centerInside"
-                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:src="@drawable/ic_image_black_24dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
