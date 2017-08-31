@@ -356,13 +356,13 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     private SectionDataModel createCategoryItems() {
         SectionDataModel dmCategory = new SectionDataModel();
         ArrayList<Category> categories = new ArrayList<>();
-        categories.add(new Category("Fashion Wanita", 2, "", R.drawable.ic_category_women_fashion));
-        categories.add(new Category("Fashion Pria", 7, "", R.drawable.ic_category_men_fashion));
-        categories.add(new Category("Fashion Anak", 9, "", R.drawable.ic_category_kids_fashion));
-        categories.add(new Category("Rumah Tangga", 10, "", R.drawable.ic_category_home_appliance));
-        categories.add(new Category("Makanan & Minuman", 8, "", R.drawable.ic_category_food_and_baverage));
-        categories.add(new Category("Handphone", 12, "", R.drawable.ic_category_accesories));
-        categories.add(new Category("Kerajinan Daerah", 13, "", R.drawable.ic_category_local_gifts));
+        categories.add(new Category("Fashion Wanita", 12, "", R.drawable.ic_category_women_fashion));
+        categories.add(new Category("Fashion Pria", 13, "", R.drawable.ic_category_men_fashion));
+        categories.add(new Category("Fashion Anak", 14, "", R.drawable.ic_category_kids_fashion));
+        categories.add(new Category("Rumah Tangga", 15, "", R.drawable.ic_category_home_appliance));
+        categories.add(new Category("Makanan & Minuman", 16, "", R.drawable.ic_category_food_and_baverage));
+        categories.add(new Category("Handphone", 17, "", R.drawable.ic_category_accesories));
+        categories.add(new Category("Kerajinan Daerah", 18, "", R.drawable.ic_category_local_gifts));
         categories.add(new Category("Semua", Constants.PRODUCT_CATEGORY_ALL, "", R.drawable.ic_category));
         dmCategory.setCategories(categories);
         return dmCategory;

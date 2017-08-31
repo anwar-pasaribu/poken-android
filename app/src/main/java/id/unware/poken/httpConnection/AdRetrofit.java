@@ -27,7 +27,7 @@ public class AdRetrofit {
             int timeOut = BuildConfig.DEV_MODE? 10 : 60;
 
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(timeOut, TimeUnit.SECONDS)
                     .readTimeout(timeOut, TimeUnit.SECONDS)

@@ -2,6 +2,7 @@
 
     <string name="action_search">Cari</string>
     <string name="btn_forgot_password">Lupa password?</string>
+    <string name="btn_add_to_cart">Tambah ke Troli</string>
     <string name="btn_negative_cancel">Batal</string>
     <string name="btn_negative_no">Tidak</string>
     <string name="btn_positive_ok">OK</string>

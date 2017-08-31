@@ -169,6 +169,13 @@
         <item name="android:textColor">@color/white_100</item>
     </style>
 
+    <style name="MyButton.Secondary" parent="MyButton">
+        <item name="colorControlHighlight">@color/separator_view</item>
+        <item name="colorButtonNormal">@color/separator_view_lighter</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
     <style name="ToolbarDarkOverflow" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- android:textColorPrimary is the  color of the title text
              in the Toolbar, in the Theme.AppCompat theme:  -->

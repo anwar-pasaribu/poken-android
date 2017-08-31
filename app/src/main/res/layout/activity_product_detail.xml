@@ -63,11 +63,9 @@
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_alignParentLeft="true"
             android:drawableLeft="@drawable/ic_add_shopping_cart_24dp"
-            android:minWidth="0dp"
-            android:text="@null"
+            android:text="@string/btn_add_to_cart"
             android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:theme="@style/MyButton" />
+            android:theme="@style/MyButton.Secondary"/>
 
         <Button
             android:id="@+id/btnBuy"
