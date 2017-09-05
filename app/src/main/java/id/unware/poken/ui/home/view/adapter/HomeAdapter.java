@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
@@ -37,6 +39,9 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
+import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
+
+import static id.unware.poken.R.id.viewPagerProductImages;
 
 /**
  * Created by Anwar Pasaribu on June 2017
@@ -129,21 +134,33 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
     }
 
-    private void configureHeaderRow(HeaderRowHolder holder, int pos) {
+    private void configureHeaderRow(final HeaderRowHolder holder, int pos) {
         ArrayList<Featured> featuredItems = new ArrayList<>();
 
         if (dataList.get(pos).getFeaturedItems() != null) {
             featuredItems.addAll(dataList.get(pos).getFeaturedItems());
         }
 
+        final int itemListSize = featuredItems.size();
+
         HeaderSectionAdapter adapter = new HeaderSectionAdapter(
                 mContext,
                 featuredItems,
                 homePresenter,
                 glideRequests);
-        GridLayoutManager layoutManager = new GridLayoutManager(mContext, 1);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         holder.recycler_view_list.setLayoutManager(layoutManager);
+
+        holder.recycler_view_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
+                if (firstItemVisible != 0 && firstItemVisible % itemListSize == 0) {
+                    recyclerView.scrollToPosition(0);
+                }
+            }
+        });
 
         // Snap on item
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -307,6 +324,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public class HeaderRowHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
+//        @BindView(R.id.viewPagerHomeSlider) ViewPager viewPagerHomeSlider;
 
         public HeaderRowHolder(View itemView) {
             super(itemView);

@@ -8,6 +8,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--Dimens for UI item gap-->
+    <dimen name="item_gap_null">0dp</dimen>
     <dimen name="item_gap_xxs">2dp</dimen>
     <dimen name="item_gap_xs">3dp</dimen>
     <dimen name="item_gap_s">5dp</dimen>

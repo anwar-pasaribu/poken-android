@@ -3,28 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/header_slide_width_m"
-    android:layout_height="@dimen/header_slide_height_m"
-    android:layout_marginRight="@dimen/item_gap_m"
-    android:layout_marginTop="@dimen/item_gap_m"
-    android:layout_marginBottom="@dimen/item_gap_s"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardBackgroundColor="@color/separator_view_lighter"
+    app:cardCornerRadius="@dimen/item_gap_null"
+    app:cardElevation="@dimen/item_gap_null"
     app:cardUseCompatPadding="false">
 
-    <FrameLayout
-        android:layout_width="@dimen/header_slide_width_m"
-        android:layout_height="@dimen/header_slide_height_m">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/itemImage"
-            android:layout_width="@dimen/header_slide_width_m"
-            android:layout_height="@dimen/header_slide_height_m"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/product1" />
+            app:layout_constraintDimensionRatio="h,16:9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/product1" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -33,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="@dimen/item_gap_m"
+            android:layout_marginEnd="@dimen/item_gap_m"
             android:layout_marginRight="@dimen/item_gap_m"
             android:alpha="0.8"
             android:background="@drawable/bg_badge_default"
@@ -40,8 +44,10 @@
             android:paddingLeft="@dimen/item_gap_m"
             android:paddingRight="@dimen/item_gap_m"
             android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             tools:text="1/5" />
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

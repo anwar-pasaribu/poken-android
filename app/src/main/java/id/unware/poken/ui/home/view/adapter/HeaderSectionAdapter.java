@@ -91,30 +91,22 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int position) {
 
-        Featured singleItem = itemsList.get(position);
-
-        holder.tvTitle.setText(String.format(Locale.ENGLISH, "%d/%d", position + 1, itemsList.size()));
+        holder.tvTitle.setText(((position % itemsList.size()) + 1) + "/" + itemsList.size());
 
         requestBuilder
                 .clone()
-                .load(singleItem.thumbnail)
+                .load(itemsList.get(position % itemsList.size()).thumbnail)
+                .placeholder(R.drawable.bg_default_light)
+                .centerCrop()
                 .into(holder.itemImage);
 
         Utils.Logs('w', TAG, "Width: " + holder.featuredSlideWidth);
         Utils.Logs('w', TAG, "Height: " + holder.featuredSlideHeight);
-
-        if (holder.getAdapterPosition() == 0) {
-            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
-            recyclerViewLayoutParams.leftMargin = holder.itemGapL;
-        } else if (holder.getAdapterPosition() == itemsList.size() - 1) {
-            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
-            recyclerViewLayoutParams.rightMargin = holder.itemGapL;
-        }
     }
 
     @Override
     public int getItemCount() {
-        return (null != itemsList ? itemsList.size() : 0);
+        return itemsList == null ? 0 : itemsList.size() * 2;
     }
 
     @Override
@@ -148,6 +140,7 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
         @BindDimen(R.dimen.header_slide_width_m) int featuredSlideWidth;
         @BindDimen(R.dimen.header_slide_height_m) int featuredSlideHeight;
         @BindDimen(R.dimen.item_gap_l) int itemGapL;
+        @BindDimen(R.dimen.item_gap_m) int itemGapM;
 
 
         public SingleItemRowHolder(View view) {
