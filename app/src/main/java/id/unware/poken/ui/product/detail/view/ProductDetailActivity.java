@@ -3,9 +3,12 @@ package id.unware.poken.ui.product.detail.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,6 +73,9 @@ public class ProductDetailActivity extends AppCompatActivity
     @BindView(R.id.tvProductSold) TextView tvProductSold;
     @BindView(R.id.tvProductLeft) TextView tvProductLeft;
     @BindView(R.id.tvProductDescription) TextView tvProductDescription;
+
+    // Sold out item label
+    @BindView(R.id.tvProductSoldOutStatus) TextView tvProductSoldOutStatus;
 
     // SELLER SECTION
     @BindView(R.id.parentSellerSection) RelativeLayout parentSellerSection;
@@ -343,9 +349,13 @@ public class ProductDetailActivity extends AppCompatActivity
         if (isSoldOut) {
             btnBuy.setEnabled(false);
             btnAddCart.setEnabled(false);
+
+            tvProductSoldOutStatus.setVisibility(View.VISIBLE);
         } else {
             btnBuy.setEnabled(true);
             btnAddCart.setEnabled(true);
+
+            tvProductSoldOutStatus.setVisibility(View.GONE);
         }
         progressBarDetailProduct.animate().alpha(0F);
     }

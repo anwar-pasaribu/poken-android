@@ -24,6 +24,7 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     private final IProductDetailView view;
 
     private boolean isContinueShopping = true;
+    private boolean isSoldOut = false;
 
 
     public ProductDetailPresenter(IProductDetailModel model, IProductDetailView view) {
@@ -77,6 +78,10 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         if (view.isActivityFinishing()) return;
 
         view.showViewState(uiState);
+
+        // Make sure sold out view is visible
+        // after network calls finished.
+        view.showSoldOutView(this.isSoldOut);
     }
 
     @Override
@@ -97,10 +102,8 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         view.populateProductGeneralInfo(product);
 
         // Show out of stock info
-        if (product.stock <= 0) {
-            view.showSoldOutView(true);
-        }
-
+        this.isSoldOut = (product.stock <= 0);
+        view.showSoldOutView(this.isSoldOut);
     }
 
     @Override
