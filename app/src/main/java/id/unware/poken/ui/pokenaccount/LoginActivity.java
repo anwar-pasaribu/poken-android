@@ -10,12 +10,15 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.pokenaccount.login.view.fragment.FragmentLogin;
+import id.unware.poken.ui.pokenaccount.register.view.fragment.FragmentRegisterEmail;
 import okhttp3.Credentials;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity implements FragmentLogin.PokenLoginListener {
+public class LoginActivity extends BaseActivity implements
+        FragmentLogin.PokenLoginListener,
+        FragmentRegisterEmail.PokenRegisterListener {
 
     private static final String TAG = "LoginActivity";
 
@@ -31,25 +34,35 @@ public class LoginActivity extends BaseActivity implements FragmentLogin.PokenLo
             requestedPageTag = getIntent().getIntExtra(Constants.EXTRA_REQUESTED_PAGE, -1);
         }
 
-        SPHelper spHelper = SPHelper.getInstance();
-
-        String credential = Credentials.basic("anwar", "anwar_poken17");
-        spHelper.setPreferences(Constants.SP_AUTH_TOKEN, credential);
-
         if (savedInstanceState == null) {
-            Utils.changeFragment(this, R.id.frameLogin, new FragmentLogin());
+            Utils.changeFragment(this, R.id.frameLogin, new FragmentRegisterEmail());
         }
     }
 
     @Override
     public void onRegisterRequested() {
-        // TODO Open Register screen
+        // Open Register screen
+        Utils.changeFragment(this, R.id.frameLogin, new FragmentRegisterEmail());
     }
 
     @Override
     public void onLoginSuccess() {
+        openPendingDesiredPage(this.requestedPageTag);
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+        openPendingDesiredPage(this.requestedPageTag);
+    }
+
+    @Override
+    public void onLoginScreenRequested() {
+        Utils.changeFragment(this, R.id.frameLogin, new FragmentLogin());
+    }
+
+    private void openPendingDesiredPage(int pageTag) {
         Intent loginSuccessIntent = new Intent();
-        loginSuccessIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, requestedPageTag);
+        loginSuccessIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, pageTag);
         this.setResult(Activity.RESULT_OK, loginSuccessIntent);
         this.finish();
     }

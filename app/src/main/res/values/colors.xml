@@ -40,6 +40,7 @@
 
     <!-- Black Color Collections -->
     <color name="black_90">#212121</color>
+    <color name="black_50_alpha">#7d212121</color>
 
     <!-- White Color Collections -->
     <color name="white_100">#ffffff</color>

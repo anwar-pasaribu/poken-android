@@ -67,6 +67,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     }
 
     @Override
+    public void onShopMoreClicked() {
+        view.openHomePage();
+    }
+
+    @Override
     public void updateViewState(UIState uiState) {
 
         if (view.isActivityFinishing()) return;
@@ -90,6 +95,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         }
 
         view.populateProductGeneralInfo(product);
+
+        // Show out of stock info
+        if (product.stock <= 0) {
+            view.showSoldOutView(true);
+        }
 
     }
 

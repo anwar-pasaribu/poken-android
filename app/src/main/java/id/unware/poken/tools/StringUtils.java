@@ -34,12 +34,11 @@ public class StringUtils {
         return str == null || str.trim().equals("") || str.trim().toLowerCase().equals("null");
     }
 
-    public final static boolean isValidEmail(String target) {
+    public static boolean isValidEmail(String target) {
         if (isEmpty(target)) {
             return false;
         } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target)
-                    .matches();
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
 
@@ -74,45 +73,6 @@ public class StringUtils {
 
         return decodeResult;
     }
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat(
-            "MMMM dd 'at' hh:mm a", Locale.US);
-    private static final SimpleDateFormat sdfHour = new SimpleDateFormat(
-            "hh 'hours ago'", Locale.US);
-    private static final SimpleDateFormat sdfMinutes = new SimpleDateFormat(
-            "mm 'minutes ago'", Locale.US);
-
-
-
-//	public static String longToDate(long time) {
-//
-//		final int one_day = 24 * 60 * 60 * 1000;
-//
-//		long different = Utils.getCurentTime() - (time);
-//
-//		if (different > one_day * 2) {
-//			Date date = new Date(time);
-//			return sdf.format(date);
-//		} else if (different > one_day) {
-//			return "yesterday";
-//		} else {
-//			if (different > -1) {
-//				if (different < 60 * 1000) {
-//					return "Just now";
-//				} else if (different < 60 * 60 * 1000) {
-//					Date date = new Date(different);
-//					return sdfMinutes.format(date);
-//				} else if (different <= one_day) {
-//					Date date = new Date(different);
-//					return sdfHour.format(date);
-//				}
-//			}
-//		}
-//		return "unknown";
-//	}
-
-    private static final SimpleDateFormat sdfEcash = new SimpleDateFormat(
-            "MMMM dd 'at' hh:mm a", Locale.US);
 
 //    public static String dateFormatEcash(long time) {
 //        long different = Utils.getCurentTime() - time;
@@ -260,23 +220,5 @@ public class StringUtils {
 
         return "";
     }
-
-/*    private SpannableString clickableLocality(String locality) {
-        locality += " (Ubah ?)";
-        int length = locality.length();
-        SpannableString ss = new SpannableString(locality);
-
-        ClickableSpan clickLocality = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                listener.onSetLocationClicked();
-            }
-
-        };
-
-        ss.setSpan(clickLocality, length - 8, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        return ss;
-    }*/
 
 }

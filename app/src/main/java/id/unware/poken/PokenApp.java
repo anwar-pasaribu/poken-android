@@ -30,7 +30,7 @@ public class PokenApp extends Application {
 
         instance = this;
         // use version code to handle database migration.
-        int databaseVersion = 1;
+        final int databaseVersion = 1;
 
         // Configure Realm for the application
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()

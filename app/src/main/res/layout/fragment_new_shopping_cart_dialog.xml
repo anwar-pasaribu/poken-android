@@ -17,7 +17,8 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentLeft="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_close_red_24dp"
+            android:src="@drawable/ic_collapse_24dp"
+            android:tint="@color/black_90"
             android:contentDescription="@string/hint_close_dialog"/>
 
         <TextView
@@ -79,14 +80,26 @@
 
             <Button
                 android:id="@+id/btnContinueToPayment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginBottom="@dimen/item_gap_m"
-                android:layout_marginRight="@dimen/item_gap_m"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginTop="@dimen/text_margin"
-                android:text="@string/btn_buy_now"
+                android:text="@string/btn_continue_checkout"
                 android:theme="@style/MyButton" />
+
+            <Button
+                android:id="@+id/btnShopMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/btn_continue_shopping"
+                android:theme="@style/MyButton.Secondary" />
 
         </LinearLayout>
 

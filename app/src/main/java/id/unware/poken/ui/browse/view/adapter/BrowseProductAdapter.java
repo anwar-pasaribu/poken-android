@@ -12,7 +12,6 @@ import android.widget.ViewFlipper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindDimen;
 import butterknife.BindView;

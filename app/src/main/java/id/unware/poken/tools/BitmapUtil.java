@@ -62,7 +62,7 @@ public class BitmapUtil {
     /**
      * Return grey color overlay
      * @param context : Context to implement filter.
-     * @return
+     * @return Enabled color filter
      */
     public static PorterDuffColorFilter getEnabledColor(Context context) {
         return new PorterDuffColorFilter(

@@ -18,7 +18,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="?attr/actionBarSize"
         android:fitsSystemWindows="true"
         app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -30,12 +30,10 @@
             android:fitsSystemWindows="true"
             app:statusBarScrim="@android:color/transparent"
             app:contentScrim="@android:color/transparent"
-            app:layout_scrollFlags="snap"
             app:titleEnabled="false">
 
             <android.support.v7.widget.Toolbar
-                style="@style/AppTheme.Toolbar.Transparent"
-                app:layout_collapseMode="pin" />
+                style="@style/AppTheme.Toolbar.Transparent"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

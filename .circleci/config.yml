@@ -1,27 +1,59 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
 version: 2
+
+general:
+  branches:
+    only:
+      # Circle CI only care with following branches. (eg. "master")
+      - master
 jobs:
   build:
-    working_directory: ~/code
     docker:
+      # specify the version you desire here
+      #- image: circleci/openjdk:8-jdk
+
+      # CircleCI maintains a library of pre-built images
+            # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/android:api-25-alpha
+
+    # Ini adalah direktori project
+    working_directory: ~/poken-android
+
     environment:
+      # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
+      TERM: dumb
+#      KEYSTORE: ${CIRCLE_WORKING_DIRECTORY}/sigining.keystore
+#      PUBLISHER_ACCT_JSON_FILE: ${CIRCLE_WORKING_DIRECTORY}/publisher_profile.json
+
     steps:
       - checkout
+
+      # Download and cache dependencies
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      # Memastikan gradlew bisa di run
       - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
+            name: chmod permissions
+            command: chmod +x ./gradlew
+
+      - run: ./gradlew dependencies
+
       - save_cache:
           paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      # build production release
+      - run: ./gradlew assembleProductionRelease
+
       - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      - store_test_results:
-          path: app/build/test-results
+          path: app/build/outputs/apk/
+          destination: apk

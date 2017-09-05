@@ -1,4 +1,4 @@
-package id.unware.poken.ui.pokenaccount.login.view.fragment;
+package id.unware.poken.ui.pokenaccount.register.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import id.unware.poken.BuildConfig;
+import id.unware.poken.PokenApp;
 import id.unware.poken.R;
 import id.unware.poken.domain.User;
 import id.unware.poken.pojo.UIState;
@@ -27,36 +27,36 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
-import id.unware.poken.ui.pokenaccount.login.model.LoginModel;
-import id.unware.poken.ui.pokenaccount.login.presenter.LoginPresenter;
-import id.unware.poken.ui.pokenaccount.login.view.ILoginView;
-
-import static id.unware.poken.R.id.btnRegister;
+import id.unware.poken.ui.pokenaccount.register.model.RegisterEmailModel;
+import id.unware.poken.ui.pokenaccount.register.presenter.RegisterEmailPresenter;
+import id.unware.poken.ui.pokenaccount.register.view.IRegisterEmailView;
 
 
-public class FragmentLogin extends BaseFragment implements
+public class FragmentRegisterEmail extends BaseFragment implements
         View.OnClickListener,
-        ILoginView {
+        IRegisterEmailView {
 
-    private static final String TAG = "FragmentLogin";
+    private final String TAG = "FragmentRegisterEmail";
 
+    @BindView(R.id.parentView) FrameLayout parentView;
     @BindView(R.id.loginTvTitle) TextView loginTvTitle;
     @BindView(R.id.txtEmailLogin) AppCompatEditText txtEmailLogin;
     @BindView(R.id.txtPasswordLogin) AppCompatEditText txtPasswordLogin;
-    @BindView(R.id.btnSignIn) Button btnSignIn;
-    @BindView(R.id.loginBtnOpenRegisterEmail) Button loginBtnOpenRegisterEmail;
-    @BindView(R.id.parentView) FrameLayout parentView;
+    @BindView(R.id.btnRegister) Button btnRegister;
+    @BindView(R.id.registerEmailBtnLogin) Button registerEmailBtnLogin;
 
     // RESOURCE
-    @BindString(R.string.lbl_login_title) String strDefaultText;
+    @BindString(R.string.lbl_register_title) String strDefaultText;
     @BindColor(R.color.red) int colorRed;
     @BindColor(R.color.colorPrimaryDark) int colorPrimaryDark;
 
     private Unbinder unbinder;
 
-    private LoginPresenter presenter;
+    private RegisterEmailPresenter presenter;
 
-    private PokenLoginListener pokenLoginListener;
+    private final PokenApp values = PokenApp.getInstance();
+
+    private PokenRegisterListener pokenLoginListener;
 
     private TextWatcher loginTextWatcher = new TextWatcher() {
         @Override
@@ -71,17 +71,17 @@ public class FragmentLogin extends BaseFragment implements
 
         @Override
         public void afterTextChanged(Editable s) {
-            prepareLogin(s);
+            prepareRegistration(s);
         }
     };
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ac_login, container, false);
+        View view = inflater.inflate(R.layout.ac_register_email, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        presenter = new LoginPresenter(new LoginModel(), this);
+        presenter = new RegisterEmailPresenter(new RegisterEmailModel(), this);
 
         return view;
     }
@@ -101,25 +101,19 @@ public class FragmentLogin extends BaseFragment implements
     }
 
     private void initView() {
-        Utils.Log(TAG, "Init view");
-
-        // Fill checkNewPackage form with tester account in DEV_MODE
-        if (BuildConfig.DEV_MODE) {
-            txtEmailLogin.setText(BuildConfig.USER_EMAIL);
-            txtPasswordLogin.setText(BuildConfig.USER_PASSWORD);
-        }
 
         // Initially set sign button disabled
-        btnSignIn.setEnabled(false);
+        btnRegister.setEnabled(false);
 
-        // Button Sign In
-        btnSignIn.setOnClickListener(this);
         // Button Register
-        loginBtnOpenRegisterEmail.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+
+        // Button to open sign in page
+        registerEmailBtnLogin.setOnClickListener(this);
 
     }
 
-    private void prepareLogin(Editable s) {
+    private void prepareRegistration(Editable s) {
         if (s.hashCode() == txtEmailLogin.getText().hashCode()) {
             Utils.Log(TAG, "Typing on email: " + String.valueOf(s));
         } else if (s.hashCode() == txtPasswordLogin.hashCode()) {
@@ -127,10 +121,11 @@ public class FragmentLogin extends BaseFragment implements
         }
 
         if (!StringUtils.isEmpty(String.valueOf(txtEmailLogin.getText()))
+                && StringUtils.isValidEmail(String.valueOf(txtEmailLogin.getText()))
                 && !StringUtils.isEmpty(String.valueOf(txtPasswordLogin.getText()))) {
-            btnSignIn.setEnabled(true);
+            btnRegister.setEnabled(true);
         } else {
-            btnSignIn.setEnabled(false);
+            btnRegister.setEnabled(false);
         }
 
         showMessage("", 0);
@@ -140,8 +135,8 @@ public class FragmentLogin extends BaseFragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof PokenLoginListener) {
-            pokenLoginListener = (PokenLoginListener) context;
+        if (context instanceof PokenRegisterListener) {
+            pokenLoginListener = (PokenRegisterListener) context;
         } else {
             throw new ClassCastException(context.toString() + " should implement PokenLoginListener");
         }
@@ -157,28 +152,22 @@ public class FragmentLogin extends BaseFragment implements
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btnSignIn:
+            case R.id.btnRegister:
                 beginSignIn();
                 break;
-            case R.id.loginBtnOpenRegisterEmail:
-                registerAccount();
+            case R.id.registerEmailBtnLogin:
+                if (pokenLoginListener != null) {
+                    pokenLoginListener.onLoginScreenRequested();
+                }
                 break;
         }
 
-    }
-
-    private void registerAccount() {
-        try {
-            pokenLoginListener.onRegisterRequested();
-        } catch (NullPointerException npe) {
-            npe.printStackTrace();
-        }
     }
 
     /**
      * Begin Sign In Process when all form is filled.
      */
-    public void login() {
+    public void registerEmail() {
 
         try {
             Utils.hideKeyboardFrom(parent, txtPasswordLogin);
@@ -187,7 +176,7 @@ public class FragmentLogin extends BaseFragment implements
             pokenUser.username = String.valueOf(txtEmailLogin.getText());
             pokenUser.password = String.valueOf(txtPasswordLogin.getText());
 
-            presenter.startLogin(pokenUser);
+            presenter.startRegister(pokenUser);
 
         } catch (NullPointerException npe) {
             npe.printStackTrace();
@@ -219,10 +208,9 @@ public class FragmentLogin extends BaseFragment implements
     public void beginSignIn() {
 
         if (isLoginReady()) {
-            login();
+            registerEmail();
         }
     }
-
 
     @Override
     public void onDestroyView() {
@@ -231,10 +219,10 @@ public class FragmentLogin extends BaseFragment implements
     }
 
     @Override
-    public void onLoginSuccess() {
-        Utils.Log(TAG, "Login success.");
+    public void onRegisterSuccess() {
+        Utils.Log(TAG, "Register success.");
         try {
-            pokenLoginListener.onLoginSuccess();
+            pokenLoginListener.onRegisterSuccess();
         } catch (NullPointerException npe) {
             npe.printStackTrace();
         }
@@ -267,9 +255,9 @@ public class FragmentLogin extends BaseFragment implements
 
     private void showLoadingState(boolean isLoading) {
         if (isLoading) {
-            btnSignIn.setEnabled(false);
+            btnRegister.setEnabled(false);
         } else {
-            btnSignIn.setEnabled(true);
+            btnRegister.setEnabled(true);
         }
     }
 
@@ -278,9 +266,9 @@ public class FragmentLogin extends BaseFragment implements
         return parent == null || parent.isFinishing();
     }
 
-    public interface PokenLoginListener {
-        void onRegisterRequested();
-        void onLoginSuccess();
+    public interface PokenRegisterListener {
+        void onRegisterSuccess();
+        void onLoginScreenRequested();
     }
 
 

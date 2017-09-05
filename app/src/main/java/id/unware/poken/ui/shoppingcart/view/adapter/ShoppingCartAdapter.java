@@ -99,6 +99,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 .centerCrop()
                 .into(holder.ivProductImage);
         holder.tvProductName.setText(productName);
+        holder.tvSelectedProductStock.setText(context.getString(R.string.lbl_product_stock, product.stock));
+
         holder.tvProductTotalPrice.setText(
                 StringUtils.formatCurrency(String.valueOf(originalProductPrice))
         );
@@ -249,6 +251,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         @BindView(R.id.tvStoreName) TextView tvStoreName;
         @BindView(R.id.ivProductImage) ImageView ivProductImage;
         @BindView(R.id.tvProductName) TextView tvProductName;
+        @BindView(R.id.tvSelectedProductStock) TextView tvSelectedProductStock;
         @BindView(R.id.btnDeleteCartItem) ImageButton btnDeleteCartItem;
 
         // Normal price

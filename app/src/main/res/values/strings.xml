@@ -27,7 +27,7 @@
     <string name="password">Password</string>
     <string name="please_insert_password">Silahkan masukkan password</string>
     <string name="please_insert_your_email">Silahkan masukkan email</string>
-    <string name="register">Register</string>
+    <string name="register">Gabung Sekarang</string>
     <string name="sign_in">Login</string>
     <string name="title_activity_address_book">Buku Alamat</string>
     <string name="title_address_book">Buku Alamat</string>
@@ -164,9 +164,9 @@
     </string>
     <string name="btn_buy_now">Beli Sekarang</string>
     <string name="title_activity_shopping_cart">Troli</string>
-    <string name="btn_continue">Lanjut</string>
+    <string name="btn_continue_checkout">Lanjut ke Pembayaran</string>
     <string name="title_activity_order">Orderan</string>
-    <string name="btn_pay_now">BAYAR SEKARANG</string>
+    <string name="btn_pay_now">Bayar Sekarang</string>
     <string name="lbl_shipping_destination">Tujuan Pengiriman</string>
     <string name="lbl_ordered_product_section">Barang Pesanan</string>
     <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
@@ -209,9 +209,18 @@
     <string name="title_activity_featured">Featured</string>
     <string name="action_share">Bagikan</string>
     <string name="title_activity_category">Kategori</string>
-    <string name="poken_bank_account_number_bri">0135-01-047199-50-4</string>
+    <string name="poken_bank_account_number_bri">0135&#8211;01&#8211;047199&#8211;50&#8211;4</string>
     <string name="poken_bank_account_name">ULFAH KHAIRANI</string>
     <string name="hint_cart_add_note">Tambah catatan&#8230;</string>
     <string name="lbl_selected_product_extra_note">Catatan untuk penjual</string>
+    <string name="lbl_register_title">Gratis, gabung dengan Poken sekarang juga.</string>
+    <string name="lbl_login_title">Masuk ke Poken</string>
+    <string name="lbl_login_helper_have_account_already">Sudah pernah gabung?</string>
+    <string name="lbl_login_helper_not_have_account">Belum punya akun?</string>
+    <string name="btn_login_open_login_page">Mulai Login</string>
+    <string name="btn_login_open_register_page">Mulai Bergabung</string>
+    <string name="btn_continue_shopping">Lanjut Belanja</string>
+    <string name="lbl_product_stock">Stok: %d</string>
+    <string name="lbl_product_detail_sold_out">Stok Habis</string>
 
 </resources>

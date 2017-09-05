@@ -44,6 +44,8 @@
             style="@style/TextCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnContinueToPayment"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:layout_marginTop="@dimen/item_gap_m"
             android:text="@string/lbl_shopping_cart_total_amount"
@@ -54,6 +56,8 @@
             style="@style/TextListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnContinueToPayment"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/tvTotalShoppingAmountLabel"
             android:layout_marginLeft="@dimen/item_gap_l"
             android:layout_marginTop="@dimen/item_gap_s"
@@ -68,7 +72,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/item_gap_m"
-            android:text="@string/btn_continue" />
+            android:text="@string/btn_continue_checkout" />
 
     </RelativeLayout>
 

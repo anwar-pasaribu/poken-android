@@ -1,9 +1,5 @@
 package id.unware.poken.ui.home.view.adapter;
 
-/**
- * Created by pratap.kesaboyina on 24-12-2014.
- * Seller item on home screen.
- */
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,12 +16,15 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
-import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.tools.glide.GlideRequest;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
 
+/**
+ * Created by pratap.kesaboyina on 24-12-2014.
+ * Seller item on home screen.
+ */
 public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdapter.SingleItemRowHolder> {
 
     private ArrayList<Seller> itemsList;

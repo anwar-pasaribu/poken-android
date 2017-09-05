@@ -49,7 +49,6 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     private ShoppingCartPresenter presenter;
 
     private ArrayList<ShoppingCart> selectedShoppingCart = new ArrayList<>();
-
     private ArrayList<ShoppingCart> itemList = new ArrayList<>();
     private ShoppingCartAdapter shoppingCartAdapter;
 

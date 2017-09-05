@@ -38,8 +38,6 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.presenter.IProductDetailPresenter;
 
-import static id.unware.poken.R.id.tvPrice;
-
 
 public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
 
@@ -76,6 +74,7 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.tvNewShoppingCartTotalCost) TextView tvNewShoppingCartTotalCost;
 
     @BindView(R.id.btnContinueToPayment) Button btnContinueToPayment;
+    @BindView(R.id.btnShopMore) Button btnShopMore;
 
 
     private Unbinder unbinder;
@@ -227,6 +226,16 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
                     productDetailPresenter.startShoppingCartScreen(item);
                 }
 
+            }
+        });
+
+        btnShopMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+                if (productDetailPresenter != null) {
+                    productDetailPresenter.onShopMoreClicked();
+                }
             }
         });
 

@@ -42,6 +42,7 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.tools.glide.GlideRequests;
+import id.unware.poken.ui.home.view.HomeActivity;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
@@ -329,6 +330,27 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     @Override
+    public void openHomePage() {
+        Intent homeScreenIntent = new Intent(this, HomeActivity.class);
+        homeScreenIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(homeScreenIntent);
+        this.finish();
+    }
+
+    @Override
+    public void showSoldOutView(boolean isSoldOut) {
+        Utils.Logs('i', TAG, "Is product sold out --> " + String.valueOf(isSoldOut));
+        if (isSoldOut) {
+            btnBuy.setEnabled(false);
+            btnAddCart.setEnabled(false);
+        } else {
+            btnBuy.setEnabled(true);
+            btnAddCart.setEnabled(true);
+        }
+        progressBarDetailProduct.animate().alpha(0F);
+    }
+
+    @Override
     public void showViewState(UIState uiState) {
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
         switch (uiState) {
@@ -337,6 +359,9 @@ public class ProductDetailActivity extends AppCompatActivity
                 break;
             case FINISHED:
                 showLoadingIndicator(false);
+                break;
+            case NODATA:
+                showSoldOutView(true);
                 break;
         }
     }

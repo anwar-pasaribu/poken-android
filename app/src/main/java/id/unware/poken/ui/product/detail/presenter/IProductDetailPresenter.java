@@ -18,4 +18,6 @@ public interface IProductDetailPresenter {
     void startShoppingCartScreen(ShoppingCart shoppingCart);
 
     void startSellerScreen();
+
+    void onShopMoreClicked();
 }

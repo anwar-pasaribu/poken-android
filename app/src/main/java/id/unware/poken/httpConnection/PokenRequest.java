@@ -42,6 +42,11 @@ import retrofit2.http.QueryMap;
 public interface PokenRequest {
 
     @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_POKEN_REGISTER)
+    Call<User> postPokenRegisterEmail(
+            @FieldMap() Map<String, String> postData);
+
+    @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_POKEN_AUTH)
     Call<User> postPokenLogin(
             @FieldMap() Map<String, String> postData);

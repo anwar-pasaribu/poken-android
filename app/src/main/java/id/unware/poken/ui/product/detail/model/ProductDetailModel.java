@@ -1,5 +1,7 @@
 package id.unware.poken.ui.product.detail.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +13,8 @@ import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.ui.product.detail.presenter.IProductDetailModelPresenter;
 import retrofit2.Response;
@@ -90,7 +94,7 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
     public void loadShippingOptions() {
 
         shippings.add(new Shipping(1, "POS Indonesia", 0));
-        shippings.add(new Shipping(2, "COD", 15000));
+        shippings.add(new Shipping(2, "COD", 10000));
 
         this.presenter.onShippingOptionListResponse(shippings);
     }
@@ -119,7 +123,9 @@ public class ProductDetailModel extends MyCallback implements IProductDetailMode
 
     @Override
     public void onMessage(String msg, int status) {
-
+        if (status == Constants.NETWORK_CALLBACK_FAILURE) {
+            MyLog.FabricLog(Log.ERROR, "ProductDetailModel request product detail failed.");
+        }
     }
 
     @Override

@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
     private HomePresenter presenter;
 
     private HomeAdapter adapter;
-    private ArrayList<SectionDataModel> listHome;
+    private ArrayList<SectionDataModel> listHome = new ArrayList<>();
 
     private GlideRequests glideRequests;
 
@@ -96,7 +96,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
         presenter = new HomePresenter(new HomeModel(realm), HomeActivity.this);
 
-        listHome = new ArrayList<>();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -247,9 +246,6 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     @Override
     public void populateHomeView(ArrayList<Featured> featured_items, ArrayList<Section> sections) {
-        for (Featured featured : featured_items) {
-            Utils.Log(TAG, "Feature : " + featured.image);
-        }
 
         // ADD HEADER ITEM
         listHome.remove(0);

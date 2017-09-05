@@ -6,6 +6,7 @@ package id.unware.poken.httpConnection;
  */
 
 public class ConstantsRetrofit {
+    public static final String ENDPOINT_POKEN_REGISTER = "insert_user/";
     public static final String ENDPOINT_POKEN_AUTH = "api-token-auth/";
     public static final String ENDPOINT_GET_CUSTOMER = "customer/{pk}";
     public static final String ENDPOINT_GET_FEATURED = "featured/{pk}";

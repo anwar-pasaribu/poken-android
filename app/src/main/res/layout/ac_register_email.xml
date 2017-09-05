@@ -17,6 +17,7 @@
             android:id="@+id/loginIvAppLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="false"
             android:layout_marginTop="@dimen/item_gap_l"
             android:contentDescription="@string/app_name"
             android:src="@mipmap/ic_launcher" />
@@ -27,10 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/loginIvAppLogo"
+            android:layout_centerHorizontal="false"
             android:layout_marginTop="@dimen/item_gap_m"
-            android:gravity="center"
-            android:scaleType="fitCenter"
-            android:text="@string/lbl_login_title"
+            android:gravity="left"
+            android:text="@string/lbl_register_title"
             android:textColor="@color/colorPrimaryDark" />
 
         <android.support.design.widget.TextInputLayout
@@ -38,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loginTvTitle"
-            android:layout_marginTop="@dimen/icon_24dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            android:layout_marginTop="@dimen/icon_24dp">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txtEmailLogin"
@@ -48,8 +49,8 @@
                 android:layout_gravity="center"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:textSize="20sp"
-                tools:text="anwar" />
+                tools:text="anwar@mail.com"
+                android:textSize="20sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -70,36 +71,39 @@
                 android:fontFamily="sans-serif"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textSize="20sp"
-                tools:text="anwar_poken17" />
+                tools:text="anwar_poken17"
+                android:textSize="20sp" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btnRegister"
+            android:layout_below="@id/loginTilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loginTilPassword"
-            android:text="@string/sign_in"
+            android:text="@string/register"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
             android:theme="@style/MyButton" />
 
         <TextView
-            android:id="@+id/loginTvOr"
+            android:id="@+id/registerEmailTvOr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnSignIn"
-            android:layout_centerHorizontal="false"
-            android:layout_marginBottom="@dimen/item_gap_s"
-            android:layout_marginLeft="@dimen/item_gap_xs"
+            android:text="@string/lbl_login_helper_have_account_already"
             android:layout_marginTop="@dimen/item_gap_l"
-            android:text="@string/lbl_login_helper_not_have_account" />
+            android:layout_marginLeft="@dimen/item_gap_xs"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_below="@+id/btnRegister"
+            android:layout_centerHorizontal="false" />
 
         <Button
-            android:id="@+id/loginBtnOpenRegisterEmail"
+            android:id="@+id/registerEmailBtnLogin"
+            android:layout_below="@id/registerEmailTvOr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/loginTvOr"
-            android:text="@string/btn_login_open_register_page"
+            android:text="@string/btn_login_open_login_page"
+            android:textAllCaps="true"
             android:theme="@style/MyButton.Secondary" />
 
     </RelativeLayout>

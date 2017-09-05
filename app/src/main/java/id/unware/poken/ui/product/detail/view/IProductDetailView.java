@@ -31,4 +31,8 @@ public interface IProductDetailView extends BaseView {
     void showLoginScreen();
 
     void openSellerScreen();
+
+    void openHomePage();
+
+    void showSoldOutView(boolean isSoldOut);
 }

@@ -103,10 +103,10 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
         Utils.Logs('w', TAG, "Width: " + holder.featuredSlideWidth);
         Utils.Logs('w', TAG, "Height: " + holder.featuredSlideHeight);
 
-        if (position == 0) {
+        if (holder.getAdapterPosition() == 0) {
             RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
             recyclerViewLayoutParams.leftMargin = holder.itemGapL;
-        } else if (position == itemsList.size() - 1) {
+        } else if (holder.getAdapterPosition() == itemsList.size() - 1) {
             RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
             recyclerViewLayoutParams.rightMargin = holder.itemGapL;
         }

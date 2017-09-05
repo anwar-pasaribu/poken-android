@@ -144,7 +144,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         GridLayoutManager layoutManager = new GridLayoutManager(mContext, 1);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         holder.recycler_view_list.setLayoutManager(layoutManager);
-        holder.recycler_view_list.setHasFixedSize(true);
 
         // Snap on item
         SnapHelper snapHelper = new LinearSnapHelper();

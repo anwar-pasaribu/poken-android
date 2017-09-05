@@ -1,6 +1,7 @@
 package id.unware.poken.tools;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,6 +60,11 @@ public class PokenCredentials {
             username = "";
             password = "";
             token = "";
+
+            // Clear all data when null is provided
+            SPHelper.getInstance().clearData();
+
+            MyLog.FabricLog(Log.INFO, "Logout proceeded.");
         }
 
         this.spHelper.setPreferences(Constants.SP_AUTH_USERNAME, username);

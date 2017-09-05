@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:fillViewport="true"
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity"
     tools:showIn="@layout/activity_product_detail">
 
@@ -16,12 +17,12 @@
         <ProgressBar
             android:id="@+id/progressBarDetailProduct"
             style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_height="@dimen/clickable_size"
             android:layout_width="@dimen/clickable_size"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="@dimen/clickable_size"
+            app:layout_constraintBottom_toBottomOf="@+id/viewPagerProductImages"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/viewPagerProductImages"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPagerProductImages"
@@ -39,13 +40,13 @@
             android:layout_height="0dp"
             android:contentDescription="@string/hint_product_images"
             android:scaleType="center"
+            android:src="@drawable/ic_image_black_24dp"
             android:tint="@color/style_overlay_grey"
             android:visibility="visible"
             app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_image_black_24dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.pixelcan.inkpageindicator.InkPageIndicator
             android:id="@+id/inkPageIndicator"
@@ -82,15 +83,15 @@
             android:id="@+id/viewFlipperProductPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductName"
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_marginRight="@dimen/item_gap_m"
-            android:layout_marginTop="@dimen/item_gap_s">
+            android:layout_marginTop="@dimen/item_gap_s"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName">
 
             <include
-                layout="@layout/include_sale_product"/>
+                layout="@layout/include_sale_product" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,11 +117,11 @@
             android:id="@+id/viewSep"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
             android:background="@color/separator_view_lighter"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
             app:layout_constraintTop_toBottomOf="@+id/viewFlipperProductPrice" />
 
         <TextView
@@ -190,81 +191,100 @@
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tvProductLeft" />
 
+        <TextView
+            android:id="@+id/tvProductSoldOutStatus"
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_product_detail_sold_out"
+            android:gravity="right|center_vertical"
+            android:paddingTop="@dimen/item_gap_s"
+            android:paddingBottom="@dimen/item_gap_s"
+            android:paddingLeft="@dimen/item_gap_s"
+            android:paddingRight="@dimen/item_gap_s"
+            android:background="@drawable/bg_default_light"
+            android:layout_marginRight="@dimen/text_margin"
+            app:layout_constraintLeft_toRightOf="@+id/tvProductLeftLabel"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep"
+            app:layout_constraintBottom_toTopOf="@+id/viewSepMainFlat"
+            app:layout_constraintHorizontal_bias="1.0" />
+
         <include
             android:id="@+id/viewSepMainFlat"
             layout="@layout/include_sep_small"
             android:layout_width="0dp"
             android:layout_height="@dimen/item_gap_s"
-            android:background="@color/separator_view_lighter"
             android:layout_marginTop="@dimen/item_gap_m"
+            android:background="@color/separator_view_lighter"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvProductLeftLabel"/>
+            app:layout_constraintTop_toBottomOf="@id/tvProductLeftLabel" />
 
         <RelativeLayout
             android:id="@+id/parentSellerSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:background="?attr/selectableItemBackground"
             android:layout_marginTop="@dimen/item_gap_m"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewSepMainFlat" >
+            app:layout_constraintTop_toBottomOf="@id/viewSepMainFlat">
 
             <ImageView
                 android:id="@+id/ivSellerAvatar"
                 android:layout_width="@dimen/clickable_size_32"
                 android:layout_height="@dimen/clickable_size_32"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:scaleType="centerCrop"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_store_black_24dp"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tvSellerName"
                 style="@style/TextBodyDefault"
-                android:layout_toRightOf="@id/ivSellerAvatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_gap_m"
                 android:layout_marginLeft="@dimen/item_gap_m"
                 android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_toRightOf="@id/ivSellerAvatar"
                 tools:text="Kejora Busana" />
 
             <TextView
                 android:id="@+id/tvSellerAddress"
                 style="@style/TextCaption"
-                android:layout_toRightOf="@id/ivSellerAvatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvSellerName"
-                android:layout_marginTop="@dimen/item_gap_s"
                 android:layout_marginLeft="@dimen/item_gap_m"
                 android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_toRightOf="@id/ivSellerAvatar"
                 tools:text="Padangsidimpuan" />
 
             <ImageView
                 android:layout_width="@dimen/clickable_size_32"
                 android:layout_height="@dimen/clickable_size_32"
-                android:src="@drawable/ic_chevron_right_24dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:scaleType="center"
                 android:layout_marginRight="@dimen/text_margin"
+                android:scaleType="center"
+                android:src="@drawable/ic_chevron_right_24dp"
                 />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/tvSellerAddress"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_m"
-                android:layout_below="@+id/tvSellerAddress"
-                android:background="@color/separator_view_lighter"
-                android:layout_alignParentBottom="true"/>
+                android:background="@color/separator_view_lighter" />
 
-            </RelativeLayout>
+        </RelativeLayout>
 
         <!--Shipping methods-->
         <RelativeLayout
@@ -272,8 +292,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-            android:clickable="true"
             android:background="?attr/selectableItemBackground"
+            android:clickable="true"
 
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -284,8 +304,8 @@
                 style="@style/TextCaption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_gap_m"
                 android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_m"
                 android:text="@string/lbl_shipping_option_section_label" />
 
             <TextView
@@ -293,8 +313,8 @@
                 style="@style/TextBodyDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_margin"
                 android:layout_below="@id/tvShippingMethodLabel"
+                android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_s"
                 tools:text="POS Indonesia" />
 
@@ -312,11 +332,11 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/tvCurierName"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginTop="@dimen/item_gap_m"
-                android:layout_below="@+id/tvCurierName"
-                android:background="@color/separator_view_lighter"
-                android:layout_alignParentBottom="true"/>
+                android:background="@color/separator_view_lighter" />
 
         </RelativeLayout>
 
@@ -328,7 +348,7 @@
             android:background="@color/separator_view_lighter"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/parentClickableShippingMethod"/>
+            app:layout_constraintTop_toBottomOf="@id/parentClickableShippingMethod" />
 
 
         <TextView
@@ -374,5 +394,5 @@
 
     </android.support.constraint.ConstraintLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>
 
