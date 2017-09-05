@@ -31,8 +31,6 @@ import id.unware.poken.ui.pokenaccount.login.model.LoginModel;
 import id.unware.poken.ui.pokenaccount.login.presenter.LoginPresenter;
 import id.unware.poken.ui.pokenaccount.login.view.ILoginView;
 
-import static id.unware.poken.R.id.btnRegister;
-
 
 public class FragmentLogin extends BaseFragment implements
         View.OnClickListener,
@@ -78,7 +76,7 @@ public class FragmentLogin extends BaseFragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ac_login, container, false);
+        View view = inflater.inflate(R.layout.ac_login_email, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         presenter = new LoginPresenter(new LoginModel(), this);

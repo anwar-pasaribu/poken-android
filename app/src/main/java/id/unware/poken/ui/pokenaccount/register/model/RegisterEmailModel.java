@@ -1,5 +1,7 @@
 package id.unware.poken.ui.pokenaccount.register.model;
 
+import android.util.Base64;
+
 import java.util.HashMap;
 
 import id.unware.poken.domain.Customer;
@@ -45,6 +47,8 @@ public class RegisterEmailModel extends MyCallback implements IRegisterEmailMode
         this.presenter.updateViewState(UIState.LOADING);
 
         HashMap<String, String> postBody = new HashMap<>();
+        postBody.put("first_name", user.first_name);
+        postBody.put("last_name", user.last_name);
         postBody.put("email", user.username);
         postBody.put("password", user.password);
 
@@ -66,8 +70,11 @@ public class RegisterEmailModel extends MyCallback implements IRegisterEmailMode
         if (o instanceof User) {
             User pokenUser = ((User) o);
             // Save poken user as logged in
+            this.pokenUser.first_name = pokenUser.first_name;
+            this.pokenUser.last_name = pokenUser.last_name;
             this.pokenUser.token = pokenUser.token;
             this.pokenUser.username = pokenUser.username;
+            this.pokenUser.email = pokenUser.email;
             PokenCredentials.getInstance().setCredential(this.pokenUser);
 
             // Setup customer data but empty

@@ -35,12 +35,33 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayoutEmail"
+            android:id="@+id/textInputLayoutFullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loginTvTitle"
-            app:errorEnabled="true"
-            android:layout_marginTop="@dimen/icon_24dp">
+            android:layout_marginTop="@dimen/icon_24dp"
+            app:errorEnabled="false">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/txtFullNameLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/hint_full_name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                android:nextFocusDown="@+id/txtEmailLogin"
+                tools:text="" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayoutFullName"
+            android:layout_marginTop="@dimen/item_gap_m"
+            app:errorEnabled="false">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/txtEmailLogin"
@@ -48,9 +69,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/email"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                tools:text="anwar@mail.com"
-                android:textSize="20sp" />
+                android:nextFocusDown="@+id/txtPasswordLogin"
+                tools:text="" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -59,8 +81,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textInputLayoutEmail"
-            android:layout_marginBottom="@dimen/item_gap_m"
-            app:errorEnabled="true"
+            android:layout_marginBottom="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_m"
+            app:errorEnabled="false"
             app:passwordToggleEnabled="true">
 
             <android.support.v7.widget.AppCompatEditText
@@ -70,17 +93,17 @@
                 android:layout_gravity="center"
                 android:fontFamily="sans-serif"
                 android:hint="@string/password"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                tools:text="anwar_poken17"
-                android:textSize="20sp" />
+                tools:text="" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_below="@id/loginTilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/loginTilPassword"
             android:text="@string/register"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
@@ -90,18 +113,18 @@
             android:id="@+id/registerEmailTvOr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_login_helper_have_account_already"
-            android:layout_marginTop="@dimen/item_gap_l"
-            android:layout_marginLeft="@dimen/item_gap_xs"
-            android:layout_marginBottom="@dimen/item_gap_s"
             android:layout_below="@+id/btnRegister"
-            android:layout_centerHorizontal="false" />
+            android:layout_centerHorizontal="false"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_marginLeft="@dimen/item_gap_xs"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:text="@string/lbl_login_helper_have_account_already" />
 
         <Button
             android:id="@+id/registerEmailBtnLogin"
-            android:layout_below="@id/registerEmailTvOr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/registerEmailTvOr"
             android:text="@string/btn_login_open_login_page"
             android:textAllCaps="true"
             android:theme="@style/MyButton.Secondary" />

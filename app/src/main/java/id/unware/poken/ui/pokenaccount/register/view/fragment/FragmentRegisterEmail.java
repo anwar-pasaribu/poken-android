@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
@@ -40,6 +42,7 @@ public class FragmentRegisterEmail extends BaseFragment implements
 
     @BindView(R.id.parentView) FrameLayout parentView;
     @BindView(R.id.loginTvTitle) TextView loginTvTitle;
+    @BindView(R.id.txtFullNameLogin) AppCompatEditText txtFullNameLogin;
     @BindView(R.id.txtEmailLogin) AppCompatEditText txtEmailLogin;
     @BindView(R.id.txtPasswordLogin) AppCompatEditText txtPasswordLogin;
     @BindView(R.id.btnRegister) Button btnRegister;
@@ -96,6 +99,7 @@ public class FragmentRegisterEmail extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        txtFullNameLogin.addTextChangedListener(loginTextWatcher);
         txtEmailLogin.addTextChangedListener(loginTextWatcher);
         txtPasswordLogin.addTextChangedListener(loginTextWatcher);
     }
@@ -114,13 +118,16 @@ public class FragmentRegisterEmail extends BaseFragment implements
     }
 
     private void prepareRegistration(Editable s) {
-        if (s.hashCode() == txtEmailLogin.getText().hashCode()) {
+        if (s.hashCode() == txtFullNameLogin.getText().hashCode()) {
+            Utils.Log(TAG, "Typing on full name: " + String.valueOf(s));
+        } else if (s.hashCode() == txtEmailLogin.getText().hashCode()) {
             Utils.Log(TAG, "Typing on email: " + String.valueOf(s));
         } else if (s.hashCode() == txtPasswordLogin.hashCode()) {
             Utils.Log(TAG, "Typing on password: " + String.valueOf(s));
         }
 
-        if (!StringUtils.isEmpty(String.valueOf(txtEmailLogin.getText()))
+        if (!StringUtils.isEmpty(String.valueOf(txtFullNameLogin.getText()))
+                && !StringUtils.isEmpty(String.valueOf(txtEmailLogin.getText()))
                 && StringUtils.isValidEmail(String.valueOf(txtEmailLogin.getText()))
                 && !StringUtils.isEmpty(String.valueOf(txtPasswordLogin.getText()))) {
             btnRegister.setEnabled(true);
@@ -171,15 +178,27 @@ public class FragmentRegisterEmail extends BaseFragment implements
 
         try {
             Utils.hideKeyboardFrom(parent, txtPasswordLogin);
+            String[] nameChunks = String.valueOf(txtFullNameLogin.getText()).split(" ", 2);
+            Utils.Logs('i', TAG, "Name part: " + Arrays.asList(nameChunks));
+            String firstName = String.valueOf(txtFullNameLogin.getText());
+            String lastName = "";
+            if (nameChunks.length == 2) {
 
+                firstName = nameChunks[0];
+                lastName = nameChunks[1];
+
+            }
             User pokenUser = new User();
+            pokenUser.first_name = firstName;
+            pokenUser.last_name = lastName;
             pokenUser.username = String.valueOf(txtEmailLogin.getText());
+            pokenUser.email = String.valueOf(txtEmailLogin.getText());
             pokenUser.password = String.valueOf(txtPasswordLogin.getText());
 
             presenter.startRegister(pokenUser);
 
-        } catch (NullPointerException npe) {
-            npe.printStackTrace();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
     }
 

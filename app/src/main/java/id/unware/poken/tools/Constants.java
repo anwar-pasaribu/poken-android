@@ -25,6 +25,7 @@ public class Constants {
     // SP (Shared Preferences)
     public static final String SP_AUTH_TOKEN = "AUTH_TOKEN";
     public static final String SP_AUTH_USERNAME = "AUTH_USERNAME";
+    public static final String SP_AUTH_EMAIL = "AUTH_EMAIL";
     public static final String SP_AUTH_PASSWORD = "AUTH_PASSWORD";
     public static final String SP_AUTH_CUSTOMER_DATA = "AUTH_CUSTOMER_DATA";
 

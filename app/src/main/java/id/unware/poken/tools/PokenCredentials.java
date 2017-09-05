@@ -50,15 +50,17 @@ public class PokenCredentials {
 
     public void setCredential(User user) {
 
-        String username, password, token;
+        String username, password, email, token;
 
         if (user != null) {
             username = user.username;
             password = user.password;
+            email = user.email;
             token = user.token;
         } else {
             username = "";
             password = "";
+            email  = "";
             token = "";
 
             // Clear all data when null is provided
@@ -69,7 +71,10 @@ public class PokenCredentials {
 
         this.spHelper.setPreferences(Constants.SP_AUTH_USERNAME, username);
         this.spHelper.setPreferences(Constants.SP_AUTH_PASSWORD, password);
+        this.spHelper.setPreferences(Constants.SP_AUTH_EMAIL, email);
         this.spHelper.setPreferences(Constants.SP_AUTH_TOKEN, token);
+
+        MyLog.FabricSetUserInformation();
     }
 
     public void setPokenCustomer(Customer customer) {

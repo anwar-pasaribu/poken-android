@@ -5,6 +5,7 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 
 import id.unware.poken.BuildConfig;
+import id.unware.poken.helper.SPHelper;
 
 /*
  * Generate {@link com.crashlytics.android.Crashlytics} logging purpose.
@@ -59,21 +60,13 @@ public class MyLog extends Utils{
 
     }
 
-    /**
-     * Crashlytics user information include :
-     * - User ID - Contain phone number
-     * - User Email
-     * - User Name
-     *
-     * @since (Oct. 12th, 2016) Version 24
-     */
     public static void FabricSetUserInformation() {
         if (BuildConfig.enableCrashlytics) {
-//            Util.Log("Util", "Set Fabric user information");
-//            SPHelper spHelper = SPHelper.getInstance();
-//            Crashlytics.setUserIdentifier(String.format("tel:%s", spHelper.getSharedPreferences(Config.USER_PHONE, "0")));
-//            Crashlytics.setUserEmail(spHelper.getSharedPreferences(Config.USER_EMAIL, "NO_EMAIL"));
-//            Crashlytics.setUserName(spHelper.getSharedPreferences(Config.USER_NAME, "NO_USERNAME"));
+            Utils.Log("MyLog", "Set Fabric user information");
+            SPHelper spHelper = SPHelper.getInstance();
+            Crashlytics.setUserIdentifier(spHelper.getSharedPreferences(Constants.SP_AUTH_TOKEN, "NO_TOKEN"));
+            Crashlytics.setUserEmail(spHelper.getSharedPreferences(Constants.SP_AUTH_EMAIL, "NO_EMAIL"));
+            Crashlytics.setUserName(spHelper.getSharedPreferences(Constants.SP_AUTH_USERNAME, "NO_USERNAME"));
         }
     }
 

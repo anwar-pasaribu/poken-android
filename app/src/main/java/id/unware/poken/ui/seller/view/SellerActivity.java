@@ -142,9 +142,11 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Utils.Log(TAG, "Home navigation cliked.");
+            Utils.Log(TAG, "Home navigation clicked.");
             this.onBackPressed();
             return true;
+        } else if (item.getItemId() == R.id.action_toggle_subscribe) {
+            Utils.Log(TAG, "Toggle berlangganan: " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
