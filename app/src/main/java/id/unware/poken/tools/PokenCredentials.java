@@ -53,10 +53,10 @@ public class PokenCredentials {
         String username, password, email, token;
 
         if (user != null) {
-            username = user.username;
-            password = user.password;
-            email = user.email;
-            token = user.token;
+            username = String.valueOf(user.username);
+            password = String.valueOf(user.password);
+            email = String.valueOf(user.email);
+            token = String.valueOf(user.token);
         } else {
             username = "";
             password = "";
@@ -83,6 +83,10 @@ public class PokenCredentials {
         String customerStringData = gson.toJson(customer, Customer.class);
         Utils.Log("PokenCredentials", "Customer data: " + customerStringData);
         this.spHelper.setPreferences(Constants.SP_AUTH_CUSTOMER_DATA, customerStringData);
+
+        if (customer.related_user != null) {
+            setCredential(customer.related_user);
+        }
     }
 
     public void setPokenCustomer(String customerStringData) {

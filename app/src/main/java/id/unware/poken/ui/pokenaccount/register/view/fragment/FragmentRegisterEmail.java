@@ -12,13 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.PokenApp;
@@ -40,13 +43,15 @@ public class FragmentRegisterEmail extends BaseFragment implements
 
     private final String TAG = "FragmentRegisterEmail";
 
-    @BindView(R.id.parentView) FrameLayout parentView;
+    @BindView(R.id.parentView) ScrollView parentView;
     @BindView(R.id.loginTvTitle) TextView loginTvTitle;
     @BindView(R.id.txtFullNameLogin) AppCompatEditText txtFullNameLogin;
     @BindView(R.id.txtEmailLogin) AppCompatEditText txtEmailLogin;
     @BindView(R.id.txtPasswordLogin) AppCompatEditText txtPasswordLogin;
     @BindView(R.id.btnRegister) Button btnRegister;
     @BindView(R.id.registerEmailBtnLogin) Button registerEmailBtnLogin;
+
+    @BindViews({R.id.txtFullNameLogin, R.id.txtEmailLogin, R.id.txtPasswordLogin}) List<AppCompatEditText> allInputText;
 
     // RESOURCE
     @BindString(R.string.lbl_register_title) String strDefaultText;
@@ -99,9 +104,17 @@ public class FragmentRegisterEmail extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
+
         txtFullNameLogin.addTextChangedListener(loginTextWatcher);
         txtEmailLogin.addTextChangedListener(loginTextWatcher);
         txtPasswordLogin.addTextChangedListener(loginTextWatcher);
+
+
+        for (AppCompatEditText editText : allInputText) {
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+        }
+
     }
 
     private void initView() {

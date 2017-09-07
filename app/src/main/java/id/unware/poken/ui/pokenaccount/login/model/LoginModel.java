@@ -79,6 +79,7 @@ public class LoginModel extends MyCallback implements ILoginModel{
 
             // Save poken user as logged in
             this.pokenUser.token = pokenUser.token;
+            this.pokenUser.email = ""; // poken_rest/api-token-auth/ not return email
             PokenCredentials.getInstance().setCredential(this.pokenUser);
 
         } else if (o instanceof Customer) {

@@ -132,6 +132,17 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
             ArrayList<SingleItemModel> singleItem = new ArrayList<SingleItemModel>();
             for (int j = 0; j <= 5; j++) {
+                // Create dummy header slider
+                if (j == 0) {
+                    // Dummy header data
+                    ArrayList<Featured> featureds = new ArrayList<>(3);
+
+                    featureds.add(new Featured());
+                    featureds.add(new Featured());
+                    featureds.add(new Featured());
+                    dm.setFeaturedItems(featureds);
+                }
+
                 singleItem.add(new SingleItemModel("Item " + j, "URL " + j));
             }
 

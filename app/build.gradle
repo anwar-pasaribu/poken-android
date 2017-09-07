@@ -43,7 +43,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        resConfigs "en", "id", "xxhdpi"
+        resConfigs "en", "id"
 
         buildConfigField 'String', 'USER_EMAIL', '"anwar"'
         buildConfigField 'String', 'USER_PASSWORD', '"poken_psp17"'
@@ -140,7 +140,7 @@ android {
             reset()
 
             // Specifies a list of ABIs that Gradle should create APKs for.
-            include "armeabi", "armeabi-v7a"
+            include "armeabi-v7a", "x86"
 
             // Specifies that we do not want to also generate a universal APK that includes all ABIs.
             universalApk false
@@ -150,7 +150,7 @@ android {
 }
 
 // Map for the version code that gives each ABI a value.
-ext.abiCodes = ['armeabi': 2, 'armeabi-v7a': 3]
+ext.abiCodes = ['armeabi-v7a': 3, 'x86' : 4]
 
 import com.android.build.OutputFile
 

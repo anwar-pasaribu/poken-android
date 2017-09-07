@@ -147,7 +147,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 mContext,
                 featuredItems,
                 homePresenter,
-                glideRequests);
+                glideRequests
+        );
         final LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         holder.recycler_view_list.setLayoutManager(layoutManager);
 

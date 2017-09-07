@@ -97,6 +97,7 @@ public class HeaderSectionAdapter extends RecyclerView.Adapter<HeaderSectionAdap
                 .clone()
                 .load(itemsList.get(position % itemsList.size()).thumbnail)
                 .placeholder(R.drawable.bg_default_light)
+                .error(R.drawable.ic_image_black_24dp)
                 .centerCrop()
                 .into(holder.itemImage);
 

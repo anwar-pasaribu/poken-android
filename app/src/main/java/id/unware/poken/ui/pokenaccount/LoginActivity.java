@@ -3,6 +3,7 @@ package id.unware.poken.ui.pokenaccount;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import id.unware.poken.R;
 import id.unware.poken.helper.SPHelper;
@@ -29,7 +30,7 @@ public class LoginActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         if (getIntent().getExtras() != null) {
             requestedPageTag = getIntent().getIntExtra(Constants.EXTRA_REQUESTED_PAGE, -1);
         }
