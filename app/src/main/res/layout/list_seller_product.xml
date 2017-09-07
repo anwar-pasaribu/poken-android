@@ -45,8 +45,7 @@
             android:maxLines="1"
             android:minLines="1"
             android:paddingTop="@dimen/item_gap_s"
-            android:text="Nama barang yang sangat panjang sehingga akan merusak"
-            />
+            tools:text="Nama barang yang sangat panjang sehingga akan merusak" />
 
         <TextView
             android:id="@+id/tvPrice"

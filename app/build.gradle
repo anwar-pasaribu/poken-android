@@ -41,7 +41,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        vectorDrawables.useSupportLibrary = false
+        vectorDrawables.useSupportLibrary = true
 
         resConfigs "en", "id", "xxhdpi"
 

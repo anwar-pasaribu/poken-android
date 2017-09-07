@@ -162,7 +162,7 @@
                     android:layout_marginLeft="@dimen/item_gap_l"
                     android:layout_marginTop="@dimen/item_gap_m"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_image_black_24dp" />
+                    app:srcCompat="@drawable/ic_image_black_24dp" />
 
                 <TextView
                     android:id="@+id/tvSelectedProductName"
@@ -218,7 +218,7 @@
                     android:layout_below="@id/ivSelectedProduct"
                     android:layout_marginBottom="@dimen/item_gap_m"
                     android:layout_marginLeft="@dimen/item_gap_l"
-                    android:src="@drawable/ic_local_shipping_black_24dp"
+                    app:srcCompat="@drawable/ic_local_shipping_black_24dp"
                     android:tint="@color/style_overlay_grey" />
 
                 <TextView
@@ -332,7 +332,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/item_gap_l"
                     android:contentDescription="@string/btn_order_show_all_order"
-                    android:src="@drawable/ic_chevron_right_24dp" />
+                    app:srcCompat="@drawable/ic_chevron_right_24dp" />
 
             </RelativeLayout>
 

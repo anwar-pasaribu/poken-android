@@ -79,7 +79,7 @@
                 android:layout_height="@dimen/clickable_size"
                 android:layout_marginRight="@dimen/item_gap_m"
                 android:contentDescription="@string/lbl_transfer_to"
-                android:src="@drawable/ic_bank_bri_logo"/>
+                app:srcCompat="@drawable/ic_bank_bri_logo"/>
 
             <TextView
                 android:id="@+id/textViewBankAccountName"

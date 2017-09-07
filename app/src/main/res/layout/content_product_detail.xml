@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:contentDescription="@string/hint_product_images"
             android:scaleType="center"
-            android:src="@drawable/ic_image_black_24dp"
+            app:srcCompat="@drawable/ic_image_black_24dp"
             android:tint="@color/style_overlay_grey"
             android:visibility="visible"
             app:layout_constraintDimensionRatio="h,1:1"
@@ -239,7 +239,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_store_black_24dp"
+                app:srcCompat="@drawable/ic_store_black_24dp"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -272,7 +272,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/text_margin"
                 android:scaleType="center"
-                android:src="@drawable/ic_chevron_right_24dp"
+                app:srcCompat="@drawable/ic_chevron_right_24dp"
                 />
 
             <View
@@ -327,7 +327,7 @@
                 android:layout_marginRight="@dimen/text_margin"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/hint_see_shipping_options"
-                android:src="@drawable/ic_chevron_right_24dp" />
+                app:srcCompat="@drawable/ic_chevron_right_24dp" />
 
             <View
                 android:layout_width="match_parent"

@@ -155,9 +155,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
-                if (firstItemVisible != 0 && firstItemVisible % itemListSize == 0) {
-                    recyclerView.scrollToPosition(0);
+                if (itemListSize > 0) {
+                    int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
+                    if (firstItemVisible != 0 && firstItemVisible % itemListSize == 0) {
+                        recyclerView.scrollToPosition(0);
+                    }
                 }
             }
         });

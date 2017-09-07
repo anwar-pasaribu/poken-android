@@ -11,5 +11,6 @@ public enum UIState {
     ERROR,
     LOADING,
     FINISHED,
-    NODATA
+    NODATA,
+    INCOMPLETE
 }

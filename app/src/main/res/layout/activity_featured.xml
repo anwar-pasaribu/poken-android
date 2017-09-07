@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/product2"
+                app:srcCompat="@drawable/ic_image_black_24dp"
                 android:fitsSystemWindows="true"/>
 
             <android.support.v7.widget.Toolbar

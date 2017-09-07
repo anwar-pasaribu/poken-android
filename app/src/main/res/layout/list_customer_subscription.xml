@@ -19,7 +19,7 @@
         android:layout_marginRight="@dimen/item_gap_m"
         android:layout_marginTop="@dimen/item_gap_l"
         android:scaleType="centerCrop"
-        tools:src="@drawable/product2" />
+        tools:src="@drawable/ic_image_black_24dp" />
 
     <TextView
         android:id="@+id/tvSellerName"

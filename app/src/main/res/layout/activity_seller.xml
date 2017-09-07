@@ -81,7 +81,7 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:alpha="0"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_location_on_black_24dp"
+                app:srcCompat="@drawable/ic_location_on_black_24dp"
                 android:tint="@color/style_overlay_grey"
                 tools:alpha="1" />
 

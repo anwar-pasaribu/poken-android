@@ -70,7 +70,7 @@
         android:layout_below="@+id/ivProductImage"
         android:layout_marginLeft="@dimen/item_gap_l"
         android:layout_marginTop="@dimen/item_gap_l"
-        android:src="@drawable/ic_local_shipping_black_24dp"
+        app:srcCompat="@drawable/ic_local_shipping_black_24dp"
         android:tint="@color/style_overlay_grey"
         android:contentDescription="@string/hint_product_images"/>
 

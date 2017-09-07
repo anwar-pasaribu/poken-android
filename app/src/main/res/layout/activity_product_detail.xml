@@ -60,7 +60,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_alignParentLeft="true"
-            android:drawableLeft="@drawable/ic_add_shopping_cart_24dp"
             android:text="@string/btn_add_to_cart"
             android:textAllCaps="true"
             android:theme="@style/MyButton.Secondary"/>

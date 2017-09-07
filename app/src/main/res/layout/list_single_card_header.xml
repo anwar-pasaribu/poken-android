@@ -27,7 +27,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/product1" />
+            tools:src="@drawable/ic_image_black_24dp" />
 
         <TextView
             android:id="@+id/tvTitle"

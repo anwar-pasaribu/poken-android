@@ -37,7 +37,7 @@
             android:layout_marginRight="@dimen/text_margin"
             android:layout_width="match_parent"
             android:maxLines="2"
-            android:text="Pesanan Anda akan segera diproses."
+            android:text="@string/msg_title_order_proceed"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
             android:layout_width="match_parent"
-            android:text="Pesanan Anda akan segera diproses."
+            android:text="@string/msg_content_order_proceed"
             android:layout_height="wrap_content" />
 
 
@@ -60,7 +60,7 @@
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kembali ke Home"
+            android:text="@string/btn_back_to_home_page"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:theme="@style/MyButton" />

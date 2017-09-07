@@ -50,7 +50,7 @@
                 android:layout_marginTop="@dimen/item_gap_xs"
                 android:scaleType="center"
                 android:tint="@color/separator_view_lighter"
-                android:src="@drawable/ic_person_black_24dp" />
+                app:srcCompat="@drawable/ic_person_black_24dp" />
 
             <TextView
                 android:id="@+id/tvProfileUser"
@@ -61,7 +61,8 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="user" />
+                android:text="user"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tvProfileIdetifier"
@@ -73,7 +74,8 @@
                 android:layout_toRightOf="@+id/ivUserAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="email" />
+                android:text="email"
+                tools:ignore="HardcodedText"/>
 
         </RelativeLayout>
 

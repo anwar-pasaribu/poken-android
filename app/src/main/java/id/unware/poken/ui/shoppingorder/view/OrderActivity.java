@@ -197,15 +197,35 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     public void showViewState(UIState uiState) {
         switch (uiState) {
             case LOADING:
-                swipeRefreshLayout.setRefreshing(true);
-                orderBtnChangeReceiverAddress.setEnabled(false);
-                btnContinueToPayment.setEnabled(false);
+                showLoadingIndicator(true);
                 break;
             case FINISHED:
-                swipeRefreshLayout.setRefreshing(false);
-                orderBtnChangeReceiverAddress.setEnabled(true);
-                btnContinueToPayment.setEnabled(true);
+                showLoadingIndicator(false);
                 break;
+            case INCOMPLETE:
+                btnContinueToPayment.setEnabled(false);
+                break;
+
+        }
+
+    }
+
+    private void showLoadingIndicator(boolean isShow) {
+        if (isShow) {
+            if (!swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+
+            orderBtnChangeReceiverAddress.setEnabled(false);
+            btnContinueToPayment.setEnabled(false);
+
+        } else {
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            orderBtnChangeReceiverAddress.setEnabled(true);
+            btnContinueToPayment.setEnabled(true);
         }
     }
 
