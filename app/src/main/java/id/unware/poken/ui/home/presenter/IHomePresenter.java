@@ -21,4 +21,10 @@ public interface IHomePresenter {
     void onProductClick(int position, Product product);
 
     void onFeaturedItemClicked(int position, Featured featured);
+
+    void startPokenInstagram();
+
+    void startPokenFacebookPage();
+
+    void startPokenPhoneContact();
 }

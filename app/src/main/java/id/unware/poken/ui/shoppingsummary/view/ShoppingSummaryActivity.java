@@ -9,10 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.home.view.HomeActivity;
@@ -23,6 +26,9 @@ public class ShoppingSummaryActivity extends BaseActivity {
 
     @BindView(R.id.shoppingSummaryBtnShoppingAgain) Button shoppingSummaryBtnShoppingAgain;
 
+    private String orderRef = "";
+    private double shoppingCost = 0;
+
     private Unbinder unbinder;
 
     @Override
@@ -32,6 +38,11 @@ public class ShoppingSummaryActivity extends BaseActivity {
 
         unbinder = ButterKnife.bind(this);
 
+        if (getIntent().getExtras() != null) {
+            orderRef = getIntent().getStringExtra(Constants.EXTRA_ORDER_REF);
+            shoppingCost = getIntent().getDoubleExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, 0D);
+        }
+
         initView();
     }
 
@@ -39,10 +50,12 @@ public class ShoppingSummaryActivity extends BaseActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // noinspection ConstantConditions
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setElevation(0F);
-        getSupportActionBar().setTitle(null);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setElevation(0F);
+            getSupportActionBar().setTitle(R.string.title_activity_payment_confirm);
+            getSupportActionBar().setSubtitle(this.getString(R.string.lbl_order_ref_id, orderRef));
+        }
 
         shoppingSummaryBtnShoppingAgain.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -54,14 +55,55 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/clickable_size_32"
+        android:padding="@dimen/item_gap_m">
+
+        <ImageButton
+            android:id="@+id/ibSocialIg"
+            android:layout_width="@dimen/clickable_size_32"
+            android:layout_height="@dimen/clickable_size_32"
+            android:background="@drawable/bg_default_light"
+            android:tint="@color/style_overlay_grey"
+            app:srcCompat="@drawable/ic_social_instagram" />
+
+        <ImageButton
+            android:id="@+id/ibSocialFb"
+            android:layout_width="@dimen/clickable_size_32"
+            android:layout_height="@dimen/clickable_size_32"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_toRightOf="@+id/ibSocialIg"
+            android:background="@drawable/bg_default_light"
+            android:tint="@color/style_overlay_grey"
+            app:srcCompat="@drawable/ic_social_facebook_box" />
+
+        <ImageButton
+            android:id="@+id/ibSocialPhone"
+            android:layout_width="@dimen/clickable_size_32"
+            android:layout_height="@dimen/clickable_size_32"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_toRightOf="@+id/ibSocialFb"
+            android:background="@drawable/bg_default_light"
+            android:tint="@color/style_overlay_grey"
+            app:srcCompat="@drawable/ic_social_whatsapp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/poken_office_address"/>
+
     <TextView
         style="@style/TextBodySecondary"
+        android:layout_marginTop="@dimen/clickable_size_32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/clickable_size"
-        android:text="@string/app_name"
-        />
+        android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/tvAppVersion"

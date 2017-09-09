@@ -53,6 +53,8 @@ import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
+import static id.unware.poken.tools.Utils.newInstagramProfileIntent;
+
 public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private final String TAG = "HomeAcivity";
@@ -358,6 +360,22 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         featuredIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, featured.id);
         featuredIntent.putExtra(Constants.EXTRA_DOMAIN_SERIALIZED_STRING, featuredString);
         this.startActivity(featuredIntent);
+    }
+
+    @Override
+    public void showPokenInstagram() {
+        Intent igIntent = Utils.newInstagramProfileIntent(this.getPackageManager(), "https://www.instagram.com/Poken.psp/");
+        startActivity(igIntent);
+    }
+
+    @Override
+    public void showPokenFacebookPage() {
+        Utils.openInBrowser(this, "https://facebook.com/poken.sidempuan.1");
+    }
+
+    @Override
+    public void showPokenPhoneContact() {
+        Utils.openDialer(this, "+6281281231103");
     }
 
     private SectionDataModel createCategoryItems() {

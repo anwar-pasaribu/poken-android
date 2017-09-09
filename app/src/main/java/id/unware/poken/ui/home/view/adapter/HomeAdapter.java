@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -240,6 +241,29 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
+
+            // Setup social media link account
+            holder.ibSocialIg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    homePresenter.startPokenInstagram();
+                }
+            });
+
+            holder.ibSocialFb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    homePresenter.startPokenFacebookPage();
+                }
+            });
+
+            holder.ibSocialPhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    homePresenter.startPokenPhoneContact();
+                }
+            });
+
         } else {
             Utils.Log(TAG, "Product section not available");
             holder.btnMore.setVisibility(View.GONE);
@@ -299,6 +323,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
         @BindView(R.id.btnMore) Button btnMore;
         @BindView(R.id.tvAppVersion) TextView tvAppVersion;
+
+        // Social app
+        @BindView(R.id.ibSocialIg) ImageButton ibSocialIg;
+        @BindView(R.id.ibSocialFb) ImageButton ibSocialFb;
+        @BindView(R.id.ibSocialPhone) ImageButton ibSocialPhone;
 
 
         public ItemRowHolder(View view) {

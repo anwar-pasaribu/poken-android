@@ -105,6 +105,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private long selectedAddressBookId = -1L;
     private int selectedAddressBookIndex = 0;
 
+    private String orderRef = "";
     private long orderedProductId = -1;
     private boolean isReadOnlyMode = false;
     private double totalShoppingCost = 0;
@@ -250,9 +251,10 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         if (totalShoppingCost != 0
                 && orderedProductId != -1
                 && paymentDue != null) {
-            Utils.Log(TAG, "Open payment screen.");
+            Utils.Log(TAG, "Open payment screen. Order ref: " + this.orderRef);
             Intent paymentIntent = new Intent(this, PaymentActivity.class);
             paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_REF, this.orderRef);
             paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
             paymentIntent.putExtra(Constants.EXTRA_PAYMENT_DUE, paymentDue);
             this.startActivity(paymentIntent);
@@ -343,6 +345,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         if (getSupportActionBar() != null) {
             getSupportActionBar().setSubtitle(this.getString(R.string.lbl_order_ref_id, orderDetailUniqueId));
         }
+
+        this.orderRef = orderDetailUniqueId;
 
         // #2 Ordered Product
         this.orderedProductId = orderedProductId;

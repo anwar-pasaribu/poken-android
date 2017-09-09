@@ -45,6 +45,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private Unbinder unbinder;
 
+    private String orderRef = "";
     private double shoppingCost = 0;
     private Date paymentDue;
 
@@ -54,6 +55,7 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
 
         if (getIntent().getExtras() != null) {
+            orderRef = getIntent().getStringExtra(Constants.EXTRA_ORDER_REF);
             shoppingCost = getIntent().getDoubleExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, 0D);
             paymentDue = (Date) getIntent().getSerializableExtra(Constants.EXTRA_PAYMENT_DUE);
         }
@@ -68,6 +70,7 @@ public class PaymentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setSubtitle(this.getString(R.string.lbl_order_ref_id, orderRef));
         }
 
         // Shopping cost
@@ -110,6 +113,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void openShoppingSummaryScreen() {
         Intent intentShoppingSummary = new Intent(this, ShoppingSummaryActivity.class);
+        intentShoppingSummary.putExtra(Constants.EXTRA_ORDER_REF, orderRef);
         this.startActivity(intentShoppingSummary);
     }
 

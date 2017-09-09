@@ -58,6 +58,21 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     }
 
     @Override
+    public void startPokenInstagram() {
+        view.showPokenInstagram();
+    }
+
+    @Override
+    public void startPokenFacebookPage() {
+        view.showPokenFacebookPage();
+    }
+
+    @Override
+    public void startPokenPhoneContact() {
+        view.showPokenPhoneContact();
+    }
+
+    @Override
     public void onSellerClick(int position, Seller seller) {
         view.showSellerDetailScreen(position, seller);
     }

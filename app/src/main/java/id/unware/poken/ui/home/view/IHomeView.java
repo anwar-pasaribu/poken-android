@@ -29,4 +29,10 @@ public interface IHomeView extends BaseView {
     void showSellerDetailScreen(int position, Seller seller);
 
     void showFeaturedScreen(int position, Featured featured);
+
+    void showPokenInstagram();
+
+    void showPokenFacebookPage();
+
+    void showPokenPhoneContact();
 }

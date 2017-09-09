@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="FACEBOOK_APP_ID">426154887744117</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN">ba84978194b56407b1a917fc66acd053</string>
 
@@ -175,6 +175,7 @@
     <string name="lbl_ordered_product_section">Barang Pesanan</string>
     <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
     <string name="title_activity_payment">Pembayaran</string>
+    <string name="title_activity_payment_confirm">Konfirmasi Pembayaran</string>
     <string name="title_activity_profile">Profil</string>
     <string name="btn_confirm_payment">Konfirmasi Pembayaran</string>
     <string name="lbl_quantity">Kuantitas: %1$d barang</string>
@@ -212,7 +213,7 @@
     <string name="title_activity_featured">Featured</string>
     <string name="action_share">Bagikan</string>
     <string name="title_activity_category">Kategori</string>
-    <string name="poken_bank_account_number_bri">0135&#8211;01&#8211;047199&#8211;50&#8211;4</string>
+    <string name="poken_bank_account_number_bri" tools:ignore="TypographyDashes">0135-01-047199-50-4</string>
     <string name="poken_bank_account_name">ULFAH KHAIRANI</string>
     <string name="hint_cart_add_note">Tambah catatan&#8230;</string>
     <string name="lbl_selected_product_extra_note">Catatan untuk penjual</string>
@@ -229,9 +230,10 @@
     <string name="hint_addressbook_phone">Nomor telepon</string>
     <string name="hint_addressbook_address">Alamat lengkap</string>
     <string name="btn_addressbook_submit">Tambah Alamat Penerima</string>
-    <string name="msg_title_order_proceed">Pesanan Anda akan segera diproses.</string>
-    <string name="msg_content_order_proceed">Pesanan Anda akan segera diproses.</string>
+    <string name="msg_title_order_proceed">Cara Konfirmasi Pembayaran.</string>
+    <string name="msg_content_order_proceed">Setelah melakukan transfer, segera konfirmasi melalui SMS/WhatsApp ke: 0812 8123 1103 dengan format #ORDER REF #NAMA PEMILIK REKENING #NAMA BANK #JUMLAH TRANSFER\n\nPesanan Anda akan segera kami proses.</string>
     <string name="btn_back_to_home_page">Kembali ke Home</string>
     <string name="btn_addressbook_add_new">Tambah</string>
+    <string name="poken_office_address">Kantor Pusat : Jl. KH. Wahid Hasyim No. 29. Padangsidempuan. Tapanuli Selatan. Sumatera Utara</string>
 
 </resources>

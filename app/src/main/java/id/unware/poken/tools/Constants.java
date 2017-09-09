@@ -33,6 +33,7 @@ public class Constants {
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
     public static final String EXTRA_ORDER_ID = "SHOPPING_ORDER_ID";
+    public static final String EXTRA_ORDER_REF = "EXTRA_ORDER_REF";
     public static final String EXTRA_GENERAL_INTENT_ID = "INTENT_ID";
     public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
     public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
