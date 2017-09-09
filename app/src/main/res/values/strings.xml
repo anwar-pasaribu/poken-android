@@ -1,4 +1,6 @@
 <resources>
+    <string name="FACEBOOK_APP_ID">426154887744117</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">ba84978194b56407b1a917fc66acd053</string>
 
     <string name="action_search">Cari</string>
     <string name="btn_forgot_password">Lupa password?</string>
@@ -187,7 +189,6 @@
     <string name="msg_shopping_cart_confirm_deletion">Anda yakin akan menghapus barang dari troli?</string>
     <string name="btn_shopping_cart_confirm_deletion">Hapus Barang</string>
     <string name="hint_product_images">Gambar produk</string>
-    <string name="facebook_app_id">426154887744117</string>
     <string name="hint_see_shipping_options">Lihat pengiriman yg tersedia</string>
     <string name="lbl_shipping_option_section_label">Pengiriman</string>
     <string name="lbl_shipping_method">Pengiriman:</string>

@@ -3,6 +3,8 @@ package id.unware.poken.tools;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
+import com.crashlytics.android.answers.LoginEvent;
+import com.crashlytics.android.answers.SignUpEvent;
 
 import id.unware.poken.BuildConfig;
 import id.unware.poken.helper.SPHelper;
@@ -33,7 +35,7 @@ public class MyLog extends Utils{
         }
     }
 
-    /*
+    /**
      * Generate Crashlytics logging with {@link Throwable} object.
      * The message on this method contain general info for logging such as when logging occour
      * and {@link Throwable} object generate {@link Crashlytics} stacktrace.
@@ -47,10 +49,6 @@ public class MyLog extends Utils{
     public static void FabricLog(int logPriority, String msg, java.lang.Throwable exception) {
 
         if (BuildConfig.enableCrashlytics) {
-
-            if (!msg.isEmpty() && msg.length() > MAX_LENGTH) {
-                msg = String.format("%s [...]", msg.substring(0, 256));
-            }
 
             Crashlytics.log(logPriority, TAG, String.format("General msg: \"%s\". \nException msg: \"%s\"", msg, exception.getMessage()));
 
@@ -85,5 +83,17 @@ public class MyLog extends Utils{
                 .putContentName(strName)
                 .putContentType(strType)
                 .putContentId(strId));
+    }
+
+    public static void FabricTrackLogin(String strLoginMethodName, boolean isSuccess) {
+        Answers.getInstance().logLogin(new LoginEvent()
+                .putMethod(String.valueOf(strLoginMethodName))
+                .putSuccess(isSuccess));
+    }
+
+    public static void FabricTrackRegister(String strLoginMethodName, boolean isSuccess) {
+        Answers.getInstance().logSignUp(new SignUpEvent()
+                .putMethod(String.valueOf(strLoginMethodName))
+                .putSuccess(isSuccess));
     }
 }

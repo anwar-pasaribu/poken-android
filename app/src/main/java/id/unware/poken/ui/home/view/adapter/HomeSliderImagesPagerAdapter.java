@@ -1,7 +1,6 @@
 package id.unware.poken.ui.home.view.adapter;
 
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -16,9 +15,6 @@ import id.unware.poken.domain.Featured;
 import id.unware.poken.tools.glide.GlideRequest;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
-import id.unware.poken.ui.product.detail.view.GestureSettingsSetupListener;
-
-import static com.google.android.gms.internal.zznu.ia;
 
 public class HomeSliderImagesPagerAdapter extends RecyclePagerAdapter<HomeSliderImagesPagerAdapter.ViewHolder> {
 

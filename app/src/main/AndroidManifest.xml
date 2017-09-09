@@ -112,9 +112,6 @@
         </activity>
 
         <!-- ///////////////////////////////////////////////////////////////////////////// -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
         <!-- Google Places API - Places AutoComplete -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -125,10 +122,18 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e403eadd6dec46812b5d690e54098baf8eff3904" />
+        <meta-data android:name="com.facebook.accountkit.ApplicationName"
+                   android:value="@string/app_name" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+                   android:value="@string/FACEBOOK_APP_ID" />
+        <meta-data android:name="com.facebook.accountkit.ClientToken"
+                   android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
-        <service
-            android:name=".services.FetchAddressIntentService"
-            android:exported="false" />
+        <activity
+            android:name="com.facebook.accountkit.ui.AccountKitActivity" />
+        <!--If you wish to disable App Events for your Account Kit application,-->
+        <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
+                   android:value="false"/>
 
         <activity
             android:name=".ui.search.view.SearchActivity"

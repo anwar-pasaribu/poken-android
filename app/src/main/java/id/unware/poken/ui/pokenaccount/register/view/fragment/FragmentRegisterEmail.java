@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,11 +23,11 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import id.unware.poken.PokenApp;
 import id.unware.poken.R;
 import id.unware.poken.domain.User;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
@@ -61,8 +60,6 @@ public class FragmentRegisterEmail extends BaseFragment implements
     private Unbinder unbinder;
 
     private RegisterEmailPresenter presenter;
-
-    private final PokenApp values = PokenApp.getInstance();
 
     private PokenRegisterListener pokenLoginListener;
 
@@ -253,6 +250,10 @@ public class FragmentRegisterEmail extends BaseFragment implements
     @Override
     public void onRegisterSuccess() {
         Utils.Log(TAG, "Register success.");
+
+        // Track register by email event
+        MyLog.FabricTrackRegister("Email Register", true);
+
         try {
             pokenLoginListener.onRegisterSuccess();
         } catch (NullPointerException npe) {

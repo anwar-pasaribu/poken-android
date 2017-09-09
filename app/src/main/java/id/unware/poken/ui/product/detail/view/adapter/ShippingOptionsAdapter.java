@@ -18,7 +18,6 @@ import id.unware.poken.domain.Shipping;
 import id.unware.poken.interfaces.OnClickRecyclerItem;
 import id.unware.poken.tools.StringUtils;
 
-import static com.google.android.gms.internal.zznu.is;
 
 /**
  * Adapter to show simple purpose Package list. The adapter

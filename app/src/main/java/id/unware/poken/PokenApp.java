@@ -11,6 +11,10 @@ import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+
 public class PokenApp extends Application {
 
     private final String TAG = "AppClass";
@@ -41,6 +45,9 @@ public class PokenApp extends Application {
 
         Picasso.with(this.getApplicationContext()).areIndicatorsEnabled();
         Picasso.with(this).setLoggingEnabled(true);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         // Debug fabric
         final Fabric fabric = new Fabric.Builder(this)

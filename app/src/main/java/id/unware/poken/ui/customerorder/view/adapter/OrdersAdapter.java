@@ -2,6 +2,7 @@ package id.unware.poken.ui.customerorder.view.adapter;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,10 +113,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             holder.parentOtherOrderedProduct.setVisibility(View.GONE);
         }
 
+        String strOrderStatus = String.valueOf(OrderStatus.getOrderStatusText(orderDetailStatus));
+        if (!StringUtils.isEmpty(orderDetail.shipping_tracking_id)
+                && orderDetailStatus == OrderStatus.SENT) {
+            strOrderStatus += " &#8226; RESI: ".concat(orderDetail.shipping_tracking_id);
+        }
+
         holder.tvProductName.setText(String.valueOf(product.name));
         holder.tvProductQuantity.setText(holder.itemView.getContext().getString(R.string.lbl_quantity, totalProductCount));
         holder.tvProductTotalPrice.setText(StringUtils.formatCurrency(String.valueOf(totalPrice)));
-        holder.tvOrderStatus.setText(OrderStatus.getOrderStatusText(orderDetailStatus));
+        //noinspection deprecation
+        holder.tvOrderStatus.setText(Html.fromHtml(strOrderStatus));
         holder.tvOrderStatusUpdatedOn.setText(ControllerDate.getInstance().getShortDateWithHourFormat(orderDetail.date));
 
         // TOGGLE PAYMENT REQUIRED BANNER VISIBILITY

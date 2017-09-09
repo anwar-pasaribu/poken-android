@@ -6,13 +6,12 @@
     android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:fillViewport="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_100"
         android:padding="@dimen/icon_24dp">
 
         <ImageView
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/loginIvAppLogo"
             android:layout_marginTop="@dimen/item_gap_m"
-            android:gravity="center"
+            android:gravity="left"
             android:scaleType="fitCenter"
             android:text="@string/lbl_login_title"
             android:textColor="@color/colorPrimaryDark" />

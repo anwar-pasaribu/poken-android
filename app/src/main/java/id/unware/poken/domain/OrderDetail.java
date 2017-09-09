@@ -29,6 +29,8 @@ public class OrderDetail {
      */
     public int order_status;
 
+    public String shipping_tracking_id;
+
     public OrderDetail() {
     }
 }

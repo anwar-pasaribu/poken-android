@@ -50,11 +50,16 @@ public abstract class MyCallback implements retrofit2.Callback {
                 PokenApiBase apiBase = gson.fromJson(strErrorResponse, PokenApiBase.class);
 
                 if (apiBase != null) {
-                    errorMsg = apiBase.detail != null
-                            ? apiBase.detail
-                            : apiBase.non_field_errors.length != 0
-                            ? String.valueOf(apiBase.non_field_errors[0])
-                            : errorMsg;
+                    try {
+                        errorMsg = apiBase.detail != null
+                                ? apiBase.detail
+                                : apiBase.non_field_errors.length != 0
+                                ? String.valueOf(apiBase.non_field_errors[0])
+                                : errorMsg;
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();
+                        MyLog.FabricLog(Log.ERROR, "Error message from server.", npe);
+                    }
 
 
                 } else {

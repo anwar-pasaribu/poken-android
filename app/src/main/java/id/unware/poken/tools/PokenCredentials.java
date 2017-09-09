@@ -1,6 +1,7 @@
 package id.unware.poken.tools;
 
 import android.support.annotation.Nullable;
+import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -13,7 +14,10 @@ import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.PokenApiBase;
 import id.unware.poken.domain.User;
 import id.unware.poken.helper.SPHelper;
+import io.fabric.sdk.android.services.network.HttpRequest;
 import okhttp3.Credentials;
+
+import static id.unware.poken.R.string.email;
 
 /**
  * @author Anwar Pasaribu
@@ -57,6 +61,7 @@ public class PokenCredentials {
             password = String.valueOf(user.password);
             email = String.valueOf(user.email);
             token = String.valueOf(user.token);
+
         } else {
             username = "";
             password = "";
@@ -85,7 +90,7 @@ public class PokenCredentials {
         this.spHelper.setPreferences(Constants.SP_AUTH_CUSTOMER_DATA, customerStringData);
 
         if (customer.related_user != null) {
-            setCredential(customer.related_user);
+            this.spHelper.setPreferences(Constants.SP_AUTH_EMAIL, String.valueOf(customer.related_user.email));
         }
     }
 
