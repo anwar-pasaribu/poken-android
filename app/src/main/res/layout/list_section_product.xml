@@ -95,6 +95,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:paddingLeft="@dimen/item_gap_m"
+        android:paddingRight="@dimen/item_gap_m"
         android:text="@string/poken_office_address"/>
 
     <TextView

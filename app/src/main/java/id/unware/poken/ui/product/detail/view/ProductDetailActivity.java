@@ -177,7 +177,7 @@ public class ProductDetailActivity extends AppCompatActivity
             }
         });
 
-        productDetailIbMoreShipping.setOnClickListener(new View.OnClickListener() {
+        parentClickableShippingMethod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (presenter != null) {

@@ -37,7 +37,10 @@
     <dimen name="default_button_radius">0dp</dimen>
 
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="img_grid_m">160dp</dimen>
+
+    <!-- Product fixed list-->
+    <dimen name="img_grid_m">150dp</dimen>
+
     <dimen name="header_slide_width_m">300dp</dimen>
     <dimen name="header_slide_height_m">169dp</dimen>
     <dimen name="profile_avatar_m">40dp</dimen>
