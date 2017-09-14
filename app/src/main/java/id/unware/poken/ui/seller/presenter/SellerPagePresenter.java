@@ -39,17 +39,39 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     }
 
     @Override
+    public void subscribeOnSeller(long sellerId, boolean isSubscribe) {
+        model.requestSubscription(this, sellerId, !isSubscribe /* Default FALSE, invert.*/);
+    }
+
+    @Override
     public void onSellerPageContentResponse(ArrayList<Product> products) {
+        if (view.isActivityFinishing()) return;
+
         view.pupolateSellerProductList(products);
     }
 
     @Override
     public void setupSellerInfo(Seller seller) {
+        if (view.isActivityFinishing()) return;
+
         view.showSellerInfo(seller);
+
+        // Update view that logged in user has subscribe
+        this.view.showSubscriptionStatus(seller.is_subscribed);
+    }
+
+    @Override
+    public void onSuscriptionSuccess(boolean isSubscribe) {
+        if (view.isActivityFinishing()) return;
+
+        // Update view that logged in user has subscribe
+        this.view.showSubscriptionStatus(isSubscribe);
     }
 
     @Override
     public void updateViewState(UIState uiState) {
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 }

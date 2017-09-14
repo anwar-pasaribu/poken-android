@@ -9,4 +9,5 @@ import id.unware.poken.ui.seller.presenter.ISellerPageModelPresenter;
 
 public interface ISellerPageModel {
     void requestSellerData(ISellerPageModelPresenter presenter, long sellerId);
+    void requestSubscription(ISellerPageModelPresenter presenter, long sellerId, boolean isSubscribe);
 }

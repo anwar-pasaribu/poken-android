@@ -49,7 +49,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Single
         holder.tvTitle.setText(singleItem.product_category.getName());
 
         for (int i = 0; i < holder.imgs.size(); i++) {
-            if (!products.get(i).images.isEmpty()) {
+            if (!products.isEmpty()
+                    && !products.get(i).images.isEmpty()) {
                 Picasso.with(mContext)
                         .load(products.get(i).images.get(0).thumbnail)
                         .into(holder.imgs.get(i));

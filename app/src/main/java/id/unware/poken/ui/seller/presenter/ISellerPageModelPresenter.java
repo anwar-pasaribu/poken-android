@@ -14,4 +14,6 @@ import id.unware.poken.ui.presenter.BasePresenter;
 public interface ISellerPageModelPresenter extends BasePresenter {
     void onSellerPageContentResponse(ArrayList<Product> products);
     void setupSellerInfo(Seller seller);
+
+    void onSuscriptionSuccess(boolean isSubscribe);
 }

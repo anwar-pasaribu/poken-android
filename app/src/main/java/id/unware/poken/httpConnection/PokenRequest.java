@@ -7,6 +7,7 @@ import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.CategoryDataRes;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
+import id.unware.poken.domain.CustomerSubscription;
 import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.FeaturedCategoryProductDataRes;
@@ -104,6 +105,12 @@ public interface PokenRequest {
             @Header("Content-Type") String contentType,
             @HeaderMap Map<String, String> headerMap,
             @Body AddressBook addressBook);
+
+    @FormUrlEncoded
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_SELLER_SUBSCRIPTION)
+    Call<CustomerSubscription> postSellerSubscription(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
 
     @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
     Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);

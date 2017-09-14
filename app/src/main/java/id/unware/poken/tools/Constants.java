@@ -94,6 +94,7 @@ public class Constants {
     public static final int TAG_ADD_SHOPPING_CART = 32;
     public static final int TAG_BUY_NOW = 33;
     public static final int TAG_FEATURED = 34;
+    public static final int TAG_FEATURE_SUBSCRIPTION = 35;
 
     public static final String EXTRA_SELECTED_SHOPPING_CART_IDS = "selected_shopping_cart_ids";
     public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";

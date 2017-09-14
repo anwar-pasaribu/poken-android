@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 
@@ -118,6 +119,7 @@ public class SearchActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean isSearchViewFocus = true;
     private void initSearchView(final Menu menu) {
 
         //Associate searchable configuration with the SearchView
@@ -125,9 +127,9 @@ public class SearchActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
         if (searchItem != null) {
-            MenuItemCompat.expandActionView(searchItem);
-            MenuItemCompat.setOnActionExpandListener(
-                    searchItem, new MenuItemCompat.OnActionExpandListener() {
+            // MenuItemCompat.expandActionView(searchItem);
+            android.support.v4.view.MenuItemCompat.setOnActionExpandListener(
+                    searchItem, new android.support.v4.view.MenuItemCompat.OnActionExpandListener() {
                         @Override
                         public boolean onMenuItemActionExpand(MenuItem item) {
                             Utils.Log(TAG, "Search view expanded. Then begin search mode!");
@@ -142,7 +144,18 @@ public class SearchActivity extends AppCompatActivity
                         }
                     });
 
-            SearchView mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+            searchItem.expandActionView();
+            SearchView mSearchView = (SearchView) searchItem.getActionView();
+            mSearchView.setSubmitButtonEnabled(false);
+            mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean isFocus) {
+                    Utils.Logs('v', TAG, "View : " + String.valueOf(view) + ", is focus: " + isFocus);
+                    if (!isFocus) {
+                        isSearchViewFocus = false;
+                    }
+                }
+            });
             mSearchView.setInputType(InputType.TYPE_TEXT_VARIATION_FILTER);
             mSearchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH | EditorInfo.IME_FLAG_NO_FULLSCREEN);
             mSearchView.setQueryHint("Cari nama barang");
@@ -152,6 +165,12 @@ public class SearchActivity extends AppCompatActivity
         } else {
             Utils.Logs('e', TAG, "No search view.");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Utils.Logs('e', TAG, "No search view. Is search focus --> " + isSearchViewFocus);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package id.unware.poken.ui.seller.view;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.MemoryCategory;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -28,23 +25,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.controller.ControllerDialog;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivity;
+import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.seller.model.SellerPageModel;
 import id.unware.poken.ui.seller.presenter.SellerPagePresenter;
 import id.unware.poken.ui.seller.view.adapter.SellerProductAdapter;
-
-import static android.R.attr.bitmap;
-import static id.unware.poken.R.id.itemImage;
-import static id.unware.poken.R.id.rvOrderedItem;
 
 public class SellerActivity extends BaseActivity implements ISellerPageView {
 
@@ -62,6 +58,8 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     @BindDimen(R.dimen.profile_avatar_m) int profile_avatar_m;
 
+    private MenuItem itemSubscriptionStatus;
+
     private Unbinder unbinder;
 
     private SellerPagePresenter presenter;
@@ -69,6 +67,7 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     private SellerProductAdapter adapter;
     private ArrayList<Product> listItem = new ArrayList<>();
 
+    private boolean isSubscribe = false;
     private long sellerId;
 
     private Handler handler = new Handler();
@@ -134,6 +133,13 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        itemSubscriptionStatus = menu.findItem(R.id.action_toggle_subscribe);
+        Utils.Logs('i', TAG, "Subscribe item: " + itemSubscriptionStatus);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_seller, menu);
         return true;
@@ -146,9 +152,65 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
             this.onBackPressed();
             return true;
         } else if (item.getItemId() == R.id.action_toggle_subscribe) {
+
+            if (itemSubscriptionStatus == null) {
+                itemSubscriptionStatus = item;
+            }
+
             Utils.Log(TAG, "Toggle berlangganan: " + item.getTitle());
+            if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+                if (presenter != null) {
+                    presenter.subscribeOnSeller(this.sellerId, this.isSubscribe);
+                }
+            } else {
+                ControllerDialog.getInstance().showYesNoDialog(
+                        getString(R.string.msg_login_required_for_subscription),
+                        this,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == DialogInterface.BUTTON_POSITIVE) {
+                                    openPokenAccountScreen();
+                                }
+
+                                dialogInterface.dismiss();
+                            }
+                        },
+                        getString(R.string.btn_positive_join_poken),
+                        getString(R.string.btn_negative_later)
+                );
+            }
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openPokenAccountScreen() {
+        Intent accountIntent = new Intent(this, LoginActivity.class);
+        accountIntent.putExtra(Constants.EXTRA_REQUESTED_PAGE, Constants.TAG_FEATURE_SUBSCRIPTION);  // Request for subcription
+        this.startActivityForResult(accountIntent, Constants.TAG_LOGIN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Utils.Log(TAG, "Activity result. Req: " + requestCode + ", res: " + resultCode + ", data: " + data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.TAG_LOGIN) {
+
+                int requestedPageTag = data.getIntExtra(Constants.EXTRA_REQUESTED_PAGE, -1);
+
+                if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+                    if (requestedPageTag == Constants.TAG_FEATURE_SUBSCRIPTION) {
+                        // Continue pending subscription
+                        if (presenter != null) {
+                            presenter.subscribeOnSeller(this.sellerId, this.isSubscribe);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -163,10 +225,10 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     public void showViewState(UIState uiState) {
         switch (uiState) {
             case LOADING:
-                swipeRefreshLayout.setRefreshing(true);
+                showLoadingIndicator(true);
                 break;
             case FINISHED:
-                swipeRefreshLayout.setRefreshing(false);
+                showLoadingIndicator(false);
                 break;
         }
     }
@@ -215,6 +277,46 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
                     .circleCrop()
                     .placeholder(R.drawable.ic_circle_24dp)
                     .into(ivUserAvatar);
+        }
+    }
+
+    @Override
+    public void showSubscriptionStatus(boolean isSubscribe) {
+        this.isSubscribe = isSubscribe;
+        try {
+            if (isSubscribe) {
+                itemSubscriptionStatus.setTitle(R.string.action_toggle_subscribe_on);
+                itemSubscriptionStatus.setIcon(R.drawable.ic_notifications_black_24dp);
+            } else {
+                itemSubscriptionStatus.setTitle(R.string.action_toggle_subscribe_off);
+                itemSubscriptionStatus.setIcon(R.drawable.ic_notifications_none_black_24dp);
+            }
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
+    }
+
+    private void showLoadingIndicator(boolean isLoading) {
+        if (isLoading) {
+            if (!swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+
+            // Disable menu item
+            if (itemSubscriptionStatus != null) {
+                itemSubscriptionStatus.setEnabled(false);
+                itemSubscriptionStatus.getIcon().setColorFilter(ContextCompat.getColor(this, R.color.separator_view), PorterDuff.Mode.SRC_ATOP);
+            }
+        } else {
+            if (swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            // Enable menu item
+            if (itemSubscriptionStatus != null) {
+                itemSubscriptionStatus.setEnabled(true);
+                itemSubscriptionStatus.getIcon().setColorFilter(ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
+            }
         }
     }
 }

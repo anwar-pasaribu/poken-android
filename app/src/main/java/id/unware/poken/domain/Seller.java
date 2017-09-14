@@ -12,4 +12,7 @@ public class Seller {
     public String tag_line;
     public String phone_number;
     public String location;
+
+    // Wether customer subscribe to Seller
+    public boolean is_subscribed;
 }

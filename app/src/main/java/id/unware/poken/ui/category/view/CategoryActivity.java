@@ -60,8 +60,6 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         adapter = new CategoryAdapter(this, listItem, presenter);
-        adapter.setHasStableIds(true);
-        categoryRvMain.setHasFixedSize(true);
         categoryRvMain.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         categoryRvMain.setAdapter(adapter);
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.domain.CustomerSubscription;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.domain.Seller;
@@ -37,7 +38,11 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
 
     @Override
     public void requestSellerData(ISellerPageModelPresenter presenter, long sellerId) {
-        this.presenter = presenter;
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
 
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("seller_id", String.valueOf(sellerId));
@@ -53,16 +58,38 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
     }
 
     @Override
+    public void requestSubscription(ISellerPageModelPresenter presenter, long sellerId, boolean isSubscribe) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("seller_id", String.valueOf(sellerId));
+        queryParams.put("is_get_notif", String.valueOf(isSubscribe));
+
+        this.req.postSellerSubscription(
+                PokenCredentials.getInstance().getCredentialHashMap(),
+                queryParams
+        ).enqueue(this);
+
+    }
+
+    @Override
     public void onSuccess(Response response) {
         presenter.updateViewState(UIState.FINISHED);
-        ArrayList<Product> products = new ArrayList<>();
-        products.addAll(((ProductDataRes) response.body()).results);
-        if (products.size() > 0) {
-            presenter.onSellerPageContentResponse(products);
 
-            Seller seller = products.get(0).seller;
+        if (response.body() instanceof ProductDataRes) {
+            ArrayList<Product> products = new ArrayList<>();
+            products.addAll(((ProductDataRes) response.body()).results);
+            if (products.size() > 0) {
+                presenter.onSellerPageContentResponse(products);
 
-            presenter.setupSellerInfo(seller);
+                presenter.setupSellerInfo(products.get(0).seller);
+            }
+        } else if (response.body() instanceof CustomerSubscription) {
+            presenter.onSuscriptionSuccess(((CustomerSubscription) response.body()).is_get_notif);
         }
 
     }

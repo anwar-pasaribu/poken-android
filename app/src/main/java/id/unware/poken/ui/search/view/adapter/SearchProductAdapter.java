@@ -100,6 +100,7 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
         @BindView(R.id.itemImage) ImageView itemImage;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvPrice) TextView tvPrice;
+
         @BindView(R.id.tvPrice2) TextView tvPrice2;
         @BindView(R.id.tvDiscountedPrice) TextView tvDiscountedPrice;
         @BindView(R.id.tvDiscountAmount) TextView tvDiscountAmount;

@@ -73,7 +73,8 @@
 
     <!-- Strings related to login -->
     <string name="action_settings">Settings</string>
-    <string name="action_toggle_subscribe">Berlangganan</string>
+    <string name="action_toggle_subscribe_off">Langganan</string>
+    <string name="action_toggle_subscribe_on">Berlangganan</string>
     <string name="action_refresh">Refresh</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_product_detail">Product Detail</string>
@@ -235,5 +236,8 @@
     <string name="btn_back_to_home_page">Kembali ke Home</string>
     <string name="btn_addressbook_add_new">Tambah</string>
     <string name="poken_office_address">Kantor Pusat : Jl. KH. Wahid Hasyim No. 29. Padangsidempuan. Tapanuli Selatan. Sumatera Utara</string>
+    <string name="msg_login_required_for_subscription">Fitur langganan Toko tersedia setelah menjadi member Poken. Gabung Sekarang?</string>
+    <string name="btn_positive_join_poken">GABUNG SEKARANG</string>
+    <string name="btn_negative_later">NANTI</string>
 
 </resources>
