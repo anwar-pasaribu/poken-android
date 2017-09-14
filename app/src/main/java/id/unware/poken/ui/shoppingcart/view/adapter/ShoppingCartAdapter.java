@@ -171,6 +171,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        // Check item on quantity changes
+                        holder.cbSelectAllStoreItem.setChecked(true);
+
                         item.quantity = holder.controlItemQuantity(item.quantity, productStock, false);
                         Utils.Log("ShoppingCartAdapter", "[substract] Q: " + item.quantity + ", stok: " + productStock);
                         holder.textItemQuantity.setText(

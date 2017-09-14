@@ -54,7 +54,12 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
 
     @Override
     public void getShoppingCartData() {
+        // Request shopping cart online
         model.requestShoppingCartData(this);
+
+        // Uncheck all selected item
+        this.selectedShoppingCart.clear();
+        this.calculateSelectedShoppingCarts(this.selectedShoppingCart);
     }
 
     @Override
