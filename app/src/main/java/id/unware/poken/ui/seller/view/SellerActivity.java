@@ -11,9 +11,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.MemoryCategory;
@@ -45,6 +47,9 @@ import id.unware.poken.ui.seller.view.adapter.SellerProductAdapter;
 public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     private static final String TAG = "SellerActivity";
+
+    // Parent on seller content
+    @BindView(R.id.sellerParentView) RelativeLayout sellerParentView;
 
     @BindView(R.id.ivUserAvatar) ImageView ivUserAvatar;
 
@@ -293,6 +298,15 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
             }
         } catch (NullPointerException npe) {
             npe.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showSubscriptionStatusMessage(boolean isSubscribe) {
+        if (isSubscribe) {
+            Utils.snackBar(sellerParentView, this.getString(R.string.msg_seller_subscribed), Log.INFO);
+        } else {
+            Utils.snackBar(sellerParentView, this.getString(R.string.msg_seller_unsubscribed), Log.WARN);
         }
     }
 

@@ -248,9 +248,9 @@ public class Utils {
 
             View view = LayoutInflater.from(context).inflate(R.layout.snack_custom, null, false);
 
-            ViewGroup parentContent = (ViewGroup) view.findViewById(R.id.parentContent);
-            TextView txtmessage = (TextView) view.findViewById(R.id.txtMessage);
-            ImageButton snackBarBtn = (ImageButton) view.findViewById(R.id.btnCloseSnackbar);
+            ViewGroup parentContent = view.findViewById(R.id.parentContent);
+            TextView txtmessage = view.findViewById(R.id.txtMessage);
+            ImageButton snackBarBtn = view.findViewById(R.id.btnCloseSnackbar);
 
             // Set snackbar message
             txtmessage.setText(strMessage);

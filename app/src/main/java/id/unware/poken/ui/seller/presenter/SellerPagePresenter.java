@@ -18,6 +18,9 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     private final ISellerPageModel model;
     private final ISellerPageView view;
 
+    /** State will be ON if user explicitly press subscription button */
+    private boolean isToggleSubscription = false;
+
     public SellerPagePresenter(ISellerPageModel model, ISellerPageView view) {
         this.model = model;
         this.view = view;
@@ -40,6 +43,10 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
 
     @Override
     public void subscribeOnSeller(long sellerId, boolean isSubscribe) {
+
+        // Indicate that user tend to toggle Subscription
+        this.isToggleSubscription = true;
+
         model.requestSubscription(this, sellerId, !isSubscribe /* Default FALSE, invert.*/);
     }
 
@@ -66,6 +73,9 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
 
         // Update view that logged in user has subscribe
         this.view.showSubscriptionStatus(isSubscribe);
+
+        // Show message on subsciption toggle
+        this.view.showSubscriptionStatusMessage(isSubscribe);
     }
 
     @Override

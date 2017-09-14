@@ -239,5 +239,7 @@
     <string name="msg_login_required_for_subscription">Fitur langganan Toko tersedia setelah menjadi member Poken. Gabung Sekarang?</string>
     <string name="btn_positive_join_poken">GABUNG SEKARANG</string>
     <string name="btn_negative_later">NANTI</string>
+    <string name="msg_seller_subscribed">Berhasil berlanggan</string>
+    <string name="msg_seller_unsubscribed">Berhenti berlanggan</string>
 
 </resources>

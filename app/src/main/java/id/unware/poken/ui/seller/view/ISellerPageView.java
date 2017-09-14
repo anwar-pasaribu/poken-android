@@ -19,4 +19,6 @@ public interface ISellerPageView extends BaseView {
     void showSellerInfo(Seller seller);
 
     void showSubscriptionStatus(boolean isSubscribe);
+
+    void showSubscriptionStatusMessage(boolean isSubscribe);
 }
