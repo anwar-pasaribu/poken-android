@@ -25,7 +25,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_order" />
+    <include
+        layout="@layout/content_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/clickable_size_64" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,9 +62,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTotalShoppingAmountLabel"
             android:layout_marginLeft="@dimen/item_gap_l"
-            tools:text="Rp 450.000"
+            android:textAllCaps="true"
             android:textStyle="bold"
-            android:textAllCaps="true" />
+            tools:text="Rp 450.000" />
 
         <Button
             android:id="@+id/btnContinueToPayment"

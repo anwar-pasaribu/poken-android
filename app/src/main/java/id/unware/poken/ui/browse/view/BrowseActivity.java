@@ -24,6 +24,7 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.model.BrowseModel;
 import id.unware.poken.ui.browse.presenter.BrowsePresenter;
 import id.unware.poken.ui.browse.view.adapter.BrowseProductAdapter;
+import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 
 public class BrowseActivity extends AppCompatActivity implements IBrowseView {
@@ -32,6 +33,9 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rvProductBrowsing) RecyclerView rvProductBrowsing;
+
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     private Unbinder unbinder;
 
@@ -108,7 +112,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     }
 
     private void setupToolbarView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(actionName);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -119,10 +123,33 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     private void initBrowseListView() {
         adapter = new BrowseProductAdapter(listItem, presenter);
-        adapter.setHasStableIds(true);
-        rvProductBrowsing.setHasFixedSize(true);
-        rvProductBrowsing.setLayoutManager(new GridLayoutManager(this, 2));
         rvProductBrowsing.setAdapter(adapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        rvProductBrowsing.setLayoutManager(gridLayoutManager);
+
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvProductBrowsing.addOnScrollListener(scrollListener);
+    }
+
+    private void loadNextDataFromApi(int page) {
+        Utils.Logs('i', TAG, "Next page: " + page);
+        if (presenter != null) {
+
+            Category category = new Category();
+            category.setId(categoryId);
+            category.setName(categoryName);
+
+            presenter.getMoreProduct(category, page);
+        }
     }
 
     @Override
@@ -158,6 +185,18 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     }
 
     @Override
+    public void appendProductList(ArrayList<Product> products) {
+        int moreProductsSize = products.size();
+        int currentProductsSize = listItem.size();
+        Utils.Logs('i', TAG, "More product list size: " + moreProductsSize);
+        Utils.Logs('i', TAG, "Current size " + currentProductsSize);
+
+        listItem.addAll(products);
+        adapter.notifyItemRangeInserted(currentProductsSize, moreProductsSize);
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_browse, menu);
@@ -185,6 +224,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     @Override
     protected void onDestroy() {
+        Utils.Log(TAG, "Endless scroll listener: " + String.valueOf(scrollListener));
         super.onDestroy();
         unbinder.unbind();
     }

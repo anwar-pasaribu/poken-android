@@ -9,5 +9,8 @@ import id.unware.poken.domain.Category;
 
 public interface ICategoryPresenter {
     void loadCategoryList();
+
     void onCategoryClick(int position, Category category);
+
+    void loadMoreCategoryList(int page);
 }

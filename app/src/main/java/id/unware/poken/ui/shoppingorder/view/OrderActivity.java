@@ -1,8 +1,8 @@
 package id.unware.poken.ui.shoppingorder.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.squareup.picasso.Picasso;
 
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.controller.ControllerDialog;
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
@@ -53,6 +55,11 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.parentClickableShippingAddress) ViewGroup parentClickableShippingAddress;
 
+    // ORDER STATUS HEADER
+    @BindView(R.id.orderParentHeader) RelativeLayout orderParentHeader;
+    @BindView(R.id.orderViewFlipperStatusView) ViewFlipper orderViewFlipperStatusView;
+
+
     // ADDRESS BOOK SECTION
     @BindView(R.id.parentNoShippingAddress) RelativeLayout parentNoShippingAddress;
     @BindView(R.id.orderDetailNoAddressBook) TextView orderDetailNoAddressBook;
@@ -74,10 +81,6 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     // Extra note (hide when no extra note)
     @BindView(R.id.orderTvExtraNoteLbl) TextView orderTvExtraNoteLbl;
     @BindView(R.id.orderTvExtraNote) TextView orderTvExtraNote;
-
-    // PAYMENT TYPE BUTTON
-    @BindView(R.id.tvSelectedShippingMethodName) TextView tvSelectedShippingMethodName;
-    @BindView(R.id.tvSelectedShippingMethodFee) TextView tvSelectedShippingMethodFee;
 
     // MAIN ACTION
     @BindView(R.id.tvTotalShoppingAmountLabel) TextView tvTotalShoppingAmountLabel;
@@ -106,7 +109,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private int selectedAddressBookIndex = 0;
 
     private String orderRef = "";
-    private long orderedProductId = -1;
+    private long orderDetailsId = -1;
     private boolean isReadOnlyMode = false;
     private double totalShoppingCost = 0;
     private Date paymentDue;
@@ -126,8 +129,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
             // Get ShoppingCart arrayList JSON String
             shoppingCartArrayListJsonString = getIntent().getStringExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
 
-            orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
-            if (orderedProductId != -1) {
+            orderDetailsId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
+            if (orderDetailsId != -1) {
                 isReadOnlyMode = true;
             }
 
@@ -136,8 +139,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
 
-        if (orderedProductId != -1) {
-            presenter.getShoppingOrderData(orderedProductId);
+        if (orderDetailsId != -1) {
+            presenter.getShoppingOrderData(orderDetailsId);
         } else {
             presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
         }
@@ -146,7 +149,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -182,7 +185,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getShoppingOrderData(orderedProductId);
+                presenter.getShoppingOrderData(orderDetailsId);
             }
         });
 
@@ -249,13 +252,13 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public void openPaymentScreen() {
         if (totalShoppingCost != 0
-                && orderedProductId != -1
+                && orderDetailsId != -1
                 && paymentDue != null) {
             Utils.Log(TAG, "Open payment screen. Order ref: " + this.orderRef);
             Intent paymentIntent = new Intent(this, PaymentActivity.class);
             paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
             paymentIntent.putExtra(Constants.EXTRA_ORDER_REF, this.orderRef);
-            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderDetailsId);
             paymentIntent.putExtra(Constants.EXTRA_PAYMENT_DUE, paymentDue);
             this.startActivity(paymentIntent);
         } else {
@@ -318,8 +321,6 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public void setupShippingMethod(Shipping shipping) {
         Utils.Logs('i', TAG, "Setup shipping method name: " + shipping.name + ", fee: " + shipping.fee);
-        tvSelectedShippingMethodName.setText(shipping.name);
-        tvSelectedShippingMethodFee.setText(StringUtils.formatCurrency(String.valueOf(shipping.fee)));
     }
 
     @Override
@@ -339,7 +340,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
-    public void showOrderId(String orderDetailUniqueId, long orderedProductId) {
+    public void showOrderId(String orderDetailUniqueId, long orderDetailsId) {
 
         // #1 Order Detail Unique Identifier
         if (getSupportActionBar() != null) {
@@ -349,16 +350,14 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         this.orderRef = orderDetailUniqueId;
 
         // #2 Ordered Product
-        this.orderedProductId = orderedProductId;
+        this.orderDetailsId = orderDetailsId;
     }
 
     @Override
     public void populateAddressBookList(ArrayList<AddressBook> addressBookArrayList) {
 
         // Turn "EDIT" Address Book ON
-        if (orderBtnChangeReceiverAddress != null) {
-            orderBtnChangeReceiverAddress.setEnabled(true);
-        }
+        orderBtnChangeReceiverAddress.setEnabled(true);
 
         this.addressBookArrayList.clear();
         this.addressBookArrayList.addAll(addressBookArrayList);
@@ -419,6 +418,51 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         } else {
             btnContinueToPayment.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void showViewStatusBooked() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.ORDERED);
+    }
+
+    @Override
+    public void showViewStatusPaid() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.PAID);
+    }
+
+    @Override
+    public void showViewStatusSent() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.SENT);
+
+        // Setup view
+        ViewGroup viewGroup = (ViewGroup) orderViewFlipperStatusView.getChildAt(OrderStatus.SENT);
+        Button statusSentBtnConfirmAccepted = viewGroup.findViewById(R.id.statusSentBtnConfirmAccepted);
+        statusSentBtnConfirmAccepted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControllerDialog.getInstance().showYesNoDialog(
+                        getString(R.string.msg_order_confirm_order_received),
+                        OrderActivity.this,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (DialogInterface.BUTTON_POSITIVE == i) {
+                                    if (presenter != null) {
+                                        presenter.confirmOrderReceived(orderDetailsId);
+                                    }
+
+                                    dialogInterface.dismiss();
+                                }
+                            }
+                        }
+                );
+            }
+        });
+    }
+
+    @Override
+    public void showViewStatusReceived() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.RECEIVED);
     }
 
     @Override

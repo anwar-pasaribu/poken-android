@@ -12,5 +12,8 @@ import id.unware.poken.ui.view.BaseView;
 
 public interface ISearchView extends BaseView {
     void pupulateProductSearchRes(ArrayList<Product> products);
+
     void showProductDetail(Product product);
+
+    void appendProductList(ArrayList<Product> products);
 }

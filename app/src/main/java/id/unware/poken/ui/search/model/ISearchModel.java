@@ -9,4 +9,5 @@ import id.unware.poken.ui.search.presenter.ISearchModelPresenter;
 
 public interface ISearchModel {
     void searchProductByQuery(String query, ISearchModelPresenter presenter);
+    void loadMoreSearchedProductQuery(String query, int page, ISearchModelPresenter presenter);
 }

@@ -1,9 +1,10 @@
 package id.unware.poken.ui.category.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import id.unware.poken.domain.CategoryDataRes;
 import id.unware.poken.domain.FeaturedCategoryProductDataRes;
+import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.httpConnection.AdRetrofit;
 import id.unware.poken.httpConnection.MyCallback;
 import id.unware.poken.httpConnection.PokenRequest;
@@ -30,20 +31,45 @@ public class CategoryModel extends MyCallback implements ICategoryModel {
     }
 
     @Override
+    public void reqFeaturedCategory(ICategoryModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        this.req.reqFeaturedProductCategoriesContent(new HashMap<String, String>()).enqueue(this);
+    }
+
+    @Override
+    public void requestMoreFeaturedProductCategory(ICategoryModelPresenter presenter, int page) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("page", String.valueOf(page));
+
+        this.req.reqFeaturedProductCategoriesContent(
+                queryParams
+        ).enqueue(this);
+    }
+
+    @Override
     public void onSuccess(Response response) {
 
-        if (response.body() instanceof CategoryDataRes) {
-            this.presenter.updateViewState(UIState.FINISHED);
+        this.presenter.onNextProductPage(((FeaturedCategoryProductDataRes) response.body()).next);
 
-            Utils.Log(TAG, "category data response.");
-            this.presenter.onCategoryListResponse(((CategoryDataRes) response.body()).results);
-        } else if (response.body() instanceof FeaturedCategoryProductDataRes) {
+        this.presenter.updateViewState(UIState.FINISHED);
+
+        if (response.body() instanceof FeaturedCategoryProductDataRes) {
 
             Utils.Log(TAG, "Featured product per category found.");
             this.presenter.onFeaturedProductPerCategoryResponse((FeaturedCategoryProductDataRes) response.body());
 
         }
-
     }
 
     @Override
@@ -58,28 +84,5 @@ public class CategoryModel extends MyCallback implements ICategoryModel {
     @Override
     public void onFinish() {
         this.presenter.updateViewState(UIState.FINISHED);
-    }
-
-    @Override
-    public void reqProductCategory(ICategoryModelPresenter presenter) {
-        if (this.presenter == null) {
-            this.presenter = presenter;
-        }
-
-        this.presenter.updateViewState(UIState.LOADING);
-
-        this.req.reqProductCategoriesContent(new HashMap<String, String>()).enqueue(this);
-
-    }
-
-    @Override
-    public void reqFeaturedCategory(ICategoryModelPresenter presenter) {
-        if (this.presenter == null) {
-            this.presenter = presenter;
-        }
-
-        this.presenter.updateViewState(UIState.LOADING);
-
-        this.req.reqFeaturedProductCategoriesContent(new HashMap<String, String>()).enqueue(this);
     }
 }

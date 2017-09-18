@@ -56,8 +56,31 @@ public class SearchModel extends MyCallback implements ISearchModel {
     }
 
     @Override
+    public void loadMoreSearchedProductQuery(String query, int page, ISearchModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        MyLog.FabricLog(Log.VERBOSE, TAG.concat(" - search query: ").concat(query));
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("name", String.valueOf(query));
+        queryParams.put("category_name", String.valueOf(query));
+        queryParams.put("page", String.valueOf(page));
+
+        this.req.reqSearchProductContent(
+                queryParams)
+                .enqueue(this);
+    }
+
+    @Override
     public void onSuccess(Response response) {
         presenter.updateViewState(UIState.FINISHED);
+
+        this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+
         ArrayList<Product> products = new ArrayList<>();
         products.addAll(((ProductDataRes) response.body()).results);
         if (products.size() > 0) {

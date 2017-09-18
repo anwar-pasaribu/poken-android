@@ -12,4 +12,6 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface ISearchModelPresenter extends BasePresenter{
     void onProductsResponse(ArrayList<Product> products);
+
+    void onNextProductPage(String next);
 }

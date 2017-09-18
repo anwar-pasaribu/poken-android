@@ -40,6 +40,8 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
             this.presenter = presenter;
         }
 
+        this.presenter.updateViewState(UIState.LOADING);
+
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("action_id", String.valueOf(actionId));
 
@@ -59,6 +61,8 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
             this.presenter = presenter;
         }
 
+        this.presenter.updateViewState(UIState.LOADING);
+
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("category_id", String.valueOf(category.getId()));
         queryParams.put("category_name", category.getName());
@@ -77,8 +81,36 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
     }
 
     @Override
+    public void requestMoreProductByCategory(IBrowseModelPresenter presenter, Category category, int nextPage) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("category_id", String.valueOf(category.getId()));
+        queryParams.put("category_name", category.getName());
+        queryParams.put("page", String.valueOf(nextPage));
+
+        if (PokenCredentials.getInstance().getCredentialHashMap() == null) {
+            this.req.reqProductContentByCategory(
+                    queryParams)
+                    .enqueue(this);
+        } else {
+            this.req.reqProductContentByCategory(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams)
+                    .enqueue(this);
+        }
+    }
+
+    @Override
     public void onSuccess(Response response) {
         presenter.updateViewState(UIState.FINISHED);
+
+        this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+
         ArrayList<Product> products = new ArrayList<>();
         products.addAll(((ProductDataRes) response.body()).results);
         if (products.size() > 0) {

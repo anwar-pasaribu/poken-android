@@ -62,6 +62,13 @@ public class CategorySectionAdapter extends RecyclerView.Adapter<CategorySection
 
         if (itemsList.get(i).getImageResource() != 0) {
             holder.itemImage.setImageResource(itemsList.get(i).getImageResource());
+
+            if (itemsList.get(i).getImageResource() == R.drawable.ic_category) {
+                holder.itemImage.setScaleType(ImageView.ScaleType.CENTER);
+            } else {
+                holder.itemImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+
         } else if (itemsList.get(i).getImageResource() == 0
                 && !StringUtils.isEmpty(itemsList.get(i).getImageUrl())) {
 

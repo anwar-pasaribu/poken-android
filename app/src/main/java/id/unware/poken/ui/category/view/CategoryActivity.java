@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.MemoryCategory;
+
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -18,8 +20,11 @@ import id.unware.poken.domain.FeaturedCategoryProduct;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.browse.view.BrowseActivity;
+import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.category.model.CategoryModel;
 import id.unware.poken.ui.category.presenter.CategoryPresenter;
 import id.unware.poken.ui.category.view.adapter.CategoryAdapter;
@@ -33,13 +38,22 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
 
     private CategoryPresenter presenter;
 
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
+
     private CategoryAdapter adapter;
     private ArrayList<FeaturedCategoryProduct> listItem = new ArrayList<>();
+
+    private GlideRequests glideRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
+        glideRequests = GlideApp.with(this);
+
         ButterKnife.bind(this);
 
         presenter = new CategoryPresenter(new CategoryModel(), this);
@@ -54,15 +68,37 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        adapter = new CategoryAdapter(this, listItem, presenter);
-        categoryRvMain.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new CategoryAdapter(this, glideRequests, listItem, presenter);
         categoryRvMain.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(
+                        this, LinearLayoutManager.VERTICAL, false);
 
+        categoryRvMain.setLayoutManager(linearLayoutManager);
+
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        categoryRvMain.addOnScrollListener(scrollListener);
+
+    }
+
+    private void loadNextDataFromApi(int page) {
+        if (presenter != null) {
+            presenter.loadMoreCategoryList(page);
+        }
     }
 
     @Override
@@ -91,14 +127,6 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
     }
 
     @Override
-    public void pupulateCategories(ArrayList<Category> categories) {
-        Utils.Log(TAG, "Category list size: " + categories.size());
-        // listItem.clear();
-        // listItem.addAll(categories);
-        // adapter.notifyDataSetChanged();
-    }
-
-    @Override
     public void showCategoryDetail(Category category) {
         Utils.Log(TAG, "Show category detail: " + category.getName());
         Intent browsePage = new Intent(this, BrowseActivity.class);
@@ -124,5 +152,17 @@ public class CategoryActivity extends BaseActivityWithup implements ICategoryVie
         listItem.clear();
         listItem.addAll(featuredCategoryProducts);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void appendFeaturedCategories(ArrayList<FeaturedCategoryProduct> categories) {
+        int moreProductsSize = categories.size();
+        int currentProductsSize = listItem.size();
+        Utils.Logs('i', TAG, "More product list size: " + moreProductsSize);
+        Utils.Logs('i', TAG, "Current size " + currentProductsSize);
+
+        listItem.addAll(categories);
+        adapter.notifyItemRangeInserted(currentProductsSize, moreProductsSize);
+
     }
 }

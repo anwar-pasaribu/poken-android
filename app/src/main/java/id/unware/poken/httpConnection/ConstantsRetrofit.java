@@ -16,6 +16,7 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
     public static final String ENDPOINT_PATCH_SHOPPING_CART = "cart/{pk}/";
+    public static final String ENDPOINT_PATCH_ORDER_DETAILS_STATUS = "order_details/{pk}/";
     public static final String ENDPOINT_INSERT_SHOPPING_CART = "insert_cart/";
     public static final String ENDPOINT_INSERT_SELLER_SUBSCRIPTION = "insert_customer_subscribed/";
     public static final String ENDPOINT_INSERT_ORDER_DETAIL = "insert_order_detail/";

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.OrderDetail;
-import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.ui.view.BaseView;
@@ -21,14 +20,20 @@ public interface IShoppingOrderView extends BaseView {
     void openPaymentScreen();
 
     void setupShippingReceiver(AddressBook addressBook);
+
     void setupSelectedProduct(ShoppingCart shoppingCart);
+
     void setupSelectedProducts(ArrayList<ShoppingCart> shoppingCarts);
+
     void setupShippingMethod(Shipping shipping);
+
     void showTotalAmount(double grandTotal);
 
     void showAddressBookScreen(boolean isAddressBookAvailable);
+
     void showNoReceiverAddressView(boolean isShow);
-    void showOrderId(String orderDetailUniqueId, long orderedProductId);
+
+    void showOrderId(String orderDetailUniqueId, long orderDetailsId);
 
     void populateAddressBookList(ArrayList<AddressBook> addressBookArrayList);
 
@@ -43,4 +48,12 @@ public interface IShoppingOrderView extends BaseView {
     void setupPaymentView(OrderDetail orderDetail);
 
     void showPayNowView(boolean isShow);
+
+    void showViewStatusBooked();
+
+    void showViewStatusPaid();
+
+    void showViewStatusSent();
+
+    void showViewStatusReceived();
 }

@@ -58,11 +58,9 @@ public interface PokenRequest {
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_HOME_CONTENT)
     Call<HomeDataRes> reqHomeContent(@HeaderMap Map<String, String> headerMap);
 
-    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCT_CATEGORY)
-    Call<CategoryDataRes> reqProductCategoriesContent(@HeaderMap Map<String, String> headerMap);
-
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_FEATURED_CATEGORY)
-    Call<FeaturedCategoryProductDataRes> reqFeaturedProductCategoriesContent(@HeaderMap Map<String, String> headerMap);
+    Call<FeaturedCategoryProductDataRes> reqFeaturedProductCategoriesContent(
+            @QueryMap Map<String, String> queryMap);
 
     @GET(ConstantsRetrofit.ENDPOINT_GET_FEATURED)
     Call<Featured> reqSingleFeaturedItemDetail(@Path("pk") String featuredId);
@@ -82,6 +80,13 @@ public interface PokenRequest {
     @FormUrlEncoded
     @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_SHOPPING_CART)
     Call<ShoppingCart> patchShoppingCartExtraNote(
+            @Path("pk") long itemId,
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
+
+    @FormUrlEncoded
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_ORDER_DETAILS_STATUS)
+    Call<OrderDetail> patchOrderDetailsStatus(
             @Path("pk") long itemId,
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);

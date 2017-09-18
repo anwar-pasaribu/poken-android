@@ -21,6 +21,7 @@
             android:id="@+id/itemImage"
             android:layout_width="@dimen/clickable_size_64"
             android:layout_height="@dimen/clickable_size_64"
+            android:scaleType="center"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/ic_circle_64dp"
             tools:src="@drawable/ic_category" />

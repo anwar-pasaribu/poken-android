@@ -172,6 +172,7 @@
     <string name="btn_continue_checkout">Lanjut ke Pembayaran</string>
     <string name="title_activity_order">Orderan</string>
     <string name="btn_pay_now">Bayar Sekarang</string>
+    <string name="btn_order_received">Barang Telah Diterima</string>
     <string name="lbl_shipping_destination">Tujuan Pengiriman</string>
     <string name="lbl_ordered_product_section">Barang Pesanan</string>
     <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
@@ -241,5 +242,12 @@
     <string name="btn_negative_later">NANTI</string>
     <string name="msg_seller_subscribed">Berhasil berlanggan</string>
     <string name="msg_seller_unsubscribed">Berhenti berlanggan</string>
+    <string name="lbl_status_order_unpaid">Pesanan belum dibayar</string>
+    <string name="lbl_status_order_paid">Pesanan telah dibayar</string>
+    <string name="lbl_status_order_sent">Pesanan dikirim</string>
+    <string name="lbl_status_order_received">Pesanan diterima</string>
+    <string name="lbl_status_order_sucsess">Pesanan berhasil</string>
+    <string name="lbl_order_status_title">Status pesanan</string>
+    <string name="msg_order_confirm_order_received">Apakah barang pesanan sudah diterima?</string>
 
 </resources>

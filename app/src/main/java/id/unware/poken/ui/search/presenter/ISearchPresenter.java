@@ -10,4 +10,6 @@ import id.unware.poken.domain.Product;
 public interface ISearchPresenter {
     void beginSearch(String query);
     void startProductDetail(Product product);
+
+    void loadMoreSearchResult(String submittedQuery, int nextPage);
 }

@@ -12,11 +12,12 @@ import id.unware.poken.ui.view.BaseView;
  */
 
 public interface ICategoryView extends BaseView {
-    void pupulateCategories(ArrayList<Category> categories);
 
     void showCategoryDetail(Category category);
 
     void showMessage(String msg, int status);
 
     void pupulateFeaturedCategories(ArrayList<FeaturedCategoryProduct> featuredCategoryProducts);
+
+    void appendFeaturedCategories(ArrayList<FeaturedCategoryProduct> categories);
 }

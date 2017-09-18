@@ -14,4 +14,6 @@ public interface IBrowseView extends BaseView {
     void pupolateSellerProductList(ArrayList<Product> products);
 
     void showProductDetail(Product product);
+
+    void appendProductList(ArrayList<Product> products);
 }

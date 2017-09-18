@@ -101,6 +101,11 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     }
 
     @Override
+    public void confirmOrderReceived(long orderDetailsId) {
+        model.patchOrderDetailsStatus(this, orderDetailsId, OrderStatus.RECEIVED);
+    }
+
+    @Override
     public void updateViewState(UIState uiState) {
 
         if (view.isActivityFinishing()) return;
@@ -178,7 +183,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         if (view.isActivityFinishing()) return;
 
-        Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id);
+        Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id + ", status: " + orderDetail.order_status);
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
         // Begin add ordered product
@@ -198,6 +203,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             );
         } else {
             Utils.Logs('w', TAG, "ORDER DETAIL DATA UPDATED.");
+            setupOrderDetailsViewByOrderStatus(orderDetail);
         }
 
     }
@@ -298,5 +304,21 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         setupSelectedProduct(shoppingCarts);
 
         view.setupShippingMethod(shipping);
+
+        setupOrderDetailsViewByOrderStatus(orderDetail);
+
+    }
+
+    private void setupOrderDetailsViewByOrderStatus(OrderDetail orderDetail) {
+        // DECIDE ORDER STATUS VIEW
+        if (orderDetail.order_status == OrderStatus.ORDERED) {
+            view.showViewStatusBooked();
+        } else if (orderDetail.order_status == OrderStatus.PAID) {
+            view.showViewStatusPaid();
+        } else if (orderDetail.order_status == OrderStatus.SENT) {
+            view.showViewStatusSent();
+        } else if (orderDetail.order_status == OrderStatus.RECEIVED) {
+            view.showViewStatusReceived();
+        }
     }
 }

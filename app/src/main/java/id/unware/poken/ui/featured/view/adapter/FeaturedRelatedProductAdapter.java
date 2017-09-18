@@ -22,6 +22,7 @@ import id.unware.poken.tools.glide.GlideRequest;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.featured.presenter.IFeaturedPresenter;
 
+
 /**
  * @author Anwar Pasaribu
  * @since Jul 7 2017

@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
+import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.search.model.SearchModel;
 import id.unware.poken.ui.search.presenter.SearchPresenter;
@@ -42,6 +44,9 @@ public class SearchActivity extends AppCompatActivity
     @BindView(R.id.rvProducts) RecyclerView rvProducts;
 
     private SearchPresenter presenter;
+
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     private ArrayList<Product> listItem = new ArrayList<>();
     private SearchProductAdapter adapter;
@@ -65,7 +70,7 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(null);
@@ -86,11 +91,29 @@ public class SearchActivity extends AppCompatActivity
 
     private void initSearchResultView() {
         adapter = new SearchProductAdapter(listItem, presenter);
-        adapter.setHasStableIds(true);
-        rvProducts.setHasFixedSize(true);
-        rvProducts.setLayoutManager(new GridLayoutManager(this, 2));
         rvProducts.setAdapter(adapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        rvProducts.setLayoutManager(gridLayoutManager);
 
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvProducts.addOnScrollListener(scrollListener);
+
+    }
+
+    private void loadNextDataFromApi(int nextPage) {
+        Utils.Logs('i', TAG, "Next page: " + nextPage);
+        if (presenter != null) {
+            presenter.loadMoreSearchResult(submittedQuery, nextPage);
+        }
     }
 
     @Override
@@ -239,5 +262,16 @@ public class SearchActivity extends AppCompatActivity
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
         productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
         this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
+    }
+
+    @Override
+    public void appendProductList(ArrayList<Product> products) {
+        int moreProductsSize = products.size();
+        int currentProductsSize = listItem.size();
+        Utils.Logs('i', TAG, "More product list size: " + moreProductsSize);
+        Utils.Logs('i', TAG, "Current size " + currentProductsSize);
+
+        listItem.addAll(products);
+        adapter.notifyItemRangeInserted(currentProductsSize, moreProductsSize);
     }
 }

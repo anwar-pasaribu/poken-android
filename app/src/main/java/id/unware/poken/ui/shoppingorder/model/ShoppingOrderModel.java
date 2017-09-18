@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
@@ -176,6 +177,29 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
         }
 
         this.presenter.onShoppingCartsParseResponse(shoppingCarts);
+    }
+
+    @Override
+    public void patchOrderDetailsStatus(IShoppingOrderModelPresenter presenter, long orderDetailsId, int orderStatus) {
+
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> postBody = new HashMap<>();
+        postBody.put("order_status", String.valueOf(orderStatus));
+
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            // noinspection unchecked
+            req.patchOrderDetailsStatus(
+                    orderDetailsId,
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    postBody)
+                    .enqueue(this);
+        }
+
     }
 
     @Override

@@ -19,4 +19,6 @@ public interface IBrowsePresenter {
     void getProductByCategory(Category category);
 
     void startProductDetail(Product product);
+
+    void getMoreProduct(Category category, int nextPage);
 }
