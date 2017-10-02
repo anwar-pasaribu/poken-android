@@ -278,9 +278,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         return shoppingCart.total_price;
     }
 
-    private void setupOrderDetailView(ShoppingOrder shoppingOrder) {
-        ArrayList<ShoppingCart> shoppingCarts = shoppingOrder.shopping_carts;
-        OrderDetail orderDetail = shoppingOrder.order_details;
+    private void setupOrderDetailView(ShoppingOrder orderedProduct) {
+        ArrayList<ShoppingCart> shoppingCarts = orderedProduct.shopping_carts;
+        OrderDetail orderDetail = orderedProduct.order_details;
         AddressBook addressBook = orderDetail.address_book;
         Shipping shipping = shoppingCarts.get(0).shipping;
 
@@ -297,7 +297,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             view.showPayNowView(false);
         }
 
-        view.showOrderId(orderDetail.order_id, orderDetail.id, shoppingOrder.id);
+        view.showOrderId(orderDetail.order_id, orderDetail.id, orderedProduct.id);
 
         view.setupShippingReceiver(addressBook);
 
