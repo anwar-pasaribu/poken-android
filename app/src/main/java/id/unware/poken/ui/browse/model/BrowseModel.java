@@ -7,9 +7,9 @@ import java.util.Map;
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
-import id.unware.poken.httpConnection.AdRetrofit;
-import id.unware.poken.httpConnection.MyCallback;
-import id.unware.poken.httpConnection.PokenRequest;
+import id.unware.poken.connections.AdRetrofit;
+import id.unware.poken.connections.MyCallback;
+import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
@@ -44,6 +44,28 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
 
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("action_id", String.valueOf(actionId));
+
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            this.req.reqProductContent(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams)
+                    .enqueue(this);
+        } else {
+            this.req.reqProductContentByActionId(queryParams).enqueue(this);
+        }
+    }
+
+    @Override
+    public void requestMoreProductsByIntentId(IBrowseModelPresenter presenter, int actionId, int page) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("action_id", String.valueOf(actionId));
+        queryParams.put("page", String.valueOf(page));
 
         if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
             this.req.reqProductContent(

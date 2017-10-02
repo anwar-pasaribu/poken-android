@@ -4,6 +4,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.LoginEvent;
+import com.crashlytics.android.answers.SearchEvent;
 import com.crashlytics.android.answers.SignUpEvent;
 
 import id.unware.poken.BuildConfig;
@@ -95,5 +96,11 @@ public class MyLog extends Utils{
         Answers.getInstance().logSignUp(new SignUpEvent()
                 .putMethod(String.valueOf(strLoginMethodName))
                 .putSuccess(isSuccess));
+    }
+
+    public static void FabricTrackSearchQuery(String queryString) {
+
+        Answers.getInstance().logSearch(new SearchEvent()
+                .putQuery(queryString));
     }
 }

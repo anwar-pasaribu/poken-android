@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical"
+    android:paddingTop="@dimen/item_gap_s"
     android:paddingBottom="@dimen/item_gap_s">
 
     <android.support.v7.widget.RecyclerView

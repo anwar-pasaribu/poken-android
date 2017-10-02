@@ -1,4 +1,4 @@
-package id.unware.poken.httpConnection;
+package id.unware.poken.connections;
 
 @SuppressWarnings("WeakerAccess")
 public class ConstantsRetrofit {
@@ -23,6 +23,8 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_INSERT_ORDERED_PRODUCT = "insert_ordered_product/";
     public static final String ENDPOINT_INSERT_ADDRESS_BOOK = "address_book/";
     public static final String ENDPOINT_DELETE_SHOPPING_CART = "cart/{pk}/";
+    public static final String ENDPOINT_DELETE_ADDRESS_BOOK = "address_book/{pk}/";
+    public static final String ENDPOINT_PATCH_ADDRESS_BOOK = "address_book/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_ORDER = "ordered_product/";
     public static final String ENDPOINT_FETCH_SHOPPING_ORDER_DETAIL = "ordered_product/{pk}";
     public static final String ENDPOINT_FETCH_ADDRESS_BOOK = "address_book/";

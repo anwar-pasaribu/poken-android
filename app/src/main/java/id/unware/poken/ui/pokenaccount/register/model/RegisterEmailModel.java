@@ -1,14 +1,12 @@
 package id.unware.poken.ui.pokenaccount.register.model;
 
-import android.util.Base64;
-
 import java.util.HashMap;
 
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.User;
-import id.unware.poken.httpConnection.AdRetrofit;
-import id.unware.poken.httpConnection.MyCallback;
-import id.unware.poken.httpConnection.PokenRequest;
+import id.unware.poken.connections.AdRetrofit;
+import id.unware.poken.connections.MyCallback;
+import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;

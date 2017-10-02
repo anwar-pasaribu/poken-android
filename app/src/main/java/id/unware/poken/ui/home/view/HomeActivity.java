@@ -53,8 +53,6 @@ import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
-import static id.unware.poken.tools.Utils.newInstagramProfileIntent;
-
 public class HomeActivity extends AppCompatActivity implements IHomeView {
 
     private final String TAG = "HomeAcivity";
@@ -99,7 +97,7 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
         presenter = new HomePresenter(new HomeModel(realm), HomeActivity.this);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         createInitialHomeData();

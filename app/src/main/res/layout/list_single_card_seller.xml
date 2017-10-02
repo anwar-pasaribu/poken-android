@@ -8,8 +8,8 @@
     android:layout_marginBottom="@dimen/item_gap_s"
     android:layout_marginLeft="@dimen/item_gap_m"
     android:layout_marginTop="@dimen/item_gap_s"
-    app:cardCornerRadius="@dimen/item_gap_s"
     android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/card_radius_s"
     app:cardUseCompatPadding="false">
 
     <RelativeLayout
@@ -30,10 +30,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_star_black_24dp"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/item_gap_m"
-            android:tint="@color/package_status_picked"/>
+            android:tint="@color/package_status_picked"
+            app:srcCompat="@drawable/ic_star_black_24dp" />
 
         <TextView
             android:id="@+id/tvTitle"

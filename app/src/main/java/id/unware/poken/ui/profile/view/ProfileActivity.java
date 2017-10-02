@@ -1,6 +1,11 @@
 package id.unware.poken.ui.profile.view;
 
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 
 import android.os.Bundle;
@@ -14,8 +19,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.unware.poken.BuildConfig;
 import id.unware.poken.R;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.ShoppingOrder;
@@ -26,12 +34,15 @@ import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.customerorder.view.OrdersFragment;
+import id.unware.poken.ui.home.view.HomeActivity;
 import id.unware.poken.ui.profile.view.adapter.SectionsPagerAdapter;
 import id.unware.poken.ui.shoppingorder.view.OrderActivity;
 
 public class ProfileActivity extends BaseActivityWithup implements OrdersFragment.OnOrderFragmentListener {
 
     private static final String TAG = "ProfileActivity";
+
+    public static final String ACTION = BuildConfig.APPLICATION_ID + ".OPEN_SHORTCUT_PROFILE";
 
     @BindView(R.id.parentProfileInfo) ViewGroup parentProfileInfo;
     @BindView(R.id.ivUserAvatar) ImageView ivUserAvatar;
@@ -67,7 +78,7 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
     }
 
     private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -124,6 +135,18 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
     }
 
     private void proceedSignout() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+
+            if (shortcutManager != null) {
+                shortcutManager.removeDynamicShortcuts(Collections.singletonList(getString(R.string.shortcuts_id_profile)));
+            } else {
+                Utils.Logs('e', TAG, "Shortcut manager is empty");
+            }
+        }
+
         PokenCredentials.getInstance().setCredential(null);
         this.finish();
     }

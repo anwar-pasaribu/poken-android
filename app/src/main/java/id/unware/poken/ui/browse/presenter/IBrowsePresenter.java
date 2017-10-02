@@ -16,9 +16,12 @@ public interface IBrowsePresenter {
      */
     void getProductDataByIntentId(int intentId);
 
+    void getMoreProductDataByIntentId(int actionId, int page);
+
     void getProductByCategory(Category category);
 
     void startProductDetail(Product product);
 
-    void getMoreProduct(Category category, int nextPage);
+    void getMoreProductByCategory(Category category, int nextPage);
+
 }

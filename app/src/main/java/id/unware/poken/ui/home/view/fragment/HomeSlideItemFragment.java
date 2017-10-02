@@ -41,7 +41,7 @@ public class HomeSlideItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageView textView = (ImageView) rootView.findViewById(R.id.imageView);
+        ImageView textView = rootView.findViewById(R.id.imageView);
         //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
         return rootView;
     }

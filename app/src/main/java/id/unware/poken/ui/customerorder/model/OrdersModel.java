@@ -1,20 +1,17 @@
 package id.unware.poken.ui.customerorder.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
-import id.unware.poken.httpConnection.AdRetrofit;
-import id.unware.poken.httpConnection.MyCallback;
-import id.unware.poken.httpConnection.PokenRequest;
+import id.unware.poken.connections.AdRetrofit;
+import id.unware.poken.connections.MyCallback;
+import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.customerorder.presenter.IOrdersModelPresenter;
-import okhttp3.Credentials;
 import retrofit2.Response;
 
 /**

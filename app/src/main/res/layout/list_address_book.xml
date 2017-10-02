@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentOrderedProduct"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_gap_s"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white_100"
+    app:cardCornerRadius="@dimen/default_button_radius"
+    app:cardElevation="@dimen/default_button_radius"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/list_item_spacing"
+        android:paddingLeft="@dimen/item_gap_m"
+        android:paddingRight="@dimen/item_gap_m"
+        android:paddingTop="@dimen/list_item_spacing">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_gap_xs"
+            android:layout_toLeftOf="@+id/addressBookItemIbMenu"
+            android:layout_toRightOf="@+id/rbIsSelected"
+            android:textAppearance="@style/TextListTitle"
+            android:textStyle="bold"
+            tools:text="Anwar Pasaribu" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text"
+            android:layout_marginBottom="@dimen/item_gap_xs"
+            android:layout_toLeftOf="@+id/addressBookItemIbMenu"
+            android:layout_toRightOf="@+id/rbIsSelected"
+            android:textAppearance="@style/TextListSubtitle"
+            tools:text="087884155479" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phone"
+            android:layout_toLeftOf="@+id/addressBookItemIbMenu"
+            android:layout_toRightOf="@+id/rbIsSelected"
+            android:textAppearance="@style/TextListSubtitle"
+            tools:text="Jl. Lapangan Bola No. 3\nLine 2\nLine 3" />
+
+        <ImageButton
+            android:id="@+id/addressBookItemIbMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:rotation="90"
+            android:tint="@color/separator_view"
+            app:srcCompat="@drawable/ic_chevron_right_24dp" />
+
+        <RadioButton
+            android:id="@+id/rbIsSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusableInTouchMode="false" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

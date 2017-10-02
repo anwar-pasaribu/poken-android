@@ -16,7 +16,7 @@ public class BaseActivityWithup extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_with_up);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+        mToolbar = findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
         if(getSupportActionBar() != null) {

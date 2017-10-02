@@ -1,10 +1,9 @@
-package id.unware.poken.httpConnection;
+package id.unware.poken.connections;
 
 import java.util.Map;
 
 import id.unware.poken.domain.AddressBook;
 import id.unware.poken.domain.AddressBookDataRes;
-import id.unware.poken.domain.CategoryDataRes;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.CustomerCollectionDataRes;
 import id.unware.poken.domain.CustomerSubscription;
@@ -91,6 +90,13 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_ADDRESS_BOOK)
+    Call<AddressBook> patchAddressBookChanges(
+            @Header("Content-Type") String contentType,
+            @Path("pk") long itemId,
+            @HeaderMap Map<String, String> headerMap,
+            @Body AddressBook addressBook);
+
     @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_ORDER_DETAIL)
     Call<OrderDetail> postNewOrUpdateOrderDetails(
@@ -119,6 +125,9 @@ public interface PokenRequest {
 
     @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_SHOPPING_CART)
     Call<Object> deleteShoppingCartContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long shoppingCartId);
+
+    @DELETE(ConstantsRetrofit.ENDPOINT_DELETE_ADDRESS_BOOK)
+    Call<Object> deleteAddressBookContent(@HeaderMap Map<String, String> headerMap, @Path("pk") long addressBookId);
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_ADDRESS_BOOK)
     Call<AddressBookDataRes> reqAddressBookContent(@HeaderMap Map<String, String> headerMap);

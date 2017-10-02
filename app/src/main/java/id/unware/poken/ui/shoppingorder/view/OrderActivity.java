@@ -1,5 +1,6 @@
 package id.unware.poken.ui.shoppingorder.view;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.address.view.AddressActivity;
 import id.unware.poken.ui.payment.view.PaymentActivity;
 import id.unware.poken.ui.shoppingorder.model.ShoppingOrderModel;
 import id.unware.poken.ui.shoppingorder.presenter.ShoppingOrderPresenter;
@@ -147,6 +149,25 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         }
 
         initView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Utils.Logs('w', TAG, "On activity result. Request code: " + requestCode + ", res: " + resultCode);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.REQ_CODE_ADDRESS_BOOK) {
+                Utils.Logs('i', TAG, "Address book data found.");
+                AddressBook addressBookResult = data.getParcelableExtra(Constants.EXTRA_SELECTED_ADDRESS_BOOK);
+                if (addressBookResult != null) {
+                    setupSelectedAddressBook(addressBookResult);
+                } else {
+                    Utils.Log(TAG, "No parcelable address book found.");
+                }
+            }
+        }
     }
 
     private void initView() {
@@ -473,17 +494,21 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     public void showAddressBookScreen(boolean isAddressBookAvailable) {
         Utils.Logs('v', TAG, "Show address book dialog.");
 
-        addressBookDialogFragment =
-                AddressBookDialogFragment.newInstance(
-                        0,
-                        selectedAddressBookIndex,
-                        isAddressBookAvailable  /* Open when address book not available*/
-                );
+        Intent addressBookIntent = new Intent(this, AddressActivity.class);
+        addressBookIntent.putExtra(Constants.EXTRA_ORDER_ID, this.orderDetailsId);
+        startActivityForResult(addressBookIntent, Constants.REQ_CODE_ADDRESS_BOOK);
 
-        addressBookDialogFragment.show(
-                this.getSupportFragmentManager(),
-                "addressbook-dialog"
-        );
+//        addressBookDialogFragment =
+//                AddressBookDialogFragment.newInstance(
+//                        0,
+//                        selectedAddressBookIndex,
+//                        isAddressBookAvailable  /* Open when address book not available*/
+//                );
+//
+//        addressBookDialogFragment.show(
+//                this.getSupportFragmentManager(),
+//                "addressbook-dialog"
+//        );
     }
 
     @Override
@@ -557,5 +582,18 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public void onViewReady() {
         addressBookDialogFragment.setListData(this.addressBookArrayList);
+    }
+
+    private void setupSelectedAddressBook(AddressBook addressBook) {
+        this.selectedAddressBookId = addressBook.id;
+
+        this.setupShippingReceiver(addressBook);
+        this.showNoReceiverAddressView(false);
+
+        // Update order detail with selected address book
+        this.presenter.createOrUpdateOrderDetail(
+                this.getSelectedShoppingCartIds(),
+                addressBook
+        );
     }
 }

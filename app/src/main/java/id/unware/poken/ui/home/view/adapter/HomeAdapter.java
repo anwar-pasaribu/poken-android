@@ -356,7 +356,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public class HeaderRowHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
-//        @BindView(R.id.viewPagerHomeSlider) ViewPager viewPagerHomeSlider;
 
         public HeaderRowHolder(View itemView) {
             super(itemView);

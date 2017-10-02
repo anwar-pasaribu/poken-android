@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,34 +36,34 @@
 
     </RelativeLayout>
 
-
-    <ViewFlipper
-        android:id="@+id/addressBookParentViewFlipper"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/addressBookRecyclerView"
+        <ViewFlipper
+            android:id="@+id/addressBookParentViewFlipper"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/list_item_spacing_half"
-            android:paddingTop="@dimen/list_item_spacing_half"
-            tools:context="id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment"
-            tools:listitem="@layout/fragment_item_list_dialog_item" />
+            android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/addressBookRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/list_item_spacing_half"
+                android:paddingTop="@dimen/list_item_spacing_half"
+                tools:context="id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment"
+                tools:listitem="@layout/list_address_book" />
+
             <!-- INPUT ADDRESS BOOK LAYOUT-->
             <include
                 layout="@layout/content_input_address_book"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </android.support.v4.widget.NestedScrollView>
 
-    </ViewFlipper>
+        </ViewFlipper>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </RelativeLayout>

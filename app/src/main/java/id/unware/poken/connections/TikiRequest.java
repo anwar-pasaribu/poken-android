@@ -1,4 +1,4 @@
-package id.unware.poken.httpConnection;
+package id.unware.poken.connections;
 
 import id.unware.poken.pojo.PojoAreaData;
 import id.unware.poken.pojo.PojoOfficeLocationData;

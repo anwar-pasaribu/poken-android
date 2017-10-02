@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/orderParentHeader" />
 
+            <!-- S: Section for shipping address-->
             <RelativeLayout
                 android:id="@+id/orderDetailParentShippingDestination"
                 android:layout_width="match_parent"
@@ -205,6 +206,7 @@
                 </RelativeLayout>
 
             </RelativeLayout>
+            <!-- E: Section for shipping address-->
 
             <include
                 android:id="@+id/orderSepShippingAddress"
@@ -213,6 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/orderDetailParentShippingDestination" />
 
+            <!-- S: Selected product-->
             <RelativeLayout
                 android:id="@+id/parentClickableSelectedProduct"
                 android:layout_width="match_parent"
@@ -422,6 +425,7 @@
                 </RelativeLayout>
 
             </RelativeLayout>
+            <!-- E: Selected product-->
 
             <include
                 android:layout_width="match_parent"

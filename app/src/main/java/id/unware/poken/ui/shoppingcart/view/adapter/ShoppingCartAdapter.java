@@ -217,7 +217,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                         new InputDialogListener() {
                             @Override
                             public void onInputTextDone(CharSequence text) {
+
                                 Utils.Log(TAG, "Input extra note: \"" + text + "\"");
+
+                                // Check item on adding quantity
+                                holder.cbSelectAllStoreItem.setChecked(true);
+
                                 if (StringUtils.isEmpty(String.valueOf(text))) {
                                     holder.rowCartAddNoteTextView.setText(holder.hint_cart_add_note);
                                 } else {

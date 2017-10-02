@@ -30,7 +30,12 @@ public class SearchPresenter implements ISearchPresenter, ISearchModelPresenter 
 
     @Override
     public void beginSearch(String query) {
-        model.searchProductByQuery(query, this);
+        this.isLoadMore = false;
+        if (!StringUtils.isEmpty(query)) {
+            model.searchProductByQuery(query, this);
+        } else {
+            view.showViewState(UIState.FINISHED);
+        }
     }
 
     @Override

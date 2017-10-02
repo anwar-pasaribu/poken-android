@@ -12,8 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/card_bg"
-    app:cardCornerRadius="@dimen/item_gap_s"
+    style="@style/PokenCardView"
     app:cardUseCompatPadding="false">
 
     <RelativeLayout

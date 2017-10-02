@@ -267,7 +267,7 @@ public class NewlyShoppingCartDialogFragment extends BottomSheetDialogFragment {
             public void onShow(DialogInterface dialog) {
                 BottomSheetDialog d = (BottomSheetDialog) dialog;
 
-                FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+                FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
 
                 if (bottomSheet != null) {
                     BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);

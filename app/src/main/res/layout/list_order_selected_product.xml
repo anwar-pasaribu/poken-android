@@ -28,7 +28,6 @@
         android:layout_marginRight="@dimen/text_margin"
         android:layout_toRightOf="@id/ivProductImage"
         android:ellipsize="middle"
-        android:maxLines="1"
         android:singleLine="true"
         tools:text="Baju Orange GRATIS pengiriman" />
 
@@ -44,7 +43,6 @@
         android:layout_toRightOf="@id/ivProductImage"
         android:ellipsize="middle"
         android:gravity="bottom"
-        android:maxLines="1"
         tools:text="5 barang" />
 
     <TextView
@@ -59,8 +57,8 @@
         android:layout_marginTop="@dimen/item_gap_s"
         android:layout_toRightOf="@+id/tvProductQuantity"
         android:ellipsize="middle"
+        android:singleLine="true"
         android:gravity="right|bottom"
-        android:maxLines="1"
         tools:text="Rp 450.000" />
 
     <ImageView
@@ -111,7 +109,7 @@
         android:layout_toRightOf="@id/tvSelectedShippingMethod"
         android:ellipsize="middle"
         android:gravity="right"
-        android:maxLines="1"
+        android:singleLine="true"
         tools:text="Rp 4.000" />
 
     <TextView

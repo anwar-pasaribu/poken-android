@@ -102,13 +102,15 @@
     </style>
 
     <!--Style for CardView in Package detail-->
-    <style name="GapMediumCardView" parent="CardView.Light">
-        <item name="android:layout_marginRight">@dimen/item_gap_m</item>
-        <item name="android:layout_marginLeft">@dimen/item_gap_m</item>
-        <item name="android:layout_marginBottom">@dimen/item_gap_s</item>
+    <style name="PokenCardView" parent="CardView.Light">
         <item name="android:background">@color/white_100</item>
-        <item name="cardCornerRadius">0dp</item>
-        <item name="cardBackgroundColor">@color/white_100</item>
+        <item name="cardCornerRadius">@dimen/card_radius_s</item>
+        <item name="cardBackgroundColor">@color/card_bg</item>
+    </style>
+
+    <style name="PokenCardView.Flat" parent="PokenCardView">
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">@android:color/transparent</item>
     </style>
 
     <!--Style for EditText-->
@@ -223,19 +225,6 @@
         <item name="android:textSize">@dimen/text_body</item>
         <item name="android:lineSpacingMultiplier">1.25</item>
     </style>
-
-    <!--<style name="TextBodySecondary">-->
-    <!--<item name="android:textSize">@dimen/text_body</item>-->
-    <!--<item name="android:textColor">@color/style_overlay_grey</item>-->
-    <!--</style>-->
-
-    <!--<style name="TextListTitle">-->
-    <!--<item name="android:textSize">@dimen/text_button</item>-->
-    <!--<item name="android:textColor">@color/black_90</item>-->
-    <!--<item name="android:lineSpacingMultiplier">1.15</item>-->
-    <!--</style>-->
-
-    <!--Style for small thumbnail for text representation icon-->
 
     <!--Style for default text on white background-->
     <style name="TextDefault" parent="TextAppearance.AppCompat.Body1">

@@ -102,12 +102,6 @@ public class FragmentLogin extends BaseFragment implements
     private void initView() {
         Utils.Log(TAG, "Init view");
 
-        // Fill checkNewPackage form with tester account in DEV_MODE
-        if (BuildConfig.DEV_MODE) {
-            txtEmailLogin.setText(BuildConfig.USER_EMAIL);
-            txtPasswordLogin.setText(BuildConfig.USER_PASSWORD);
-        }
-
         // Initially set sign button disabled
         btnSignIn.setEnabled(false);
 

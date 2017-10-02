@@ -136,7 +136,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
     private void initView() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -1,5 +1,8 @@
 package id.unware.poken.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * @since Jun 05 2017
  */
 
-public class Location {
+public class Location implements Parcelable {
 
     @Expose
     @SerializedName("address")
@@ -19,27 +22,71 @@ public class Location {
     public String city;
 
     @Expose
+    @SerializedName("subdistrict")
+    public String subdistrict;
+
+    @Expose
     @SerializedName("district")
     public String district;
 
     @Expose
-    @SerializedName("zip")
-    public String zip;
+    @SerializedName("province")
+    public String province;
 
     @Expose
     @SerializedName("state")
     public String state;
 
+    @Expose
+    @SerializedName("zip")
+    public String zip;
+
     public Location() {
     }
-}
 
-/*
-{
-    "address": "Jl. Lapangan Bola No. 3, Gg. Mawar No. 43, Kebon Jeruk, Jakarta Barat 11530",
-    "city": "Jakarta Barat",
-    "district": "Kebon Jeruk",
-    "zip": "11530",
-    "state": "Indonesia"
+    public Location(String city, String subdistrict, String district, String province, String zip) {
+        this.city = city;
+        this.subdistrict = subdistrict;
+        this.district = district;
+        this.province = province;
+        this.zip = zip;
+    }
+
+    protected Location(Parcel in) {
+        address = in.readString();
+        city = in.readString();
+        subdistrict = in.readString();
+        district = in.readString();
+        province = in.readString();
+        state = in.readString();
+        zip = in.readString();
+    }
+
+    public static final Creator<Location> CREATOR = new Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(address);
+        parcel.writeString(city);
+        parcel.writeString(subdistrict);
+        parcel.writeString(district);
+        parcel.writeString(province);
+        parcel.writeString(state);
+        parcel.writeString(zip);
+    }
 }
- */

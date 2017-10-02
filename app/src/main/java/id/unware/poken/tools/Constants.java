@@ -43,6 +43,7 @@ public class Constants {
     public static final String EXTRA_TOTAL_SHOPPING_COST = "TOTAL_SHOPPING_COST";
     public static final String EXTRA_PAYMENT_DUE = "PAYMENT_DUE";
     public static final String EXTRA_REQUESTED_PAGE = "EXTRA_REQUESTED_PAGE";
+    public static final String EXTRA_SELECTED_ADDRESS_BOOK = "EXTRA_SELECTED_ADDRESS_BOOK";
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
@@ -160,4 +161,5 @@ public class Constants {
     public static int SECTION_ID_SALE_PRODUCT = 3;
 
 
+    public static int REQ_CODE_ADDRESS_BOOK = 99;
 }

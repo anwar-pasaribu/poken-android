@@ -1,4 +1,4 @@
-package id.unware.poken.httpConnection;
+package id.unware.poken.connections;
 
 import id.unware.poken.BuildConfig;
 import id.unware.poken.tools.StringUtils;

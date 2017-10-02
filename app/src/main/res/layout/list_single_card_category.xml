@@ -6,10 +6,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:foreground="?android:selectableItemBackground"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="@dimen/item_gap_s"
-    app:cardElevation="0dp"
-    app:cardUseCompatPadding="true">
+    style="@style/PokenCardView.Flat"
+    app:cardUseCompatPadding="false">
 
     <LinearLayout
         android:layout_width="wrap_content"

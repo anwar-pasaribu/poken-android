@@ -1,61 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="@dimen/text_margin">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/addressBookTilName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/inputAddressBookParentBottomToolbar"
+        android:background="@color/white_100"
+        android:fillViewport="true">
 
-        <EditText
-            android:id="@+id/editTextAddressBookName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/hint_addressbook_receiver_name"
-            android:inputType="textPersonName|textCapWords" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/text_margin">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/addressBookTilPhone"
+            <TextView
+                style="@style/TextListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:text="@string/lbl_shipping_address_detail" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addressBookTilName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/editTextAddressBookName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/hint_addressbook_receiver_name"
+                    android:inputType="textPersonName|textCapWords"
+
+                    tools:text=""/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addressBookTilPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/editTextPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/hint_addressbook_phone"
+                    android:inputType="phone" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addressBookTilFullAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/editTextFullAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/hint_addressbook_address"
+                    android:inputType="textPostalAddress|textCapWords|textMultiLine" />
+            </android.support.design.widget.TextInputLayout>
+
+            <include layout="@layout/include_sep_medium" />
+
+            <TextView
+                style="@style/TextListTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/text_margin"
+                android:text="@string/lbl_shipping_zip_location" />
+
+            <Spinner
+                android:id="@+id/inputAddressBookSpinnerCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:background="@drawable/bg_default_light"
+                android:paddingBottom="@dimen/item_gap_m"
+                android:paddingTop="@dimen/item_gap_m"
+                tools:listitem="City" />
+
+            <Spinner
+                android:id="@+id/inputAddressBookSpinnerDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:background="@drawable/bg_default_light"
+                android:paddingBottom="@dimen/item_gap_m"
+                android:paddingTop="@dimen/item_gap_m"
+                android:alpha="0"
+                android:visibility="gone"
+
+                tools:alpha=".5"
+                tools:visibility="visible"
+                tools:listitem="Disctrict" />
+
+            <Spinner
+                android:id="@+id/inputAddressBookSpinnerSubdistrict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:background="@drawable/bg_default_light"
+                android:paddingBottom="@dimen/item_gap_m"
+                android:paddingTop="@dimen/item_gap_m"
+                android:alpha="0"
+                android:visibility="gone"
+
+                tools:alpha=".5"
+                tools:visibility="visible"
+                tools:listitem="Sudisctrict" />
+
+            <include
+                layout="@layout/include_sep_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item_gap_l" />
+
+            <!-- Placeholder view to fill empty with grey background-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/separator_view_lighter"
+                android:minHeight="@dimen/clickable_size_32" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/inputAddressBookParentBottomToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
 
-        <EditText
-            android:id="@+id/editTextPhone"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/hint_addressbook_phone"
-            android:inputType="phone" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/separator_view_lighter" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/addressBookTilFullAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        <Button
+            android:id="@+id/btnAddAddressBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:text="@string/btn_addressbook_submit"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:theme="@style/MyButton" />
 
-        <EditText
-            android:id="@+id/editTextFullAddress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/hint_addressbook_address"
-            android:inputType="textPostalAddress|textCapWords|textMultiLine" />
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/btnAddAddressBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/btn_addressbook_submit"
-        android:textAllCaps="true"
-        android:textColor="@android:color/white"
-        android:theme="@style/MyButton" />
-
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

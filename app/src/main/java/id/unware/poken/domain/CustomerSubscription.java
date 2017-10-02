@@ -17,14 +17,3 @@ public class CustomerSubscription {
     public CustomerSubscription() {
     }
 }
-
-/*
-{
-            "id": 2,
-            "is_get_notif": false,
-            "seller_id": 2,
-            "seller_name": "Indah Store",
-            "seller_tag_line": "Casing dengan harga termurah se-Poken",
-            "seller_location": "Jakarta Barat"
-        }
- */

@@ -11,7 +11,11 @@ import id.unware.poken.ui.browse.presenter.IBrowseModelPresenter;
 
 public interface IBrowseModel {
     void requestSellerData(IBrowseModelPresenter presenter, int actionId);
+
+    void requestMoreProductsByIntentId(IBrowseModelPresenter presenter, int actionId, int page);
+
     void requestSellerDataByCategory(IBrowseModelPresenter presenter, Category category);
 
     void requestMoreProductByCategory(IBrowseModelPresenter presenter, Category category, int nextPage);
+
 }

@@ -52,6 +52,7 @@ import id.unware.poken.BuildConfig;
 import id.unware.poken.R;
 import id.unware.poken.controller.ControllerDate;
 import id.unware.poken.helper.SPHelper;
+import id.unware.poken.models.Tracking;
 import id.unware.poken.pojo.PojoBooking;
 import id.unware.poken.pojo.PojoCity;
 import id.unware.poken.tools.chromecustomtabs.CustomTabActivityHelper;
@@ -271,6 +272,9 @@ public class Utils {
             snackBarBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    MyLog.FabricTrackContentView(Tracking.TRACK_FEATURE_CLOSE_SNACKBAR, Tracking.TRACK_TYPE_FEATURE, Tracking.TRACK_ID_SECONDARY_FUNCTION);
+
                     Utils.snackbarDismiss();
                 }
             });
@@ -305,7 +309,7 @@ public class Utils {
             final PopupWindow popupWindow = popupSnack.poll();
             if (popupWindow.isShowing()) {
 
-                ViewGroup parentContent = (ViewGroup) popupWindow.getContentView().findViewById(R.id.parentContent);
+                ViewGroup parentContent = popupWindow.getContentView().findViewById(R.id.parentContent);
 
                 parentContent.animate().translationY(height * -1).setDuration(ANIM_DUR).start();
 
@@ -704,6 +708,7 @@ public class Utils {
         List<String[]> listArrayCity = readCSV(context.getResources()
                 .openRawResource(R.raw.area_detail));
         PojoCity result = new PojoCity();
+        // id,kelurahan,kecamatan,kabupaten,provinsi,kodepos
         for (String[] city : listArrayCity) {
             if (city[0].equals(id)) {
                 result.setAreaId(Integer.parseInt(city[0]));

@@ -40,8 +40,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode 14
-        versionName "0.0.11-beta"
+        versionCode 16
+        versionName "0.0.16-beta"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -50,9 +50,6 @@ android {
         multiDexEnabled true
 
         resConfigs "en", "id"
-
-        buildConfigField 'String', 'USER_EMAIL', '"anwar"'
-        buildConfigField 'String', 'USER_PASSWORD', '"poken_psp17"'
     }
 
     signingConfigs {
@@ -67,6 +64,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
@@ -164,7 +162,7 @@ android {
 }
 
 // Map for the version code that gives each ABI a value.
-ext.abiCodes = ['armeabi-v7a': 3, 'x86' : 4]
+ext.abiCodes = ['armeabi-v7a': 3, 'x86': 4]
 
 import com.android.build.OutputFile
 
@@ -202,12 +200,12 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // FABRIC
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:answers:1.3.13@aar') {
-        transitive = true;
+        transitive = true
     }
-    compile ("com.github.bumptech.glide:recyclerview-integration:$rootProject.ext.glideVersion") {
+    compile("com.github.bumptech.glide:recyclerview-integration:$rootProject.ext.glideVersion") {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
@@ -219,12 +217,12 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:customtabs:$rootProject.ext.supportLibVersion"
-    compile "com.google.firebase:firebase-core:$rootProject.ext.playServicesVersion"
+    compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseVersion"
+    compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.ext.playServicesVersion"
     compile "com.google.android.gms:play-services-places:$rootProject.ext.playServicesVersion"
     compile "com.google.android.gms:play-services-gcm:$rootProject.ext.playServicesVersion"
     compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesVersion"
-    compile "com.google.android.gms:play-services-auth:$rootProject.ext.playServicesVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -241,12 +239,16 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.facebook.stetho:stetho:1.5.0'
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     debugCompile 'com.uphyca:stetho_realm:2.0.0'
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }
 
 // Firebase for google-services.json parser

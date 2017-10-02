@@ -29,6 +29,10 @@ public class CategoryPresenter implements ICategoryPresenter, ICategoryModelPres
 
     @Override
     public void loadCategoryList() {
+
+        // Make false to prevent append data again
+        this.isLoadMore = false;
+
         model.reqFeaturedCategory(this);
     }
 

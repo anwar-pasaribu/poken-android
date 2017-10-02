@@ -2,6 +2,11 @@ package id.unware.poken.ui.pokenaccount;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,14 +18,19 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
+import id.unware.poken.ui.home.view.HomeActivity;
 import id.unware.poken.ui.pokenaccount.login.view.fragment.FragmentLogin;
 import id.unware.poken.ui.pokenaccount.register.view.fragment.FragmentRegisterEmail;
+import id.unware.poken.ui.profile.view.ProfileActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -128,6 +138,31 @@ public class LoginActivity extends BaseActivity implements
 
     @Override
     public void onLoginSuccess() {
+
+        // Register app shortcuts for API > 25
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+
+            ShortcutInfo shortcut = new ShortcutInfo.Builder(this, getString(R.string.shortcuts_id_profile))
+                    .setShortLabel(getString(R.string.shortcut_short_label))
+                    .setLongLabel(getString(R.string.shortcut_long_label))
+                    .setIcon(Icon.createWithResource(this, R.drawable.ic_person_black_24dp))
+                    .setIntents(
+                            new Intent[]{
+                                    new Intent(Intent.ACTION_MAIN, Uri.EMPTY, this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK),
+                                    new Intent(ProfileActivity.ACTION)
+                            })
+                    .build();
+
+            if (shortcutManager != null) {
+                shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
+            } else {
+                Utils.Logs('e', TAG, "Shortcut manager is empty");
+            }
+        }
+
+        // Open page
         openPendingDesiredPage(this.requestedPageTag);
     }
 

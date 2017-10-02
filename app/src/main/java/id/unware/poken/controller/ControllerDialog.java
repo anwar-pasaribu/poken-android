@@ -72,6 +72,7 @@ public class ControllerDialog {
                 charSequenceTitle,
                 charSequenceMessage);
 
+        progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(true);
 
         return progressDialog;
@@ -160,9 +161,9 @@ public class ControllerDialog {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(context);
         View mView = layoutInflaterAndroid.inflate(R.layout.dialog_input_text, null);
 
-        final TextView title = (TextView) mView.findViewById(R.id.title);
-        final TextView textViewHelper = (TextView) mView.findViewById(R.id.textViewHelper);
-        final EditText userInputDialogEditText = (EditText) mView.findViewById(R.id.userInputDialog);
+        final TextView title = mView.findViewById(R.id.title);
+        final TextView textViewHelper = mView.findViewById(R.id.textViewHelper);
+        final EditText userInputDialogEditText = mView.findViewById(R.id.userInputDialog);
 
         title.setText(dialogTitle);
 

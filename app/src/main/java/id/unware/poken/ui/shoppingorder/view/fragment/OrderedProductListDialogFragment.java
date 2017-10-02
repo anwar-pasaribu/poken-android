@@ -119,7 +119,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
             public void onShow(DialogInterface dialog) {
                 BottomSheetDialog d = (BottomSheetDialog) dialog;
 
-                FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+                FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
 
                 if (bottomSheet != null) {
                     BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -178,16 +178,16 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
 
             super(inflater.inflate(R.layout.list_order_selected_product, parent, false));
 
-            tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
-            tvProductQuantity = (TextView) itemView.findViewById(R.id.tvProductQuantity);
-            tvProductTotalPrice = (TextView) itemView.findViewById(R.id.tvProductTotalPrice);
-            tvSelectedShippingMethod = (TextView) itemView.findViewById(R.id.tvSelectedShippingMethod);
-            tvShippingCost = (TextView) itemView.findViewById(R.id.tvShippingCost);
-            tvTotalFee = (TextView) itemView.findViewById(R.id.tvTotalFee);
-            ivProductImage = (ImageView) itemView.findViewById(R.id.ivProductImage);
+            tvProductName = itemView.findViewById(R.id.tvProductName);
+            tvProductQuantity = itemView.findViewById(R.id.tvProductQuantity);
+            tvProductTotalPrice = itemView.findViewById(R.id.tvProductTotalPrice);
+            tvSelectedShippingMethod = itemView.findViewById(R.id.tvSelectedShippingMethod);
+            tvShippingCost = itemView.findViewById(R.id.tvShippingCost);
+            tvTotalFee = itemView.findViewById(R.id.tvTotalFee);
+            ivProductImage = itemView.findViewById(R.id.ivProductImage);
 
-            selectedProductTvExtraNote = (TextView) itemView.findViewById(R.id.selectedProductTvExtraNote);
-            selectedProductTvExtraNoteLbl = (TextView) itemView.findViewById(R.id.selectedProductTvExtraNoteLbl);
+            selectedProductTvExtraNote = itemView.findViewById(R.id.selectedProductTvExtraNote);
+            selectedProductTvExtraNoteLbl = itemView.findViewById(R.id.selectedProductTvExtraNoteLbl);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

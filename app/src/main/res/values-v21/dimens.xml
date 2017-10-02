@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Card radius -->
+    <dimen name="card_radius_s">5dp</dimen>
+
+</resources>

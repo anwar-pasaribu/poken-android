@@ -5,9 +5,9 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import id.unware.poken.httpConnection.AdRetrofit;
-import id.unware.poken.httpConnection.MyCallback;
-import id.unware.poken.httpConnection.PokenRequest;
+import id.unware.poken.connections.AdRetrofit;
+import id.unware.poken.connections.MyCallback;
+import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;

@@ -31,11 +31,19 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
 
     @Override
     public void getProductDataByIntentId(int actionId) {
+
+        // Make false to prevent append data again
+        this.isLoadMore = false;
+
         model.requestSellerData(this, actionId);
     }
 
     @Override
     public void getProductByCategory(Category category) {
+
+        // Make false to prevent append data again
+        this.isLoadMore = false;
+
         model.requestSellerDataByCategory(this, category);
     }
 
@@ -45,10 +53,24 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     }
 
     @Override
-    public void getMoreProduct(Category category, int nextPage) {
+    public void getMoreProductByCategory(Category category, int nextPage) {
+
         this.isLoadMore = true;
+
         if (this.isMoreContentAvailable) {
             model.requestMoreProductByCategory(this, category, nextPage);
+        } else {
+            Utils.Log(TAG, "Last page reached...");
+        }
+    }
+
+    @Override
+    public void getMoreProductDataByIntentId(int actionId, int page) {
+
+        this.isLoadMore = true;
+
+        if (this.isMoreContentAvailable) {
+            model.requestMoreProductsByIntentId(this, actionId, page);
         } else {
             Utils.Log(TAG, "Last page reached...");
         }

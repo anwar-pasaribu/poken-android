@@ -44,7 +44,7 @@ public class PokenApp extends Application {
         Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default
 
         Picasso.with(this.getApplicationContext()).areIndicatorsEnabled();
-        Picasso.with(this).setLoggingEnabled(true);
+        Picasso.with(this).setLoggingEnabled(false);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);

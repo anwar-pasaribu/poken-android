@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="id.unware.poken">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="id.unware.poken">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -27,7 +28,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme"
+        tools:replace="android:supportsRtl">
 
         <!-- S: Add SplashActivity as splash screen instead load MainActivity first -->
         <activity
@@ -40,6 +43,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <!-- E: Add splash screen -->
 
@@ -47,8 +54,7 @@
             android:name=".ui.home.view.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:parentActivityName=".ui.home.view.HomeActivity"
@@ -62,20 +68,19 @@
             android:name=".ui.shoppingcart.view.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.shoppingorder.view.OrderActivity"
             android:label="@string/title_activity_order"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.payment.view.PaymentActivity"
             android:label="@string/title_activity_payment"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.profile.view.ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -85,13 +90,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
+
+            <intent-filter>
+                <action android:name="${applicationId}.OPEN_SHORTCUT_PROFILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.seller.view.SellerActivity"
             android:label="@string/title_activity_seller"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.browse.view.BrowseActivity"
             android:label="@string/title_activity_browse"
@@ -105,12 +115,10 @@
         <activity
             android:name=".ui.shoppingsummary.view.ShoppingSummaryActivity"
             android:label="@string/title_activity_payment_confirm"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.pokenaccount.LoginActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
 
         <!-- ///////////////////////////////////////////////////////////////////////////// -->
         <!-- Google Places API - Places AutoComplete -->
@@ -122,19 +130,24 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="e403eadd6dec46812b5d690e54098baf8eff3904" />
-        <meta-data android:name="com.facebook.accountkit.ApplicationName"
-                   android:value="@string/app_name" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-                   android:value="@string/FACEBOOK_APP_ID" />
-        <meta-data android:name="com.facebook.accountkit.ClientToken"
-                   android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
+            android:value="e403eadd6dec46812b5d690e54098baf8eff3904"
+            tools:replace="android:value" />
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/FACEBOOK_APP_ID"
+            tools:replace="android:value" />
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
+            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
-        <activity
-            android:name="com.facebook.accountkit.ui.AccountKitActivity" />
-        <!--If you wish to disable App Events for your Account Kit application,-->
-        <meta-data android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
-                   android:value="false"/>
+        <activity android:name="com.facebook.accountkit.ui.AccountKitActivity" />
+        <!-- If you wish to disable App Events for your Account Kit application, -->
+        <meta-data
+            android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
+            android:value="false" />
 
         <activity
             android:name=".ui.search.view.SearchActivity"
@@ -157,6 +170,7 @@
             android:name=".ui.featured.view.FeaturedActivity"
             android:label="@string/title_activity_featured"
             android:parentActivityName=".ui.home.view.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -166,11 +180,15 @@
             android:name=".ui.category.view.CategoryActivity"
             android:label="@string/title_activity_category"
             android:parentActivityName=".ui.home.view.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.home.view.HomeActivity" />
         </activity>
+        <activity android:name=".ui.address.view.AddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ActionBar.Transparent"/>
     </application>
 
 </manifest>

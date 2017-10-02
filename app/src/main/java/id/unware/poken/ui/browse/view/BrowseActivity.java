@@ -97,6 +97,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     }
 
     private void requestContent() {
+
         if (!isBrowseByCategory) {
             presenter.getProductDataByIntentId(actionId);
         } else {
@@ -144,11 +145,18 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         Utils.Logs('i', TAG, "Next page: " + page);
         if (presenter != null) {
 
-            Category category = new Category();
-            category.setId(categoryId);
-            category.setName(categoryName);
+            if (!isBrowseByCategory) {
 
-            presenter.getMoreProduct(category, page);
+                presenter.getMoreProductDataByIntentId(actionId, page);
+
+            } else {
+
+                Category category = new Category();
+                category.setId(categoryId);
+                category.setName(categoryName);
+
+                presenter.getMoreProductByCategory(category, page);
+            }
         }
     }
 

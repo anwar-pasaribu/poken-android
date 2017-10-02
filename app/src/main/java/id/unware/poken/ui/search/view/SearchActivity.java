@@ -27,6 +27,7 @@ import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
@@ -87,6 +88,7 @@ public class SearchActivity extends AppCompatActivity
                 }
             }
         });
+
     }
 
     private void initSearchResultView() {
@@ -199,6 +201,10 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public boolean onQueryTextSubmit(String query) {
         Utils.Logs('i', TAG, "Search query: \"".concat(query).concat("\""));
+
+        // Track user search
+        MyLog.FabricTrackSearchQuery(query);
+
         submittedQuery = query;
         if (presenter != null) {
             presenter.beginSearch(query);
@@ -226,6 +232,18 @@ public class SearchActivity extends AppCompatActivity
             case ERROR:
                 showLoadingIndicator(false);
                 break;
+            case NODATA:
+                showNoDateView(true);
+                break;
+        }
+    }
+
+    private void showNoDateView(boolean isShow) {
+        if (isShow) {
+            scrollListener.resetState();
+            listItem.clear();
+            adapter.notifyDataSetChanged();
+
         }
     }
 

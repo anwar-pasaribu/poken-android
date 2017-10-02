@@ -2,6 +2,7 @@ package id.unware.poken.ui.pokenaccount.register.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -13,6 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +64,8 @@ public class FragmentRegisterEmail extends BaseFragment implements
     @BindColor(R.color.red) int colorRed;
     @BindColor(R.color.colorPrimaryDark) int colorPrimaryDark;
 
+    private FirebaseAuth mAuth;
+
     private Unbinder unbinder;
 
     private RegisterEmailPresenter presenter;
@@ -80,6 +89,13 @@ public class FragmentRegisterEmail extends BaseFragment implements
         }
     };
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,13 +115,20 @@ public class FragmentRegisterEmail extends BaseFragment implements
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        Utils.Log(TAG, "Current: " + currentUser);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         txtFullNameLogin.addTextChangedListener(loginTextWatcher);
         txtEmailLogin.addTextChangedListener(loginTextWatcher);
         txtPasswordLogin.addTextChangedListener(loginTextWatcher);
-
 
         for (AppCompatEditText editText : allInputText) {
             editText.setFocusable(true);
@@ -198,13 +221,51 @@ public class FragmentRegisterEmail extends BaseFragment implements
                 lastName = nameChunks[1];
 
             }
-            User pokenUser = new User();
+
+            final User pokenUser = new User();
             pokenUser.first_name = firstName;
             pokenUser.last_name = lastName;
             pokenUser.username = String.valueOf(txtEmailLogin.getText());
             pokenUser.email = String.valueOf(txtEmailLogin.getText());
             pokenUser.password = String.valueOf(txtPasswordLogin.getText());
 
+            mAuth.createUserWithEmailAndPassword(pokenUser.email, pokenUser.password)
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+
+                                if (user != null) {
+                                    Utils.Logs('i', TAG, "registered user email: " + user.getEmail());
+                                    Utils.Logs('i', TAG, "registered user user U ID (Firebase ID): " + user.getUid());
+                                    Utils.Logs('i', TAG, "registered user user token: " + user.getIdToken(true));
+
+                                    if (!user.isEmailVerified()) {
+                                        user.sendEmailVerification()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.d(TAG, "Email sent.");
+                                                        }
+                                                    }
+                                                });
+                                    }
+                                }
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Utils.Logs('e', TAG, "createUserWithEmail:failure" + task.getException());
+                            }
+
+                        }
+                    });
+
+            // Digital Ocean
             presenter.startRegister(pokenUser);
 
         } catch (NullPointerException | IndexOutOfBoundsException e) {

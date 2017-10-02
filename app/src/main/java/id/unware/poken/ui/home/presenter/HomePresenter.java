@@ -6,8 +6,10 @@ import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
+import id.unware.poken.models.Tracking;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.home.model.IHomeModel;
 import id.unware.poken.ui.home.view.IHomeView;
@@ -37,6 +39,9 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     public void onSectionActionClick(int position, Section section) {
         Utils.Log(TAG, "Section main action click. Pos: " + position + ", sectionId: " + section.section_action_id);
         if (section.section_action_id == Constants.HOME_SECTION_SALE_PRODUCT) {
+
+            MyLog.FabricTrackContentView(Tracking.TRACK_PAGE_SALE_ITEMS, Tracking.TRACK_TYPE_PAGE, Tracking.TRACK_ID_SALE_ITEMS_PAGE);
+
             view.startProductCategoryScreen(section);
         }
     }
@@ -59,16 +64,22 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
 
     @Override
     public void startPokenInstagram() {
+        MyLog.FabricTrackContentView(Tracking.TRACK_CONTACT_IG, Tracking.TRACK_TYPE_FEATURE, Tracking.TRACK_ID_CONTACT);
+
         view.showPokenInstagram();
     }
 
     @Override
     public void startPokenFacebookPage() {
+        MyLog.FabricTrackContentView(Tracking.TRACK_CONTACT_FB, Tracking.TRACK_TYPE_FEATURE, Tracking.TRACK_ID_CONTACT);
+
         view.showPokenFacebookPage();
     }
 
     @Override
     public void startPokenPhoneContact() {
+        MyLog.FabricTrackContentView(Tracking.TRACK_CONTACT_WA, Tracking.TRACK_TYPE_FEATURE, Tracking.TRACK_ID_CONTACT);
+
         view.showPokenPhoneContact();
     }
 

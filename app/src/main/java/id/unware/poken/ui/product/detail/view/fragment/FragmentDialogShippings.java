@@ -104,8 +104,8 @@ public class FragmentDialogShippings extends DialogFragment implements OnClickRe
 
         View view = inflater.inflate(R.layout.f_dialog_shippings, container, false);
 
-        TextView textViewTitle = (TextView) view.findViewById(R.id.txtViewDialogPackagesTitle);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        TextView textViewTitle = view.findViewById(R.id.txtViewDialogPackagesTitle);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
 
         textViewTitle.setText(R.string.title_shipping_options);
 

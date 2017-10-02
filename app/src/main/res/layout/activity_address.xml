@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/separator_view_lighter"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageButton
+            android:id="@+id/addressBookIbClose"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/hint_close_dialog"
+            app:srcCompat="@drawable/ic_close_red_24dp" />
+
+        <Button
+            android:id="@+id/addressBookBtnSwitchView"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/btn_addressbook_add_new"
+            android:text="@string/btn_addressbook_add_new"
+            android:textAllCaps="true"
+            android:textSize="@dimen/text_button"
+            tools:ignore="RelativeOverlap" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/separator_view" />
+
+    </RelativeLayout>
+
+    <ViewFlipper
+        android:id="@+id/addressBookParentViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/addressBookRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            tools:listitem="@layout/list_address_book" />
+
+        <!-- INPUT ADDRESS BOOK LAYOUT-->
+        <include layout="@layout/content_input_address_book" />
+
+    </ViewFlipper>
+
+
+</RelativeLayout>

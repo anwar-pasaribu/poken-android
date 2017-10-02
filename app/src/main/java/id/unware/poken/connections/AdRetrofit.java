@@ -1,4 +1,4 @@
-package id.unware.poken.httpConnection;
+package id.unware.poken.connections;
 
 //import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.ExclusionStrategy;
@@ -24,7 +24,7 @@ public class AdRetrofit {
     public static Retrofit getInstancePoken() {
         if (instance == null) {
 
-            int timeOut = BuildConfig.DEV_MODE? 10 : 60;
+            int timeOut = BuildConfig.DEV_MODE ? 10 : 60;
 
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

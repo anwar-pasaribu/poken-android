@@ -39,6 +39,7 @@ ext {
     targetSdkVersion = compileSdkVersion
     supportLibVersion = '26.0.2'
     playServicesVersion = '11.0.1'
+    firebaseVersion='11.0.1'
     glideVersion = '4.0.0'
     facebookSdkVersion = '4.26.0'
 }

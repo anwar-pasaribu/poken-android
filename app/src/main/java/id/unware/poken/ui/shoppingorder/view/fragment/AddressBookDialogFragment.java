@@ -1,13 +1,8 @@
 package id.unware.poken.ui.shoppingorder.view.fragment;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -18,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -201,30 +195,30 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
         return true;
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                BottomSheetDialog d = (BottomSheetDialog) dialog;
-
-                FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
-
-                if (bottomSheet != null) {
-                    BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-            }
-        });
-
-        dialog.setTitle("Alamat Penerima");
-
-        // Do something with your dialog like setContentView() or whatever
-        return dialog;
-    }
+//    @NonNull
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
+//
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                BottomSheetDialog d = (BottomSheetDialog) dialog;
+//
+//                FrameLayout bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
+//
+//                if (bottomSheet != null) {
+//                    BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+//                }
+//            }
+//        });
+//
+//        dialog.setTitle("Alamat Penerima");
+//
+//        // Do something with your dialog like setContentView() or whatever
+//        return dialog;
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -266,12 +260,12 @@ public class AddressBookDialogFragment extends BottomSheetDialogFragment {
 
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
 
-            super(inflater.inflate(R.layout.fragment_item_list_dialog_item, parent, false));
+            super(inflater.inflate(R.layout.list_address_book, parent, false));
 
-            text = (TextView) itemView.findViewById(R.id.text);
-            phone = (TextView) itemView.findViewById(R.id.phone);
-            address = (TextView) itemView.findViewById(R.id.address);
-            rbIsSelected = (RadioButton) itemView.findViewById(R.id.rbIsSelected);
+            text = itemView.findViewById(R.id.text);
+            phone = itemView.findViewById(R.id.phone);
+            address = itemView.findViewById(R.id.address);
+            rbIsSelected = itemView.findViewById(R.id.rbIsSelected);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
