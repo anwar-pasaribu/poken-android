@@ -297,7 +297,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             view.showPayNowView(false);
         }
 
-        view.showOrderId(orderDetail.order_id, shoppingOrder.id);
+        view.showOrderId(orderDetail.order_id, orderDetail.id, shoppingOrder.id);
 
         view.setupShippingReceiver(addressBook);
 

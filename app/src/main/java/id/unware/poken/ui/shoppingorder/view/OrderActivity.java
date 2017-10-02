@@ -109,6 +109,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     private int selectedAddressBookIndex = 0;
 
     private String orderRef = "";
+    private long orderedProductId = -1;
     private long orderDetailsId = -1;
     private boolean isReadOnlyMode = false;
     private double totalShoppingCost = 0;
@@ -129,8 +130,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
             // Get ShoppingCart arrayList JSON String
             shoppingCartArrayListJsonString = getIntent().getStringExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
 
-            orderDetailsId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
-            if (orderDetailsId != -1) {
+            orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
+            if (orderedProductId != -1) {
                 isReadOnlyMode = true;
             }
 
@@ -139,8 +140,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
 
-        if (orderDetailsId != -1) {
-            presenter.getShoppingOrderData(orderDetailsId);
+        if (orderedProductId != -1) {
+            presenter.getShoppingOrderData(orderedProductId);
         } else {
             presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
         }
@@ -185,7 +186,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getShoppingOrderData(orderDetailsId);
+                presenter.getShoppingOrderData(orderedProductId);
             }
         });
 
@@ -252,13 +253,13 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @Override
     public void openPaymentScreen() {
         if (totalShoppingCost != 0
-                && orderDetailsId != -1
+                && orderedProductId != -1
                 && paymentDue != null) {
             Utils.Log(TAG, "Open payment screen. Order ref: " + this.orderRef);
             Intent paymentIntent = new Intent(this, PaymentActivity.class);
             paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
             paymentIntent.putExtra(Constants.EXTRA_ORDER_REF, this.orderRef);
-            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderDetailsId);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
             paymentIntent.putExtra(Constants.EXTRA_PAYMENT_DUE, paymentDue);
             this.startActivity(paymentIntent);
         } else {
@@ -340,7 +341,10 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
-    public void showOrderId(String orderDetailUniqueId, long orderDetailsId) {
+    public void showOrderId(String orderDetailUniqueId, long orderDetailsId, long orderedProductId) {
+
+        // #0 Ordered Product ID
+        this.orderedProductId = orderedProductId;
 
         // #1 Order Detail Unique Identifier
         if (getSupportActionBar() != null) {
@@ -349,7 +353,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         this.orderRef = orderDetailUniqueId;
 
-        // #2 Ordered Product
+        // #2 Order details ID
         this.orderDetailsId = orderDetailsId;
     }
 

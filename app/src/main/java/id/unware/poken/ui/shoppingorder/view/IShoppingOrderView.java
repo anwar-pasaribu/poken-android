@@ -33,7 +33,7 @@ public interface IShoppingOrderView extends BaseView {
 
     void showNoReceiverAddressView(boolean isShow);
 
-    void showOrderId(String orderDetailUniqueId, long orderDetailsId);
+    void showOrderId(String orderDetailsRef, long orderDetailsId, long orderedProductId);
 
     void populateAddressBookList(ArrayList<AddressBook> addressBookArrayList);
 
