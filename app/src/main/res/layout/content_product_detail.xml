@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -40,13 +39,13 @@
             android:layout_height="0dp"
             android:contentDescription="@string/hint_product_images"
             android:scaleType="center"
-            app:srcCompat="@drawable/ic_image_black_24dp"
             android:tint="@color/style_overlay_grey"
             android:visibility="visible"
             app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_image_black_24dp" />
 
         <com.pixelcan.inkpageindicator.InkPageIndicator
             android:id="@+id/inkPageIndicator"
@@ -90,8 +89,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvProductName">
 
-            <include
-                layout="@layout/include_sale_product" />
+            <include layout="@layout/include_sale_product" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -155,6 +153,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_gap_m"
+            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="@+id/guideline1"
             app:layout_constraintRight_toLeftOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/viewSep"
@@ -166,6 +165,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/lbl_product_detail_sold"
+            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="@+id/guideline1"
             app:layout_constraintRight_toLeftOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/tvProductSold" />
@@ -176,6 +176,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/item_gap_m"
+            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="@+id/guideline2"
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/viewSep"
@@ -187,6 +188,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/lbl_product_detail_leftover"
+            android:visibility="invisible"
             app:layout_constraintLeft_toLeftOf="@+id/guideline2"
             app:layout_constraintRight_toLeftOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/tvProductLeft" />
@@ -196,19 +198,19 @@
             style="@style/TextCaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_product_detail_sold_out"
+            android:layout_marginRight="@dimen/text_margin"
+            android:background="@drawable/bg_default_light"
             android:gravity="right|center_vertical"
-            android:paddingTop="@dimen/item_gap_s"
             android:paddingBottom="@dimen/item_gap_s"
             android:paddingLeft="@dimen/item_gap_s"
             android:paddingRight="@dimen/item_gap_s"
-            android:background="@drawable/bg_default_light"
-            android:layout_marginRight="@dimen/text_margin"
+            android:paddingTop="@dimen/item_gap_s"
+            android:text="@string/lbl_product_detail_sold_out"
+            app:layout_constraintBottom_toTopOf="@+id/viewSepMainFlat"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toRightOf="@+id/tvProductLeftLabel"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewSep"
-            app:layout_constraintBottom_toTopOf="@+id/viewSepMainFlat"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/viewSep" />
 
         <include
             android:id="@+id/viewSepMainFlat"
@@ -228,6 +230,7 @@
             android:layout_marginTop="@dimen/item_gap_m"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewSepMainFlat">
@@ -272,8 +275,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/text_margin"
                 android:scaleType="center"
-                app:srcCompat="@drawable/ic_chevron_right_24dp"
-                />
+                app:srcCompat="@drawable/ic_chevron_right_24dp" />
 
             <View
                 android:layout_width="match_parent"
