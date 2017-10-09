@@ -24,7 +24,7 @@ public interface IProductDetailView extends BaseView {
     void showShippingOptionsScreen(boolean isCod, ArrayList<Shipping> shippings);
     void populateShippingOptionsScreen(ArrayList<Shipping> shippings);
 
-    void showAddedShoppingCartItem(ShoppingCart newlyAddedShoppingCart);
+    void showAddNewShoppingCartItem(Product product);
 
     void showSaleProduct(Product product);
 
@@ -35,4 +35,6 @@ public interface IProductDetailView extends BaseView {
     void openHomePage();
 
     void showSoldOutView(boolean isSoldOut);
+
+    void setCurrentProduct(Product currentProductData);
 }

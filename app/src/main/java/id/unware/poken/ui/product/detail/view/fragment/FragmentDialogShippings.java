@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,11 @@ public class FragmentDialogShippings extends DialogFragment implements OnClickRe
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -86,8 +92,10 @@ public class FragmentDialogShippings extends DialogFragment implements OnClickRe
         shippings.add(new Shipping(1, "POS Indonesia", 0));
 
         if (isCod) {
-            shippings.add(new Shipping(2, "COD", 15000));
+            shippings.add(new Shipping(2, "COD", 10000));
         }
+
+        shippings.add(new Shipping(3, "J&T Express", 15000));
 
         // Create selected index mapping
         for (int i = 0; i < shippings.size(); i++) {

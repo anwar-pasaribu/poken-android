@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.alexvasilkov.gestures.commons.RecyclePagerAdapter;
 import com.alexvasilkov.gestures.views.GestureImageView;
+import com.bumptech.glide.RequestBuilder;
 
 import java.util.ArrayList;
 

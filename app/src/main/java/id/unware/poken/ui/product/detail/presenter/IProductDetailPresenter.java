@@ -1,5 +1,6 @@
 package id.unware.poken.ui.product.detail.presenter;
 
+import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ShoppingCart;
 
 /**
@@ -16,6 +17,8 @@ public interface IProductDetailPresenter {
     void startShippingOptionsScreen();
 
     void startShoppingCartScreen(ShoppingCart shoppingCart);
+
+    void startNewShoppingCartItemScreen(Product product);
 
     void startSellerScreen();
 

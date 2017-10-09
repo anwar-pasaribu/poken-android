@@ -14,6 +14,8 @@ import id.unware.poken.ui.view.BaseView;
 public interface ISellerPageView extends BaseView {
     void pupolateSellerProductList(ArrayList<Product> products);
 
+    void appendSellerProductList(ArrayList<Product> products);
+
     void showProductDetail(Product product);
 
     void showSellerInfo(Seller seller);
@@ -21,4 +23,5 @@ public interface ISellerPageView extends BaseView {
     void showSubscriptionStatus(boolean isSubscribe);
 
     void showSubscriptionStatusMessage(boolean isSubscribe);
+
 }

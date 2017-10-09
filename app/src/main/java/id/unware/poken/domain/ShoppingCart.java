@@ -1,5 +1,6 @@
 package id.unware.poken.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @since Jun 07 2017
  */
 
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
 
     public long id;
 
@@ -26,6 +27,9 @@ public class ShoppingCart {
 
     /** Shopping item price include all additional fee (ex. shipping, tax, etc.) */
     public double grand_total_price;
+
+    /** Selected shipping fee - Courier specific fee*/
+    public double shipping_fee;
 
     public String extra_note;
 

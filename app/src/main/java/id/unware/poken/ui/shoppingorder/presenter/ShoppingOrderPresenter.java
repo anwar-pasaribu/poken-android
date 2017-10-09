@@ -30,6 +30,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     /** Save active order id */
     private long previousOrderDetailId = -1L;
 
+    private boolean isPaymentScreenRequested = false;
+    private int previousOrderStatusNumber = OrderStatus.INITIALIZE;
+
     public ShoppingOrderPresenter(IShoppingOrderModel model, IShoppingOrderView view) {
         this.model = model;
         this.view = view;
@@ -103,6 +106,29 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     @Override
     public void confirmOrderReceived(long orderDetailsId) {
         model.patchOrderDetailsStatus(this, orderDetailsId, OrderStatus.RECEIVED);
+    }
+
+    @Override
+    public void retureOrder(long orderDetailsId) {
+        model.patchOrderDetailsStatus(this, orderDetailsId, OrderStatus.REFUND);
+    }
+
+    @Override
+    public void beginOrder() {
+
+        this.isPaymentScreenRequested = true;
+
+        // Trigger Slack Notif
+        if (this.previousOrderStatusNumber == OrderStatus.INITIALIZE) {
+            model.patchOrderDetailsStatus(
+                    this,
+                    this.previousOrderDetailId,
+                    OrderStatus.ORDERED
+            );
+        } else {
+            Utils.Logs('w', TAG, "Order already ordered. Current status: " + this.previousOrderStatusNumber);
+            view.openPaymentScreen();
+        }
     }
 
     @Override
@@ -186,11 +212,14 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id + ", status: " + orderDetail.order_status);
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
+        // Save previous order status number
+        this.previousOrderStatusNumber = orderDetail.order_status;
+
         // Begin add ordered product
         if (previousOrderDetailId == -1) {
 
             // Save previous order detail id
-            previousOrderDetailId = orderDetail.id;
+            this.previousOrderDetailId = orderDetail.id;
 
             // Begin to create new Ordered Product
             long[] shoppingCartIds = view.getSelectedShoppingCartIds();
@@ -203,7 +232,15 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             );
         } else {
             Utils.Logs('w', TAG, "ORDER DETAIL DATA UPDATED.");
-            setupOrderDetailsViewByOrderStatus(orderDetail);
+
+            int orderStatusNo = orderDetail.order_status;
+
+            //
+            if (orderStatusNo == OrderStatus.ORDERED && this.isPaymentScreenRequested) {
+                view.openPaymentScreen();
+            } else {
+                setupOrderDetailsViewByOrderStatus(orderDetail);
+            }
         }
 
     }
@@ -287,11 +324,15 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         // Save current order detail id to prevent recreate order detail
         previousOrderDetailId = orderDetail.id;
 
+        // Save previous order status number
+        this.previousOrderStatusNumber = orderDetail.order_status;
+
         // Set payment due time
         view.setupPaymentView(orderDetail);
 
         // Show pay now when order still unpaid
-        if (orderDetail.order_status == OrderStatus.ORDERED) {
+        if (orderDetail.order_status == OrderStatus.ORDERED
+                || orderDetail.order_status == OrderStatus.INITIALIZE) {
             view.showPayNowView(true);
         } else {
             view.showPayNowView(false);
@@ -319,6 +360,10 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             view.showViewStatusSent();
         } else if (orderDetail.order_status == OrderStatus.RECEIVED) {
             view.showViewStatusReceived();
+        } else if (orderDetail.order_status == OrderStatus.REFUND) {
+            view.showViewStatusReturn();
+        } else if (orderDetail.order_status == OrderStatus.SUCCESS) {
+            view.showViewStatusSuccess();
         }
     }
 }

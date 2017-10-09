@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.StringUtils;
+import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.seller.model.ISellerPageModel;
 import id.unware.poken.ui.seller.view.ISellerPageView;
 
@@ -15,8 +17,13 @@ import id.unware.poken.ui.seller.view.ISellerPageView;
 
 public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageModelPresenter {
 
+    private static final String TAG = "SellerPagePresenter";
+
     private final ISellerPageModel model;
     private final ISellerPageView view;
+
+    private boolean isMoreContentAvailable = false;
+    private boolean isLoadMore = false;
 
     /** State will be ON if user explicitly press subscription button */
     private boolean isToggleSubscription = false;
@@ -28,6 +35,9 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
 
     @Override
     public void getSellerPageProductData(long sellerId) {
+
+        this.isLoadMore = false;
+
         model.requestSellerData(this, sellerId);
     }
 
@@ -51,10 +61,24 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     }
 
     @Override
+    public void getMoreSellerPageProductData(long sellerId) {
+
+        this.isLoadMore = true;
+
+        if (isMoreContentAvailable) {
+            model.requestMoreSellerData(this, sellerId);
+        }
+    }
+
+    @Override
     public void onSellerPageContentResponse(ArrayList<Product> products) {
         if (view.isActivityFinishing()) return;
 
-        view.pupolateSellerProductList(products);
+        if (!isLoadMore) {
+            view.pupolateSellerProductList(products);
+        } else {
+            view.appendSellerProductList(products);
+        }
     }
 
     @Override
@@ -76,6 +100,12 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
 
         // Show message on subsciption toggle
         this.view.showSubscriptionStatusMessage(isSubscribe);
+    }
+
+    @Override
+    public void onNextProductPage(String next) {
+        Utils.Log(TAG, "Next page URL: " + String.valueOf(next));
+        this.isMoreContentAvailable = !StringUtils.isEmpty(next);
     }
 
     @Override

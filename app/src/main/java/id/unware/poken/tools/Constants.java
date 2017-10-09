@@ -52,6 +52,7 @@ public class Constants {
     public static final String FABRIC_CONTENT_TYPE = "Page";
 
     public static final String EXTRA_DOMAIN_SERIALIZED_STRING = "EXTRA_DOMAIN_SERIALIZED_STRING";
+    public static final String EXTRA_PRODUCT_DATA = "EXTRA_PRODUCT_DATA";
 
     public static boolean focusOnSender = false;
 

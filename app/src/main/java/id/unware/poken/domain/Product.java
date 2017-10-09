@@ -1,5 +1,6 @@
 package id.unware.poken.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,7 +9,7 @@ import java.util.Date;
  * @since Jun 01 2017
  */
 
-public class Product {
+public class Product implements Serializable {
     public long id;
     public String name;
     public String description;

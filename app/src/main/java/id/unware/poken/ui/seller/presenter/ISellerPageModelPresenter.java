@@ -16,4 +16,6 @@ public interface ISellerPageModelPresenter extends BasePresenter {
     void setupSellerInfo(Seller seller);
 
     void onSuscriptionSuccess(boolean isSubscribe);
+
+    void onNextProductPage(String next);
 }

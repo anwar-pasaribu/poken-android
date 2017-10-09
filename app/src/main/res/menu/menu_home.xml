@@ -23,11 +23,4 @@
         android:title="Profil"
         android:icon="@drawable/ic_account_circle_black_24dp"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_addressbook"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Address boo"
-        app:showAsAction="always" />
 </menu>

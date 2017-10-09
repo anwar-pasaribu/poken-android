@@ -42,6 +42,7 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
             totalQuantity = totalQuantity + item.quantity;
             double originalProductPrice = (item.product.price * item.quantity);
             totalPrice = totalPrice + (originalProductPrice - ((originalProductPrice * item.product.discount_amount) / 100));
+            totalPrice = totalPrice + item.shipping_fee;
         }
 
         Utils.Log(TAG, "Total price: " + StringUtils.formatCurrency(String.valueOf(totalPrice)));

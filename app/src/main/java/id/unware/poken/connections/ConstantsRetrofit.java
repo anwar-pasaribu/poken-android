@@ -32,4 +32,5 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_CUSTOMER_SUBSCRIPTION = "customer_subscription/";
     public static final String ENDPOINT_FETCH_PRODUCTS = "product/";
     public static final String ENDPOINT_SEARCH_PRODUCTS = "product/";
+    public static final String ENDPOINT_SHIPPING_RATES = "shipping_rates/";
 }

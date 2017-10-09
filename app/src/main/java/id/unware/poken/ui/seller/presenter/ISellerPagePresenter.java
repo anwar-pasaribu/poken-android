@@ -16,4 +16,6 @@ public interface ISellerPagePresenter {
     void startDetailScreen(Product product);
 
     void subscribeOnSeller(long sellerId, boolean isSubscribe);
+
+    void getMoreSellerPageProductData(long sellerId);
 }

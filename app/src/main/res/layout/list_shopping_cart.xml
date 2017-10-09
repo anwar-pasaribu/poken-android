@@ -38,7 +38,7 @@
         android:layout_toRightOf="@+id/ivStoreAvatar"
         android:ellipsize="middle"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:singleLine="true"
         tools:text="Kejora Busana" />
 
     <View
@@ -236,6 +236,7 @@
         android:layout_marginTop="@dimen/item_gap_s"
         android:paddingLeft="35dp"
         android:clickable="true"
+        android:focusable="true"
         android:background="?attr/selectableItemBackground"
         android:paddingRight="@dimen/text_margin"
         android:layout_height="wrap_content"

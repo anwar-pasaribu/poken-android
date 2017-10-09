@@ -1,15 +1,17 @@
 package id.unware.poken.ui.shoppingsummary.view;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,15 +21,19 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.home.view.HomeActivity;
+import id.unware.poken.ui.payment.view.PaymentActivity;
 
 public class ShoppingSummaryActivity extends BaseActivity {
 
     private static final String TAG = "ShoppingSummaryActivity";
 
+    @BindView(R.id.parentView) ViewGroup parentView;
     @BindView(R.id.shoppingSummaryBtnShoppingAgain) Button shoppingSummaryBtnShoppingAgain;
+    @BindView(R.id.shoppingSummaryBtnCopyPaymentConfirmText) Button shoppingSummaryBtnCopyPaymentConfirmText;
 
     private String orderRef = "";
     private double shoppingCost = 0;
+    private String payTemplate = "";
 
     private Unbinder unbinder;
 
@@ -41,7 +47,13 @@ public class ShoppingSummaryActivity extends BaseActivity {
         if (getIntent().getExtras() != null) {
             orderRef = getIntent().getStringExtra(Constants.EXTRA_ORDER_REF);
             shoppingCost = getIntent().getDoubleExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, 0D);
+
+            Utils.Logs('i', TAG, "Total shopping cost: " + shoppingCost);
         }
+
+        payTemplate = getResources().getString(R.string.payment_confirmation_format_template_placehoder, orderRef, ((int) shoppingCost));
+
+        Utils.Logs('i', TAG, "Template: " + payTemplate);
 
         initView();
     }
@@ -56,6 +68,30 @@ public class ShoppingSummaryActivity extends BaseActivity {
             getSupportActionBar().setTitle(R.string.title_activity_payment_confirm);
             getSupportActionBar().setSubtitle(this.getString(R.string.lbl_order_ref_id, orderRef));
         }
+
+        shoppingSummaryBtnCopyPaymentConfirmText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        ClipboardManager clipboard = (ClipboardManager) ShoppingSummaryActivity.this.getSystemService(CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("copied_payment_confirmation_template", payTemplate);
+                        if (clipboard != null) {
+                            clipboard.setPrimaryClip(clip);
+                        }
+
+                        Utils.snackBar(
+                                parentView,
+                                ShoppingSummaryActivity.this.getString(R.string.msg_info_string_copied, payTemplate),
+                                Log.INFO
+                        );
+                    }
+                }, 150);
+            }
+        });
 
         shoppingSummaryBtnShoppingAgain.setOnClickListener(new View.OnClickListener() {
             @Override

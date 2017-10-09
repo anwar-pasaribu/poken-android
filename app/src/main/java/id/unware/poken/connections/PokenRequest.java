@@ -14,6 +14,7 @@ import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
+import id.unware.poken.domain.ShippingRatesDataRes;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrder;
@@ -168,6 +169,12 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCTS)
     Call<ProductDataRes> reqProductContentByActionId(
+            @QueryMap Map<String, String> category
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_SHIPPING_RATES)
+    Call<ShippingRatesDataRes> reqShippingRates(
+            @HeaderMap Map<String, String> credentials,
             @QueryMap Map<String, String> category
     );
 

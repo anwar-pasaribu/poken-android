@@ -40,8 +40,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-        versionCode 16
-        versionName "0.0.16-beta"
+        versionCode 17
+        versionName "0.0.17-beta"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -217,6 +217,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:customtabs:$rootProject.ext.supportLibVersion"
+    compile 'com.android.support:multidex:1.0.1'
     compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseVersion"
     compile "com.google.android.gms:play-services-location:$rootProject.ext.playServicesVersion"

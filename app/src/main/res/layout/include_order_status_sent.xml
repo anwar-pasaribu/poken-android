@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,10 +12,29 @@
 
     <Button
         android:id="@+id/statusSentBtnConfirmAccepted"
-        android:theme="@style/MyButton.Secondary"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/statusSentTvTitle"
-        android:text="@string/btn_order_received"/>
+        android:layout_toRightOf="@+id/buttonSpace"
+        android:text="@string/btn_order_received"
+        android:theme="@style/MyButton.Secondary" />
+
+    <android.support.v4.widget.Space
+        android:id="@+id/buttonSpace"
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/statusSentBtnReture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/statusSentTvTitle"
+        android:layout_toLeftOf="@+id/buttonSpace"
+        android:text="@string/btn_order_reture"
+        android:theme="@style/MyButton.Secondary" />
 
 </RelativeLayout>

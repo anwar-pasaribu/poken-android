@@ -3,12 +3,9 @@ package id.unware.poken.ui.product.detail.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -51,13 +48,14 @@ import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
 import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
 import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
-import id.unware.poken.ui.product.detail.view.fragment.NewlyShoppingCartDialogFragment;
+import id.unware.poken.ui.shoppingcartnew.view.fragment.NewShoppingCartDialogFragment;
 import id.unware.poken.ui.seller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 
 
 public class ProductDetailActivity extends AppCompatActivity
-        implements IProductDetailView, ViewPager.OnPageChangeListener, GestureSettingsSetupListener {
+        implements IProductDetailView, ViewPager.OnPageChangeListener, GestureSettingsSetupListener,
+        NewShoppingCartDialogFragment.NewShoppingCartDialogListner {
 
     private static final String TAG = "ProductDetailActivity";
 
@@ -103,12 +101,13 @@ public class ProductDetailActivity extends AppCompatActivity
     // SAVE LAST SELECTED SHIPPING OPTION INDEX FROM LIST
     private int selectedShippingOptionsIndex = -1;
     private Shipping selectedShipping;
+
+    private Product currentProductData;
     private Seller currentSeller;
 
     private Unbinder unbinder;
 
     private ProductDetailPresenter presenter;
-
 
     private GlideRequests glideRequests;
 
@@ -148,9 +147,8 @@ public class ProductDetailActivity extends AppCompatActivity
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (presenter != null) {
-                    long shippingId = selectedShipping != null ? selectedShipping.id : 3;
-                    presenter.onBuyNow(shippingId, productId, false);
+                if (presenter != null && currentProductData != null) {
+                    presenter.startNewShoppingCartItemScreen(currentProductData);
                 }
             }
         });
@@ -159,11 +157,8 @@ public class ProductDetailActivity extends AppCompatActivity
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (presenter != null) {
-                    long shippingId = selectedShipping != null ? selectedShipping.id : 3;
-                    presenter.onBuyNow(shippingId, productId, true);
-                } else {
-                    Utils.Logs('e', TAG, "Presenter is not ready.");
+                if (presenter != null && currentProductData != null) {
+                    presenter.startNewShoppingCartItemScreen(currentProductData);
                 }
             }
         });
@@ -287,16 +282,15 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void showAddedShoppingCartItem(ShoppingCart newlyAddedShoppingCart) {
+    public void showAddNewShoppingCartItem(Product product) {
         Utils.Log(TAG, "Show newly created shopping cart item.");
 
-        String strAddedShoppingCartTag = "dialog-added-shopping-cart";
+        String strAddedShoppingCartTag = "dialog-add-new-shopping-cart";
         FragmentTransaction ft = hideDialog(strAddedShoppingCartTag);
         ft.addToBackStack(null);
 
-        NewlyShoppingCartDialogFragment f = new NewlyShoppingCartDialogFragment(
-                newlyAddedShoppingCart,
-                presenter);
+        NewShoppingCartDialogFragment f = NewShoppingCartDialogFragment.newInstance(product);
+        f.setCancelable(false);
         f.show(ft, strAddedShoppingCartTag);
 
     }
@@ -358,6 +352,11 @@ public class ProductDetailActivity extends AppCompatActivity
             tvProductSoldOutStatus.setVisibility(View.GONE);
         }
         progressBarDetailProduct.animate().alpha(0F);
+    }
+
+    @Override
+    public void setCurrentProduct(Product currentProductData) {
+        this.currentProductData = currentProductData;
     }
 
     @Override
@@ -526,5 +525,16 @@ public class ProductDetailActivity extends AppCompatActivity
     @Override
     public void onSetupGestureView(GestureView view) {
         Utils.Log(TAG, "Gesture view: " + view);
+    }
+
+    @Override
+    public void onContinueShopping() {
+        Utils.Log(TAG, "Continue shopping from dialog new shopping cart");
+    }
+
+    @Override
+    public void onContinuePayment(ShoppingCart shoppingCart) {
+        Utils.Log(TAG, "Continue PAYMENT from dialog new shopping cart");
+        showShoppingCartScreen(shoppingCart);
     }
 }

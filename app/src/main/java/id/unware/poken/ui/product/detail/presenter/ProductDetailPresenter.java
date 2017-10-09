@@ -6,6 +6,7 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.product.detail.model.IProductDetailModel;
@@ -63,6 +64,15 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
     }
 
     @Override
+    public void startNewShoppingCartItemScreen(Product product) {
+        if (PokenCredentials.getInstance().getCredentialHashMap() !=  null) {
+            view.showAddNewShoppingCartItem(product);
+        } else {
+            startLogin();
+        }
+    }
+
+    @Override
     public void startSellerScreen() {
         view.openSellerScreen();
     }
@@ -89,6 +99,8 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
 
         if (view.isActivityFinishing()) return;
 
+        view.setCurrentProduct(product);
+
         view.populateProductImage(product.images);
 
         view.updateProductPrice(
@@ -114,10 +126,6 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         if (isContinueShopping) {
 
             view.showShoppingCartScreen(cart);
-
-        } else {
-
-            view.showAddedShoppingCartItem(cart);
 
         }
     }

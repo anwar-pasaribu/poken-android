@@ -179,7 +179,8 @@
     <string name="btn_continue_checkout">Lanjut ke Pembayaran</string>
     <string name="title_activity_order">Orderan</string>
     <string name="btn_pay_now">Bayar Sekarang</string>
-    <string name="btn_order_received">Barang Telah Diterima</string>
+    <string name="btn_order_received">Barang Diterima</string>
+    <string name="btn_order_reture">Reture Barang </string>
     <string name="lbl_shipping_destination">Tujuan Pengiriman</string>
     <string name="lbl_ordered_product_section">Barang Pesanan</string>
     <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
@@ -205,6 +206,7 @@
     <string name="msg_order_detail_no_receiver_address">
     <![CDATA[Klik <font color="#904799">"UBAH"</font> untuk Pilih/Tambah alamat penerima.]]>
     </string>
+    <string name="btn_copy_template">Salin teks</string>
     <string name="btn_order_change_address_book">Ubah</string>
     <string name="btn_order_show_all_order">Lihat semua pesanan</string>
     <string name="btn_order_show_other_order">Lihat %1$d pesanan lainnya</string>
@@ -212,12 +214,13 @@
     <string name="lbl_order_payment_expires">Batas pembayaran %1$s</string>
     <string name="lbl_order_ref_id">ORDER REF: %1$s</string>
     <string name="lbl_order_total_cost">Total</string>
+    <string name="lbl_order_shipping_cost">Ongkos kirim</string>
     <string name="lbl_order_total_shopping_fee">Total Belanja</string>
     <string name="title_activity_search">Cari Barang</string>
     <string name="msg_waiting_for_payment">PEMBAYARAN BELUM DIKONFIRMASI</string>
     <string name="msg_title_network_error">Oops!</string>
     <string name="msg_content_network_error">Terjadi kesalahan saat mengambil data Poken</string>
-    <string name="title_product_added_to_cart">Barang telah masuk ke Troli</string>
+    <string name="title_product_added_to_cart">Tambah Barang ke Troli</string>
     <string name="hint_close_dialog">Tutup</string>
     <string name="title_activity_featured">Featured</string>
     <string name="action_share">Bagikan</string>
@@ -240,7 +243,10 @@
     <string name="hint_addressbook_address">Alamat detail</string>
     <string name="btn_addressbook_submit">Tambah Alamat Penerima</string>
     <string name="msg_title_order_proceed">Cara Konfirmasi Pembayaran.</string>
-    <string name="msg_content_order_proceed">Setelah melakukan transfer, segera konfirmasi melalui SMS/WhatsApp ke: 0812 8123 1103 dengan format #ORDER REF #NAMA PEMILIK REKENING #NAMA BANK #JUMLAH TRANSFER\n\nPesanan Anda akan segera kami proses.</string>
+    <string name="msg_content_order_proceed">Setelah melakukan transfer, segera konfirmasi melalui SMS/WhatsApp ke: 0812 8123 1103 dengan format:</string>
+    <string name="payment_confirmation_format_template">#ORDER REF #NAMA PEMILIK REKENING #NAMA BANK #JUMLAH TRANSFER</string>
+    <string name="payment_confirmation_format_template_placehoder">#%1$s #ISI_NAMA_PEMILIK_REK #ISI_NAMA_BANK #%2$d</string>
+    <string name="payment_footer_text">Pesanan Anda akan segera kami proses.</string>
     <string name="btn_back_to_home_page">Kembali ke Home</string>
     <string name="btn_addressbook_add_new">Tambah</string>
     <string name="poken_office_address">Kantor Pusat : Jl. KH. Wahid Hasyim No. 29. Padangsidempuan. Tapanuli Selatan. Sumatera Utara</string>
@@ -253,9 +259,11 @@
     <string name="lbl_status_order_paid">Pesanan telah dibayar</string>
     <string name="lbl_status_order_sent">Pesanan dikirim</string>
     <string name="lbl_status_order_received">Pesanan diterima</string>
+    <string name="lbl_status_order_reture">Tim Poken akan memproses pengembalian pesanan Anda.</string>
     <string name="lbl_status_order_sucsess">Pesanan berhasil</string>
     <string name="lbl_order_status_title">Status pesanan</string>
     <string name="msg_order_confirm_order_received">Apakah barang pesanan sudah diterima?</string>
+    <string name="msg_order_return_order">Apakah pesanan tidak sesuai dengan deskripsi di aplikasi?\nKlik \"Reture\" untuk proses pengembalian.</string>
 
     <string name="shortcut_disabled_message">Menu tidak tersedia.</string>
     <string name="shortcut_long_label">Halaman Profil Poken</string>
@@ -264,4 +272,16 @@
     <string name="lbl_shipping_zip_location">Kode Pos Pengiriman</string>
     <string name="lbl_shipping_address_detail">Detail Pengiriman</string>
     <string name="btn_update_address_book">Ubah Alamat</string>
+    <string name="lbl_select_shipping_address">Pilih Alamat Pengiriman</string>
+    <string name="hint_show_more">Show More</string>
+    <string name="btn_show_address_book">Lihat alamat lainnya</string>
+    <string name="btn_add_address_book">Tambah alamat pengiriman</string>
+    <string name="lbl_selected_shipping_method">Pilih metode pengiriman</string>
+
+    <array name="arr_test">
+        <item>Medan</item>
+        <item>Bandung</item>
+        <item>Jakarta</item>
+        <item>Bali</item>
+    </array>
 </resources>

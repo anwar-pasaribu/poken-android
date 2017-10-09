@@ -75,10 +75,33 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
     }
 
     @Override
+    public void requestMoreSellerData(ISellerPageModelPresenter presenter, long sellerId) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("seller_id", String.valueOf(sellerId));
+
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            this.req.reqProductContent(
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    queryParams
+            ).enqueue(this);
+        } else {
+            this.req.reqProductContentByActionId(queryParams).enqueue(this);
+        }
+    }
+
+    @Override
     public void onSuccess(Response response) {
         presenter.updateViewState(UIState.FINISHED);
 
         if (response.body() instanceof ProductDataRes) {
+            this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+
             ArrayList<Product> products = new ArrayList<>();
             products.addAll(((ProductDataRes) response.body()).results);
             if (products.size() > 0) {

@@ -28,9 +28,10 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyTagHandler;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.shoppingsummary.view.ShoppingSummaryActivity;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentActivity extends BaseActivity {
 
     private static final String TAG = "PaymentActivity";
 
@@ -114,6 +115,7 @@ public class PaymentActivity extends AppCompatActivity {
     private void openShoppingSummaryScreen() {
         Intent intentShoppingSummary = new Intent(this, ShoppingSummaryActivity.class);
         intentShoppingSummary.putExtra(Constants.EXTRA_ORDER_REF, orderRef);
+        intentShoppingSummary.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, shoppingCost);
         this.startActivity(intentShoppingSummary);
     }
 

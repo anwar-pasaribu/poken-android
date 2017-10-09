@@ -72,6 +72,12 @@
                     <include
                         layout="@layout/include_order_status_received" />
 
+                    <include
+                        layout="@layout/include_order_status_success" />
+
+                    <include
+                        layout="@layout/include_order_status_reture" />
+
                 </ViewFlipper>
 
             </RelativeLayout>

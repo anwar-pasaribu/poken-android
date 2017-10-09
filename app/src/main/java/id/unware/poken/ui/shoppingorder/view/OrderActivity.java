@@ -61,7 +61,6 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     @BindView(R.id.orderParentHeader) RelativeLayout orderParentHeader;
     @BindView(R.id.orderViewFlipperStatusView) ViewFlipper orderViewFlipperStatusView;
 
-
     // ADDRESS BOOK SECTION
     @BindView(R.id.parentNoShippingAddress) RelativeLayout parentNoShippingAddress;
     @BindView(R.id.orderDetailNoAddressBook) TextView orderDetailNoAddressBook;
@@ -141,7 +140,6 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
-
         if (orderedProductId != -1) {
             presenter.getShoppingOrderData(orderedProductId);
         } else {
@@ -214,7 +212,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.startPaymentScreen();
+                presenter.beginOrder();
+                // presenter.startPaymentScreen();
             }
         });
     }
@@ -304,7 +303,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         Product product = shoppingCart.product;
         int totalProductCount = shoppingCart.quantity;
         double productTotalPrice = shoppingCart.total_price;
-        double shippingFee = shoppingCart.shipping.fee;
+        double shippingFee = shoppingCart.shipping_fee;
         String shippingMethod = shoppingCart.shipping.name;
         double grandTotal = productTotalPrice + shippingFee;
 
@@ -462,6 +461,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         // Setup view
         ViewGroup viewGroup = (ViewGroup) orderViewFlipperStatusView.getChildAt(OrderStatus.SENT);
         Button statusSentBtnConfirmAccepted = viewGroup.findViewById(R.id.statusSentBtnConfirmAccepted);
+        Button statusSentBtnReturn = viewGroup.findViewById(R.id.statusSentBtnReture);
         statusSentBtnConfirmAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -483,11 +483,43 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
                 );
             }
         });
+
+        statusSentBtnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControllerDialog.getInstance().showYesNoDialog(
+                        getString(R.string.msg_order_return_order),
+                        OrderActivity.this,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (DialogInterface.BUTTON_POSITIVE == i) {
+                                    if (presenter != null) {
+                                        presenter.retureOrder(orderDetailsId);
+                                    }
+
+                                    dialogInterface.dismiss();
+                                }
+                            }
+                        }, "Reture", "Tidak"
+                );
+            }
+        });
     }
 
     @Override
     public void showViewStatusReceived() {
         orderViewFlipperStatusView.setDisplayedChild(OrderStatus.RECEIVED);
+    }
+
+    @Override
+    public void showViewStatusSuccess() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.SUCCESS);
+    }
+
+    @Override
+    public void showViewStatusReturn() {
+        orderViewFlipperStatusView.setDisplayedChild(OrderStatus.REFUND);
     }
 
     @Override

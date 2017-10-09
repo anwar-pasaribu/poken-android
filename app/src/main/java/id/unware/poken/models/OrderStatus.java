@@ -6,6 +6,8 @@ package id.unware.poken.models;
  */
 
 public class OrderStatus {
+    public static final int INITIALIZE = -2;
+    public static final int SOLD_OUT = -1;
     public static final int ORDERED = 0;
     public static final int PAID = 1;
     public static final int SENT = 2;

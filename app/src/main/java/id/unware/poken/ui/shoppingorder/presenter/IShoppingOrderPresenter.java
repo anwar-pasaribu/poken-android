@@ -23,4 +23,8 @@ public interface IShoppingOrderPresenter {
     void prepareOrderFromShoppingCart(String shoppingCartArrayListJsonString);
 
     void confirmOrderReceived(long orderDetailsId);
+
+    void retureOrder(long orderDetailsId);
+
+    void beginOrder();
 }

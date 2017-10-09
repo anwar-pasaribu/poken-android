@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,41 +26,84 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/parentView"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/shoppingSummaryTvSummary"
             style="@style/TextListTitle"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
             android:maxLines="2"
-            android:textStyle="bold"
             android:text="@string/msg_title_order_proceed"
-            android:layout_height="wrap_content" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/shoppingSummaryTvSubSummary"
-            android:layout_below="@id/shoppingSummaryTvSummary"
             style="@style/TextListTitle"
-            android:layout_marginTop="@dimen/item_gap_l"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shoppingSummaryTvSummary"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginRight="@dimen/text_margin"
-            android:layout_width="match_parent"
-            android:text="@string/msg_content_order_proceed"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:text="@string/msg_content_order_proceed" />
 
+        <RelativeLayout
+            android:id="@+id/parentConfirmationTemplate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shoppingSummaryTvSubSummary"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:background="@color/white_100"
+            android:padding="@dimen/text_margin">
+
+            <TextView
+                android:id="@+id/shoppingSummaryTvTemplate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_confirmation_format_template" />
+
+            <Button
+                android:id="@+id/shoppingSummaryBtnCopyPaymentConfirmText"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/shoppingSummaryTvTemplate"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:gravity="right|center_vertical"
+                android:minHeight="0dp"
+                android:padding="0dp"
+                android:text="@string/btn_copy"
+                android:textAllCaps="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/paymentInforamtionFooter"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/parentConfirmationTemplate"
+            android:paddingLeft="@dimen/text_margin"
+            android:paddingRight="@dimen/text_margin"
+            android:text="@string/payment_footer_text" />
 
         <Button
             android:id="@+id/shoppingSummaryBtnShoppingAgain"
-            android:layout_below="@+id/shoppingSummaryTvSubSummary"
-            android:layout_marginTop="@dimen/item_gap_l"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/paymentInforamtionFooter"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_l"
             android:text="@string/btn_back_to_home_page"
             android:textAllCaps="true"
             android:theme="@style/MyButton.Secondary" />

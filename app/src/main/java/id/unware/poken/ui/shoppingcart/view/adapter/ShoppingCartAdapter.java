@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDimen;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,31 +83,32 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         String productImage = images.get(0).thumbnail;
         String productName = product.name;
         String strShipping = item.shipping == null
-                ? "Metode pengiriman ditentukan oleh Poken"
+                ? "-"
                 : item.shipping.name;
+        // Shipping name - fee
+        strShipping = strShipping.concat(" - ").concat(StringUtils.formatCurrency(String.valueOf(item.shipping_fee)));
+
         final double originalProductPrice = product.price;
+        String strFormattedOriginalPrice = StringUtils.formatCurrency(String.valueOf(originalProductPrice));
         final double discountAmount = product.discount_amount;
         final double afterDiscountProductPrice = originalProductPrice - ((originalProductPrice * discountAmount) / 100);
         final int productStock = product.stock;
 
         // Product image thumbnail size
-        int imageSize = context.getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
         holder.cbSelectAllStoreItem.setChecked(isSelected);
         holder.tvStoreName.setText(storeName);
         Picasso.with(context)
                 .load(productImage)
-                .resize(imageSize, imageSize)
+                .resize(holder.size64, holder.size64)
                 .centerCrop()
                 .into(holder.ivProductImage);
         holder.tvProductName.setText(productName);
         holder.tvSelectedProductStock.setText(context.getString(R.string.lbl_product_stock, product.stock));
 
-        holder.tvProductTotalPrice.setText(
-                StringUtils.formatCurrency(String.valueOf(originalProductPrice))
-        );
+        holder.tvProductTotalPrice.setText(strFormattedOriginalPrice);
 
         // tvPrice2 to show SALE item
-        holder.tvPrice2.setText(StringUtils.formatCurrency(String.valueOf(originalProductPrice)));
+        holder.tvPrice2.setText(strFormattedOriginalPrice);
         holder.tvPrice2.setPaintFlags(holder.tvProductTotalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);  // Strike
         holder.tvDiscountedPrice.setText(StringUtils.formatCurrency(String.valueOf(afterDiscountProductPrice)));
         holder.tvDiscountAmount.setText((int) discountAmount + "%");
@@ -284,6 +286,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
         // RESOURCE
         @BindString(R.string.hint_cart_add_note) String hint_cart_add_note;
+        @BindDimen(R.dimen.clickable_size_64) int size64;
 
         public ViewHolder(View view) {
             super(view);

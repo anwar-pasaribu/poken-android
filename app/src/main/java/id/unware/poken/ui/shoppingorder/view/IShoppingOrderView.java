@@ -56,4 +56,9 @@ public interface IShoppingOrderView extends BaseView {
     void showViewStatusSent();
 
     void showViewStatusReceived();
+
+    void showViewStatusSuccess();
+
+    void showViewStatusReturn();
+
 }

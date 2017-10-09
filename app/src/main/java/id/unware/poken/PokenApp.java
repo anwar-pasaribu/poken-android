@@ -1,21 +1,19 @@
 package id.unware.poken;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
-import com.bumptech.glide.annotation.GlideModule;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
-
-public class PokenApp extends Application {
+public class PokenApp extends MultiDexApplication {
 
     private final String TAG = "AppClass";
 

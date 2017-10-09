@@ -38,6 +38,7 @@ import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivity;
+import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.seller.model.SellerPageModel;
@@ -68,6 +69,9 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
     private Unbinder unbinder;
 
     private SellerPagePresenter presenter;
+
+    // Store a member variable for the listener
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     private SellerProductAdapter adapter;
     private ArrayList<Product> listItem = new ArrayList<>();
@@ -131,10 +135,28 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     private void initSellerPageList() {
         adapter = new SellerProductAdapter(listItem, presenter, glideRequests);
-        adapter.setHasStableIds(true);
-        rvSellerProduct.setLayoutManager(new GridLayoutManager(this, 2));
         rvSellerProduct.setAdapter(adapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        rvSellerProduct.setLayoutManager(gridLayoutManager);
 
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvSellerProduct.addOnScrollListener(scrollListener);
+
+    }
+
+    private void loadNextDataFromApi(int page) {
+        if (presenter != null) {
+            presenter.getMoreSellerPageProductData(sellerId);
+        }
     }
 
     @Override
@@ -249,6 +271,17 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
         listItem.clear();
         listItem.addAll(products);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void appendSellerProductList(ArrayList<Product> products) {
+        int moreProductsSize = products.size();
+        int currentProductsSize = listItem.size();
+        Utils.Logs('i', TAG, "More product list size: " + moreProductsSize);
+        Utils.Logs('i', TAG, "Current size " + currentProductsSize);
+
+        listItem.addAll(products);
+        adapter.notifyItemRangeInserted(currentProductsSize, moreProductsSize);
     }
 
     @Override
