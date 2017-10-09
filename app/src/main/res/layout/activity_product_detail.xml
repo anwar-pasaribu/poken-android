@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +8,11 @@
     tools:context="id.unware.poken.ui.product.detail.view.ProductDetailActivity">
 
     <!-- Content rendered first then appbar, in order to fix content overlap appbar problem-->
-    <include layout="@layout/content_product_detail"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_marginBottom="@dimen/clickable_size_64"/>
+    <include
+        layout="@layout/content_product_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/clickable_size_64" />
 
     <!-- Exceptional height "app_bar_height = 180dp". To fix toolbar behind status bar-->
     <android.support.design.widget.AppBarLayout
@@ -20,12 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        app:elevation="0dp"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
-            android:fitsSystemWindows="true"
-            style="@style/AppTheme.Toolbar.Transparent"/>
+            style="@style/AppTheme.Toolbar.Transparent"
+            android:fitsSystemWindows="true" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -47,12 +47,13 @@
             android:id="@+id/btnAddCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/item_gap_m"
-            android:layout_alignParentLeft="true"
             android:text="@string/btn_add_to_cart"
             android:textAllCaps="true"
-            android:theme="@style/MyButton.Secondary"/>
+            android:theme="@style/MyButton.Secondary"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnBuy"
