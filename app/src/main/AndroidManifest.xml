@@ -54,7 +54,7 @@
             android:name=".ui.home.view.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ui.product.detail.view.ProductDetailActivity"
             android:parentActivityName=".ui.home.view.HomeActivity"

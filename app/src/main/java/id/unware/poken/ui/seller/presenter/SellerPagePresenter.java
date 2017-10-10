@@ -61,12 +61,12 @@ public class SellerPagePresenter implements ISellerPagePresenter, ISellerPageMod
     }
 
     @Override
-    public void getMoreSellerPageProductData(long sellerId) {
+    public void getMoreSellerPageProductData(long sellerId, int page) {
 
         this.isLoadMore = true;
 
         if (isMoreContentAvailable) {
-            model.requestMoreSellerData(this, sellerId);
+            model.requestMoreSellerData(this, sellerId, page);
         }
     }
 

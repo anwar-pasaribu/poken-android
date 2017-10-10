@@ -1,7 +1,6 @@
 package id.unware.poken.ui.seller.model;
 
 import id.unware.poken.ui.seller.presenter.ISellerPageModelPresenter;
-import id.unware.poken.ui.seller.presenter.SellerPagePresenter;
 
 /**
  * @author Anwar Pasaribu
@@ -12,5 +11,5 @@ public interface ISellerPageModel {
     void requestSellerData(ISellerPageModelPresenter presenter, long sellerId);
     void requestSubscription(ISellerPageModelPresenter presenter, long sellerId, boolean isSubscribe);
 
-    void requestMoreSellerData(ISellerPageModelPresenter presenter, long sellerId);
+    void requestMoreSellerData(ISellerPageModelPresenter presenter, long sellerId, int page);
 }

@@ -1,9 +1,7 @@
 package id.unware.poken.ui.customersubscription.view.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alexvasilkov.gestures.commons.circle.CircleImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -27,8 +24,6 @@ import id.unware.poken.R;
 import id.unware.poken.domain.CustomerSubscription;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.customersubscription.presenter.ICustomerSubscriptionPresenter;
-
-import static android.R.attr.bitmap;
 
 public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSubscriptionAdapter.ViewHolder> {
 

@@ -155,7 +155,7 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
     private void loadNextDataFromApi(int page) {
         if (presenter != null) {
-            presenter.getMoreSellerPageProductData(sellerId);
+            presenter.getMoreSellerPageProductData(sellerId, page);
         }
     }
 

@@ -75,7 +75,7 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
     }
 
     @Override
-    public void requestMoreSellerData(ISellerPageModelPresenter presenter, long sellerId) {
+    public void requestMoreSellerData(ISellerPageModelPresenter presenter, long sellerId, int page) {
         if (this.presenter == null) {
             this.presenter = presenter;
         }
@@ -84,6 +84,7 @@ public class SellerPageModel extends MyCallback implements ISellerPageModel {
 
         Map<String, String> queryParams = new HashMap<>();
         queryParams.put("seller_id", String.valueOf(sellerId));
+        queryParams.put("page", String.valueOf(page));
 
         if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
             this.req.reqProductContent(

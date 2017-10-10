@@ -264,9 +264,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
 
-                Utils.Log(TAG, "W: " + layoutParams.width);
-                Utils.Log(TAG, "H: " + layoutParams.height);
-
                 if (isShipmentAddressSectionExpanded) {
                     // Collapse
                     layoutParams.height = getResources().getDimensionPixelOffset(R.dimen.clickable_size);
@@ -333,9 +330,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
                 newShoppingCartParentShippingAddress.setLayoutParams(layoutParams);
 
-                Utils.Log(TAG, "> W: " + layoutParams.width);
-                Utils.Log(TAG, "> H: " + layoutParams.height);
-                Utils.Log(TAG, "> View H: " + newShoppingCartParentShippingAddress.getHeight());
             }
         });
 
@@ -345,9 +339,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
             public void onClick(View view) {
 
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-
-                Utils.Log(TAG, "W: " + layoutParams.width);
-                Utils.Log(TAG, "H: " + layoutParams.height);
 
                 if (isShipmentMethodSectionExpanded) {
                     // Collapse
@@ -411,9 +402,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
                 newShoppingCartParentShippingMethod.setLayoutParams(layoutParams);
 
-                Utils.Log(TAG, "> W: " + layoutParams.width);
-                Utils.Log(TAG, "> H: " + layoutParams.height);
-                Utils.Log(TAG, "> View H: " + newShoppingCartParentShippingMethod.getHeight());
             }
         });
 
