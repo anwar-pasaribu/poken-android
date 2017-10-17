@@ -7,9 +7,11 @@ import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -101,6 +103,17 @@ public class FragmentLogin extends BaseFragment implements
 
     private void initView() {
         Utils.Log(TAG, "Init view");
+
+        txtPasswordLogin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    beginSignIn();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         // Initially set sign button disabled
         btnSignIn.setEnabled(false);
