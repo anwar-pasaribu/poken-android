@@ -49,7 +49,7 @@ import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.search.view.SearchActivity;
-import id.unware.poken.ui.seller.view.SellerActivity;
+import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
@@ -294,6 +294,15 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
             }
         }
+    }
+
+    @Override
+    public void showBrowseSeller(Section section) {
+        Utils.Logs('i', TAG, "Start Browse Screen with intention to show Seller directory item. Intent id: " + section.section_action_id);
+        Intent browseSaleProducts = new Intent(this, BrowseActivity.class);
+        browseSaleProducts.putExtra(Constants.EXTRA_GENERAL_INTENT_ID, section.section_action_id);
+        browseSaleProducts.putExtra(Constants.EXTRA_GENERAL_INTENT_VALUE, section.name);
+        this.startActivity(browseSaleProducts);
     }
 
     @Override

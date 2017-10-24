@@ -57,12 +57,32 @@
                 style="@style/TextTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginRight="@dimen/item_gap_s"
+                android:layout_toLeftOf="@+id/profileIbEditProfile"
                 android:layout_toRightOf="@+id/ivUserAvatar"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="user"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                tools:text="Dato Anwar Ibrahim Pasaribu "
                 tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/profileIbEditProfile"
+                style="@style/MyButton"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:tint="@color/black_90"
+                android:layout_alignTop="@id/tvProfileUser"
+                android:layout_alignBottom="@id/tvProfileUser"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/text_margin"
+                android:minWidth="0dp"
+                android:paddingLeft="@dimen/item_gap_s"
+                android:paddingRight="@dimen/item_gap_s"
+                android:text="Ubah"
+                android:background="@drawable/bg_default_light"
+                android:scaleType="center"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/ic_edit_black_24dp"/>
 
             <TextView
                 android:id="@+id/tvProfileIdetifier"
@@ -72,9 +92,9 @@
                 android:layout_below="@+id/tvProfileUser"
                 android:layout_marginRight="@dimen/text_margin"
                 android:layout_toRightOf="@+id/ivUserAvatar"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="email"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text="anwar_pasaribu@live.com"
                 tools:ignore="HardcodedText"/>
 
         </RelativeLayout>

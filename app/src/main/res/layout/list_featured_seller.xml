@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_gap_s"
+    android:layout_marginLeft="@dimen/item_gap_m"
+    android:layout_marginRight="@dimen/item_gap_m"
+    android:layout_marginTop="@dimen/item_gap_s"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/card_radius_s"
+    app:cardUseCompatPadding="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/clickable_size_64">
+
+        <ImageView
+            android:id="@+id/featuredSellerIvAvatar"
+            android:layout_width="@dimen/profile_avatar_m"
+            android:layout_height="@dimen/profile_avatar_m"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_l"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2" />
+
+        <ImageView
+            android:id="@+id/featuredSellerIvStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/item_gap_m"
+            android:tint="@color/package_status_picked"
+            app:srcCompat="@drawable/ic_star_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextListTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:layout_toLeftOf="@id/featuredSellerIvStar"
+            android:layout_toRightOf="@id/featuredSellerIvAvatar"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="1"
+            android:minLines="1"
+            android:textStyle="bold"
+            tools:text="Kejora Line 2" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/TextBodySecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_toLeftOf="@id/featuredSellerIvStar"
+            android:layout_toRightOf="@id/featuredSellerIvAvatar"
+            android:ellipsize="middle"
+            android:gravity="left"
+            android:maxLines="2"
+            tools:text="Menyediakan Anda." />
+
+        <TextView
+            android:id="@+id/featuredSellerTvAddress"
+            style="@style/TextCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDescription"
+            android:layout_marginLeft="@dimen/item_gap_s"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_toRightOf="@+id/sellerIconLocation"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="Padang Laccat" />
+
+        <ImageView
+            android:id="@+id/sellerIconLocation"
+            android:layout_width="@dimen/item_gap_m"
+            android:layout_height="@dimen/item_gap_m"
+            android:layout_alignBottom="@id/featuredSellerTvAddress"
+            android:layout_marginLeft="@dimen/item_gap_m"
+            android:layout_alignTop="@id/featuredSellerTvAddress"
+            android:layout_below="@id/tvDescription"
+            android:layout_toRightOf="@id/featuredSellerIvAvatar"
+            android:scaleType="centerInside"
+            android:tint="@color/style_overlay_grey"
+            app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/featuredSellerTvAddress"
+            android:layout_marginBottom="@dimen/item_gap_m" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

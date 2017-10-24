@@ -26,7 +26,7 @@ import id.unware.poken.ui.BaseFragment;
 import id.unware.poken.ui.customersubscription.model.CustomerSubscriptionModel;
 import id.unware.poken.ui.customersubscription.presenter.CustomerSubscriptionPresenter;
 import id.unware.poken.ui.customersubscription.view.adapter.CustomerSubscriptionAdapter;
-import id.unware.poken.ui.seller.view.SellerActivity;
+import id.unware.poken.ui.pageseller.view.SellerActivity;
 
 public class CustomerSubscriptionFragment extends BaseFragment implements ICustomerSubscriptionView {
 

@@ -1,4 +1,4 @@
-package id.unware.poken.ui.seller.view.adapter;
+package id.unware.poken.ui.pageseller.view.adapter;
 
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import butterknife.BindDimen;
@@ -23,7 +21,7 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.glide.GlideRequest;
 import id.unware.poken.tools.glide.GlideRequests;
-import id.unware.poken.ui.seller.presenter.ISellerPagePresenter;
+import id.unware.poken.ui.pageseller.presenter.ISellerPagePresenter;
 
 /**
  * @author Anwar Pasaribu

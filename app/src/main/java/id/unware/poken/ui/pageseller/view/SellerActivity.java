@@ -1,4 +1,4 @@
-package id.unware.poken.ui.seller.view;
+package id.unware.poken.ui.pageseller.view;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -41,9 +41,9 @@ import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
-import id.unware.poken.ui.seller.model.SellerPageModel;
-import id.unware.poken.ui.seller.presenter.SellerPagePresenter;
-import id.unware.poken.ui.seller.view.adapter.SellerProductAdapter;
+import id.unware.poken.ui.pageseller.model.SellerPageModel;
+import id.unware.poken.ui.pageseller.presenter.SellerPagePresenter;
+import id.unware.poken.ui.pageseller.view.adapter.SellerProductAdapter;
 
 public class SellerActivity extends BaseActivity implements ISellerPageView {
 
@@ -297,7 +297,7 @@ public class SellerActivity extends BaseActivity implements ISellerPageView {
 
         tvSellerUser.setText(seller.store_name);
 
-        tvSellerIdetifier.setText(seller.location);  // Alpha still 0
+        tvSellerIdetifier.setText(seller.location.city);  // Alpha still 0
         sellerIconLocation.animate().alpha(1F).withEndAction(new Runnable() {
             @Override
             public void run() {

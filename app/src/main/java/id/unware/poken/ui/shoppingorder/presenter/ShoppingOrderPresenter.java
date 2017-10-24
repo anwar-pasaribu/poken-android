@@ -30,6 +30,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     /** Save active order id */
     private long previousOrderDetailId = -1L;
 
+    private OrderDetail currentOrderDetails;
     private boolean isPaymentScreenRequested = false;
     private int previousOrderStatusNumber = OrderStatus.INITIALIZE;
 
@@ -60,9 +61,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
     @Override
     public void startPaymentScreen() {
-        if (view.isOrderReady()) {
+        if (view.isOrderReady() && currentOrderDetails != null) {
             Utils.Logs('i', TAG, "Start Payment screen");
-            view.openPaymentScreen();
+            view.openPaymentScreen(currentOrderDetails);
         }
     }
 
@@ -125,9 +126,6 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
                     this.previousOrderDetailId,
                     OrderStatus.ORDERED
             );
-        } else {
-            Utils.Logs('w', TAG, "Order already ordered. Current status: " + this.previousOrderStatusNumber);
-            view.openPaymentScreen();
         }
     }
 
@@ -212,6 +210,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id + ", status: " + orderDetail.order_status);
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
+        // Current order details
+        this.currentOrderDetails = orderDetail;
+
         // Save previous order status number
         this.previousOrderStatusNumber = orderDetail.order_status;
 
@@ -237,7 +238,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
             //
             if (orderStatusNo == OrderStatus.ORDERED && this.isPaymentScreenRequested) {
-                view.openPaymentScreen();
+                view.openPaymentScreen(currentOrderDetails);
             } else {
                 setupOrderDetailsViewByOrderStatus(orderDetail);
             }

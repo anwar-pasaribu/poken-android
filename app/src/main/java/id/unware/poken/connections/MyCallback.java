@@ -97,6 +97,12 @@ public abstract class MyCallback implements retrofit2.Callback {
 
     public abstract void onSuccess(Response response);
 
+    /**
+     * Message when network request failed. Message status <code>Constants.NETWORK_CALLBACK_FAILURE</code>
+     * indicate server response failed.
+     * @param msg Message to show.
+     * @param status Response status.
+     */
     public abstract void onMessage(String msg, int status);
 
     public abstract void onFinish();

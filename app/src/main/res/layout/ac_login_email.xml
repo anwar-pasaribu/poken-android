@@ -71,6 +71,9 @@
                 android:fontFamily="sans-serif"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:imeActionId="6"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
                 android:textSize="20sp"
                 tools:text="anwar_poken17" />
 

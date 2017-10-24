@@ -1,6 +1,6 @@
-package id.unware.poken.ui.seller.model;
+package id.unware.poken.ui.pageseller.model;
 
-import id.unware.poken.ui.seller.presenter.ISellerPageModelPresenter;
+import id.unware.poken.ui.pageseller.presenter.ISellerPageModelPresenter;
 
 /**
  * @author Anwar Pasaribu

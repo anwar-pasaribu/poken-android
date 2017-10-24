@@ -2,6 +2,7 @@ package id.unware.poken.ui.browse.presenter;
 
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 
 /**
  * @author Anwar Pasaribu
@@ -16,12 +17,19 @@ public interface IBrowsePresenter {
      */
     void getProductDataByIntentId(int intentId);
 
+    void getSellerList();
+
     void getMoreProductDataByIntentId(int actionId, int page);
+
+    void getMoreProductByCategory(Category category, int nextPage);
+
+    void getMoreSellerData(int page);
 
     void getProductByCategory(Category category);
 
     void startProductDetail(Product product);
 
-    void getMoreProductByCategory(Category category, int nextPage);
+
+    void onSellerClick(int position, Seller seller);
 
 }

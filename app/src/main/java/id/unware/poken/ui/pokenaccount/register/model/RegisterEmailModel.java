@@ -83,7 +83,7 @@ public class RegisterEmailModel extends MyCallback implements IRegisterEmailMode
 
             PokenCredentials.getInstance().setPokenCustomer(newCust);
 
-            Utils.Log(TAG, "User successfully register. Token: " + pokenUser.token);
+            Utils.Logs('i', TAG, "User successfully register. Token: " + pokenUser.token);
             this.presenter.onRegisterSuccess(newCust);
 
         }

@@ -43,6 +43,12 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
             MyLog.FabricTrackContentView(Tracking.TRACK_PAGE_SALE_ITEMS, Tracking.TRACK_TYPE_PAGE, Tracking.TRACK_ID_SALE_ITEMS_PAGE);
 
             view.startProductCategoryScreen(section);
+        } else if (section.section_action_id == Constants.HOME_SECTION_TOP_SELLER) {
+
+            MyLog.FabricTrackContentView(Tracking.TRACK_PAGE_BROWSE_SELLER, Tracking.TRACK_TYPE_PAGE, Tracking.TRACK_ID_SELLER_PAGE);
+
+            view.showBrowseSeller(section);
+
         }
     }
 

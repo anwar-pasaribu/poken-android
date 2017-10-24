@@ -18,13 +18,18 @@ import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.browse.model.BrowseModel;
 import id.unware.poken.ui.browse.presenter.BrowsePresenter;
 import id.unware.poken.ui.browse.view.adapter.BrowseProductAdapter;
 import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
+import id.unware.poken.ui.browse.view.adapter.SellerListAdapter;
+import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 
 public class BrowseActivity extends AppCompatActivity implements IBrowseView {
@@ -39,8 +44,13 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     private Unbinder unbinder;
 
+    private GlideRequests glideRequests;
+
     private ArrayList<Product> listItem = new ArrayList<>();
     private BrowseProductAdapter adapter;
+
+    private ArrayList<Seller> sellerArrayList = new ArrayList<>();
+    private SellerListAdapter sellerSectionAdapter;
 
     private BrowsePresenter presenter;
 
@@ -58,6 +68,8 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         setContentView(R.layout.activity_browse);
 
         unbinder = ButterKnife.bind(this);
+
+        glideRequests = GlideApp.with(this);
 
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
@@ -99,7 +111,13 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     private void requestContent() {
 
         if (!isBrowseByCategory) {
-            presenter.getProductDataByIntentId(actionId);
+
+            if (actionId == Constants.HOME_SECTION_SALE_PRODUCT) {
+                presenter.getProductDataByIntentId(actionId);
+            } else if (actionId == Constants.HOME_SECTION_TOP_SELLER){
+                presenter.getSellerList();
+            }
+
         } else {
 
             Utils.Logs('i', TAG, "Request product data by category. " +
@@ -123,9 +141,29 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
     }
 
     private void initBrowseListView() {
-        adapter = new BrowseProductAdapter(listItem, presenter);
-        rvProductBrowsing.setAdapter(adapter);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+
+        int gridColumnCount = 1;
+
+        if (actionId == Constants.HOME_SECTION_SALE_PRODUCT) {
+            adapter = new BrowseProductAdapter(listItem, presenter);
+            rvProductBrowsing.setAdapter(adapter);
+
+            gridColumnCount = 2;
+        } else if (actionId == Constants.HOME_SECTION_TOP_SELLER) {
+            sellerSectionAdapter = new SellerListAdapter(this, sellerArrayList, presenter, glideRequests);
+            rvProductBrowsing.setAdapter(sellerSectionAdapter);
+
+            gridColumnCount = 1;
+        } else {
+
+            // DEFAULT
+            adapter = new BrowseProductAdapter(listItem, presenter);
+            rvProductBrowsing.setAdapter(adapter);
+
+            gridColumnCount = 2;
+        }
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, gridColumnCount);
         rvProductBrowsing.setLayoutManager(gridLayoutManager);
 
         // Retain an instance so that you can call `resetState()` for fresh searches
@@ -143,20 +181,24 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
     private void loadNextDataFromApi(int page) {
         Utils.Logs('i', TAG, "Next page: " + page);
+
         if (presenter != null) {
 
-            if (!isBrowseByCategory) {
+            if (actionId == Constants.HOME_SECTION_SALE_PRODUCT) {
+                if (!isBrowseByCategory) {
+                    presenter.getMoreProductDataByIntentId(actionId, page);
+                } else {
+                    Category category = new Category();
+                    category.setId(categoryId);
+                    category.setName(categoryName);
+                    presenter.getMoreProductByCategory(category, page);
+                }
 
-                presenter.getMoreProductDataByIntentId(actionId, page);
-
-            } else {
-
-                Category category = new Category();
-                category.setId(categoryId);
-                category.setName(categoryName);
-
-                presenter.getMoreProductByCategory(category, page);
+            } else if (actionId == Constants.HOME_SECTION_TOP_SELLER) {
+                // Load more seller
+                presenter.getMoreSellerData(page);
             }
+
         }
     }
 
@@ -202,6 +244,31 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         listItem.addAll(products);
         adapter.notifyItemRangeInserted(currentProductsSize, moreProductsSize);
 
+    }
+
+    @Override
+    public void pupolateSellerList(ArrayList<Seller> sellers) {
+        sellerArrayList.clear();
+        sellerArrayList.addAll(sellers);
+        sellerSectionAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void appendSellerList(ArrayList<Seller> newSellerList) {
+        int moreSellerSize = newSellerList.size();
+        int currectSellerListSize = sellerArrayList.size();
+        Utils.Logs('i', TAG, "More seller list size: " + moreSellerSize);
+        Utils.Logs('i', TAG, "Current seller size " + currectSellerListSize);
+
+        sellerArrayList.addAll(newSellerList);
+        sellerSectionAdapter.notifyItemRangeInserted(currectSellerListSize, moreSellerSize);
+    }
+
+    @Override
+    public void showSellerDetail(int position, Seller seller) {
+        Intent sellerIntent = new Intent(this, SellerActivity.class);
+        sellerIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, seller.id);
+        this.startActivity(sellerIntent);
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface INewlyShoppingCartModel {
             String shippingService,
             INewlyShoppingCartModelPresenter presenter);
 
-    void requestRatesEstimation(INewlyShoppingCartModelPresenter presenter, long productId, long addressBookId);
+    void requestRatesEstimation(INewlyShoppingCartModelPresenter presenter, long productId, int productQuantity, long addressBookId);
 
     void requestLastUsedAddressBook(INewlyShoppingCartModelPresenter presenter);
 }

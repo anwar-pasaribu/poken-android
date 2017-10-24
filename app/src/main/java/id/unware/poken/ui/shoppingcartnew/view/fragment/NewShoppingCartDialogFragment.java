@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -50,7 +51,6 @@ import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShippingRates;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
-import id.unware.poken.tools.BitmapUtil;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
@@ -78,17 +78,15 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
     // Shipping address section
     @BindView(R.id.newShoppingCartParentShippingAddress) RelativeLayout newShoppingCartParentShippingAddress;
-    @BindView(R.id.newShoppingCartIvShippingAddress) ImageView newShoppingCartIvShippingAddress;
     @BindView(R.id.newShoppingCartTvShipmentAddressTitle) TextView newShoppingCartTvShipmentAddressTitle;
     @BindView(R.id.newShoppingCartTvAddressDetail) TextView newShoppingCartTvAddressDetail;
     @BindView(R.id.newShoppingCartBtnOtherShippingAddress) Button newShoppingCartBtnOtherShippingAddress;
 
     // Shipment section
     @BindView(R.id.newShoppingCartParentShippingMethod) RelativeLayout newShoppingCartParentShippingMethod;
-    @BindView(R.id.newShoppingCartIvShippingMethod) ImageView newShoppingCartIvShippingMethod;
-    @BindView(R.id.newShoppingCartTvShipmentMethodTitle) TextView newShoppingCartTvShipmentMethodTitle;
     @BindView(R.id.newShoppingCartSpinnerCourierName) Spinner newShoppingCartSpinnerCourierName;
     @BindView(R.id.newShoppingCartSpinnerCourierServices) Spinner newShoppingCartSpinnerCourierServices;
+    @BindView(R.id.newShoppingCartTvSelectedCourierMessage) TextView newShoppingCartTvSelectedCourierMessage;
 
     // Selected product summary
     @BindView(R.id.newShoppingCartParentProductSummary) LinearLayout newShoppingCartParentProductSummary;
@@ -105,6 +103,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     @BindView(R.id.ivShippingIcon) ImageView rowCartIvShippingIcon;
     @BindView(R.id.tvSelectedShippingMethodLbl) TextView rowCartTvSelectedShippingMethodLbl;
     @BindView(R.id.tvSelectedShippingMethod) TextView rowCartTvSelectedShippingMethod;
+    @BindView(R.id.rowCartShippingSeparator) View rowCartShippingSeparator;
 
     // ITEM QUANTITY
     @BindView(R.id.parentQuantityControl) CardView parentQuantityControl;
@@ -127,13 +126,12 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     // List of main button
     @BindViews({R.id.btnContinueToPayment, R.id.btnShopMore}) List<Button> mainButtons;
     @BindViews({R.id.btnAddQuantity, R.id.btnSubstractQuantity}) List<ImageButton> productQuantityCotrollers;
+    @BindViews({R.id.newShoppingCartSpinnerCourierName, R.id.newShoppingCartSpinnerCourierServices}) List<Spinner> spinners;
 
     private Unbinder unbinder;
+    private Handler handler;
     private NewlyShoppingCartPresenter presenter;
     private NewShoppingCartDialogListner listener;
-
-    private boolean isShipmentAddressSectionExpanded = false;
-    private boolean isShipmentMethodSectionExpanded = false;
 
     private Product currentProduct;
     private int productQuantity = 1;
@@ -143,6 +141,22 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     private AddressBook selectedAddressBook;
 
     private SparseArray<ArrayList<Shipping>> shippingRatesMapping = new SparseArray<>();
+
+    private long ID_POS_INDO = 1;
+    private long ID_COD = 2;
+    private long ID_JNT_EXPRESS = 3;
+
+    private Runnable ratesCheckRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isActivityFinishing()) return;
+
+            if (presenter != null) {
+                // Load rates after product quantity changes
+                presenter.loadRates(currentProduct.id, productQuantity, getSelectedAddressBook());
+            }
+        }
+    };
 
 
     public NewShoppingCartDialogFragment() {}
@@ -171,7 +185,10 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
         unbinder = ButterKnife.bind(this, view);
 
-        presenter = new NewlyShoppingCartPresenter(new NewlyShoppingCartModel(), this);
+        // Handler for delayed process
+        handler = new Handler();
+
+        presenter = new NewlyShoppingCartPresenter(new NewlyShoppingCartModel(), this, this.currentProduct);
 
         initView();
 
@@ -190,8 +207,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         rowCartIvShippingIcon.setVisibility(View.GONE);
         rowCartTvSelectedShippingMethodLbl.setVisibility(View.GONE);
         rowCartTvSelectedShippingMethod.setVisibility(View.GONE);
-
-        // Hide extra note field
+        rowCartShippingSeparator.setVisibility(View.GONE);
         rowCartExtraNoteSeparator.setVisibility(View.GONE);
         rowCartAddNoteIcon.setVisibility(View.GONE);
         rowCartAddNoteTextView.setVisibility(View.GONE);
@@ -257,154 +273,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         // Shopping initial price
         setupTotalPriceView(this.currentProduct, productQuantity);
 
-        // Shipment address section
-        newShoppingCartParentShippingAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-
-                if (isShipmentAddressSectionExpanded) {
-                    // Collapse
-                    layoutParams.height = getResources().getDimensionPixelOffset(R.dimen.clickable_size);
-                    isShipmentAddressSectionExpanded = false;
-
-                    // Section title of shipping address
-                    String selectedAddress = getString(R.string.lbl_select_shipping_address);
-                    if (getSelectedAddressBook() != null) {
-                        selectedAddress = getSelectedAddressBook().name.concat(" - ").concat(getSelectedAddressBook().address);
-                    }
-                    newShoppingCartTvShipmentAddressTitle.setText(selectedAddress);
-
-                    // Arrow to bottom
-                    newShoppingCartIvShippingAddress.animate().rotation(0F);
-
-                    // Show selected product summary
-                    newShoppingCartParentProductSummary.animate().alpha(1F);
-                    newShoppingCartParentMainButton.animate().alpha(1F);
-
-                    // Enable shipping method section
-                    newShoppingCartParentShippingMethod.setEnabled(true);
-                    newShoppingCartParentShippingMethod.animate().alpha(1F);
-                    newShoppingCartIvShippingMethod.setColorFilter(BitmapUtil.getEnabledColor(getContext()));
-
-                    // Enable main button
-                    for (Button btn : mainButtons) {
-                        btn.setEnabled(true);
-                    }
-
-                    for (ImageButton ib : productQuantityCotrollers) {
-                        ib.setEnabled(true);
-                    }
-
-                } else {
-                    // Expand
-                    layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-                    isShipmentAddressSectionExpanded = true;
-
-                    // Section title of shipping address
-                    newShoppingCartTvShipmentAddressTitle.setText(R.string.lbl_select_shipping_address);
-
-                    // Arrow to top
-                    newShoppingCartIvShippingAddress.animate().rotation(180F);
-
-                    // Hide selected product summary
-                    newShoppingCartParentProductSummary.animate().alpha(0.3F);
-                    newShoppingCartParentMainButton.animate().alpha(0.3F);
-
-                    // Disable shipping method section
-                    newShoppingCartParentShippingMethod.setEnabled(false);
-                    newShoppingCartParentShippingMethod.animate().alpha(0.3F);
-                    newShoppingCartIvShippingMethod.setColorFilter(BitmapUtil.getDisabledColor(getContext()));
-
-
-                    // Disable main button
-                    for (Button btn : mainButtons) {
-                        btn.setEnabled(false);
-                    }
-
-                    for (ImageButton ib : productQuantityCotrollers) {
-                        ib.setEnabled(false);
-                    }
-                }
-
-                newShoppingCartParentShippingAddress.setLayoutParams(layoutParams);
-
-            }
-        });
-
-        // Shipment method section
-        newShoppingCartParentShippingMethod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-
-                if (isShipmentMethodSectionExpanded) {
-                    // Collapse
-                    layoutParams.height = getResources().getDimensionPixelOffset(R.dimen.clickable_size);
-                    isShipmentMethodSectionExpanded = false;
-
-                    // Section title of shipping address
-                    String selectedAddress = getString(R.string.lbl_selected_shipping_method);
-                    newShoppingCartTvShipmentMethodTitle.setText(selectedAddress);
-
-                    // Arrow to bottom
-                    newShoppingCartIvShippingMethod.animate().rotation(0F);
-
-                    // Show selected product summary
-                    newShoppingCartParentProductSummary.animate().alpha(1F);
-                    newShoppingCartParentMainButton.animate().alpha(1F);
-
-                    // Enable shipping address section
-                    newShoppingCartParentShippingAddress.setEnabled(true);
-                    newShoppingCartParentShippingAddress.animate().alpha(1F);
-                    newShoppingCartIvShippingAddress.setColorFilter(BitmapUtil.getEnabledColor(getContext()));
-
-                    // Enable main button
-                    for (Button btn : mainButtons) {
-                        btn.setEnabled(true);
-                    }
-
-                    for (ImageButton ib : productQuantityCotrollers) {
-                        ib.setEnabled(true);
-                    }
-
-                } else {
-                    // Expand
-                    layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-                    isShipmentMethodSectionExpanded = true;
-
-                    // Section title
-                    newShoppingCartTvShipmentMethodTitle.setText(R.string.lbl_selected_shipping_method);
-
-                    // Arrow to top
-                    newShoppingCartIvShippingMethod.animate().rotation(180F);
-
-                    // Hide selected product summary
-                    newShoppingCartParentProductSummary.animate().alpha(0.3F);
-                    newShoppingCartParentMainButton.animate().alpha(0.3F);
-
-                    // Enable shipping address section
-                    newShoppingCartParentShippingAddress.setEnabled(false);
-                    newShoppingCartParentShippingAddress.animate().alpha(0.3F);
-                    newShoppingCartIvShippingAddress.setColorFilter(BitmapUtil.getDisabledColor(getContext()));
-
-                    // Disable main button
-                    for (Button btn : mainButtons) {
-                        btn.setEnabled(false);
-                    }
-
-                    for (ImageButton ib : productQuantityCotrollers) {
-                        ib.setEnabled(false);
-                    }
-                }
-
-                newShoppingCartParentShippingMethod.setLayoutParams(layoutParams);
-
-            }
-        });
-
         newShoppingCartBtnOtherShippingAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -414,19 +282,22 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         });
 
         btnAddQuantity.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        productQuantity = controlItemQuantity(productQuantity, productStock, true);
-                        Utils.Log(TAG, "[add] Q: " + productQuantity + ", stok: " + productStock);
-                        textItemQuantity.setText(
-                                String.valueOf(productQuantity)
-                        );
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    productQuantity = controlItemQuantity(productQuantity, productStock, true);
+                    Utils.Log(TAG, "[add] Q: " + productQuantity + ", stok: " + productStock);
+                    textItemQuantity.setText(
+                            String.valueOf(productQuantity)
+                    );
 
-                        // Change shopping cart counter on list page
-                        setupTotalPriceView(currentProduct, productQuantity);
-                    }
+                    // Change shopping cart counter on list page
+                    setupTotalPriceView(currentProduct, productQuantity);
+
+                    handler.removeCallbacks(ratesCheckRunnable);
+                    handler.postDelayed(ratesCheckRunnable, 1000);
                 }
+            }
         );
 
         btnSubstractQuantity.setOnClickListener(
@@ -441,6 +312,9 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
                         // Change shopping cart counter on list page
                         setupTotalPriceView(currentProduct, productQuantity);
+
+                        handler.removeCallbacks(ratesCheckRunnable);
+                        handler.postDelayed(ratesCheckRunnable, 1000);
                     }
                 }
         );
@@ -498,6 +372,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
                 totalPrice = discountedPrice + selectedCourierServiceFee;
         tvNewShoppingCartTvShippingFee.setText(StringUtils.formatCurrency(String.valueOf(selectedCourierServiceFee)));
         tvNewShoppingCartTotalCost.setText(StringUtils.formatCurrency(String.valueOf(totalPrice)));
+
+        // TODO
     }
 
     private int controlItemQuantity(int currentQuantity, int maxQuantity, boolean isAdd) {
@@ -520,8 +396,12 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
                 Utils.Logs('i', TAG, "Address book data found.");
                 AddressBook addressBookResult = data.getParcelableExtra(Constants.EXTRA_SELECTED_ADDRESS_BOOK);
                 if (addressBookResult != null) {
-                    setSelectedAddressBook(addressBookResult);
-                    setupSelectedAddressBookView(addressBookResult);
+
+                    ArrayList<AddressBook> addressBookArrayList = new ArrayList<>();
+                    addressBookArrayList.add(addressBookResult);
+
+                    presenter.onAddressBookListResponse(addressBookArrayList);
+
                 } else {
                     Utils.Log(TAG, "No parcelable address book found.");
                 }
@@ -530,8 +410,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     }
 
     private void setupSelectedAddressBookView(AddressBook addressBook) {
-        newShoppingCartTvShipmentAddressTitle.setText(String.format("%s - %s", addressBook.name, addressBook.address));
-        newShoppingCartTvAddressDetail.setText(String.format("%s\n%s\n%s", addressBook.name, addressBook.address, addressBook.phone));
+        newShoppingCartTvAddressDetail.setText(String.format("%s\n%s\n%s %s", addressBook.name, addressBook.phone, addressBook.address, addressBook.location.zip));
     }
 
     @NonNull
@@ -539,8 +418,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-
-        dialog.setCancelable(false);
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -551,6 +428,21 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
                 if (bottomSheet != null) {
                     BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(android.content.DialogInterface dialog, int keyCode,android.view.KeyEvent event) {
+
+                if ((keyCode ==  android.view.KeyEvent.KEYCODE_BACK)) {
+                    //Hide your keyboard here!!!
+                    Utils.Log(TAG, "On back pressed.");
+                    dialog.dismiss();
+                    return true; // pretend we've processed it
+                } else {
+                    return false; // pass on to be processed as normal
                 }
             }
         });
@@ -642,7 +534,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         newShoppingCartSpinnerCourierName.postDelayed(new Runnable() {
             @Override
             public void run() {
-                newShoppingCartSpinnerCourierName.setSelection(0);
+                if (newShoppingCartSpinnerCourierName != null)
+                    newShoppingCartSpinnerCourierName.setSelection(0);
             }
         }, 1000);
     }
@@ -667,6 +560,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
                 Utils.Log(TAG, "Selected service: " + shippingRatesMapping.get(courierId).get(pos).name);
                 Utils.Log(TAG, "Selected service price: " + shippingRatesMapping.get(courierId).get(pos).fee);
 
+                setupSelectedCourierServiceView(shippingRatesMapping.get(courierId).get(pos));
+
                 // Update price view
                 setupTotalPriceView(currentProduct, productQuantity);
             }
@@ -681,9 +576,26 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         newShoppingCartSpinnerCourierServices.postDelayed(new Runnable() {
             @Override
             public void run() {
-                newShoppingCartSpinnerCourierServices.setSelection(0);
+
+                if (newShoppingCartSpinnerCourierServices != null)
+                    newShoppingCartSpinnerCourierServices.setSelection(0);
+
             }
         }, 1000);
+    }
+
+    private void setupSelectedCourierServiceView(Shipping shipping) {
+        Utils.Log(TAG, "Shipping ID : " + shipping.id);
+
+        if (shipping.id == this.ID_COD) {
+            newShoppingCartTvSelectedCourierMessage.setVisibility(View.VISIBLE);
+            newShoppingCartTvSelectedCourierMessage.setText(R.string.lbl_term_cod);
+        } else if (shipping.id == this.ID_JNT_EXPRESS) {
+            newShoppingCartTvSelectedCourierMessage.setVisibility(View.VISIBLE);
+            newShoppingCartTvSelectedCourierMessage.setText(R.string.lbl_term_jnt_express);
+        } else {
+            newShoppingCartTvSelectedCourierMessage.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -695,9 +607,15 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
         // Setup view
         setupSelectedAddressBookView(addressBook);
+    }
 
-        // Load rates istimation after addressbook loaded
-        presenter.loadRatesEstimation(this.currentProduct.id, addressBook.id);
+    @Override
+    public void showAddressBookIncomplete(boolean isAddressBookIncomplete) {
+        if (isAddressBookIncomplete) {
+            newShoppingCartTvAddressDetail.setVisibility(View.VISIBLE);
+            newShoppingCartTvAddressDetail.setText(R.string.msg_address_book_incomplete);
+            newShoppingCartBtnOtherShippingAddress.setText(R.string.btn_show_address_book);
+        }
     }
 
     @Override
@@ -708,6 +626,19 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         } else {
             newShoppingCartTvAddressDetail.setVisibility(View.VISIBLE);
             newShoppingCartBtnOtherShippingAddress.setText(R.string.btn_show_address_book);
+        }
+    }
+
+    @Override
+    public void showNoShippingMethodAvailable(boolean isNoShippingMethod) {
+        if (isNoShippingMethod) {
+            newShoppingCartParentShippingMethod.animate().alpha(0.3F);
+        } else {
+            newShoppingCartParentShippingMethod.animate().alpha(1F);
+        }
+
+        for (Spinner spinner : spinners) {
+            spinner.setEnabled(!isNoShippingMethod);
         }
     }
 
@@ -730,6 +661,11 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     }
 
     @Override
+    public void showMessage(int msgState, String msg) {
+        Utils.toast(getContext(), msg);
+    }
+
+    @Override
     public void showViewState(UIState uiState) {
         Utils.Logs('w', TAG, "UI State : " + uiState);
 
@@ -742,8 +678,17 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
                 break;
             case ERROR:
                 showLoadingIndicator(false);
+                showErrorIndicator();
+                break;
+            case NODATA:
+                showLoadingIndicator(false);
                 break;
         }
+    }
+
+    private void showErrorIndicator() {
+        Utils.toast(getContext(), getString(R.string.msg_add_shopping_cart_item_failed));
+        dismissAllowingStateLoss();
     }
 
     private void showLoadingIndicator(boolean isLoading) {

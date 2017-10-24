@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="id.unware.poken.ui.profile.view.ProfileActivity">
+
+    <item
+        android:id="@+id/action_save_profile_edits"
+        android:orderInCategory="100"
+        android:title="@string/action_save_profile_edits"
+        app:showAsAction="always"/>
+</menu>

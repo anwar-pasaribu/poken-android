@@ -212,8 +212,8 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
         btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.beginOrder();
-                // presenter.startPaymentScreen();
+                // presenter.beginOrder();
+                presenter.startPaymentScreen();
             }
         });
     }
@@ -271,15 +271,20 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
     }
 
     @Override
-    public void openPaymentScreen() {
+    public void openPaymentScreen(OrderDetail currentOrderDetails) {
         if (totalShoppingCost != 0
                 && orderedProductId != -1
-                && paymentDue != null) {
+                && paymentDue != null
+                && currentOrderDetails != null) {
+
             Utils.Log(TAG, "Open payment screen. Order ref: " + this.orderRef);
+            Utils.Log(TAG, "Open payment screen. Order status: " + currentOrderDetails.order_status);
             Intent paymentIntent = new Intent(this, PaymentActivity.class);
+
             paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);
             paymentIntent.putExtra(Constants.EXTRA_ORDER_REF, this.orderRef);
-            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, orderedProductId);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_ID, currentOrderDetails.id);
+            paymentIntent.putExtra(Constants.EXTRA_ORDER_STATUS, currentOrderDetails.order_status);
             paymentIntent.putExtra(Constants.EXTRA_PAYMENT_DUE, paymentDue);
             this.startActivity(paymentIntent);
         } else {

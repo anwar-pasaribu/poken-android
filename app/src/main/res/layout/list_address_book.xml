@@ -54,6 +54,16 @@
             android:textAppearance="@style/TextListSubtitle"
             tools:text="Jl. Lapangan Bola No. 3\nLine 2\nLine 3" />
 
+        <TextView
+            android:id="@+id/addressBookTvRegion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address"
+            android:layout_toLeftOf="@+id/addressBookItemIbMenu"
+            android:layout_toRightOf="@+id/rbIsSelected"
+            android:textAppearance="@style/TextListSubtitle"
+            tools:text="Padangsidempuan 22741" />
+
         <ImageButton
             android:id="@+id/addressBookItemIbMenu"
             android:layout_width="wrap_content"
@@ -61,7 +71,6 @@
             android:layout_alignParentRight="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:rotation="90"
-            android:tint="@color/separator_view"
             app:srcCompat="@drawable/ic_chevron_right_24dp" />
 
         <RadioButton

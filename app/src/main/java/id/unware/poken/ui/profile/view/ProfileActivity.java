@@ -11,8 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import id.unware.poken.ui.BaseActivityWithup;
 import id.unware.poken.ui.customerorder.view.OrdersFragment;
 import id.unware.poken.ui.home.view.HomeActivity;
 import id.unware.poken.ui.profile.view.adapter.SectionsPagerAdapter;
+import id.unware.poken.ui.profileedit.view.ProfileEditActivity;
 import id.unware.poken.ui.shoppingorder.view.OrderActivity;
 
 public class ProfileActivity extends BaseActivityWithup implements OrdersFragment.OnOrderFragmentListener {
@@ -48,13 +52,13 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
     @BindView(R.id.ivUserAvatar) ImageView ivUserAvatar;
     @BindView(R.id.tvProfileUser) TextView tvProfileUser;
     @BindView(R.id.tvProfileIdetifier) TextView tvProfileIdetifier;
+    @BindView(R.id.profileIbEditProfile) Button profileIbEditProfile;
 
     @BindView(R.id.tabs) android.support.design.widget.TabLayout tabLayout;
     @BindView(R.id.container) android.support.v4.view.ViewPager mViewPager;
 
-
+    private Customer currentCustomer;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
 
     private boolean isLaunchFavorite = false;
 
@@ -77,20 +81,39 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupLoggedUserView();
+    }
+
     private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        profileIbEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentCustomer != null) {
+                    showEditProfile(currentCustomer);
+                }
+            }
+        });
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.setupWithViewPager(mViewPager);
+    }
 
-        // Setup logged in user
-        setupLoggedUserView();
+    private void showEditProfile(Customer customer) {
+        Intent editProfileIntent = new Intent(this, ProfileEditActivity.class);
+        editProfileIntent.putExtra(Constants.KEY_DOMAIN_ITEM_ID, customer.id);
+        editProfileIntent.putExtra(Constants.EXTRA_PARCELABLE_CUSTOMER, customer);
+        startActivityForResult(editProfileIntent, Constants.TAG_EDIT_PROFILE);
     }
 
     private void setupLoggedUserView() {
@@ -101,6 +124,7 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
             Customer customer = gson.fromJson(strCustomerData, Customer.class);
 
             if (customer != null) {
+                this.currentCustomer = customer;
                 tvProfileIdetifier.setText(customer.related_user.email);
                 tvProfileUser.setText(customer.related_user.getFullName());
             }

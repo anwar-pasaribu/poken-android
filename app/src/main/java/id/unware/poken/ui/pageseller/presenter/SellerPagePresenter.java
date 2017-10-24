@@ -1,4 +1,4 @@
-package id.unware.poken.ui.seller.presenter;
+package id.unware.poken.ui.pageseller.presenter;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
-import id.unware.poken.ui.seller.model.ISellerPageModel;
-import id.unware.poken.ui.seller.view.ISellerPageView;
+import id.unware.poken.ui.pageseller.model.ISellerPageModel;
+import id.unware.poken.ui.pageseller.view.ISellerPageView;
 
 /**
  * @author Anwar Pasaribu

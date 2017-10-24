@@ -8,11 +8,13 @@ public class Tracking {
     public static final String TRACK_TYPE_PAGE = "open-page";
     public static final String TRACK_TYPE_FEATURE = "open-feature";
 
+    public static final String TRACK_ID_SELLER_PAGE = "ID-SELLER-PAGE";
     public static final String TRACK_ID_SALE_ITEMS_PAGE = "ID-SALE";
     public static final String TRACK_ID_CONTACT = "ID-CONTACT";
     public static final String TRACK_ID_SECONDARY_FUNCTION = "ID-SECONDARY-FUNCTION";
 
     public static final String TRACK_PAGE_SALE_ITEMS = "sale-item";
+    public static final String TRACK_PAGE_BROWSE_SELLER = "browse-seller";
 
     public static final String TRACK_FEATURE_CLOSE_SNACKBAR = "close-snackbar";
 

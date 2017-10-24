@@ -11,12 +11,13 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_CHECK_TARIFF = "tariff2/{origin}/{dest}/{weight}";
     public static final String ENDPOINT_FETCH_NEARBY_BRANCHES = "location/{lat}/{lon}";
     public static final String ENDPOINT_FETCH_HOME_CONTENT = "home/";
-    public static final String ENDPOINT_FETCH_PRODUCT_CATEGORY = "product_category/";
+    public static final String ENDPOINT_FETCH_SELLERS = "seller/";
     public static final String ENDPOINT_FETCH_FEATURED_CATEGORY = "product_category_featured/";
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
     public static final String ENDPOINT_PATCH_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_PATCH_ORDER_DETAILS_STATUS = "order_details/{pk}/";
+    public static final String ENDPOINT_PATCH_CUSTOMER_PROFILE = "customer/{pk}/";
     public static final String ENDPOINT_INSERT_SHOPPING_CART = "insert_cart/";
     public static final String ENDPOINT_INSERT_SELLER_SUBSCRIPTION = "insert_customer_subscribed/";
     public static final String ENDPOINT_INSERT_ORDER_DETAIL = "insert_order_detail/";

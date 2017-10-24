@@ -34,6 +34,7 @@ public class Constants {
 
     public static final String EXTRA_ORDER_ID = "SHOPPING_ORDER_ID";
     public static final String EXTRA_ORDER_REF = "EXTRA_ORDER_REF";
+    public static final String EXTRA_ORDER_STATUS = "EXTRA_TOPUP_STATUS";
     public static final String EXTRA_GENERAL_INTENT_ID = "INTENT_ID";
     public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
     public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
@@ -44,6 +45,7 @@ public class Constants {
     public static final String EXTRA_PAYMENT_DUE = "PAYMENT_DUE";
     public static final String EXTRA_REQUESTED_PAGE = "EXTRA_REQUESTED_PAGE";
     public static final String EXTRA_SELECTED_ADDRESS_BOOK = "EXTRA_SELECTED_ADDRESS_BOOK";
+    public static final String EXTRA_PARCELABLE_CUSTOMER = "EXTRA_PARCELABLE_CUSTOMER";
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
@@ -97,6 +99,7 @@ public class Constants {
     public static final int TAG_BUY_NOW = 33;
     public static final int TAG_FEATURED = 34;
     public static final int TAG_FEATURE_SUBSCRIPTION = 35;
+    public static final int TAG_EDIT_PROFILE = 37;
 
     public static final String EXTRA_SELECTED_SHOPPING_CART_IDS = "selected_shopping_cart_ids";
     public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";

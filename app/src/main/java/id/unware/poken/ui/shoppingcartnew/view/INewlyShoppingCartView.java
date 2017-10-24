@@ -22,9 +22,15 @@ public interface INewlyShoppingCartView extends BaseView {
 
     void showFirstShippingAddress(AddressBook addressBook);
 
+    void showAddressBookIncomplete(boolean isAddressBookIncomplete);
+
     void showNoShippingAddressIndicator(boolean isShippingAddressEmpty);
+
+    void showNoShippingMethodAvailable(boolean isNoShippingMethod);
 
     void showShoppingPaymentScreen(ShoppingCart shoppingCart);
 
     void showPreviousScreen(ShoppingCart shoppingCart);
+
+    void showMessage(int msgState, String msg);
 }

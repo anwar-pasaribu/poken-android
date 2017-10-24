@@ -1,4 +1,4 @@
-package id.unware.poken.ui.seller.view;
+package id.unware.poken.ui.pageseller.view;
 
 import java.util.ArrayList;
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
@@ -39,6 +40,14 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     }
 
     @Override
+    public void getSellerList() {
+        this.isLoadMore = false;
+
+        model.requestSellerListData(this);
+
+    }
+
+    @Override
     public void getProductByCategory(Category category) {
 
         // Make false to prevent append data again
@@ -62,6 +71,22 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
         } else {
             Utils.Log(TAG, "Last page reached...");
         }
+    }
+
+    @Override
+    public void getMoreSellerData(int page) {
+        this.isLoadMore = true;
+
+        if (this.isMoreContentAvailable) {
+            model.requestMoreSellerData(this, page);
+        } else {
+            Utils.Log(TAG, "Last page reached...");
+        }
+    }
+
+    @Override
+    public void onSellerClick(int position, Seller seller) {
+        view.showSellerDetail(position, seller);
     }
 
     @Override
@@ -94,6 +119,25 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     public void onNextProductPage(String nextPage) {
         Utils.Log(TAG, "Next page URL: " + String.valueOf(nextPage));
         this.isMoreContentAvailable = !StringUtils.isEmpty(nextPage);
+    }
+
+    @Override
+    public void onNextSellerListPage(String nextPage) {
+        Utils.Log(TAG, "Next seller list page URL: " + String.valueOf(nextPage));
+        this.isMoreContentAvailable = !StringUtils.isEmpty(nextPage);
+    }
+
+    @Override
+    public void onSellerListResponse(ArrayList<Seller> sellers) {
+        if (view.isActivityFinishing()) return;
+
+        if (!isLoadMore) {
+            Utils.Log(TAG, "Initial sellers list response. Size: " + sellers.size());
+            view.pupolateSellerList(sellers);
+        } else {
+            Utils.Log(TAG, "More sellers response. Size: " + sellers.size());
+            view.appendSellerList(sellers);
+        }
     }
 
     @Override

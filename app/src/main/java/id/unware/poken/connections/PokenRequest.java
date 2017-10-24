@@ -14,6 +14,8 @@ import id.unware.poken.domain.HomeDataRes;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductDataRes;
+import id.unware.poken.domain.Seller;
+import id.unware.poken.domain.SellerDataRes;
 import id.unware.poken.domain.ShippingRatesDataRes;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingCartDataRes;
@@ -39,7 +41,6 @@ import retrofit2.http.QueryMap;
  * @author Anwar Pasaribu
  * @since Jun 01 2017
  */
-
 public interface PokenRequest {
 
     @FormUrlEncoded
@@ -74,6 +75,13 @@ public interface PokenRequest {
     @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_SHOPPING_CART)
     Call<ShoppingCart> postNewOrUpdateShoppingCart(
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
+
+    @FormUrlEncoded
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_CUSTOMER_PROFILE)
+    Call<Customer> patchCustomerProfile(
+            @Path("pk") long itemId,
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 
@@ -175,6 +183,11 @@ public interface PokenRequest {
     @GET(ConstantsRetrofit.ENDPOINT_SHIPPING_RATES)
     Call<ShippingRatesDataRes> reqShippingRates(
             @HeaderMap Map<String, String> credentials,
+            @QueryMap Map<String, String> category
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_SELLERS)
+    Call<SellerDataRes> reqSellerList(
             @QueryMap Map<String, String> category
     );
 

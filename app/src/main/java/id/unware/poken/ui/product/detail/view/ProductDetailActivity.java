@@ -2,7 +2,9 @@ package id.unware.poken.ui.product.detail.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
@@ -48,9 +50,9 @@ import id.unware.poken.ui.product.detail.model.ProductDetailModel;
 import id.unware.poken.ui.product.detail.presenter.ProductDetailPresenter;
 import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
 import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
-import id.unware.poken.ui.shoppingcartnew.view.fragment.NewShoppingCartDialogFragment;
-import id.unware.poken.ui.seller.view.SellerActivity;
+import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
+import id.unware.poken.ui.shoppingcartnew.view.fragment.NewShoppingCartDialogFragment;
 
 
 public class ProductDetailActivity extends AppCompatActivity
@@ -134,6 +136,9 @@ public class ProductDetailActivity extends AppCompatActivity
     }
 
     private void initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -225,7 +230,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
         // Store info
         tvSellerName.setText(product.seller.store_name);
-        tvSellerAddress.setText(product.seller.location);
+        tvSellerAddress.setText(product.seller.location.city);
         glideRequests.asDrawable()
                 .clone()
                 .load(product.seller.store_avatar)
@@ -289,9 +294,9 @@ public class ProductDetailActivity extends AppCompatActivity
         FragmentTransaction ft = hideDialog(strAddedShoppingCartTag);
         ft.addToBackStack(null);
 
-        NewShoppingCartDialogFragment f = NewShoppingCartDialogFragment.newInstance(product);
-        f.setCancelable(false);
-        f.show(ft, strAddedShoppingCartTag);
+        NewShoppingCartDialogFragment dialogNewShoppingCart = NewShoppingCartDialogFragment.newInstance(product);
+        dialogNewShoppingCart.setCancelable(false);
+        dialogNewShoppingCart.show(ft, strAddedShoppingCartTag);
 
     }
 

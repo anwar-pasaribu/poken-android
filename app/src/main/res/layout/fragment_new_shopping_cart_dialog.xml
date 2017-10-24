@@ -10,13 +10,13 @@
     <RelativeLayout
         android:id="@+id/newShoppingCartParentHeader"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/clickable_size"
         android:background="@color/white_100">
 
         <ImageButton
             android:id="@+id/addressBookIbClose"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/clickable_size"
+            android:layout_height="@dimen/clickable_size"
             android:layout_alignParentLeft="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/hint_close_dialog"
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:visibility="invisible"
             android:layout_toRightOf="@+id/addressBookIbClose"
             android:text="@string/title_product_added_to_cart" />
 
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_alignParentBottom="true"
+            android:visibility="invisible"
             android:background="@color/separator_view" />
 
         <ProgressBar
@@ -56,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newShoppingCartParentHeader"
+        android:layout_above="@+id/newShoppingCartParentMainButton"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -91,61 +94,39 @@
             <RelativeLayout
                 android:id="@+id/newShoppingCartParentShippingAddress"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/clickable_size"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/includeSepProductSummary"
                 android:animateLayoutChanges="true"
                 android:background="@color/white_100"
                 android:clickable="true"
                 android:focusable="true"
-                android:minHeight="@dimen/clickable_size"
-
-                tools:layout_height="@dimen/clickable_size">
+                android:minHeight="@dimen/clickable_size">
 
                 <TextView
                     android:id="@+id/newShoppingCartTvShipmentAddressTitle"
-                    style="@style/TextListTitle"
+                    style="@style/TextCaption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginTop="@dimen/item_gap_m"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:minHeight="@dimen/clickable_size"
                     android:paddingLeft="@dimen/text_margin"
                     android:paddingRight="@dimen/clickable_size"
                     android:singleLine="true"
-                    tools:text="Kos Anwar - Jl. Lapangan Bola No. 3 yang sangat " />
-
-                <ImageView
-                    android:id="@+id/newShoppingCartIvShippingAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/item_gap_m"
-                    android:contentDescription="@string/hint_show_more"
-                    android:scaleType="fitCenter"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
-
-                <View
-                    android:id="@+id/sepShippingAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_below="@id/newShoppingCartTvShipmentAddressTitle"
-                    android:background="@color/separator_view" />
+                    android:text="@string/lbl_select_shipping_address"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/newShoppingCartTvAddressDetail"
                     style="@style/TextListTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/sepShippingAddress"
-                    android:paddingBottom="@dimen/item_gap_m"
+                    android:layout_below="@+id/newShoppingCartTvShipmentAddressTitle"
                     android:paddingLeft="@dimen/text_margin"
                     android:paddingRight="@dimen/text_margin"
                     android:paddingTop="@dimen/item_gap_m"
-                    tools:text="Anwar Pasaribu\nAlamat\nTelepon"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    tools:text="Anwar Pasaribu\nAlamat\nTelepon" />
 
                 <Button
                     android:id="@+id/newShoppingCartBtnOtherShippingAddress"
@@ -157,7 +138,8 @@
                     android:gravity="center_vertical|left"
                     android:paddingLeft="@dimen/text_margin"
                     android:paddingRight="@dimen/text_margin"
-                    android:text="@string/btn_show_address_book" />
+                    android:text="@string/btn_show_address_book"
+                    android:textAllCaps="true" />
 
             </RelativeLayout>
 
@@ -171,77 +153,77 @@
             <RelativeLayout
                 android:id="@+id/newShoppingCartParentShippingMethod"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/clickable_size"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/includeSepShippingAddress"
                 android:animateLayoutChanges="true"
                 android:background="@color/white_100"
-                android:clickable="true"
-                android:focusable="true"
-                android:minHeight="@dimen/clickable_size"
+                android:paddingBottom="@dimen/item_gap_l"
 
                 tools:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/newShoppingCartTvShipmentMethodTitle"
-                    style="@style/TextListTitle"
+                    android:id="@+id/newShoppingCartTvCourierLabel"
+                    style="@style/TextCaption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginTop="@dimen/item_gap_l"
                     android:gravity="center_vertical"
-                    android:minHeight="@dimen/clickable_size"
                     android:paddingLeft="@dimen/text_margin"
                     android:paddingRight="@dimen/clickable_size"
-                    android:text="@string/lbl_selected_shipping_method"
-                    tools:text="Regular - POS Indonesia " />
-
-                <ImageView
-                    android:id="@+id/newShoppingCartIvShippingMethod"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/item_gap_m"
-                    android:contentDescription="@string/hint_show_more"
-                    android:scaleType="fitCenter"
-                    android:tint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
-
-                <View
-                    android:id="@+id/sepDestination"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_below="@+id/newShoppingCartTvShipmentMethodTitle"
-                    android:background="@color/separator_view" />
+                    android:text="@string/lbl_shipping_courier" />
 
                 <Spinner
                     android:id="@+id/newShoppingCartSpinnerCourierName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/sepDestination"
+                    android:layout_below="@id/newShoppingCartTvCourierLabel"
                     android:layout_marginLeft="@dimen/text_margin"
                     android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/item_gap_l"
+                    android:layout_marginTop="@dimen/item_gap_m"
                     android:background="@drawable/bg_default_light"
-                    android:entries="@array/arr_test"
                     android:paddingBottom="@dimen/item_gap_m"
-                    android:paddingTop="@dimen/item_gap_m"
+                    android:paddingTop="@dimen/item_gap_m"/>
 
-                    tools:listitem="City" />
+                <TextView
+                    android:id="@+id/newShoppingCartTvShippingPlansLabel"
+                    android:layout_below="@id/newShoppingCartSpinnerCourierName"
+                    style="@style/TextCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/item_gap_m"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/text_margin"
+                    android:paddingRight="@dimen/clickable_size"
+                    android:text="@string/lbl_shipping_courier_plans" />
 
                 <Spinner
                     android:id="@+id/newShoppingCartSpinnerCourierServices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/newShoppingCartSpinnerCourierName"
+                    android:layout_below="@id/newShoppingCartTvShippingPlansLabel"
                     android:layout_marginLeft="@dimen/text_margin"
                     android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/item_gap_l"
+                    android:layout_marginTop="@dimen/item_gap_m"
                     android:background="@drawable/bg_default_light"
                     android:paddingBottom="@dimen/item_gap_m"
-                    android:paddingTop="@dimen/item_gap_m"
-                    android:layout_marginBottom="@dimen/item_gap_l"
+                    android:paddingTop="@dimen/item_gap_m" />
 
-                    tools:listitem="Disctrict" />
+                <TextView
+                    android:id="@+id/newShoppingCartTvSelectedCourierMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newShoppingCartSpinnerCourierServices"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginTop="@dimen/item_gap_s"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/item_gap_s"
+                    android:paddingLeft="@dimen/item_gap_s"
+                    android:paddingRight="@dimen/item_gap_s"
+                    android:paddingTop="@dimen/item_gap_s"
+                    android:visibility="gone"
+                    tools:text="COD Khusus Daerah Padang Sidempuan"
+                    tools:visibility="visible" />
 
             </RelativeLayout>
 
@@ -252,106 +234,113 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/newShoppingCartParentShippingMethod" />
 
-            <LinearLayout
-                android:id="@+id/newShoppingCartParentMainButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/includeSepShippingMethod"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/newShoppingCartTvShippingFeeLabel"
-                        style="@style/TextBodySecondary"
-                        android:layout_toLeftOf="@+id/tvNewShoppingCartTvShippingFee"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/item_gap_m"
-                        android:paddingLeft="@dimen/text_margin"
-                        android:paddingRight="@dimen/text_margin"
-                        android:text="@string/lbl_order_shipping_cost" />
-
-                    <TextView
-                        android:id="@+id/tvNewShoppingCartTvShippingFee"
-                        style="@style/TextBodySecondary"
-                        android:layout_width="wrap_content"
-                        android:layout_marginTop="@dimen/item_gap_m"
-                        android:layout_alignParentRight="true"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/text_margin"
-                        android:paddingRight="@dimen/text_margin"
-                        tools:text="Rp 40.000" />
-
-                    <View
-                        android:id="@+id/viewSepPrice"
-                        android:layout_marginLeft="@dimen/text_margin"
-                        android:layout_marginRight="@dimen/text_margin"
-                        android:layout_marginTop="@dimen/item_gap_s"
-                        android:layout_below="@+id/newShoppingCartTvShippingFeeLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/separator_view_lighter"
-                        />
-
-                    <TextView
-                        android:id="@+id/newShoppingCartTvTotalLabel"
-                        style="@style/TextBodySecondary"
-                        android:layout_below="@+id/viewSepPrice"
-                        android:layout_toLeftOf="@+id/tvNewShoppingCartTotalCost"
-                        android:layout_alignParentLeft="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/item_gap_s"
-                        android:paddingLeft="@dimen/text_margin"
-                        android:paddingRight="@dimen/text_margin"
-                        android:text="@string/lbl_order_total_cost" />
-
-                    <TextView
-                        android:id="@+id/tvNewShoppingCartTotalCost"
-                        style="@style/TextBodyDefault"
-                        android:layout_width="wrap_content"
-                        android:layout_below="@+id/viewSepPrice"
-                        android:layout_marginTop="@dimen/item_gap_s"
-                        android:layout_alignParentRight="true"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/text_margin"
-                        android:paddingRight="@dimen/text_margin"
-                        android:textStyle="bold"
-                        tools:text="Rp 449.550.000" />
-
-                </RelativeLayout>
-
-
-
-                <Button
-                    android:id="@+id/btnContinueToPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="@dimen/text_margin"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/btn_continue_checkout"
-                    android:theme="@style/MyButton" />
-
-                <Button
-                    android:id="@+id/btnShopMore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="@dimen/text_margin"
-                    android:layout_marginLeft="@dimen/text_margin"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:text="@string/btn_continue_shopping"
-                    android:theme="@style/MyButton.Secondary" />
-            </LinearLayout>
-
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/newShoppingCartParentMainButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_100"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/newShoppingCartTvShippingFeeLabel"
+                style="@style/TextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:layout_toLeftOf="@+id/tvNewShoppingCartTvShippingFee"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:text="@string/lbl_order_shipping_cost" />
+
+            <TextView
+                android:id="@+id/tvNewShoppingCartTvShippingFee"
+                style="@style/TextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/item_gap_m"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                tools:text="Rp 40.000" />
+
+            <View
+                android:id="@+id/viewSepPrice"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/newShoppingCartTvShippingFeeLabel"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:background="@color/separator_view_lighter" />
+
+            <TextView
+                android:id="@+id/newShoppingCartTvTotalLabel"
+                style="@style/TextBodySecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/viewSepPrice"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_toLeftOf="@+id/tvNewShoppingCartTotalCost"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:text="@string/lbl_order_total_cost" />
+
+            <TextView
+                android:id="@+id/tvNewShoppingCartTotalCost"
+                style="@style/TextBodyDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/viewSepPrice"
+                android:layout_marginTop="@dimen/item_gap_s"
+                android:paddingLeft="@dimen/text_margin"
+                android:paddingRight="@dimen/text_margin"
+                android:textStyle="bold"
+                tools:text="Rp 449.550.000" />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btnContinueToPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:text="@string/btn_continue_checkout"
+            android:theme="@style/MyButton" />
+
+        <Button
+            android:id="@+id/btnShopMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginRight="@dimen/text_margin"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:text="@string/btn_continue_shopping"
+            android:theme="@style/MyButton.Secondary" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/newShoppingCartViewShadowAboveToolbar"
+        android:layout_above="@+id/newShoppingCartParentMainButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_gap_xs"
+        android:background="@drawable/bg_shadow_bottom"/>
+
 </RelativeLayout>

@@ -20,6 +20,8 @@ public interface IHomeView extends BaseView {
 
     void populateHomeView(ArrayList<Featured> featured_items, ArrayList<Section> sections);
 
+    void showBrowseSeller(Section section);
+
     void startProductCategoryScreen(Section sectionItem);
 
     void showCategoryDetailScreen(Category category);
@@ -35,4 +37,5 @@ public interface IHomeView extends BaseView {
     void showPokenFacebookPage();
 
     void showPokenPhoneContact();
+
 }

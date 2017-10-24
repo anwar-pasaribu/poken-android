@@ -38,18 +38,16 @@
 
             android:layout_centerVertical="true"
 
-            android:enabled="false"
             android:gravity="right|center_vertical"
 
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:paddingLeft="@dimen/item_gap_m"
-            android:paddingRight="0dp"
+            android:paddingRight="@dimen/item_gap_m"
             android:text="@string/btn_see_all_section_content"
             android:textAllCaps="false"
             android:theme="@style/BorderlessButtonAccent"
-            android:visibility="invisible"
-            tools:visibility="visible" />
+            android:visibility="visible" />
 
 
     </RelativeLayout>

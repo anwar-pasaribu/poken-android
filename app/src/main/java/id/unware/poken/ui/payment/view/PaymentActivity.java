@@ -24,14 +24,17 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.controller.ControllerDate;
+import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyTagHandler;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseActivity;
+import id.unware.poken.ui.payment.model.PaymentModel;
+import id.unware.poken.ui.payment.presenter.PaymentPresenter;
 import id.unware.poken.ui.shoppingsummary.view.ShoppingSummaryActivity;
 
-public class PaymentActivity extends BaseActivity {
+public class PaymentActivity extends BaseActivity implements IPaymentView {
 
     private static final String TAG = "PaymentActivity";
 
@@ -41,13 +44,20 @@ public class PaymentActivity extends BaseActivity {
     @BindView(R.id.textViewInstructions) TextView textViewInstructions;
     @BindView(R.id.buttonCopyBankAccountNumber) Button buttonCopyBankAccountNumber;
 
+    // LOADING INDICATOR
+    @BindView(R.id.loadingOverlayParentView) ViewGroup loadingOverlayParentView;
+
     // Bank account number
     @BindString(R.string.poken_bank_account_number_bri) String poken_bank_account_number_bri;
 
+    private PaymentPresenter presenter;
+
     private Unbinder unbinder;
 
+    private long orderId;
     private String orderRef = "";
     private double shoppingCost = 0;
+    private int orderStatus = 0;
     private Date paymentDue;
 
     @Override
@@ -55,15 +65,30 @@ public class PaymentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+
         if (getIntent().getExtras() != null) {
+            orderId = getIntent().getLongExtra(Constants.EXTRA_ORDER_ID, 0);
             orderRef = getIntent().getStringExtra(Constants.EXTRA_ORDER_REF);
             shoppingCost = getIntent().getDoubleExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, 0D);
+            orderStatus = getIntent().getIntExtra(Constants.EXTRA_ORDER_STATUS, 0);
             paymentDue = (Date) getIntent().getSerializableExtra(Constants.EXTRA_PAYMENT_DUE);
         }
+
+        presenter = new PaymentPresenter(new PaymentModel(), this);
 
         unbinder = ButterKnife.bind(this);
 
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        Utils.Logs('i', TAG, "Order id: " + orderId + ", status: " + orderStatus);
+
+        presenter.beginOrder(orderId, orderStatus);
     }
 
     private void initView() {
@@ -150,4 +175,42 @@ public class PaymentActivity extends BaseActivity {
         unbinder.unbind();
     }
 
+    private void showLoadingIndicator(boolean isShow) {
+        if (isShow) {
+            loadingOverlayParentView.animate().withStartAction(new Runnable() {
+                @Override
+                public void run() {
+                    loadingOverlayParentView.setVisibility(View.VISIBLE);
+                }
+            }).alpha(1F);
+        } else {
+
+            loadingOverlayParentView.animate().withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    loadingOverlayParentView.setVisibility(View.GONE);
+                }
+            }).alpha(0F);
+        }
+    }
+
+    @Override
+    public void showViewState(UIState uiState) {
+        switch (uiState) {
+            case LOADING:
+                showLoadingIndicator(true);
+                break;
+            case FINISHED:
+                showLoadingIndicator(false);
+                break;
+            case INCOMPLETE:
+                break;
+
+        }
+    }
+
+    @Override
+    public boolean isActivityFinishing() {
+        return isFinishing();
+    }
 }

@@ -1,4 +1,4 @@
-package id.unware.poken.ui.seller.presenter;
+package id.unware.poken.ui.pageseller.presenter;
 
 import id.unware.poken.domain.Product;
 

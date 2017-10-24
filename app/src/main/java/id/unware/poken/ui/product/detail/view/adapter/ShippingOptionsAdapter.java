@@ -108,6 +108,7 @@ public class ShippingOptionsAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             holder.rowShippingCourierName.setText(strCourierName);
             holder.rowShippingFee.setText(strShippingFee);
 
+            holder.rowShippingIsActive.setVisibility(View.GONE);
             holder.rowShippingIsActive.setChecked(isSelected);
 
         } catch (IndexOutOfBoundsException | IllegalStateException | NullPointerException e) {

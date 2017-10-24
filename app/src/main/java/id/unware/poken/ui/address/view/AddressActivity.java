@@ -37,11 +37,12 @@ import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.address.model.AddressModel;
 import id.unware.poken.ui.address.presenter.AddressPresenter;
 import id.unware.poken.ui.address.view.adapter.AddressAdapter;
 
-public class AddressActivity extends AppCompatActivity implements IAddressView {
+public class AddressActivity extends BaseActivity implements IAddressView {
 
     private static final String TAG = "AddressActivity";
 

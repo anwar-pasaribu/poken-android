@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 import id.unware.poken.R;
 import id.unware.poken.controller.ControllerDialog;
 import id.unware.poken.domain.AddressBook;
-import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.address.presenter.IAddressPresenter;
 
 /**
@@ -51,9 +50,17 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     @Override
     public void onBindViewHolder(AddressAdapter.ViewHolder holder, int position) {
         AddressBook item = this.listItem.get(position);
+
         holder.text.setText(String.valueOf(item.name));
         holder.phone.setText(String.valueOf(item.phone));
         holder.address.setText(String.valueOf(item.address));
+
+        if (item.location == null) {
+            holder.addressBookTvRegion.setText(Html.fromHtml(mContext.getString(R.string.lbl_no_zip_code)));
+        } else {
+            String strRegion = item.location.city.concat(" ").concat(item.location.zip);
+            holder.addressBookTvRegion.setText(strRegion);
+        }
 
         holder.rbIsSelected.setChecked(item.id == selectedIndex);
     }
@@ -72,6 +79,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         @BindView(R.id.text) TextView text;
         @BindView(R.id.phone) TextView phone;
         @BindView(R.id.address) TextView address;
+        @BindView(R.id.addressBookTvRegion) TextView addressBookTvRegion;
         @BindView(R.id.rbIsSelected) RadioButton rbIsSelected;
         @BindView(R.id.addressBookItemIbMenu) ImageButton addressBookItemIbMenu;
 

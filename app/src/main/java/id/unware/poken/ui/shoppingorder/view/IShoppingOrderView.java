@@ -17,7 +17,7 @@ public interface IShoppingOrderView extends BaseView {
 
     boolean isOrderReady();
 
-    void openPaymentScreen();
+    void openPaymentScreen(OrderDetail currentOrderDetails);
 
     void setupShippingReceiver(AddressBook addressBook);
 

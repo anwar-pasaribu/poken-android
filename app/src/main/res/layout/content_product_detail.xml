@@ -47,6 +47,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_image_black_24dp" />
 
+        <ImageView
+            android:id="@+id/viewShadow"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/img_grid_m"
+            android:contentDescription="@string/hint_product_images"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_shadow_top" />
+
         <com.pixelcan.inkpageindicator.InkPageIndicator
             android:id="@+id/inkPageIndicator"
             android:layout_width="0dp"

@@ -10,6 +10,7 @@ import id.unware.poken.domain.ProductDataRes;
 import id.unware.poken.connections.AdRetrofit;
 import id.unware.poken.connections.MyCallback;
 import id.unware.poken.connections.PokenRequest;
+import id.unware.poken.domain.SellerDataRes;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
@@ -53,6 +54,20 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
         } else {
             this.req.reqProductContentByActionId(queryParams).enqueue(this);
         }
+    }
+
+    @Override
+    public void requestSellerListData(IBrowseModelPresenter presenter) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("page", String.valueOf(1));
+
+        this.req.reqSellerList(queryParams).enqueue(this);
     }
 
     @Override
@@ -128,17 +143,41 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
     }
 
     @Override
+    public void requestMoreSellerData(IBrowseModelPresenter presenter, int page) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("page", String.valueOf(page));
+
+        this.req.reqSellerList(queryParams).enqueue(this);
+    }
+
+    @Override
     public void onSuccess(Response response) {
+
         presenter.updateViewState(UIState.FINISHED);
 
-        this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+        if (response.body() instanceof ProductDataRes) {
 
-        ArrayList<Product> products = new ArrayList<>();
-        products.addAll(((ProductDataRes) response.body()).results);
-        if (products.size() > 0) {
-            presenter.onProductsResponse(products);
-        } else {
-            presenter.updateViewState(UIState.NODATA);
+            this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+
+            ArrayList<Product> products = new ArrayList<>();
+            products.addAll(((ProductDataRes) response.body()).results);
+            if (products.size() > 0) {
+                presenter.onProductsResponse(products);
+            } else {
+                presenter.updateViewState(UIState.NODATA);
+            }
+
+        } else if (response.body() instanceof SellerDataRes) {
+
+            this.presenter.onNextSellerListPage(((SellerDataRes) response.body()).next);
+
+            this.presenter.onSellerListResponse(((SellerDataRes) response.body()).results);
         }
 
     }

@@ -3,11 +3,6 @@ package id.unware.poken.ui.home.view.adapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -19,14 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.unware.poken.R;
@@ -40,9 +32,6 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.home.presenter.IHomePresenter;
-import id.unware.poken.ui.product.detail.view.adapter.ProductImagesPagerAdapter;
-
-import static id.unware.poken.R.id.viewPagerProductImages;
 
 /**
  * Created by Anwar Pasaribu on June 2017

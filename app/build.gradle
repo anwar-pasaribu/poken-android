@@ -6,6 +6,7 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
     // For stetho (https://facebook.github.io/stetho/) Realm Inspector (https://github.com/uPhyca/stetho-realm)
     maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
+    google()
 }
 
 // S: Read keystore file
@@ -21,27 +22,27 @@ def pokenProperties = new Properties()
 pokenProperties.load(new FileInputStream(pokenPropertiesFile))
 // E: Load mixed properties
 
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
 
     def DEV_HOST = pokenProperties["demoHost"]
     def PRODUCTION_HOST = pokenProperties["productionHost"]
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
-    dexOptions {
-        jumboMode true
-    }
+    compileSdkVersion versions.compileSdkVersion
+    buildToolsVersion versions.buildToolsVersion
 
     defaultConfig {
 
         applicationId "id.unware.poken"
 
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
 
-        versionCode 17
-        versionName "0.0.17-beta"
+        versionCode 20
+        versionName "0.0.20-beta"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -70,16 +71,17 @@ android {
         }
     }
 
+    // Specifies two flavor dimensions.
+    flavorDimensions "market"
+
     productFlavors {
 
         development {
 
+            dimension "market"
             applicationIdSuffix ".beta"
 
             resValue "string", "app_name", "Poken Psp Beta"
-
-            // FOR DEBUG PURPOSE
-            resConfigs "id", "xxhdpi"
 
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
             buildConfigField 'Boolean', 'DEV_MODE', 'true'
@@ -91,6 +93,9 @@ android {
         }
 
         production {
+
+            dimension "market"
+
             resValue "string", "app_name", "Poken Psp"
 
             buildConfigField 'Boolean', 'enableCrashlytics', 'true'
@@ -106,27 +111,35 @@ android {
     // FORMAT OUTPUT FILE NAME
     // ref: https://stackoverflow.com/a/40016854
     // ex. output: myProject_dev_debug_1.3.6_131016_1047.apk
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//
+//            // get the key for the abi component
+//            def abiKey = output.getFilter(OutputFile.ABI) == null ? "all" : output.getFilter(OutputFile.ABI)
+//
+//            def project = "poken-psp"
+//            def SEP = "-"
+//            def flavor = variant.productFlavors[0].name
+//            def buildType = variant.variantData.variantConfiguration.buildType.name
+//            def version = variant.versionName + " (" + variant.versionCode + ")"
+//
+//            def newApkName = project + SEP + flavor + SEP + buildType + SEP + abiKey + SEP + version + ".apk"
+//
+//            output.outputFile = new File(output.outputFile.parent, newApkName)
+//        }
+//    }
 
-            // get the key for the abi component
-            def abiKey = output.getFilter(OutputFile.ABI) == null ? "all" : output.getFilter(OutputFile.ABI)
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace("app",
+                        "${defaultConfig.applicationId}_${defaultConfig.versionName}_${releaseTime()}")
+                outputFileName = fileName
 
-            def project = "poken-psp"
-            def SEP = "-"
-            def flavor = variant.productFlavors[0].name
-            def buildType = variant.variantData.variantConfiguration.buildType.name
-            def version = variant.versionName + " (" + variant.versionCode + ")"
+            }
 
-            def newApkName = project + SEP + flavor + SEP + buildType + SEP + abiKey + SEP + version + ".apk"
-
-            output.outputFile = new File(output.outputFile.parent, newApkName)
         }
-    }
-
-    // DISABLE PNG CRUCHING ON DEBUG MODE
-    if (project.hasProperty('devBuild')) {
-        aaptOptions.cruncherEnabled = false
     }
 
     splits {
@@ -157,6 +170,11 @@ android {
     // Solution ref: https://stackoverflow.com/a/37357786
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
 }
@@ -197,53 +215,53 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     // FABRIC
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
     }
-    compile('com.crashlytics.sdk.android:answers:1.3.13@aar') {
+    implementation('com.crashlytics.sdk.android:answers:1.3.13@aar') {
         transitive = true
     }
-    compile("com.github.bumptech.glide:recyclerview-integration:$rootProject.ext.glideVersion") {
-        // Excludes the support library because it's already included by Glide.
-        transitive = false
-    }
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
-    compile "com.android.support:design:$rootProject.ext.supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
-    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
-    compile "com.android.support:customtabs:$rootProject.ext.supportLibVersion"
-    compile 'com.android.support:multidex:1.0.1'
-    compile "com.google.firebase:firebase-core:$rootProject.ext.firebaseVersion"
-    compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseVersion"
-    compile "com.google.android.gms:play-services-location:$rootProject.ext.playServicesVersion"
-    compile "com.google.android.gms:play-services-places:$rootProject.ext.playServicesVersion"
-    compile "com.google.android.gms:play-services-gcm:$rootProject.ext.playServicesVersion"
-    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesVersion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.jakewharton:butterknife:8.5.1'
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
-    compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
-    compile 'com.github.rubensousa:gravitysnaphelper:1.3'
-    compile "com.facebook.android:facebook-android-sdk:$rootProject.ext.facebookSdkVersion"
-    compile "com.facebook.android:account-kit-sdk:$rootProject.ext.facebookSdkVersion"
-    compile 'com.alexvasilkov:gesture-views:2.3.1'
-    compile "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
+    implementation "com.android.support:appcompat-v7:${versions.supportLibVersion}"
+    implementation "com.android.support:design:${versions.supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${versions.supportLibVersion}"
+    implementation "com.android.support:cardview-v7:${versions.supportLibVersion}"
+    implementation "com.android.support:customtabs:${versions.supportLibVersion}"
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation "com.google.firebase:firebase-core:${versions.firebaseVersion}"
+    implementation "com.google.firebase:firebase-auth:${versions.firebaseVersion}"
+    implementation "com.google.android.gms:play-services-location:${versions.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-places:${versions.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-gcm:${versions.playServicesVersion}"
+    implementation "com.google.android.gms:play-services-maps:${versions.playServicesVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.jakewharton:butterknife:8.5.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.devacone.permissionhelper:permissionhelperlib:0.0.3'
+    implementation 'com.pacioianu.david:ink-page-indicator:1.2.0'
+    implementation 'com.github.rubensousa:gravitysnaphelper:1.3'
+    implementation "com.facebook.android:facebook-android-sdk:${versions.facebookSdkVersion}"
+    implementation "com.facebook.android:account-kit-sdk:${versions.facebookSdkVersion}"
+    implementation 'com.alexvasilkov:gesture-views:2.3.1'
+    implementation "com.github.bumptech.glide:glide:${versions.glideVersion}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${versions.glideVersion}"
+    implementation("com.github.bumptech.glide:recyclerview-integration:${versions.glideVersion}") {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    debugCompile 'com.facebook.stetho:stetho:1.5.0'
-    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    debugCompile 'com.uphyca:stetho_realm:2.0.0'
-    testCompile 'junit:junit:4.12'
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    debugImplementation 'com.uphyca:stetho_realm:2.0.0'
+    testImplementation 'junit:junit:4.12'
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
