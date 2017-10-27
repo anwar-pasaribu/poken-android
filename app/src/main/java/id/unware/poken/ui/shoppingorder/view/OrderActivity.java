@@ -279,6 +279,7 @@ public class OrderActivity extends AppCompatActivity implements IShoppingOrderVi
 
             Utils.Log(TAG, "Open payment screen. Order ref: " + this.orderRef);
             Utils.Log(TAG, "Open payment screen. Order status: " + currentOrderDetails.order_status);
+
             Intent paymentIntent = new Intent(this, PaymentActivity.class);
 
             paymentIntent.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, totalShoppingCost);

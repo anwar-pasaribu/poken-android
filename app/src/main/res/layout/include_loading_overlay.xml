@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:gravity="center"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/loadingOverlayParentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white_100"
-    android:layout_height="match_parent">
+    android:gravity="center"
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <ProgressBar
         android:id="@+id/loadingOverlayProgress"
         style="@style/Widget.AppCompat.ProgressBar"
-        android:indeterminate="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:indeterminate="true" />
 
     <TextView
         android:id="@+id/loadingOverlayTvText"
-        android:layout_below="@id/loadingOverlayProgress"
         style="@style/TextBodyDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/loadingOverlayProgress"
+        android:layout_marginTop="@dimen/item_gap_m"
         android:text="@string/loading" />
 
 </RelativeLayout>

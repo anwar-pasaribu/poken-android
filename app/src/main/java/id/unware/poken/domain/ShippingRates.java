@@ -1,6 +1,7 @@
 package id.unware.poken.domain;
 
-import java.io.Serializable;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @since Jun 08 2017
  */
 
-public class ShippingRates extends Shipping implements Serializable {
+public class ShippingRates extends Shipping implements Parcelable {
 
     public ArrayList<Shipping> courier_rates;
 

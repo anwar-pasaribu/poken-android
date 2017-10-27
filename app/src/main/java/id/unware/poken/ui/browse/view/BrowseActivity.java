@@ -85,6 +85,8 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
                 Utils.Log(TAG, " Browse by category. ID: " + categoryId + ", name: " + categoryName);
             }
+
+            Utils.Log(TAG, " Browse by action ID: " + actionId);
         }
 
         presenter = new BrowsePresenter(new BrowseModel(), this);
@@ -184,7 +186,10 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
 
         if (presenter != null) {
 
-            if (actionId == Constants.HOME_SECTION_SALE_PRODUCT) {
+            if (actionId == Constants.HOME_SECTION_TOP_SELLER) {
+                // Load more seller
+                presenter.getMoreSellerData(page);
+            } else {
                 if (!isBrowseByCategory) {
                     presenter.getMoreProductDataByIntentId(actionId, page);
                 } else {
@@ -193,10 +198,6 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
                     category.setName(categoryName);
                     presenter.getMoreProductByCategory(category, page);
                 }
-
-            } else if (actionId == Constants.HOME_SECTION_TOP_SELLER) {
-                // Load more seller
-                presenter.getMoreSellerData(page);
             }
 
         }

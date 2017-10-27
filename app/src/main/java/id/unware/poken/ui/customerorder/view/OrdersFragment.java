@@ -79,7 +79,6 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
         presenter = new OrdersPresenter(new OrdersModel(), this /*View*/);
 
         adapter = new OrdersAdapter(orderList, presenter);
-        adapter.setHasStableIds(true);
         presenter.getOrdersData();
 
         initView();
@@ -167,7 +166,6 @@ public class OrdersFragment extends BaseFragment implements IOrdersView {
             npe.printStackTrace();
         }
     }
-
 
     public interface OnOrderFragmentListener {
         void onListFragmentInteraction(ShoppingOrder item);

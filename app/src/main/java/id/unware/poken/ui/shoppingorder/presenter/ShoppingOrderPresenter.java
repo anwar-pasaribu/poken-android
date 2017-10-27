@@ -64,6 +64,9 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         if (view.isOrderReady() && currentOrderDetails != null) {
             Utils.Logs('i', TAG, "Start Payment screen");
             view.openPaymentScreen(currentOrderDetails);
+        } else {
+            Utils.Logs('e', TAG, "Start Payment screen not ready.");
+
         }
     }
 
@@ -257,6 +260,8 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         if (view.isActivityFinishing()) return;
 
+        this.currentOrderDetails = shoppingOrder.order_details;
+
         setupOrderDetailView(shoppingOrder);
     }
 
@@ -290,14 +295,15 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     }
 
     /**
-     * Calculate product times quantity.
+     * Calculate product times quantity. Without additional fee (shipping, tax, etc.)
      * @param shoppingCart Shopping Item
      * @return total price without additional fee.
      */
     private double calculateShoppingItemTotalPrice(ShoppingCart shoppingCart) {
         double originalProductPrice = shoppingCart.product.price * shoppingCart.quantity;
         double discountAmount = shoppingCart.product.discount_amount;
-        shoppingCart.total_price = (originalProductPrice - ((originalProductPrice * discountAmount) / 100));
+        shoppingCart.total_price =
+                (originalProductPrice - ((originalProductPrice * discountAmount) / 100));
 
         return shoppingCart.total_price;
     }
@@ -310,13 +316,15 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     private double calculateShoppingItemGrandTotalPrice(ShoppingCart shoppingCart) {
         double originalProductPrice = shoppingCart.product.price * shoppingCart.quantity;
         double discountAmount = shoppingCart.product.discount_amount;
-        double shippingFee = shoppingCart.shipping.fee;
-        shoppingCart.total_price = (originalProductPrice - ((originalProductPrice * discountAmount) / 100)) + shippingFee;
+        double shippingFee = shoppingCart.shipping_fee;
+        shoppingCart.total_price =
+                (originalProductPrice - ((originalProductPrice * discountAmount) / 100)) + shippingFee;
 
         return shoppingCart.total_price;
     }
 
     private void setupOrderDetailView(ShoppingOrder orderedProduct) {
+
         ArrayList<ShoppingCart> shoppingCarts = orderedProduct.shopping_carts;
         OrderDetail orderDetail = orderedProduct.order_details;
         AddressBook addressBook = orderDetail.address_book;

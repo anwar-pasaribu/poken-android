@@ -7,4 +7,5 @@ import id.unware.poken.ui.view.BaseView;
  */
 
 public interface IPaymentView extends BaseView {
+    void openShoppingSummaryScreen();
 }

@@ -1,5 +1,8 @@
 package id.unware.poken.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +13,7 @@ import java.util.Date;
  * @since Jun 07 2017
  */
 
-public class ShoppingCart implements Serializable {
+public class ShoppingCart implements Parcelable {
 
     public long id;
 
@@ -38,4 +41,46 @@ public class ShoppingCart implements Serializable {
 
     public ShoppingCart() {
     }
+
+    protected ShoppingCart(Parcel in) {
+        id = in.readLong();
+        product_id = in.readLong();
+        product = in.readParcelable(Product.class.getClassLoader());
+        shipping = in.readParcelable(Shipping.class.getClassLoader());
+        quantity = in.readInt();
+        total_price = in.readDouble();
+        grand_total_price = in.readDouble();
+        shipping_fee = in.readDouble();
+        extra_note = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeLong(product_id);
+        dest.writeParcelable(product, flags);
+        dest.writeParcelable(shipping, flags);
+        dest.writeInt(quantity);
+        dest.writeDouble(total_price);
+        dest.writeDouble(grand_total_price);
+        dest.writeDouble(shipping_fee);
+        dest.writeString(extra_note);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ShoppingCart> CREATOR = new Creator<ShoppingCart>() {
+        @Override
+        public ShoppingCart createFromParcel(Parcel in) {
+            return new ShoppingCart(in);
+        }
+
+        @Override
+        public ShoppingCart[] newArray(int size) {
+            return new ShoppingCart[size];
+        }
+    };
 }

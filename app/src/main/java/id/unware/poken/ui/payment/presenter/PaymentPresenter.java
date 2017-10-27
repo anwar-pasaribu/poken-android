@@ -34,8 +34,9 @@ public class PaymentPresenter implements IPaymentPresenter, IPaymentModelPresent
             );
         } else {
             Utils.Logs('w', TAG, "No need to update order.");
+            // Open shopping payment summary directly
+            view.openShoppingSummaryScreen();
         }
-
     }
 
     @Override
@@ -54,5 +55,6 @@ public class PaymentPresenter implements IPaymentPresenter, IPaymentModelPresent
         Utils.Logs('i', TAG, "Created/updated order detail id: " + orderDetail.id + ", status: " + orderDetail.order_status);
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
+        view.openShoppingSummaryScreen();
     }
 }

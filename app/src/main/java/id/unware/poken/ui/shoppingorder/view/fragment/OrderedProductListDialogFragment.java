@@ -221,7 +221,7 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
             double afterDiscountProductPrice = originalProductPrice - ((originalProductPrice * discountAmount) / 100);
             double totalPrice = afterDiscountProductPrice * item.quantity;
             String shippingMethod = item.shipping.name;
-            double shippingCost = item.shipping.fee;
+            double shippingCost = item.shipping_fee;
             double grandTotal = totalPrice + shippingCost;
 
             holder.tvProductName.setText(String.valueOf(item.product.name));

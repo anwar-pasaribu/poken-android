@@ -84,12 +84,3 @@ public class User implements Parcelable {
         parcel.writeString(token);
     }
 }
-
-/*
-{
-    "username": "porkot",
-    "first_name": "Porkot",
-    "last_name": "Sarumpaet",
-    "email": "porkot@icloud.com"
-}
- */

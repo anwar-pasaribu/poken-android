@@ -11,16 +11,3 @@ public class ShoppingOrderInserted {
     public long[] shopping_carts;
     public int status;
 }
-
-/*
-
-{
-    "id": 2,
-    "order_details_id": 12,
-    "shopping_carts": [
-        7
-    ],
-    "status": 0
-}
-
-*/

@@ -41,8 +41,8 @@ android {
         minSdkVersion versions.minSdkVersion
         targetSdkVersion versions.targetSdkVersion
 
-        versionCode 20
-        versionName "0.0.20-beta"
+        versionCode 22
+        versionName "0.0.22-beta"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -63,6 +63,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            // NO FABRIC CRASHLYTICS ON DEBUG
+            ext.alwaysUpdateBuildId = false
+        }
+
         release {
             minifyEnabled true
             shrinkResources true
@@ -109,26 +114,6 @@ android {
     }
 
     // FORMAT OUTPUT FILE NAME
-    // ref: https://stackoverflow.com/a/40016854
-    // ex. output: myProject_dev_debug_1.3.6_131016_1047.apk
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//
-//            // get the key for the abi component
-//            def abiKey = output.getFilter(OutputFile.ABI) == null ? "all" : output.getFilter(OutputFile.ABI)
-//
-//            def project = "poken-psp"
-//            def SEP = "-"
-//            def flavor = variant.productFlavors[0].name
-//            def buildType = variant.variantData.variantConfiguration.buildType.name
-//            def version = variant.versionName + " (" + variant.versionCode + ")"
-//
-//            def newApkName = project + SEP + flavor + SEP + buildType + SEP + abiKey + SEP + version + ".apk"
-//
-//            output.outputFile = new File(output.outputFile.parent, newApkName)
-//        }
-//    }
-
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def outputFile = output.outputFile
@@ -136,9 +121,7 @@ android {
                 def fileName = outputFile.name.replace("app",
                         "${defaultConfig.applicationId}_${defaultConfig.versionName}_${releaseTime()}")
                 outputFileName = fileName
-
             }
-
         }
     }
 
@@ -182,34 +165,18 @@ android {
 // Map for the version code that gives each ABI a value.
 ext.abiCodes = ['armeabi-v7a': 3, 'x86': 4]
 
-import com.android.build.OutputFile
-
 // For each APK output variant, override versionCode with a combination of
 // ext.abiCodes * 1000 + variant.versionCode. In this example, variant.versionCode
 // is equal to defaultConfig.versionCode. If you configure product flavors that
 // define their own versionCode, variant.versionCode uses that value instead.
+import com.android.build.OutputFile
 android.applicationVariants.all { variant ->
 
-    // Assigns a different version code for each output APK
-    // other than the universal APK.
     variant.outputs.each { output ->
+        def baseAbiVersionCode = project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
 
-        // Stores the value of ext.abiCodes that is associated with the ABI for this variant.
-        def baseAbiVersionCode =
-                // Determines the ABI for this variant and returns the mapped value.
-                project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
-
-        // Because abiCodes.get() returns null for ABIs that are not mapped by ext.abiCodes,
-        // the following code does not override the version code for universal APKs.
-        // However, because we want universal APKs to have the lowest version code,
-        // this outcome is desirable.
         if (baseAbiVersionCode != null) {
-
-            // Assigns the new version code to versionCodeOverride, which changes the version code
-            // for only the output APK, not for the variant itself. Skipping this step simply
-            // causes Gradle to use the value of variant.versionCode for the APK.
-            output.versionCodeOverride =
-                    baseAbiVersionCode * 1000 + variant.versionCode
+            output.versionCodeOverride = baseAbiVersionCode * 1000 + variant.versionCode
         }
     }
 }
@@ -223,7 +190,7 @@ dependencies {
         transitive = true
     }
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.android.support:appcompat-v7:${versions.supportLibVersion}"
@@ -262,7 +229,7 @@ dependencies {
     debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     debugImplementation 'com.uphyca:stetho_realm:2.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'

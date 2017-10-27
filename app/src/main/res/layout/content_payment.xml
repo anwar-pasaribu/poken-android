@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/parentView"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="id.unware.poken.ui.payment.view.PaymentActivity"
     tools:showIn="@layout/activity_payment"
     android:fillViewport="true">
@@ -138,15 +137,6 @@
             android:layout_marginTop="@dimen/item_gap_m"
             android:text="@string/top_up_rules"
             android:textColor="@color/black_90"/>
-
-        <Button
-            android:id="@+id/btnConfirmPayment"
-            android:theme="@style/MyButton"
-            android:layout_below="@+id/textViewInstructions"
-            android:layout_marginTop="@dimen/clickable_size_32"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_confirm_payment"/>
 
     </RelativeLayout>
 

@@ -25,11 +25,42 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_payment" />
+    <include layout="@layout/content_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/clickable_size_64"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <include layout="@layout/include_loading_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/clickable_size_64"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/separator_view_lighter" />
+
+        <Button
+            android:id="@+id/btnConfirmPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_gap_m"
+            android:text="@string/btn_confirm_payment"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:theme="@style/MyButton" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

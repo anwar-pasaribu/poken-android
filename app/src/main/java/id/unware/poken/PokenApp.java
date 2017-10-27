@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.squareup.picasso.Picasso;
@@ -32,7 +33,7 @@ public class PokenApp extends MultiDexApplication {
 
         instance = this;
         // use version code to handle database migration.
-        final int databaseVersion = 1;
+        int databaseVersion = 1;
 
         // Configure Realm for the application
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
@@ -48,7 +49,7 @@ public class PokenApp extends MultiDexApplication {
         AppEventsLogger.activateApp(this);
 
         // Debug fabric
-        final Fabric fabric = new Fabric.Builder(this)
+        Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics(), new Answers())
                 .debuggable(BuildConfig.DEV_MODE)
                 .build();

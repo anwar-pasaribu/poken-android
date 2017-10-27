@@ -19,7 +19,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/ToolbarDarkOverflow"
-            app:popupTheme="@style/AppTheme.PopupOverlay"> <!--app:popuptheme when using AppCompat, or android:popupTheme when targetting SDK >=21-->
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <!--app:popuptheme when using AppCompat, or android:popupTheme when targetting SDK >=21-->
 
         </android.support.v7.widget.Toolbar>
 

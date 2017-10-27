@@ -87,8 +87,6 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
         super.onResume();
 
         Utils.Logs('i', TAG, "Order id: " + orderId + ", status: " + orderStatus);
-
-        presenter.beginOrder(orderId, orderStatus);
     }
 
     private void initView() {
@@ -105,7 +103,8 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
         btnConfirmPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openShoppingSummaryScreen();
+                presenter.beginOrder(orderId, orderStatus);
+                // openShoppingSummaryScreen();
             }
         });
 
@@ -137,7 +136,8 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
         textViewInstructions.setText(Html.fromHtml(strRules, null, new MyTagHandler()));
     }
 
-    private void openShoppingSummaryScreen() {
+    @Override
+    public void openShoppingSummaryScreen() {
         Intent intentShoppingSummary = new Intent(this, ShoppingSummaryActivity.class);
         intentShoppingSummary.putExtra(Constants.EXTRA_ORDER_REF, orderRef);
         intentShoppingSummary.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, shoppingCost);
@@ -181,6 +181,7 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
                 @Override
                 public void run() {
                     loadingOverlayParentView.setVisibility(View.VISIBLE);
+                    btnConfirmPayment.setEnabled(false);
                 }
             }).alpha(1F);
         } else {
@@ -189,6 +190,7 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
                 @Override
                 public void run() {
                     loadingOverlayParentView.setVisibility(View.GONE);
+                    btnConfirmPayment.setEnabled(true);
                 }
             }).alpha(0F);
         }

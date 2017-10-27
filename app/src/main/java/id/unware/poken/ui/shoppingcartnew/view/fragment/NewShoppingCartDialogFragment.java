@@ -164,7 +164,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     public static NewShoppingCartDialogFragment newInstance(Product product) {
         NewShoppingCartDialogFragment f = new NewShoppingCartDialogFragment();
         Bundle args = new Bundle();
-        args.putSerializable(Constants.EXTRA_PRODUCT_DATA, product);
+        args.putParcelable(Constants.EXTRA_PRODUCT_DATA, product);
         f.setArguments(args);
         return f;
     }
@@ -173,7 +173,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.currentProduct = (Product) getArguments().getSerializable(Constants.EXTRA_PRODUCT_DATA);
+            this.currentProduct = (Product) getArguments().getParcelable(Constants.EXTRA_PRODUCT_DATA);
         }
     }
 
