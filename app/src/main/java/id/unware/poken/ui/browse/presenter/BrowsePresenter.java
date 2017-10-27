@@ -6,6 +6,7 @@ import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.model.IBrowseModel;
@@ -23,7 +24,9 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
 
     private final IBrowseModel model;
     private final IBrowseView view;
+
     private boolean isMoreContentAvailable = false;
+    private int nextPage;
 
     public BrowsePresenter(IBrowseModel model, IBrowseView view) {
         this.model = model;
@@ -41,6 +44,7 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
 
     @Override
     public void getSellerList() {
+
         this.isLoadMore = false;
 
         model.requestSellerListData(this);
@@ -66,8 +70,8 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
 
         this.isLoadMore = true;
 
-        if (this.isMoreContentAvailable) {
-            model.requestMoreProductByCategory(this, category, nextPage);
+        if (this.nextPage != Constants.STATE_NODATA) {
+            model.requestMoreProductByCategory(this, category, this.nextPage);
         } else {
             Utils.Log(TAG, "Last page reached...");
         }
@@ -77,8 +81,20 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     public void getMoreSellerData(int page) {
         this.isLoadMore = true;
 
-        if (this.isMoreContentAvailable) {
-            model.requestMoreSellerData(this, page);
+        if (this.nextPage != Constants.STATE_NODATA) {
+            model.requestMoreSellerData(this, this.nextPage);
+        } else {
+            Utils.Log(TAG, "Last page reached...");
+        }
+    }
+
+    @Override
+    public void getMoreProductDataByIntentId(int actionId, int page) {
+
+        this.isLoadMore = true;
+
+        if (this.nextPage != Constants.STATE_NODATA) {
+            model.requestMoreProductsByIntentId(this, actionId, this.nextPage);
         } else {
             Utils.Log(TAG, "Last page reached...");
         }
@@ -87,18 +103,6 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     @Override
     public void onSellerClick(int position, Seller seller) {
         view.showSellerDetail(position, seller);
-    }
-
-    @Override
-    public void getMoreProductDataByIntentId(int actionId, int page) {
-
-        this.isLoadMore = true;
-
-        if (this.isMoreContentAvailable) {
-            model.requestMoreProductsByIntentId(this, actionId, page);
-        } else {
-            Utils.Log(TAG, "Last page reached...");
-        }
     }
 
     @Override
@@ -116,15 +120,19 @@ public class BrowsePresenter implements IBrowsePresenter, IBrowseModelPresenter 
     }
 
     @Override
-    public void onNextProductPage(String nextPage) {
-        Utils.Log(TAG, "Next page URL: " + String.valueOf(nextPage));
-        this.isMoreContentAvailable = !StringUtils.isEmpty(nextPage);
+    public void onNextProductPage(String nextPageUrl, int nextPage) {
+        Utils.Log(TAG, "Next page URL: " + String.valueOf(nextPageUrl) + ", next page num: " + nextPage);
+        this.isMoreContentAvailable = !StringUtils.isEmpty(nextPageUrl);
+
+        this.nextPage = nextPage;
     }
 
     @Override
-    public void onNextSellerListPage(String nextPage) {
-        Utils.Log(TAG, "Next seller list page URL: " + String.valueOf(nextPage));
+    public void onNextSellerListPage(String nextPage, int nextPageNumber) {
+        Utils.Log(TAG, "Next seller list page URL: " + String.valueOf(nextPage) + ", next page num: " + nextPage);
         this.isMoreContentAvailable = !StringUtils.isEmpty(nextPage);
+
+        this.nextPage = nextPageNumber;
     }
 
     @Override

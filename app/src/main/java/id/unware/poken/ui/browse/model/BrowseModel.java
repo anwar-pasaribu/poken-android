@@ -1,8 +1,11 @@
 package id.unware.poken.ui.browse.model;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
@@ -14,6 +17,7 @@ import id.unware.poken.domain.SellerDataRes;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
+import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.browse.presenter.IBrowseModelPresenter;
 import retrofit2.Response;
@@ -163,7 +167,17 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
 
         if (response.body() instanceof ProductDataRes) {
 
-            this.presenter.onNextProductPage(((ProductDataRes) response.body()).next);
+            int nextPage = Constants.STATE_NODATA;
+            if (!StringUtils.isEmpty(((ProductDataRes) response.body()).next)) {
+                Uri uri = Uri.parse(((ProductDataRes) response.body()).next);
+                nextPage = Integer.valueOf(uri.getQueryParameter("page"));
+
+                Utils.Logs('i', TAG, "Next URL parts: " + String.valueOf(uri));
+                Utils.Logs('i', TAG, "Next page: " + String.valueOf(nextPage));
+
+            }
+
+            this.presenter.onNextProductPage(((ProductDataRes) response.body()).next, nextPage);
 
             ArrayList<Product> products = new ArrayList<>();
             products.addAll(((ProductDataRes) response.body()).results);
@@ -175,7 +189,16 @@ public class BrowseModel extends MyCallback implements IBrowseModel {
 
         } else if (response.body() instanceof SellerDataRes) {
 
-            this.presenter.onNextSellerListPage(((SellerDataRes) response.body()).next);
+            int nextPage = Constants.STATE_NODATA;
+            if (!StringUtils.isEmpty(((SellerDataRes) response.body()).next)) {
+                Uri uri = Uri.parse(((SellerDataRes) response.body()).next);
+                nextPage = Integer.valueOf(uri.getQueryParameter("page"));
+
+                Utils.Logs('i', TAG, "Next URL parts: " + String.valueOf(uri));
+                Utils.Logs('i', TAG, "Next page: " + String.valueOf(nextPage));
+
+            }
+            this.presenter.onNextSellerListPage(((SellerDataRes) response.body()).next, nextPage);
 
             this.presenter.onSellerListResponse(((SellerDataRes) response.body()).results);
         }

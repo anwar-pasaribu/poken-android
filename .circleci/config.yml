@@ -52,8 +52,16 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # build production release
-      - run: ./gradlew assembleProductionRelease
+      - run: ./gradlew --profile --recompile-scripts --rerun-tasks :app:assembleProductionRelease
 
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apk
+
+      - store_artifacts:
+          path: app/build/outputs/mapping/
+          destination: mapping
+
+      - store_artifacts:
+          path: build/reports/profile/
+          destination: profile

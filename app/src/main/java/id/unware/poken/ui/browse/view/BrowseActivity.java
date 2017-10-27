@@ -102,6 +102,8 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
             @Override
             public void onRefresh() {
                 requestContent();
+
+                scrollListener.resetState();
             }
         });
 

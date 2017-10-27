@@ -228,7 +228,11 @@
     <string name="action_share">Bagikan</string>
     <string name="title_activity_category">Kategori</string>
     <string name="poken_bank_account_number_bri" tools:ignore="TypographyDashes">0135-01-047199-50-4</string>
+    <string name="poken_bank_account_number_bni" tools:ignore="TypographyDashes">054-968-2636</string>
+    <string name="poken_bank_account_number_mandiri" tools:ignore="TypographyDashes">1180-004-904-289</string>
     <string name="poken_bank_account_name">ULFAH KHAIRANI</string>
+    <string name="poken_bank_account_name_bni">IDA AZIZAH</string>
+    <string name="poken_bank_account_name_mandiri">AISYAH K IBRAHIM</string>
     <string name="hint_cart_add_note">Tambah catatan&#8230;</string>
     <string name="lbl_selected_product_extra_note">Catatan untuk penjual</string>
     <string name="lbl_register_title">Gratis, gabung dengan Poken sekarang juga.</string>

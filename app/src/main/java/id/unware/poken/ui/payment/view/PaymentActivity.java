@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -43,12 +42,16 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
     @BindView(R.id.textViewAmountToTransfer) TextView textViewAmountToTransfer;
     @BindView(R.id.textViewInstructions) TextView textViewInstructions;
     @BindView(R.id.buttonCopyBankAccountNumber) Button buttonCopyBankAccountNumber;
+    @BindView(R.id.buttonCopyBankAccountNumberBni) Button buttonCopyBankAccountNumberBni;
+    @BindView(R.id.buttonCopyBankAccountNumberMandiri) Button buttonCopyBankAccountNumberMandiri;
 
     // LOADING INDICATOR
     @BindView(R.id.loadingOverlayParentView) ViewGroup loadingOverlayParentView;
 
     // Bank account number
     @BindString(R.string.poken_bank_account_number_bri) String poken_bank_account_number_bri;
+    @BindString(R.string.poken_bank_account_number_bni) String poken_bank_account_number_bni;
+    @BindString(R.string.poken_bank_account_number_mandiri) String poken_bank_account_number_mandiri;
 
     private PaymentPresenter presenter;
 
@@ -116,6 +119,50 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
                     @Override
                     public void run() {
                         String clearBankAccNumber = poken_bank_account_number_bri.replace("-", "");
+                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
+                        clipboard.setPrimaryClip(clip);
+
+                        Utils.snackBar(
+                                parentView,
+                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
+                                Log.INFO
+                        );
+                    }
+                }, 150);
+            }
+        });
+
+        buttonCopyBankAccountNumberBni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String clearBankAccNumber = poken_bank_account_number_bni.replace("-", "");
+                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
+                        clipboard.setPrimaryClip(clip);
+
+                        Utils.snackBar(
+                                parentView,
+                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
+                                Log.INFO
+                        );
+                    }
+                }, 150);
+            }
+        });
+
+        buttonCopyBankAccountNumberMandiri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String clearBankAccNumber = poken_bank_account_number_mandiri.replace("-", "");
                         ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
                         ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
                         clipboard.setPrimaryClip(clip);
