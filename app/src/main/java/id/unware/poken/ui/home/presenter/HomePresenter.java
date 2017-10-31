@@ -97,6 +97,9 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
     @Override
     public void onHomeDataResponse(HomeDataRes homeDataRes) {
         Utils.Logs('i', TAG, "Response res size: " + String.valueOf(homeDataRes));
+
+        if (view.isActivityFinishing()) return;
+
         if (homeDataRes.results.isEmpty()) {
             Utils.Logs('i', TAG, "Response data empty");
             view.showViewState(UIState.ERROR);
@@ -108,11 +111,17 @@ public class HomePresenter implements IHomePresenter, IHomeModelPresenter {
 
     @Override
     public void showMessage(String msg, int msgStatus) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showMessage(msg, msgStatus);
     }
 
     @Override
     public void updateViewState(UIState uiState) {
+
+        if (view.isActivityFinishing()) return;
+
         view.showViewState(uiState);
     }
 }
