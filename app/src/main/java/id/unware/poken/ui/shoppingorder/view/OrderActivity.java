@@ -41,6 +41,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.address.view.AddressActivity;
 import id.unware.poken.ui.payment.view.PaymentActivity;
 import id.unware.poken.ui.shoppingorder.model.ShoppingOrderModel;
@@ -48,7 +49,7 @@ import id.unware.poken.ui.shoppingorder.presenter.ShoppingOrderPresenter;
 import id.unware.poken.ui.shoppingorder.view.fragment.AddressBookDialogFragment;
 import id.unware.poken.ui.shoppingorder.view.fragment.OrderedProductListDialogFragment;
 
-public class OrderActivity extends AppCompatActivity implements IShoppingOrderView,
+public class OrderActivity extends BaseActivity implements IShoppingOrderView,
         AddressBookDialogFragment.Listener,
         OrderedProductListDialogFragment.Listener{
 

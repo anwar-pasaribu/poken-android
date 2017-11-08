@@ -1,11 +1,16 @@
 package id.unware.poken.tools;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.AddToCartEvent;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.LoginEvent;
 import com.crashlytics.android.answers.SearchEvent;
 import com.crashlytics.android.answers.SignUpEvent;
+
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.HashMap;
 
 import id.unware.poken.BuildConfig;
 import id.unware.poken.helper.SPHelper;
@@ -102,5 +107,20 @@ public class MyLog extends Utils{
 
         Answers.getInstance().logSearch(new SearchEvent()
                 .putQuery(queryString));
+    }
+
+    public static void FabricTrackAddToCartAction(HashMap<String, String> data) {
+
+        Utils.Logs('i', TAG, "Data cart: " + String.valueOf(data));
+
+        Answers.getInstance().logAddToCart(new AddToCartEvent()
+                .putItemPrice(BigDecimal.valueOf(Double.valueOf(data.get(Constants.KV_PRICE))))
+                .putCurrency(Currency.getInstance("IDR"))
+                .putItemName(data.get(Constants.KV_NAME))
+                .putItemType(data.get(Constants.KV_CATEGORY))
+                .putItemId(data.get(Constants.KV_ID))
+                .putCustomAttribute("Quantity", String.valueOf(data.get(Constants.KV_QUANTITY)))
+                .putCustomAttribute("Shipping Fee", BigDecimal.valueOf(Double.valueOf(data.get(Constants.KV_SHIPPING_FEE))))
+        );
     }
 }

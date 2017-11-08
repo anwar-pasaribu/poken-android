@@ -254,6 +254,8 @@ public class FragmentRegisterEmail extends BaseFragment implements
                                                         }
                                                     }
                                                 });
+                                    } else {
+                                        Utils.Logs('i', TAG, "Email verified...");
                                     }
                                 }
 

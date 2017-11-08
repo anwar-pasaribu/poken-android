@@ -15,6 +15,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.ViewFlipper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,6 +54,7 @@ import id.unware.poken.domain.ShippingRates;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.address.view.AddressActivity;
@@ -644,11 +647,24 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
     @Override
     public void showShoppingPaymentScreen(ShoppingCart shoppingCart) {
-        dismissAllowingStateLoss();
+
+        if (shoppingCart != null) {
+            // Track Add To Cart
+            HashMap<String, String> data = new HashMap<>();
+            data.put(Constants.KV_ID, String.valueOf(shoppingCart.product.id));
+            data.put(Constants.KV_NAME, String.valueOf(shoppingCart.product.name));
+            data.put(Constants.KV_CATEGORY, String.valueOf(shoppingCart.product.category));
+            data.put(Constants.KV_PRICE, String.valueOf(shoppingCart.product.price));
+            data.put(Constants.KV_SHIPPING_FEE, String.valueOf(shoppingCart.shipping_fee));
+            data.put(Constants.KV_QUANTITY, String.valueOf(shoppingCart.quantity));
+            MyLog.FabricTrackAddToCartAction(data);
+        }
 
         if (listener != null) {
             listener.onContinuePayment(shoppingCart);
         }
+
+        dismissAllowingStateLoss();
     }
 
     @Override
@@ -688,7 +704,12 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
 
     private void showErrorIndicator() {
         Utils.toast(getContext(), getString(R.string.msg_add_shopping_cart_item_failed));
-        dismissAllowingStateLoss();
+        try {
+            dismissAllowingStateLoss();
+        } catch (java.lang.IllegalStateException e) {
+            e.printStackTrace();
+            MyLog.FabricLog(Log.ERROR, "NewShoppingCartDialogFragment can't be dismissed.", e);
+        }
     }
 
     private void showLoadingIndicator(boolean isLoading) {

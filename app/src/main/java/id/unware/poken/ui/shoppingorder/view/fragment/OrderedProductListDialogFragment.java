@@ -162,32 +162,23 @@ public class OrderedProductListDialogFragment extends BottomSheetDialogFragment 
         void onProductListDialogViewReady();
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView tvProductName;
-        final TextView tvProductQuantity;
-        final TextView tvProductTotalPrice;
-        final TextView tvSelectedShippingMethod;
-        final TextView tvShippingCost;
-        final TextView tvTotalFee;
-        final ImageView ivProductImage;
-        final TextView selectedProductTvExtraNote;
-        final TextView selectedProductTvExtraNoteLbl;
+        @BindView(R.id.tvProductName) TextView tvProductName;
+        @BindView(R.id.tvProductQuantity) TextView tvProductQuantity;
+        @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
+        @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
+        @BindView(R.id.tvShippingCost) TextView tvShippingCost;
+        @BindView(R.id.tvTotalFee) TextView tvTotalFee;
+        @BindView(R.id.ivProductImage) ImageView ivProductImage;
+        @BindView(R.id.selectedProductTvExtraNote) TextView selectedProductTvExtraNote;
+        @BindView(R.id.selectedProductTvExtraNoteLbl) TextView selectedProductTvExtraNoteLbl;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
 
             super(inflater.inflate(R.layout.list_order_selected_product, parent, false));
 
-            tvProductName = itemView.findViewById(R.id.tvProductName);
-            tvProductQuantity = itemView.findViewById(R.id.tvProductQuantity);
-            tvProductTotalPrice = itemView.findViewById(R.id.tvProductTotalPrice);
-            tvSelectedShippingMethod = itemView.findViewById(R.id.tvSelectedShippingMethod);
-            tvShippingCost = itemView.findViewById(R.id.tvShippingCost);
-            tvTotalFee = itemView.findViewById(R.id.tvTotalFee);
-            ivProductImage = itemView.findViewById(R.id.ivProductImage);
-
-            selectedProductTvExtraNote = itemView.findViewById(R.id.selectedProductTvExtraNote);
-            selectedProductTvExtraNoteLbl = itemView.findViewById(R.id.selectedProductTvExtraNoteLbl);
+            ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -300,7 +300,12 @@ public class Utils {
     public static void snackbarDismissImmediately() {
         PopupWindow popupWindow;
         while ((popupWindow = popupSnack.poll()) != null) {
-            popupWindow.dismiss();
+            try {
+                popupWindow.dismiss();
+            } catch (IllegalArgumentException ex) {
+                MyLog.FabricLog(Log.ERROR, "Snackbar exception occour while dismiss Snackbar.", ex);
+                Utils.Log(TAG, "Illegal exception: " + ex.getMessage());
+            }
         }
     }
 

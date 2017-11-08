@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,7 @@ public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSu
         holder.tvSellerTagLine.setText(strSellerTagLine);
         holder.tvSellerLocation.setText(strSellerLocation);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.parentSubscribeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -90,6 +91,8 @@ public class CustomerSubscriptionAdapter extends RecyclerView.Adapter<CustomerSu
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements Target {
+
+        @BindView(R.id.parentSubscribeds) CardView parentSubscribeds;
 
         @BindView(R.id.itemImage) ImageView itemImage;
         @BindView(R.id.tvSellerName) TextView tvSellerName;

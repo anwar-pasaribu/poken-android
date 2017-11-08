@@ -29,6 +29,8 @@ import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.search.model.SearchModel;
@@ -45,6 +47,8 @@ public class SearchActivity extends AppCompatActivity
     @BindView(R.id.rvProducts) RecyclerView rvProducts;
 
     private SearchPresenter presenter;
+
+    private GlideRequests glideRequests;
 
     // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -65,6 +69,8 @@ public class SearchActivity extends AppCompatActivity
                 new SearchModel(),
                 this
         );
+
+        glideRequests = GlideApp.with(this);
 
         initView();
 
@@ -92,7 +98,7 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void initSearchResultView() {
-        adapter = new SearchProductAdapter(listItem, presenter);
+        adapter = new SearchProductAdapter(listItem, presenter, glideRequests);
         rvProducts.setAdapter(adapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rvProducts.setLayoutManager(gridLayoutManager);

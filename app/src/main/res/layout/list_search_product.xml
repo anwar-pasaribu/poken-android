@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/card_bg"
+    app:cardCornerRadius="@dimen/item_gap_s"
+    app:cardUseCompatPadding="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product2"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextListSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="@dimen/item_gap_s"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:maxLines="2"
+            android:minLines="2"
+            android:paddingTop="@dimen/item_gap_s"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemImage"
+            tools:text="Nama barang Test Line 2" />
+
+        <ViewFlipper
+            android:id="@+id/viewFlipperProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+            <include layout="@layout/include_sale_product" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    style="@style/TextListSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_gap_s"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/item_gap_m"
+                    android:textStyle="bold"
+                    tools:text="Rp 1.000.000" />
+
+            </RelativeLayout>
+
+        </ViewFlipper>
+
+        <ImageView
+            android:id="@+id/searchProductIvStoreLogo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/item_gap_s"
+            app:layout_constraintBottom_toBottomOf="@+id/searchProductTvStoreName"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewFlipperProductPrice"
+            app:layout_constraintTop_toTopOf="@+id/searchProductTvStoreName"
+            app:srcCompat="@drawable/ic_store_black_24dp" />
+
+        <TextView
+            android:id="@+id/searchProductTvStoreName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/item_gap_m"
+            android:layout_marginLeft="@dimen/item_gap_s"
+            android:layout_marginRight="@dimen/item_gap_s"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/searchProductIvStoreLogo"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewFlipperProductPrice"
+            tools:text="UD Daulay Boutique" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

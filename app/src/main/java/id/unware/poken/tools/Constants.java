@@ -166,4 +166,14 @@ public class Constants {
 
 
     public static int REQ_CODE_ADDRESS_BOOK = 99;
+
+    // KEY VALUE PAIR STRUCTURE
+    public static String KV_ID = "KV_ID";
+    public static String KV_PRICE = "KV_PRICE";
+    public static String KV_NAME = "KV_NAME";
+    public static String KV_CATEGORY = "KV_CATEGORY";
+    public static String KV_SHIPPING_FEE = "KV_SHIPPING_FEE";
+    public static String KV_QUANTITY = "KV_QUANTITY";
+
+
 }
