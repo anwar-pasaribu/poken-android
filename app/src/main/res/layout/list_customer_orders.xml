@@ -28,8 +28,7 @@
             android:layout_marginLeft="@dimen/item_gap_l"
             android:contentDescription="@string/hint_product_images"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_image_black_24dp"
-            tools:src="@drawable/product1" />
+            app:srcCompat="@drawable/ic_image_black_24dp" />
 
         <TextView
             android:id="@+id/tvProductName"

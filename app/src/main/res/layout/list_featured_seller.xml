@@ -25,7 +25,7 @@
             android:layout_marginLeft="@dimen/item_gap_m"
             android:layout_marginTop="@dimen/item_gap_l"
             android:scaleType="centerCrop"
-            android:src="@drawable/product2" />
+            android:src="@drawable/bg_default_light" />
 
         <ImageView
             android:id="@+id/featuredSellerIvStar"

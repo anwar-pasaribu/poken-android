@@ -198,10 +198,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         Utils.Log(TAG, "Extra note: \"" + item.extra_note + "\"");
         String extraNote;
         if (StringUtils.isEmpty(item.extra_note)) {
-            Utils.Logs('w', TAG, "Extra note is empty.");
             extraNote = holder.hint_cart_add_note;
         } else {
-            Utils.Logs('i', TAG, "Extra note is available.");
             extraNote = item.extra_note;
         }
         holder.rowCartAddNoteTextView.setText(extraNote);
@@ -221,6 +219,10 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                             public void onInputTextDone(CharSequence text) {
 
                                 Utils.Log(TAG, "Input extra note: \"" + text + "\"");
+
+                                String prevExtraNote = item.extra_note + "";
+
+                                if (StringUtils.isEmpty(prevExtraNote) && StringUtils.isEmpty(text + "")) return;
 
                                 // Check item on adding quantity
                                 holder.cbSelectAllStoreItem.setChecked(true);
@@ -245,6 +247,22 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 );
             }
         });
+
+        // DETECT WHEN NEXT ITEM HAVE THE SAME SELLER ID
+        // THEN REMOVE BOTTOM MARGIN
+        /*
+        int nextItemPos = position + 1;
+        if ( (nextItemPos > 0 && nextItemPos < listData.size())
+                && listData.get(nextItemPos) != null
+                && listData.get(nextItemPos).product.seller.id == item.product.seller.id) {
+            Utils.Logs('i', TAG, "Next item has the same Seller ID. Seller: " + listData.get(nextItemPos).product.seller.store_name);
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.bottomMargin = 0;
+        } else {
+            RecyclerView.LayoutParams recyclerViewLayoutParams = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            recyclerViewLayoutParams.bottomMargin = holder.itemGapL;
+        }
+        */
 
     }
 
@@ -287,6 +305,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         // RESOURCE
         @BindString(R.string.hint_cart_add_note) String hint_cart_add_note;
         @BindDimen(R.dimen.clickable_size_64) int size64;
+        @BindDimen(R.dimen.item_gap_l) int itemGapL;
 
         public ViewHolder(View view) {
             super(view);

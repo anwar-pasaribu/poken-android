@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/product2" />
+            android:src="@drawable/bg_default_light" />
 
         <ImageButton
             android:id="@+id/ibRemoveCollection"

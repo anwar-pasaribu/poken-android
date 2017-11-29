@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -247,6 +248,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         Picasso.with(getContext())
                 .load(productImage)
                 .resize(imageSize, imageSize)
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .centerCrop()
                 .into(ivProductImage);
         tvProductName.setText(productName);
@@ -428,8 +431,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
                 BottomSheetDialog d = (BottomSheetDialog) dialog;
 
                 FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
-
                 if (bottomSheet != null) {
+                    bottomSheet.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.transparent));
                     BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
@@ -451,6 +454,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         });
 
         dialog.setTitle("Barang baru di Troli");
+
 
         // Do something with your dialog like setContentView() or whatever
         return dialog;

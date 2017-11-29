@@ -149,7 +149,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         int gridColumnCount = 1;
 
         if (actionId == Constants.HOME_SECTION_SALE_PRODUCT) {
-            adapter = new BrowseProductAdapter(listItem, presenter);
+            adapter = new BrowseProductAdapter(listItem, presenter, glideRequests);
             rvProductBrowsing.setAdapter(adapter);
 
             gridColumnCount = 2;
@@ -161,7 +161,7 @@ public class BrowseActivity extends AppCompatActivity implements IBrowseView {
         } else {
 
             // DEFAULT
-            adapter = new BrowseProductAdapter(listItem, presenter);
+            adapter = new BrowseProductAdapter(listItem, presenter, glideRequests);
             rvProductBrowsing.setAdapter(adapter);
 
             gridColumnCount = 2;

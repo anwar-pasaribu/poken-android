@@ -14,4 +14,14 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void rounding_floating_point_number() throws Exception {
+        double fee = 58500.01;
+        int expectation = 58500;
+
+        int res = (int) fee;
+
+        assertEquals(expectation, res);
+    }
 }

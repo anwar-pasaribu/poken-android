@@ -3,6 +3,7 @@ package id.unware.poken.ui.home.view.adapter;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
@@ -125,48 +130,64 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     private void configureHeaderRow(final HeaderRowHolder holder, int pos) {
+
         ArrayList<Featured> featuredItems = new ArrayList<>();
 
         if (dataList.get(pos).getFeaturedItems() != null) {
             featuredItems.addAll(dataList.get(pos).getFeaturedItems());
         }
 
-        final int itemListSize = featuredItems.size();
-
-        HeaderSectionAdapter adapter = new HeaderSectionAdapter(
-                mContext,
-                featuredItems,
-                homePresenter,
-                glideRequests
-        );
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        holder.recycler_view_list.setLayoutManager(layoutManager);
-
-        holder.recycler_view_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (itemListSize > 0) {
-                    int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
-                    if (firstItemVisible != 0 && firstItemVisible % itemListSize == 0) {
-                        recyclerView.scrollToPosition(0);
-                    }
-                }
-            }
-        });
-
-        // Snap on item
-        SnapHelper snapHelper = new LinearSnapHelper();
-        holder.recycler_view_list.setOnFlingListener(null);
-        snapHelper.attachToRecyclerView(holder.recycler_view_list);
-
-//        RecyclerViewPreloader<Featured> preloader =
-//                new RecyclerViewPreloader<>(glideRequests, adapter, adapter, 3);
+//        final int itemListSize = featuredItems.size();
 //
-//        holder.recycler_view_list.addOnScrollListener(preloader);
-        holder.recycler_view_list.setAdapter(adapter);
+//        HeaderSectionAdapter adapter = new HeaderSectionAdapter(
+//                mContext,
+//                featuredItems,
+//                homePresenter,
+//                glideRequests
+//        );
+//        final LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+//        holder.recycler_view_list.setLayoutManager(layoutManager);
+//
+//        holder.recycler_view_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                if (itemListSize > 0) {
+//                    int firstItemVisible = layoutManager.findFirstVisibleItemPosition();
+//                    if (firstItemVisible != 0 && firstItemVisible % itemListSize == 0) {
+//                        recyclerView.scrollToPosition(0);
+//                    }
+//                }
+//            }
+//        });
+//
+//        // Snap on item
+//        SnapHelper snapHelper = new LinearSnapHelper();
+//        holder.recycler_view_list.setOnFlingListener(null);
+//        snapHelper.attachToRecyclerView(holder.recycler_view_list);
+//        holder.recycler_view_list.setAdapter(adapter);
+//        holder.recycler_view_list.setNestedScrollingEnabled(false);
 
-        holder.recycler_view_list.setNestedScrollingEnabled(false);
+        holder.slSectionHeader.removeAllSliders();
+        for (Featured item : featuredItems) {
+            DefaultSliderView sliderView = new DefaultSliderView(mContext);
+            sliderView.image(item.thumbnail);
+            sliderView.error(R.drawable.ic_image_black_24dp);
+            sliderView.bundle(new Bundle());
+            sliderView.getBundle().putParcelable(Constants.EXTRA_DOMAIN_PARCELABLE_DATA, item);
+            sliderView.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    Featured featured = slider.getBundle().getParcelable(Constants.EXTRA_DOMAIN_PARCELABLE_DATA);
+                    homePresenter.onFeaturedItemClicked(-1, featured);
+
+                }
+            });
+            holder.slSectionHeader.addSlider(sliderView);
+        }
+
+        holder.slSectionHeader.setCustomIndicator(holder.piSectionHeaderCustomIndicator);
+
     }
 
     private void configureCategoryRow(CategoryRowHolder holder, int pos) {
@@ -343,7 +364,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     public class HeaderRowHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.recycler_view_list) RecyclerView recycler_view_list;
+        @BindView(R.id.slSectionHeader) SliderLayout slSectionHeader;
+        @BindView(R.id.piSectionHeaderCustomIndicator) com.daimajia.slider.library.Indicators.PagerIndicator piSectionHeaderCustomIndicator;
 
         public HeaderRowHolder(View itemView) {
             super(itemView);

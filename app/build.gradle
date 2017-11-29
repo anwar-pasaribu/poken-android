@@ -219,6 +219,9 @@ dependencies {
     implementation "com.facebook.android:account-kit-sdk:${versions.facebookSdkVersion}"
     implementation 'com.alexvasilkov:gesture-views:2.3.1'
     implementation "com.github.bumptech.glide:glide:${versions.glideVersion}"
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
+    implementation 'com.daimajia.androidanimations:library:1.0.3@aar'
     annotationProcessor "com.github.bumptech.glide:compiler:${versions.glideVersion}"
     implementation("com.github.bumptech.glide:recyclerview-integration:${versions.glideVersion}") {
         // Excludes the support library because it's already included by Glide.

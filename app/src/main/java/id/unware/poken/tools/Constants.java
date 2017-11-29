@@ -8,7 +8,6 @@ package id.unware.poken.tools;
 public class Constants {
     public static final String KEY_DOMAIN_ITEM_ID = "id";
 
-    public static final int TAG_HEADER_RECENT = -99;
     public static final int TAG_TRACKING = 1;
     public static final String LAST_ORIGIN = "LAST_ORIGIN";
 
@@ -32,6 +31,9 @@ public class Constants {
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
+    // PRE CHECK WHEN ID NOT AVAILABLE
+    public static final int ID_NOT_AVAILABLE = -1;
+
     public static final String EXTRA_ORDER_ID = "SHOPPING_ORDER_ID";
     public static final String EXTRA_ORDER_REF = "EXTRA_ORDER_REF";
     public static final String EXTRA_ORDER_STATUS = "EXTRA_TOPUP_STATUS";
@@ -54,6 +56,7 @@ public class Constants {
     public static final String FABRIC_CONTENT_TYPE = "Page";
 
     public static final String EXTRA_DOMAIN_SERIALIZED_STRING = "EXTRA_DOMAIN_SERIALIZED_STRING";
+    public static final String EXTRA_DOMAIN_PARCELABLE_DATA = "EXTRA_DOMAIN_PARCELABLE_DATA";
     public static final String EXTRA_PRODUCT_DATA = "EXTRA_PRODUCT_DATA";
 
     public static boolean focusOnSender = false;

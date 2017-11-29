@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:theme="@style/AppTheme">
+    android:background="@android:color/transparent"
+    android:theme="@style/AppTheme"
+    tools:background="#B2B2B2">
 
     <RelativeLayout
         android:id="@+id/newShoppingCartParentHeader"
         android:layout_width="match_parent"
         android:layout_height="@dimen/clickable_size"
-        android:background="@color/white_100">
+        android:background="@drawable/bg_top_rounded">
 
         <ImageButton
             android:id="@+id/addressBookIbClose"
@@ -28,16 +29,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:visibility="invisible"
             android:layout_toRightOf="@+id/addressBookIbClose"
-            android:text="@string/title_product_added_to_cart" />
+            android:text="@string/title_product_added_to_cart"
+            android:visibility="invisible" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"
-            android:background="@color/separator_view" />
+            android:background="@color/separator_view"
+            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/newShoppingCartProgressBar"
@@ -57,8 +58,9 @@
         android:id="@+id/newShoppingCartParentScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/newShoppingCartParentHeader"
         android:layout_above="@+id/newShoppingCartParentMainButton"
+        android:layout_below="@+id/newShoppingCartParentHeader"
+        android:background="@color/white_100"
         android:fillViewport="true">
 
         <RelativeLayout
@@ -118,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/newShoppingCartTvAddressDetail"
-                    style="@style/TextListTitle"
+                    style="@style/TextBodyDefault"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newShoppingCartTvShipmentAddressTitle"
@@ -182,14 +184,14 @@
                     android:layout_marginTop="@dimen/item_gap_m"
                     android:background="@drawable/bg_default_light"
                     android:paddingBottom="@dimen/item_gap_m"
-                    android:paddingTop="@dimen/item_gap_m"/>
+                    android:paddingTop="@dimen/item_gap_m" />
 
                 <TextView
                     android:id="@+id/newShoppingCartTvShippingPlansLabel"
-                    android:layout_below="@id/newShoppingCartSpinnerCourierName"
                     style="@style/TextCaption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/newShoppingCartSpinnerCourierName"
                     android:layout_marginTop="@dimen/item_gap_m"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/text_margin"
@@ -210,6 +212,7 @@
 
                 <TextView
                     android:id="@+id/newShoppingCartTvSelectedCourierMessage"
+                    style="@style/TextBodyDefault"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newShoppingCartSpinnerCourierServices"
@@ -221,6 +224,7 @@
                     android:paddingLeft="@dimen/item_gap_s"
                     android:paddingRight="@dimen/item_gap_s"
                     android:paddingTop="@dimen/item_gap_s"
+                    android:textColor="@color/eco"
                     android:visibility="gone"
                     tools:text="COD Khusus Daerah Padang Sidempuan"
                     tools:visibility="visible" />
@@ -229,7 +233,7 @@
 
             <include
                 android:id="@+id/includeSepShippingMethod"
-                layout="@layout/include_sep_small"
+                layout="@layout/include_sep_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/newShoppingCartParentShippingMethod" />
@@ -242,8 +246,8 @@
         android:id="@+id/newShoppingCartParentMainButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white_100"
         android:layout_alignParentBottom="true"
+        android:background="@color/white_100"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -280,7 +284,7 @@
                 android:layout_below="@+id/newShoppingCartTvShippingFeeLabel"
                 android:layout_marginLeft="@dimen/text_margin"
                 android:layout_marginRight="@dimen/text_margin"
-                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_marginTop="@dimen/item_gap_xs"
                 android:background="@color/separator_view_lighter" />
 
             <TextView
@@ -290,7 +294,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/viewSepPrice"
-                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_marginTop="@dimen/item_gap_xs"
                 android:layout_toLeftOf="@+id/tvNewShoppingCartTotalCost"
                 android:paddingLeft="@dimen/text_margin"
                 android:paddingRight="@dimen/text_margin"
@@ -303,44 +307,49 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/viewSepPrice"
-                android:layout_marginTop="@dimen/item_gap_s"
+                android:layout_marginTop="@dimen/item_gap_xs"
                 android:paddingLeft="@dimen/text_margin"
                 android:paddingRight="@dimen/text_margin"
                 android:textStyle="bold"
-                tools:text="Rp 449.550.000" />
+                tools:text="Rp 4.550.000" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:layout_marginBottom="@dimen/item_gap_s"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnShopMore"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btnContinueToPayment"
+                android:layout_marginLeft="13dp"
+                android:text="@string/btn_continue_shopping"
+                android:theme="@style/MyButton.Secondary" />
+
+            <Button
+                android:id="@+id/btnContinueToPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="13dp"
+                android:text="@string/btn_continue_checkout"
+                android:theme="@style/MyButton" />
 
         </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/btnContinueToPayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_marginTop="@dimen/text_margin"
-            android:text="@string/btn_continue_checkout"
-            android:theme="@style/MyButton" />
-
-        <Button
-            android:id="@+id/btnShopMore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/text_margin"
-            android:layout_marginLeft="@dimen/text_margin"
-            android:layout_marginRight="@dimen/text_margin"
-            android:layout_marginTop="@dimen/item_gap_m"
-            android:text="@string/btn_continue_shopping"
-            android:theme="@style/MyButton.Secondary" />
     </LinearLayout>
 
     <View
         android:id="@+id/newShoppingCartViewShadowAboveToolbar"
-        android:layout_above="@+id/newShoppingCartParentMainButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_gap_xs"
-        android:background="@drawable/bg_shadow_bottom"/>
+        android:layout_above="@+id/newShoppingCartParentMainButton"
+        android:background="@drawable/bg_shadow_bottom" />
 
 </RelativeLayout>

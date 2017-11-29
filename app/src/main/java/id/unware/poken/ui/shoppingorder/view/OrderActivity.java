@@ -132,17 +132,16 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
             // Get ShoppingCart arrayList JSON String
             shoppingCartArrayListJsonString = getIntent().getStringExtra(Constants.EXTRA_SELECTED_SHOPPING_CART);
 
+            // When Order created before
             orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
-            if (orderedProductId != -1) {
-                isReadOnlyMode = true;
-            }
-
         }
 
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
 
-        if (orderedProductId != -1) {
+        if (orderedProductId != Constants.ID_NOT_AVAILABLE) {
             presenter.getShoppingOrderData(orderedProductId);
+
+            isReadOnlyMode = true;
         } else {
             presenter.prepareOrderFromShoppingCart(shoppingCartArrayListJsonString);
         }
@@ -163,7 +162,7 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
                 if (addressBookResult != null) {
                     setupSelectedAddressBook(addressBookResult);
                 } else {
-                    Utils.Log(TAG, "No parcelable address book found.");
+                    MyLog.FabricLog(Log.WARN, TAG + " - No parcelable address book found.");
                 }
             }
         }

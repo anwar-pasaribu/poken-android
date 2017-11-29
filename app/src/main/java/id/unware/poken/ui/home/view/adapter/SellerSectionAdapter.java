@@ -61,6 +61,7 @@ public class SellerSectionAdapter extends RecyclerView.Adapter<SellerSectionAdap
                 .load(singleItem.store_avatar)
                 .circleCrop()
                 .placeholder(R.drawable.ic_store_black_24dp)
+                .error(R.drawable.ic_store_black_24dp)
                 .into(holder.featuredSellerIvAvatar);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

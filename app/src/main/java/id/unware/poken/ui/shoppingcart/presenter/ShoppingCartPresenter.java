@@ -1,9 +1,14 @@
 package id.unware.poken.ui.shoppingcart.presenter;
 
+import android.util.Log;
+import android.util.SparseArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingcart.model.IShoppingCartModel;
@@ -36,15 +41,47 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
         selectedShoppingCart.clear();
         selectedShoppingCart.addAll(shoppingCarts);
 
+        SparseArray<ArrayList<ShoppingCart>> groupedCartByStore = new SparseArray<>();
+
         int totalQuantity = 0;
         double totalPrice = 0D;
+        double originalProductPrice;
+        // GROUPING SHOPPING CART BY STORE ID
         for (ShoppingCart item : shoppingCarts) {
+            ArrayList<ShoppingCart> groupedSc = groupedCartByStore.get((int) item.product.seller.id);
+            if (groupedSc == null) {
+                groupedSc = new ArrayList<>();
+            }
+            groupedSc.add(item);
+            groupedCartByStore.put((int) item.product.seller.id, groupedSc);
+
             totalQuantity = totalQuantity + item.quantity;
-            double originalProductPrice = (item.product.price * item.quantity);
-            totalPrice = totalPrice + (originalProductPrice - ((originalProductPrice * item.product.discount_amount) / 100));
-            totalPrice = totalPrice + item.shipping_fee;
         }
 
+        int groupedScSize = groupedCartByStore.size();
+        for (int i = 0; i < groupedScSize; i++) {
+            int key = groupedCartByStore.keyAt(i);
+            ArrayList<ShoppingCart> val = groupedCartByStore.get(key);
+
+            if (val == null) continue;
+
+            Utils.Log(TAG, "Key: " + key);
+            Utils.Log(TAG, "Val size: " + val.size());
+
+            double lastShippingFee = 0;
+            for (ShoppingCart item : val) {
+                originalProductPrice = (item.product.price * item.quantity);
+                totalPrice += (originalProductPrice - ((originalProductPrice * item.product.discount_amount) / 100));
+
+                if (item.shipping_fee > lastShippingFee) {
+                    totalPrice += item.shipping_fee;
+                }
+
+                lastShippingFee = item.shipping_fee;
+            }
+        }
+
+        Utils.Log(TAG, "Total grouped shopping cart size: " + groupedCartByStore.size());
         Utils.Log(TAG, "Total price: " + StringUtils.formatCurrency(String.valueOf(totalPrice)));
         Utils.Log(TAG, "Total quantity: " + totalQuantity);
 
@@ -73,7 +110,7 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
     @Override
     public void onItemChecked(int itemPos, boolean isChecked, long shoppingCartId, int quantity, double price, ShoppingCart shoppingCart) {
 
-        Utils.Logs('i', TAG, "Shopping cart item " + (isChecked? "checked" : "unchecked") +
+        MyLog.FabricLog(Log.INFO, TAG + " - Shopping cart item " + (isChecked? "checked" : "unchecked") +
                 ". ID: " + shoppingCartId + " pos: " + itemPos + ", quantity: " + quantity +
                 ", price: " + price);
 
@@ -116,12 +153,15 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
 
     @Override
     public void updateViewState(UIState uiState) {
+        if (view.isActivityFinishing()) return;
         Utils.Logs('w', TAG, "Update view state: " + uiState);
         view.showViewState(uiState);
     }
 
     @Override
     public void onShoppingCartDataResponse(ArrayList<ShoppingCart> shoppingCarts) {
+
+        if (view.isActivityFinishing()) return;
 
         this.currentShoppingCarts.clear();
         this.currentShoppingCarts.addAll(shoppingCarts);
@@ -133,11 +173,16 @@ public class ShoppingCartPresenter implements IShoppingCartPresenter, IShoppingC
 
     @Override
     public void onShoppingCartDeleted(int deletedItemPos) {
+
+        if (view.isActivityFinishing()) return;
+
         view.deleteShoppingCartItem(deletedItemPos);
     }
 
     @Override
     public void onShoppingCartItemUpdated(ShoppingCart shoppingCart) {
+
+        if (view.isActivityFinishing()) return;
 
         int updatedItemIndex = 0;
         for (ShoppingCart item : this.currentShoppingCarts) {

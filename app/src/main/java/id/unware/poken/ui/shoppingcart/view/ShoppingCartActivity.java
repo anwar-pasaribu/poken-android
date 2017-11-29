@@ -113,8 +113,6 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
     @Override
     public void showViewState(UIState uiState) {
 
-        if (this.isFinishing()) return; // Abort view related operation when Activity is N/A
-
         switch (uiState) {
             case LOADING:
                 btnContinueToPayment.setEnabled(false);
@@ -229,6 +227,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements IShopping
 
             Utils.Logs('i', TAG, "Selected shopping carts: " + Arrays.toString(shoppingCartIds));
 
+            // TODO Change to Parcelable type
             // Convert ShoppingCart data to String
             Gson gson = new Gson();
             String strSelectedShoppingCarts = gson.toJson(selectedShoppingCart);

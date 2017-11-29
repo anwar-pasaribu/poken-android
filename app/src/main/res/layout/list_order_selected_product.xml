@@ -16,8 +16,7 @@
         android:layout_height="@dimen/clickable_size_64"
         android:layout_marginLeft="@dimen/item_gap_l"
         android:contentDescription="@string/hint_product_images"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/product1" />
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tvProductName"

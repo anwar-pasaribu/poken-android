@@ -1,5 +1,7 @@
 package id.unware.poken.ui.shoppingorder.presenter;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +13,8 @@ import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderInserted;
 import id.unware.poken.models.OrderStatus;
 import id.unware.poken.pojo.UIState;
+import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.shoppingorder.model.IShoppingOrderModel;
 import id.unware.poken.ui.shoppingorder.view.IShoppingOrderView;
@@ -51,8 +55,10 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
     @Override
     public void getShoppingOrderData(long orderedProductId) {
-        Utils.Log(TAG, "Get sopping order data by id: " + orderedProductId);
-        if (orderedProductId == -1) {
+
+        MyLog.FabricLog(Log.INFO, TAG + " - Get sopping order data by id: " + orderedProductId);
+
+        if (orderedProductId == Constants.ID_NOT_AVAILABLE) {
             model.requestShoppingOrderData(this);
         } else {
             model.requestShoppingOrderDataById(this, orderedProductId);

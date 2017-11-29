@@ -51,7 +51,7 @@ public class NewlyShoppingCartModel extends MyCallback implements INewlyShopping
         postBody.put("product_id", String.valueOf(productId));
         postBody.put("quantity", String.valueOf(quantity));  // Add one quantity
         postBody.put("shipping_id", String.valueOf(shippingOptionId));
-        postBody.put("shipping_fee", String.valueOf(shippingFee));  // Add one quantity
+        postBody.put("shipping_fee", String.valueOf((int) shippingFee));  // Add one quantity
         postBody.put("shipping_service", String.valueOf(shippingService));  // Add one quantity
         if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
             // noinspection unchecked

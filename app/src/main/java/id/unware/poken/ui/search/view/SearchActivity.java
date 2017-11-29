@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,13 +32,14 @@ import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.tools.glide.GlideRequests;
+import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.browse.view.adapter.EndlessRecyclerViewScrollListener;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.search.model.SearchModel;
 import id.unware.poken.ui.search.presenter.SearchPresenter;
 import id.unware.poken.ui.search.view.adapter.SearchProductAdapter;
 
-public class SearchActivity extends AppCompatActivity
+public class SearchActivity extends BaseActivity
         implements ISearchView, SearchView.OnQueryTextListener {
 
     private static final String TAG = "SearchActivity";
@@ -250,6 +252,8 @@ public class SearchActivity extends AppCompatActivity
             listItem.clear();
             adapter.notifyDataSetChanged();
 
+            // Show no data
+            Utils.snackBar(swipeRefreshLayout, "Tidak ada data untuk pencarian \"" + submittedQuery + "\". Silahkan coba kata kunci lainnya.", Log.WARN);
         }
     }
 

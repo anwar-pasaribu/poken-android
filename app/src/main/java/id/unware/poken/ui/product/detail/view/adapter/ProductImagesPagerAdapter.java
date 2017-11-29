@@ -12,6 +12,7 @@ import com.bumptech.glide.RequestBuilder;
 
 import java.util.ArrayList;
 
+import id.unware.poken.R;
 import id.unware.poken.domain.ProductImage;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideRequest;
