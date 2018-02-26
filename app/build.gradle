@@ -9,6 +9,7 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
     // For stetho (https://facebook.github.io/stetho/) Realm Inspector (https://github.com/uPhyca/stetho-realm)
     maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
+    maven { url "https://jitpack.io" }
     google()
 }
 
@@ -211,8 +212,10 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.6.0'  // FCM Requirement
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.jakewharton:butterknife:8.5.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -226,6 +229,7 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'com.daimajia.androidanimations:library:1.0.3@aar'
+    implementation 'com.github.yalantis:ucrop:2.2.1'  // Image cropper
     kapt "com.github.bumptech.glide:compiler:${versions.glideVersion}"
     implementation("com.github.bumptech.glide:recyclerview-integration:${versions.glideVersion}") {
         // Excludes the support library because it's already included by Glide.
