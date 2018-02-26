@@ -27,3 +27,9 @@
 
 -keepattributes *Annotation*,Signature,Exceptions
 
+# S: UCrop
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+# E: UCrop
+
