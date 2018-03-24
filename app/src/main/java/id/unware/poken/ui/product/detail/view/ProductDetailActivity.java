@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
+import id.unware.poken.connections.MyCallback;
 import id.unware.poken.domain.Product;
 import id.unware.poken.domain.ProductImage;
 import id.unware.poken.domain.Seller;
@@ -39,6 +41,7 @@ import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
+import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
@@ -53,6 +56,7 @@ import id.unware.poken.ui.product.detail.view.fragment.FragmentDialogShippings;
 import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import id.unware.poken.ui.shoppingcartnew.view.fragment.NewShoppingCartDialogFragment;
+import id.unware.poken.ui.store.manageproduct.view.ManageProductActivity;
 
 
 public class ProductDetailActivity extends AppCompatActivity
@@ -99,6 +103,7 @@ public class ProductDetailActivity extends AppCompatActivity
     @BindView(R.id.productDetailIbMoreShipping) ImageButton productDetailIbMoreShipping;
 
     private long productId;
+    private boolean isEditAvailable = false;
 
     // SAVE LAST SELECTED SHIPPING OPTION INDEX FROM LIST
     private int selectedShippingOptionsIndex = -1;
@@ -125,6 +130,7 @@ public class ProductDetailActivity extends AppCompatActivity
 
         if (getIntent().getExtras() != null) {
             productId = getIntent().getExtras().getLong(Product.KEY_PRODUCT_ID, -1L);
+            isEditAvailable = getIntent().getExtras().getBoolean(Constants.EXTRA_PRODUCT_DETAIL_IS_EDIT, false);
             Utils.Log(TAG, "Product ID from intent: " + productId);
         }
 
@@ -187,6 +193,13 @@ public class ProductDetailActivity extends AppCompatActivity
                 }
             }
         });
+
+        if (isEditAvailable) {
+            MyLog.FabricLog(Log.INFO, "Edit mode available on Product Detail Screen");
+            if (presenter != null) {
+                presenter.prepareEditModePage();
+            }
+        }
     }
 
     private void openShoppingCartAndInsertProduct(long productId) {
@@ -364,6 +377,18 @@ public class ProductDetailActivity extends AppCompatActivity
         this.currentProductData = currentProductData;
     }
 
+    @Override public void showEditProductButton() {
+        btnBuy.setText(R.string.btn_edit_product);
+        btnBuy.setOnClickListener(null);
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                Intent editProductIntent = new Intent(ProductDetailActivity.this, ManageProductActivity.class);
+                editProductIntent.putExtra(Constants.EXTRA_DOMAIN_PARCELABLE_DATA, currentProductData);
+                startActivityForResult(editProductIntent, Constants.TAG_STORE_MANAGE_PRODUCT);
+            }
+        });
+    }
+
     @Override
     public void showViewState(UIState uiState) {
         Utils.Logs('i', TAG, "View state: " + String.valueOf(uiState));
@@ -421,7 +446,13 @@ public class ProductDetailActivity extends AppCompatActivity
                         }
                     }
                 }
+            } else if (requestCode == Constants.TAG_STORE_MANAGE_PRODUCT) {
+                Utils.Logs('i', TAG, "Refresh product detail.");
+                if (presenter != null) {
+                    presenter.getProductData(productId);
+                }
             }
+
         } else {
             Utils.Logs('w', TAG, "Result not OK.");
             showLoadingIndicator(false);

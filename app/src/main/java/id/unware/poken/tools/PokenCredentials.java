@@ -1,5 +1,6 @@
 package id.unware.poken.tools;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
@@ -10,11 +11,14 @@ import com.google.gson.GsonBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
+import id.unware.poken.PokenApp;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.PokenApiBase;
 import id.unware.poken.domain.User;
 import id.unware.poken.helper.SPHelper;
+import id.unware.poken.ui.pokenaccount.LoginActivity;
 import io.fabric.sdk.android.services.network.HttpRequest;
+import io.reactivex.CompletableOnSubscribe;
 import okhttp3.Credentials;
 
 import static id.unware.poken.R.string.email;

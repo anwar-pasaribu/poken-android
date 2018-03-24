@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_100">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/svManageProductForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/includeBottomToolbar"
+
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/parentManageProductRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context="id.unware.poken.ui.store.manageproduct.view.ManageProductActivity">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/img_grid_s"
+                android:layout_marginTop="@dimen/item_gap_l"
+                android:scrollbarSize="2dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/img_grid_s">
+
+                    <ImageView
+                        android:id="@+id/ivManageProduct1"
+                        android:layout_width="@dimen/img_grid_s"
+                        android:layout_height="@dimen/img_grid_s"
+                        android:layout_marginLeft="@dimen/item_gap_l"
+                        android:background="@drawable/bg_border_light_grey_thin"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_add_24dp" />
+
+                    <ImageView
+                        android:id="@+id/ivManageProduct2"
+                        android:layout_width="@dimen/img_grid_s"
+                        android:layout_height="@dimen/img_grid_s"
+                        android:layout_marginLeft="@dimen/item_gap_l"
+                        android:background="@drawable/bg_border_light_grey_thin"
+                        android:contentDescription="@string/hint_add_product_image"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_add_24dp" />
+
+                    <ImageView
+                        android:id="@+id/ivManageProduct3"
+                        android:layout_width="@dimen/img_grid_s"
+                        android:layout_height="@dimen/img_grid_s"
+                        android:layout_marginLeft="@dimen/item_gap_l"
+                        android:background="@drawable/bg_border_light_grey_thin"
+                        android:contentDescription="@string/hint_add_product_image"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_add_24dp" />
+
+                    <ImageView
+                        android:id="@+id/ivManageProduct4"
+                        android:layout_width="@dimen/img_grid_s"
+                        android:layout_height="@dimen/img_grid_s"
+                        android:layout_marginLeft="@dimen/item_gap_l"
+                        android:background="@drawable/bg_border_light_grey_thin"
+                        android:contentDescription="@string/hint_add_product_image"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_add_24dp" />
+
+                    <ImageView
+                        android:id="@+id/ivManageProduct5"
+                        android:layout_width="@dimen/img_grid_s"
+                        android:layout_height="@dimen/img_grid_s"
+                        android:layout_marginLeft="@dimen/item_gap_l"
+                        android:layout_marginRight="@dimen/item_gap_l"
+                        android:background="@drawable/bg_border_light_grey_thin"
+                        android:contentDescription="@string/hint_add_product_image"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/ic_add_24dp" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilManageProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m">
+
+                <EditText
+                    android:id="@+id/etManageProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Barang"
+                    android:inputType="text|textPersonName|textCapWords" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilManageProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_gap_m"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m">
+
+                <EditText
+                    android:id="@+id/etManageProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Deskripsi Barang"
+                    android:inputType="text|textMultiLine|textCapWords" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <include layout="@layout/include_sep_medium" />
+
+            <RelativeLayout
+                android:id="@+id/parentClickableManageProductCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:minHeight="@dimen/clickable_size">
+
+                <TextView
+                    android:id="@+id/tvManageProductProductCategory"
+                    style="@style/TextBodyDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/item_gap_l"
+                    android:text="@string/lbl_choose_product_category" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/item_gap_l"
+                    app:srcCompat="@drawable/ic_chevron_right_24dp" />
+            </RelativeLayout>
+
+            <include layout="@layout/include_sep_medium" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilManageProductStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m">
+
+                <EditText
+                    android:id="@+id/etManageProductStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:hint="Stok"
+                    android:inputType="numberSigned|number"
+                    android:maxLines="1"
+                    android:nextFocusForward="@id/etManageProductWeight"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/tilManageProductWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m">
+
+                <EditText
+                    android:id="@+id/etManageProductWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789"
+                    android:hint="Berat (gram)"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/clickable_size_64"
+                android:layout_marginBottom="@dimen/item_gap_l"
+                android:layout_marginLeft="@dimen/item_gap_l"
+                android:layout_marginRight="@dimen/item_gap_l"
+                android:layout_marginTop="@dimen/item_gap_m">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilManageProductStorePrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/parentManageProductGeneratedPokenPrice"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <EditText
+                        android:id="@+id/etManageProductStorePrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789"
+                        android:maxEms="13"
+                        android:imeOptions="actionDone"
+                        android:imeActionLabel="@string/btn_input_finish"
+                        android:maxLength="13"
+                        android:hint="Harga Toko"
+                        android:inputType="numberSigned|number" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <RelativeLayout
+                    android:id="@+id/parentManageProductGeneratedPokenPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/bg_border_light_grey_thin"
+                    android:paddingBottom="@dimen/item_gap_xs"
+                    android:paddingLeft="@dimen/item_gap_m"
+                    android:paddingRight="@dimen/item_gap_m"
+                    android:paddingTop="@dimen/item_gap_xs"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvManageProductGeneratedProkenPriceLabel"
+                        style="@style/TextCaption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/icon_24dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/item_gap_s"
+                        android:paddingRight="@dimen/item_gap_s"
+                        android:text="Harga di Poken:" />
+
+                    <TextView
+                        android:id="@+id/tvManageProductGeneratedProkenPrice"
+                        style="@style/TextListTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/icon_24dp"
+                        android:layout_below="@+id/tvManageProductGeneratedProkenPriceLabel"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/item_gap_s"
+                        android:paddingRight="@dimen/item_gap_s"
+                        android:text="Rp 0" />
+
+                    <ImageButton
+                        android:id="@+id/ibManageProductPokenPriceInfo"
+                        android:layout_width="@dimen/icon_24dp"
+                        android:layout_height="@dimen/icon_24dp"
+                        android:layout_toRightOf="@+id/tvManageProductGeneratedProkenPriceLabel"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="@dimen/item_gap_xs"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/colorAccent"
+                        app:srcCompat="@drawable/ic_info_outline_black_24dp" />
+
+                </RelativeLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/includeBottomToolbar"
+        layout="@layout/comp_bottom_toolbar_single_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/clickable_size_64"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

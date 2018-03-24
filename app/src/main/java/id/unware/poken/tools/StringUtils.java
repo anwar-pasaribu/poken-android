@@ -74,25 +74,6 @@ public class StringUtils {
         return decodeResult;
     }
 
-//    public static String dateFormatEcash(long time) {
-//        long different = Utils.getCurentTime() - time;
-//        final int one_day = 24 * 60 * 60 * 1000;
-//        if (different > one_day * 2) {
-//            Date date = new Date(time);
-//            return sdfEcash.format(date);
-//        } else {
-//            if (different < 60 * 60 * 1000) {
-//                Date date = new Date(different);
-//                return sdfMinutes.format(date);
-//            } else if (different < 24 * 60 * 60 * 1000) {
-//                Date date = new Date(different);
-//                return sdfHour.format(date);
-//            } else {
-//                return "yesterday";
-//            }
-//
-//        }
-//    }
 
     public static String adjustmentLine(String msg, int lengthAdjust,
                                         boolean isPadLeft, String delimiter) {
@@ -167,6 +148,22 @@ public class StringUtils {
         return "Rp " + formatter.format(convert);
     }
 
+    public static String formatCurrency(double value) {
+
+        DecimalFormat formatter = new DecimalFormat(
+                "#,##0", new DecimalFormatSymbols(new Locale("id", "ID")));
+
+        return "Rp " + formatter.format(value);
+    }
+
+    public static String formatCurrencyNoSymbol(double value) {
+
+        DecimalFormat formatter = new DecimalFormat(
+                "#,##0", new DecimalFormatSymbols(new Locale("id", "ID")));
+
+        return formatter.format(value);
+    }
+
     public static String generateAlphaNumeric(int length) {
         String C = "QWERTYUIOPLKJHGFDAZXCVBNM0987654321";
         StringBuffer sb = new StringBuffer(length);
@@ -221,4 +218,9 @@ public class StringUtils {
         return "";
     }
 
+    public static CharSequence getFormattedDiscountPercent(double percentAmount) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(percentAmount).append("%");
+        return sb;
+    }
 }

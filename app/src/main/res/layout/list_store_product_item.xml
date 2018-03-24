@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivStoreProductImage"
+        android:layout_width="@dimen/clickable_size_32"
+        android:layout_height="@dimen/clickable_size_32"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_gap_l"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_category_women_fashion" />
+
+    <TextView
+        android:id="@+id/tvStoreProductName"
+        style="@style/TextListTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_gap_l"
+        android:layout_toRightOf="@id/ivStoreProductImage"
+        android:layout_toStartOf="@+id/tvStoreProductStock"
+        android:ellipsize="middle"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        tools:text="Nama Barang yang sangat panjang sehingga merusak layout yang sudah rapih" />
+
+    <TextView
+        android:id="@+id/tvStoreProductStock"
+        style="@style/TextListTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:layout_toStartOf="@+id/ivStoreProductNotification"
+        android:textStyle="bold"
+        tools:text="999" />
+
+    <ImageView
+        android:id="@+id/ivStoreProductNotification"
+        android:layout_width="@dimen/icon_24dp"
+        android:layout_height="@dimen/icon_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/item_gap_l"
+        android:tint="@color/style_overlay_grey"
+        app:srcCompat="@drawable/ic_notifications_black_24dp" />
+
+</RelativeLayout>

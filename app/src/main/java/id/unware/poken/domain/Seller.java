@@ -19,6 +19,9 @@ public class Seller implements Parcelable {
     // Wether customer subscribe to Seller
     public boolean is_subscribed;
 
+    public Seller() {
+    }
+
     protected Seller(Parcel in) {
         id = in.readLong();
         store_avatar = in.readString();
@@ -55,5 +58,17 @@ public class Seller implements Parcelable {
         parcel.writeString(phone_number);
         parcel.writeParcelable(location, i);
         parcel.writeByte((byte) (is_subscribed ? 1 : 0));
+    }
+
+    @Override public String toString() {
+        return "Seller{" +
+                "id=" + id +
+                ", store_avatar='" + store_avatar + '\'' +
+                ", store_name='" + store_name + '\'' +
+                ", tag_line='" + tag_line + '\'' +
+                ", phone_number='" + phone_number + '\'' +
+                ", location=" + location +
+                ", is_subscribed=" + is_subscribed +
+                '}';
     }
 }

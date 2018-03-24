@@ -62,6 +62,7 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
         requestBuilder
                 .clone()
                 .load(strProductImageUrl)
+                .centerCrop()
                 .into(holder.itemImage);
 
         holder.tvTitle.setText(strProductName);

@@ -1,6 +1,9 @@
 package id.unware.poken.ui.payment.presenter;
 
+import java.util.ArrayList;
+
 import id.unware.poken.domain.OrderDetail;
+import id.unware.poken.domain.UserBank;
 import id.unware.poken.models.OrderStatus;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Utils;
@@ -39,6 +42,17 @@ public class PaymentPresenter implements IPaymentPresenter, IPaymentModelPresent
         }
     }
 
+    @Override public void loadAvailablePokenBankList() {
+        model.getPokenBankList(this);
+    }
+
+    @Override public void copyBankAccountNumber(String accountNumber) {
+        if (view.isActivityFinishing()) return;
+
+        view.copyBankAccountNumber(accountNumber);
+
+    }
+
     @Override
     public void updateViewState(UIState uiState) {
 
@@ -56,5 +70,11 @@ public class PaymentPresenter implements IPaymentPresenter, IPaymentModelPresent
         Utils.Logs('i', TAG, "Created/updated order detsil.address_book_id: " + orderDetail.address_book_id);
 
         view.openShoppingSummaryScreen();
+    }
+
+    @Override public void onBankListResponse(ArrayList<UserBank> userBankArrayList) {
+        if (view.isActivityFinishing()) return;
+
+        view.populateBankList(userBankArrayList);
     }
 }

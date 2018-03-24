@@ -5,5 +5,10 @@ package id.unware.poken.ui.payment.presenter;
  */
 
 public interface IPaymentPresenter {
+
     void beginOrder(long orderId, int orderStatus);
+
+    void loadAvailablePokenBankList();
+
+    void copyBankAccountNumber(String accountNumber);
 }

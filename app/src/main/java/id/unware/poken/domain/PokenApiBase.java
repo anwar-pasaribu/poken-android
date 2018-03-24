@@ -1,5 +1,7 @@
 package id.unware.poken.domain;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,10 +18,12 @@ public class PokenApiBase {
     @SerializedName("count")
     public long count;
 
+    @Nullable
     @Expose
     @SerializedName("next")
     public String next;
 
+    @Nullable
     @Expose
     @SerializedName("previous")
     public String previous;

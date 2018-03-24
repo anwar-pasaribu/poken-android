@@ -1,7 +1,10 @@
 package id.unware.poken.ui.home.view;
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.MemoryCategory;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,21 +45,22 @@ import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.tools.glide.GlideRequests;
+import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.browse.view.BrowseActivity;
 import id.unware.poken.ui.category.view.CategoryActivity;
 import id.unware.poken.ui.featured.view.FeaturedActivity;
 import id.unware.poken.ui.home.model.HomeModel;
 import id.unware.poken.ui.home.presenter.HomePresenter;
 import id.unware.poken.ui.home.view.adapter.HomeAdapter;
+import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.pokenaccount.LoginActivity;
 import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.search.view.SearchActivity;
-import id.unware.poken.ui.pageseller.view.SellerActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
 import io.realm.Realm;
 
-public class HomeActivity extends AppCompatActivity implements IHomeView {
+public class HomeActivity extends BaseActivity implements IHomeView {
 
     private final String TAG = "HomeAcivity";
 
@@ -120,6 +127,27 @@ public class HomeActivity extends AppCompatActivity implements IHomeView {
 
         // Get initial data
         presenter.getHomeData();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW));
+        }
+
+        // [START subscribe_topics]
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        // [END subscribe_topics]
+
+        // Get token
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        // Log and toast
+        Utils.Logs('w', TAG, token);
+        Toast.makeText(this, token, Toast.LENGTH_LONG).show();
 
     }
 

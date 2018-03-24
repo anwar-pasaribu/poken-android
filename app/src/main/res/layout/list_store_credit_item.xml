@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/clickable_size_32"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+
+    android:orientation="horizontal"
+
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/tvStoreCreditOrderIndex"
+        style="@style/TextBodySecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_gap_l"
+        android:ellipsize="middle"
+        android:gravity="center_vertical"
+        android:maxEms="1"
+        android:minEms="1"
+        android:minWidth="@dimen/clickable_size_32"
+        android:singleLine="true"
+        tools:text="99" />
+
+    <TextView
+        android:id="@+id/tvStoreCreditOrderDate"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tvStoreCreditOrderIndex"
+        android:ellipsize="middle"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        tools:text="20 Mei" />
+
+    <TextView
+        android:id="@+id/tvStoreCreditName"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/item_gap_l"
+        android:layout_toStartOf="@+id/tvStoreCreditAmount"
+        android:ellipsize="middle"
+        android:fontFamily="monospace"
+        android:gravity="center_vertical|start"
+        android:singleLine="true"
+        tools:text="M9564RBGWT" />
+
+    <TextView
+        android:id="@+id/tvStoreCreditAmount"
+        style="@style/TextBodyDefault"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/text_margin"
+        android:gravity="end"
+        android:minEms="5"
+        android:textStyle="bold"
+        tools:text="Rp 999.999.999" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="0dp"
+        android:layout_height="@dimen/clickable_size" />
+
+</RelativeLayout>

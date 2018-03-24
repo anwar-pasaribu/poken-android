@@ -1,0 +1,170 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="id.unware.poken.ui.store.summary.view.StoreSummaryFragment">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srlStoreSummary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/ivStoreSummaryStoreAvatar"
+                    android:layout_width="@dimen/clickable_size"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_margin="@dimen/item_gap_l"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_store_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tvStoreSummaryStoreName"
+                    style="@style/PaketTextView.PageTextTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/item_gap_l"
+                    android:singleLine="true"
+                    android:text="@string/lbl_store_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/ivStoreSummaryStoreAvatar"
+                    app:layout_constraintLeft_toRightOf="@+id/ivStoreSummaryStoreAvatar"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ivStoreSummaryStoreAvatar" />
+
+                <View
+                    android:id="@+id/viewSepStoreName"
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/item_gap_m"
+                    android:background="@color/separator_view"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivStoreSummaryStoreAvatar" />
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slStoreSummaryPromotion"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="h,16:9"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewSepStoreName"
+                    custom:auto_cycle="true"
+                    custom:indicator_visibility="visible"
+                    custom:pager_animation="Accordion"
+                    custom:pager_animation_span="1100" />
+
+                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/piStoreSummarySectionHeaderCustomIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/item_gap_l"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/slStoreSummaryPromotion"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    custom:selected_color="@color/colorAccent"
+                    custom:selected_height="6dp"
+                    custom:selected_padding_left="5dp"
+                    custom:selected_padding_right="5dp"
+                    custom:selected_width="6dp"
+                    custom:shape="oval"
+                    custom:unselected_color="@color/style_overlay_grey"
+                    custom:unselected_height="6dp"
+                    custom:unselected_padding_left="5dp"
+                    custom:unselected_padding_right="5dp"
+                    custom:unselected_width="6dp" />
+
+                <View
+                    android:id="@+id/viewSepStorePromos"
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:background="@color/separator_view"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/slStoreSummaryPromotion" />
+
+                <TextView
+                    android:id="@+id/tvStoreSummaryCreditAmountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_gap_l"
+                    android:layout_marginTop="@dimen/item_gap_l"
+                    android:text="@string/lbl_credit_amount"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewSepStorePromos" />
+
+                <TextView
+                    android:id="@+id/tvStoreSummaryCreditAmount"
+                    style="@style/PaketTextView.PageTextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp. 0"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStoreSummaryCreditAmountLabel" />
+
+                <View
+                    android:id="@+id/viewSepStoreCredit"
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:layout_marginTop="@dimen/item_gap_l"
+                    android:background="@color/separator_view"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStoreSummaryCreditAmount" />
+
+                <TextView
+                    android:id="@+id/tvStoreSummaryLatestProductsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/clickable_size"
+                    android:layout_marginLeft="@dimen/item_gap_l"
+                    android:gravity="center_vertical"
+                    android:text="@string/lbl_latest_product"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewSepStoreCredit" />
+
+                <Button
+                    android:id="@+id/btnStoreSummaryAllProducts"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_see_all_section_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewSepStoreCredit" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvStoreSummaryLatestProduct"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/item_gap_l"
+                    android:layout_marginRight="@dimen/item_gap_l"
+                    android:clipToPadding="true"
+                    android:paddingBottom="@dimen/item_gap_l"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStoreSummaryLatestProductsLabel" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>

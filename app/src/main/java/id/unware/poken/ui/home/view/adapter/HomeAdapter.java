@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
@@ -42,7 +40,8 @@ import id.unware.poken.ui.home.presenter.IHomePresenter;
  * Created by Anwar Pasaribu on June 2017
  * Main list adapter.
  */
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements GravitySnapHelper.SnapListener{
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements GravitySnapHelper.SnapListener {
 
     private final int TYPE_HEADER = 1,
             TYPE_ITEM_CATEGORY = 2,

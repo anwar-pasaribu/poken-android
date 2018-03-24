@@ -58,6 +58,7 @@ import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
 import id.unware.poken.ui.address.view.AddressActivity;
 import id.unware.poken.ui.shoppingcartnew.model.NewlyShoppingCartModel;
 import id.unware.poken.ui.shoppingcartnew.presenter.NewlyShoppingCartPresenter;
@@ -177,7 +178,7 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.currentProduct = (Product) getArguments().getParcelable(Constants.EXTRA_PRODUCT_DATA);
+            this.currentProduct = getArguments().getParcelable(Constants.EXTRA_PRODUCT_DATA);
         }
     }
 
@@ -245,9 +246,8 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         // Product image thumbnail size
         int imageSize = getContext().getResources().getDimensionPixelSize(R.dimen.clickable_size_64);
         tvStoreName.setText(storeName);
-        Picasso.with(getContext())
+        GlideApp.with(getContext())
                 .load(productImage)
-                .resize(imageSize, imageSize)
                 .placeholder(R.drawable.ic_image_black_24dp)
                 .error(R.drawable.ic_broken_image_black_24dp)
                 .centerCrop()
@@ -379,7 +379,6 @@ public class NewShoppingCartDialogFragment extends BottomSheetDialogFragment imp
         tvNewShoppingCartTvShippingFee.setText(StringUtils.formatCurrency(String.valueOf(selectedCourierServiceFee)));
         tvNewShoppingCartTotalCost.setText(StringUtils.formatCurrency(String.valueOf(totalPrice)));
 
-        // TODO
     }
 
     private int controlItemQuantity(int currentQuantity, int maxQuantity, boolean isAdd) {

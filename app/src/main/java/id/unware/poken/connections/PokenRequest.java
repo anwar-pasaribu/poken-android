@@ -11,10 +11,13 @@ import id.unware.poken.domain.CustomerSubscriptionDataRes;
 import id.unware.poken.domain.Featured;
 import id.unware.poken.domain.FeaturedCategoryProductDataRes;
 import id.unware.poken.domain.HomeDataRes;
+import id.unware.poken.domain.OrderCreditDataRes;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.Product;
+import id.unware.poken.domain.ProductCategoryDataRes;
 import id.unware.poken.domain.ProductDataRes;
-import id.unware.poken.domain.Seller;
+import id.unware.poken.domain.ProductImage;
+import id.unware.poken.domain.ProductInserted;
 import id.unware.poken.domain.SellerDataRes;
 import id.unware.poken.domain.ShippingRatesDataRes;
 import id.unware.poken.domain.ShoppingCart;
@@ -22,7 +25,12 @@ import id.unware.poken.domain.ShoppingCartDataRes;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import id.unware.poken.domain.ShoppingOrderInserted;
+import id.unware.poken.domain.StoreSummaryDataRes;
 import id.unware.poken.domain.User;
+import id.unware.poken.domain.UserBankDataRes;
+import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -32,8 +40,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -71,6 +81,27 @@ public interface PokenRequest {
 
     @GET(ConstantsRetrofit.ENDPOINT_FETCH_SHOPPING_CART)
     Call<ShoppingCartDataRes> reqShoppingCartContent(@HeaderMap Map<String, String> headerMap);
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_STORE_SUMMARY)
+    Observable<StoreSummaryDataRes> reqStoreSummary(
+            @HeaderMap Map<String, String> credentials
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_STORE_PRODUCT)
+    Observable<ProductDataRes> reqStoreProduct(
+            @HeaderMap Map<String, String> credentials
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_STORE_CREDIT)
+    Observable<OrderCreditDataRes> reqStoreCredit(
+            @HeaderMap Map<String, String> credentials,
+            @QueryMap() Map<String, String> queryParams
+    );
+
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_PRODUCT_CATEGORY)
+    Observable<ProductCategoryDataRes> reqProductCategory(
+            @HeaderMap Map<String, String> credentials
+    );
 
     @FormUrlEncoded
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_SHOPPING_CART)
@@ -118,6 +149,12 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData,
             @Field("shopping_carts") long[] shoppingCartIds);
+
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_PRODUCT)
+    Observable<ProductInserted> postNewProduct(
+            @Header("Content-Type") String contentType,
+            @HeaderMap Map<String, String> credentials,
+            @Body ProductInserted postBody);
 
 
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_ADDRESS_BOOK)
@@ -191,4 +228,17 @@ public interface PokenRequest {
             @QueryMap Map<String, String> category
     );
 
+    @GET(ConstantsRetrofit.ENDPOINT_FETCH_POKEN_BANK_LIST)
+    Call<UserBankDataRes> getBankList(@QueryMap Map<String, String> credentialHashMap);
+
+    /**
+     * Post product image.
+     */
+    @Multipart
+    @POST(ConstantsRetrofit.ENDPOINT_INSERT_PRODUCT_IMAGE)
+    Observable<ProductImage> uploadProductImage(@HeaderMap Map<String, String> credentials,
+                                                @Part MultipartBody.Part file,
+                                                @Part("path") RequestBody name,
+                                                @Part("title") RequestBody title,
+                                                @Part("description") RequestBody description);
 }

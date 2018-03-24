@@ -60,6 +60,7 @@ public class BrowseProductAdapter extends RecyclerView.Adapter<BrowseProductAdap
         requestBuilder
                 .clone()
                 .load(strProductImageUrl)
+                .centerCrop()
                 .into(holder.itemImage);
 
         holder.tvTitle.setText(strProductName);

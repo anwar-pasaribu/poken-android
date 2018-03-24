@@ -19,6 +19,9 @@
     <!--Card radius -->
     <dimen name="card_radius_s">0dp</dimen>
 
+    <!-- Border width-->
+    <dimen name="border_width">1dp</dimen>
+
     <!--Font size-->
     <dimen name="text_headline">24sp</dimen>
     <dimen name="text_title">20sp</dimen>
@@ -40,6 +43,7 @@
     <dimen name="text_margin">16dp</dimen>
 
     <!-- Product fixed list-->
+    <dimen name="img_grid_s">100dp</dimen>
     <dimen name="img_grid_m">150dp</dimen>
 
     <dimen name="header_slide_width_m">300dp</dimen>

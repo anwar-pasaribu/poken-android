@@ -15,6 +15,12 @@ public class ProductImage implements Parcelable {
     public String title;
     public String description;
 
+    public ProductImage(long id, String path, String thumbnail) {
+        this.id = id;
+        this.path = path;
+        this.thumbnail = thumbnail;
+    }
+
     protected ProductImage(Parcel in) {
         id = in.readLong();
         path = in.readString();
@@ -47,5 +53,15 @@ public class ProductImage implements Parcelable {
         parcel.writeString(thumbnail);
         parcel.writeString(title);
         parcel.writeString(description);
+    }
+
+    @Override public String toString() {
+        return "ProductImage{" +
+                "id=" + id +
+                ", path='" + path + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

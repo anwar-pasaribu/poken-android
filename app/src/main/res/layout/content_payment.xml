@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/parentView"
+    android:fillViewport="true"
     tools:context="id.unware.poken.ui.payment.view.PaymentActivity"
-    tools:showIn="@layout/activity_payment"
-    android:fillViewport="true">
+    tools:showIn="@layout/activity_payment">
 
     <RelativeLayout
         android:id="@+id/parentWaitingTransfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_100"
         android:paddingBottom="@dimen/item_gap_m"
         android:paddingLeft="@dimen/item_gap_l"
         android:paddingRight="@dimen/item_gap_l"
         android:paddingTop="@dimen/item_gap_m"
-        android:background="@color/white_100"
         android:visibility="visible"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/textViewAmountToTransferLable"
             style="@style/TextBodySecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_amount_to_transfer"/>
+            android:text="@string/lbl_amount_to_transfer" />
 
         <TextView
             android:id="@+id/textViewAmountToTransfer"
@@ -42,7 +41,7 @@
             android:text="Rp 0"
 
             android:typeface="monospace"
-            tools:ignore="HardcodedText"/>
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textViewTransferHelper"
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewAmountToTransfer"
             android:layout_marginTop="@dimen/item_gap_s"
-            android:text="@string/lbl_precise_transfer_nominal"/>
+            android:text="@string/lbl_precise_transfer_nominal" />
 
         <TextView
             android:id="@+id/textViewBanksLable"
@@ -60,173 +59,29 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewTransferHelper"
             android:layout_marginTop="@dimen/clickable_size_32"
-            android:text="@string/lbl_transfer_to"/>
+            android:text="@string/lbl_transfer_to" />
 
         <RelativeLayout
-            android:id="@+id/parentBanks"
+            android:id="@+id/parentBankList"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/clickable_size"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/textViewBanksLable"
             android:layout_marginTop="@dimen/item_gap_m"
-            android:gravity="center_vertical">
+            android:minHeight="@dimen/clickable_size_64">
 
-            <ImageView
-                android:id="@+id/imageViewBankLogo"
-                android:layout_width="@dimen/clickable_size_64"
-                android:layout_height="@dimen/clickable_size"
-                android:layout_marginRight="@dimen/item_gap_m"
-                android:contentDescription="@string/lbl_transfer_to"
-                app:srcCompat="@drawable/ic_bank_bri_logo"/>
+            <ProgressBar
+                android:id="@+id/pbPaymentBankList"
+                android:layout_width="@dimen/clickable_size_32"
+                android:layout_height="@dimen/clickable_size_32"
+                android:layout_centerInParent="true" />
 
-            <TextView
-                android:id="@+id/textViewBankAccountName"
-                style="@style/TextBodyDefault"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvBankList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_gap_s"
-                android:layout_toRightOf="@+id/imageViewBankLogo"
-                android:text="@string/poken_bank_account_name"/>
-
-            <Button
-                android:id="@+id/buttonAccountNumber"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_below="@+id/textViewBankAccountName"
-                android:layout_toLeftOf="@+id/buttonCopyBankAccountNumber"
-                android:layout_toRightOf="@+id/imageViewBankLogo"
-
-                android:background="?attr/selectableItemBackground"
-                android:enabled="false"
-
-                android:gravity="left|center_vertical"
-
-                android:text="@string/poken_bank_account_number_bri"/>
-
-            <Button
-                android:id="@+id/buttonCopyBankAccountNumber"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textViewBankAccountName"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="@string/btn_copy"
-                android:textAllCaps="true"
-                android:textColor="@color/btn_higlight_accent"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/parentBanksBni"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/clickable_size"
-            android:layout_below="@+id/parentBanks"
-            android:layout_marginTop="@dimen/item_gap_m"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/imageViewBankLogoBni"
-                android:layout_width="@dimen/clickable_size_64"
-                android:layout_height="@dimen/clickable_size"
-                android:layout_marginRight="@dimen/item_gap_m"
-                android:contentDescription="@string/lbl_transfer_to"
-                app:srcCompat="@drawable/ic_bank_bni_logo"/>
-
-            <TextView
-                android:id="@+id/textViewBankAccountNameBni"
-                style="@style/TextBodyDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_gap_s"
-                android:layout_toRightOf="@+id/imageViewBankLogoBni"
-                android:text="@string/poken_bank_account_name_bni"/>
-
-            <Button
-                android:id="@+id/buttonAccountNumberBni"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_below="@+id/textViewBankAccountNameBni"
-                android:layout_toLeftOf="@+id/buttonCopyBankAccountNumberBni"
-                android:layout_toRightOf="@+id/imageViewBankLogoBni"
-
-                android:background="?attr/selectableItemBackground"
-                android:enabled="false"
-
-                android:gravity="left|center_vertical"
-
-                android:text="@string/poken_bank_account_number_bni"/>
-
-            <Button
-                android:id="@+id/buttonCopyBankAccountNumberBni"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textViewBankAccountNameBni"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="@string/btn_copy"
-                android:textAllCaps="true"
-                android:textColor="@color/btn_higlight_accent"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/parentBanksMandiri"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/clickable_size"
-            android:layout_below="@+id/parentBanksBni"
-            android:layout_marginTop="@dimen/item_gap_m"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/imageViewBankLogoMandiri"
-                android:layout_width="@dimen/clickable_size_64"
-                android:layout_height="@dimen/clickable_size"
-                android:layout_marginRight="@dimen/item_gap_m"
-                android:contentDescription="@string/lbl_transfer_to"
-                app:srcCompat="@drawable/ic_bank_mandiri_logo"/>
-
-            <TextView
-                android:id="@+id/textViewBankAccountNameMandiri"
-                style="@style/TextBodyDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item_gap_s"
-                android:layout_toRightOf="@+id/imageViewBankLogoMandiri"
-                android:text="@string/poken_bank_account_name_mandiri"/>
-
-            <Button
-                android:id="@+id/buttonAccountNumberMandiri"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_below="@+id/textViewBankAccountNameMandiri"
-                android:layout_toLeftOf="@+id/buttonCopyBankAccountNumberMandiri"
-                android:layout_toRightOf="@+id/imageViewBankLogoMandiri"
-
-                android:background="?attr/selectableItemBackground"
-                android:enabled="false"
-
-                android:gravity="left|center_vertical"
-
-                android:text="@string/poken_bank_account_number_mandiri"/>
-
-            <Button
-                android:id="@+id/buttonCopyBankAccountNumberMandiri"
-                style="@style/TextBodyDefault"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/icon_24dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textViewBankAccountNameMandiri"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="@string/btn_copy"
-                android:textAllCaps="true"
-                android:textColor="@color/btn_higlight_accent"/>
+                tools:itemCount="3"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/list_available_bank" />
 
         </RelativeLayout>
 
@@ -235,10 +90,10 @@
             style="@style/TextBodyDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/parentBanksMandiri"
+            android:layout_below="@+id/parentBankList"
             android:layout_marginTop="@dimen/clickable_size_32"
             android:text="@string/lbl_information"
-            android:textColor="@color/black_90"/>
+            android:textColor="@color/black_90" />
 
         <TextView
             android:id="@+id/textViewInstructions"
@@ -248,7 +103,7 @@
             android:layout_below="@+id/textViewInstructionLable"
             android:layout_marginTop="@dimen/item_gap_m"
             android:text="@string/top_up_rules"
-            android:textColor="@color/black_90"/>
+            android:textColor="@color/black_90" />
 
     </RelativeLayout>
 

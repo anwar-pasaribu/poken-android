@@ -25,12 +25,12 @@
 
     <application
         android:name=".PokenApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
-        tools:replace="android:supportsRtl">
+        tools:replace="android:supportsRtl,android:allowBackup">
 
         <!-- S: Add SplashActivity as splash screen instead load MainActivity first -->
         <activity
@@ -118,34 +118,6 @@
         <activity
             android:name=".ui.pokenaccount.LoginActivity"
             android:screenOrientation="portrait" />
-
-        <!-- ///////////////////////////////////////////////////////////////////////////// -->
-        <!-- Google Places API - Places AutoComplete -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAcQQ9KEmVxEgtraDeSxpbVC03MDVTqLYI" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="e403eadd6dec46812b5d690e54098baf8eff3904" />
-        <meta-data
-            android:name="com.facebook.accountkit.ApplicationName"
-            android:value="@string/app_name" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/FACEBOOK_APP_ID" />
-        <meta-data
-            android:name="com.facebook.accountkit.ClientToken"
-            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
-
-        <activity android:name="com.facebook.accountkit.ui.AccountKitActivity" />
-        <!-- If you wish to disable App Events for your Account Kit application, -->
-        <meta-data
-            android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
-            android:value="false" />
-
         <activity
             android:name=".ui.search.view.SearchActivity"
             android:label="@string/title_activity_search"
@@ -190,12 +162,97 @@
         <activity
             android:name=".ui.profileedit.view.ProfileEditActivity"
             android:label="@string/title_activity_profile_edit"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".ui.profile.view.ProfileActivity">
+            android:parentActivityName=".ui.profile.view.ProfileActivity"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.unware.poken.ui.profile.view.ProfileActivity" />
         </activity>
+        <activity
+            android:name=".ui.store.dashboard.view.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:parentActivityName=".ui.profile.view.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.unware.poken.ui.profile.view.ProfileActivity" />
+        </activity>
+        <activity
+            android:label="@string/title_add_product"
+            android:parentActivityName=".ui.store.dashboard.view.DashboardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:name=".ui.store.manageproduct.view.ManageProductActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.store.dashboard.view.DashboardActivity" />
+        </activity>
+        <!-- S: 3rd Library Activity - UCropActivity-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/file_provider_authorities"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <!-- E: 3rd Library Activity - UCropActivity-->
+
+        <!-- ///////////////////////////////////////////////////////////////////////////// -->
+        <!-- Google Places API - Places AutoComplete -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcQQ9KEmVxEgtraDeSxpbVC03MDVTqLYI" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e403eadd6dec46812b5d690e54098baf8eff3904" />
+        <meta-data
+            android:name="com.facebook.accountkit.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/FACEBOOK_APP_ID" />
+        <meta-data
+            android:name="com.facebook.accountkit.ClientToken"
+            android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
+
+        <activity android:name="com.facebook.accountkit.ui.AccountKitActivity" />
+        <!-- If you wish to disable App Events for your Account Kit application, -->
+        <meta-data
+            android:name="com.facebook.accountkit.FacebookAppEventsEnabled"
+            android:value="false" />
+
+        <!-- [START firebase_service] -->
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
+        <!-- [START firebase_iid_service] -->
+        <service android:name=".firebase.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- [END firebase_iid_service] -->
+        <service
+            android:name=".firebase.MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -4,6 +4,12 @@
       tools:context="id.unware.poken.ui.profile.view.ProfileActivity">
 
     <item
+        android:id="@+id/action_manage_store"
+        android:title="@string/action_manage_store"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_store_black_24dp"/>
+
+    <item
         android:id="@+id/action_signout"
         android:orderInCategory="100"
         android:title="@string/action_signout"

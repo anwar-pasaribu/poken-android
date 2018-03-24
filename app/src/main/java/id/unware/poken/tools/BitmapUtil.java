@@ -1,8 +1,10 @@
 package id.unware.poken.tools;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
@@ -68,5 +70,23 @@ public class BitmapUtil {
         return new PorterDuffColorFilter(
                 ContextCompat.getColor(context, R.color.colorAccent),
                 PorterDuff.Mode.SRC_ATOP);
+    }
+
+    public static ColorStateList getNormalColorStateList() {
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+        };
+
+        int[] colors = new int[] {
+                R.color.black_90,
+                R.color.style_overlay_grey,
+                R.color.black_90,
+                R.color.colorAccent
+        };
+
+        return new ColorStateList(states, colors);
     }
 }

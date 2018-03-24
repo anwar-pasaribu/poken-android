@@ -37,4 +37,6 @@ public interface IProductDetailView extends BaseView {
     void showSoldOutView(boolean isSoldOut);
 
     void setCurrentProduct(Product currentProductData);
+
+    void showEditProductButton();
 }

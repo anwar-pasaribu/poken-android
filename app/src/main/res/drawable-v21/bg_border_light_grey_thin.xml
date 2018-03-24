@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <!-- Ripple mask - applied to all selector states -->
+    <item android:id="@android:id/mask">
+        <color android:color="@color/separator_view" />
+    </item>
+    <!-- Selected state of item -->
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <stroke
+                        android:width="@dimen/border_width"
+                        android:color="@color/separator_view" />
+                    <solid android:color="@android:color/transparent" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <stroke
+                        android:width="@dimen/border_width"
+                        android:color="@color/separator_view_lighter" />
+                    <solid android:color="@android:color/transparent" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

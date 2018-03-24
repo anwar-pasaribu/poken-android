@@ -1,15 +1,16 @@
 buildscript {
+    ext.kotlin_version = '1.2.30'
 
     ext.versions = [
-        'compileSdkVersion'     : 26,
-        'buildToolsVersion'     : '26.0.2',
-        'minSdkVersion'         : 18,
-        'targetSdkVersion'      : 26,
-        'supportLibVersion'     : '26.0.2',
-        'playServicesVersion'   : '11.0.1',
-        'firebaseVersion'       : '11.0.1',
-        'glideVersion'          : '4.2.0',
-        'facebookSdkVersion'    : '4.26.0'
+            'compileSdkVersion'  : 26,
+            'buildToolsVersion'  : '26.0.2',
+            'minSdkVersion'      : 18,
+            'targetSdkVersion'   : 26,
+            'supportLibVersion'  : '26.0.2',
+            'playServicesVersion': '11.0.1',
+            'firebaseVersion'    : '11.0.1',
+            'glideVersion'       : '4.2.0',
+            'facebookSdkVersion' : '4.26.0'
     ]
 
     repositories {
@@ -18,12 +19,14 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "io.realm:realm-gradle-plugin:3.7.1"
         // Firebase to parse google-services.json
         classpath 'com.google.gms:google-services:3.1.1'
         // Fabric
         classpath 'io.fabric.tools:gradle:1.22.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 

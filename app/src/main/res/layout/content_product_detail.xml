@@ -374,8 +374,7 @@
             android:padding="@dimen/text_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewSepAfterShipping"
-            tools:text="@string/large_text" />
+            app:layout_constraintTop_toBottomOf="@id/viewSepAfterShipping" />
 
         <!-- Guideline for product stock counter-->
         <android.support.constraint.Guideline

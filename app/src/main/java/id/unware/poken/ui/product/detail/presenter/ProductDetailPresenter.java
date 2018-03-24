@@ -82,6 +82,11 @@ public class ProductDetailPresenter implements IProductDetailPresenter, IProduct
         view.openHomePage();
     }
 
+    @Override public void prepareEditModePage() {
+        view.showEditProductButton();
+
+    }
+
     @Override
     public void updateViewState(UIState uiState) {
 

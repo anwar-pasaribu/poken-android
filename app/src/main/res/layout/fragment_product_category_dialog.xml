@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:theme="@style/AppTheme"
+    tools:background="#B2B2B2">
+
+    <TextView
+        android:id="@+id/tvproductCategoryChooserCloseHelper"
+        style="@style/TextCaption"
+        android:gravity="center"
+        android:text="@string/msg_close_bottom_sheet_instruction"
+        android:textColor="@color/white_100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/productCategoryChooserParentHeader"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tvproductCategoryChooserCloseHelper"
+        android:layout_height="@dimen/clickable_size"
+        android:background="@drawable/bg_top_rounded">
+
+        <ImageButton
+            android:id="@+id/ibClose"
+            android:layout_width="@dimen/clickable_size"
+            android:layout_height="@dimen/clickable_size"
+            android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/hint_close_dialog"
+            android:tint="@color/black_90"
+            app:srcCompat="@drawable/ic_collapse_24dp" />
+
+        <TextView
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/ibClose"
+            android:visibility="invisible" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/separator_view"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/productCategoryChooserProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-7dp"
+            android:alpha="0"
+            android:indeterminate="true"
+
+            tools:alpha="1" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productCategoryChooserParentHeader"
+        android:background="@color/white_100">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvProductCategoryChooser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_product_category" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

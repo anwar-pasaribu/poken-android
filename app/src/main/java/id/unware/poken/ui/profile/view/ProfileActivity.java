@@ -6,6 +6,7 @@ import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import id.unware.poken.R;
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.helper.SPHelper;
+import id.unware.poken.tools.BitmapUtil;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;
@@ -41,6 +43,7 @@ import id.unware.poken.ui.home.view.HomeActivity;
 import id.unware.poken.ui.profile.view.adapter.SectionsPagerAdapter;
 import id.unware.poken.ui.profileedit.view.ProfileEditActivity;
 import id.unware.poken.ui.shoppingorder.view.OrderActivity;
+import id.unware.poken.ui.store.dashboard.view.DashboardActivity;
 
 public class ProfileActivity extends BaseActivityWithup implements OrdersFragment.OnOrderFragmentListener {
 
@@ -139,23 +142,40 @@ public class ProfileActivity extends BaseActivityWithup implements OrdersFragmen
         return true;
     }
 
+    @Override public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            menu.findItem(R.id.action_manage_store).setIconTintList(BitmapUtil.getNormalColorStateList());
+        } else {
+            menu.findItem(R.id.action_manage_store).getIcon().setColorFilter(BitmapUtil.getDrawableFilter(this, R.color.black_90));
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_signout) {
-            proceedSignout();
-            return true;
-        } else if (id == android.R.id.home) {
-            Utils.Log(TAG, "Home navigation cliked.");
-            this.onBackPressed();
+        switch (item.getItemId()) {
+            case R.id.action_signout:
+                proceedSignout();
+                break;
+            case R.id.action_manage_store:
+                openStore();
+                break;
+            case android.R.id.home:
+                this.onBackPressed();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openStore() {
+        Intent storeIntent = new Intent(this, DashboardActivity.class);
+        startActivity(storeIntent);
     }
 
     private void proceedSignout() {

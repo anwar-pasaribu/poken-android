@@ -68,8 +68,6 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
         // Loading state to view
         this.presenter.updateViewState(UIState.LOADING);
 
-        // HashMap<String, String> newAddressMap = new HashMap<>();
-        // newAddressMap.put()
         // noinspection unchecked
         req.postNewAddressBook(
                 "application/json",

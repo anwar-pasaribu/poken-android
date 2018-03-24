@@ -26,6 +26,11 @@ public class SPHelper {
         return p.getInt(key, defValue);
     }
 
+    public long getSharedPreferences(String key, long defValue) {
+        SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        return p.getLong(key, defValue);
+    }
+
     public String getSharedPreferences(String key, String defValue) {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         return p.getString(key, defValue);
@@ -58,6 +63,13 @@ public class SPHelper {
         SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = p.edit();
         e.putInt(key, value);
+        e.apply();
+    }
+
+    public void setPreferences(String key, long value) {
+        SharedPreferences p = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor e = p.edit();
+        e.putLong(key, value);
         e.apply();
     }
 

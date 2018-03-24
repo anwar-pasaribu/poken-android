@@ -23,4 +23,6 @@ public interface IProductDetailPresenter {
     void startSellerScreen();
 
     void onShopMoreClicked();
+
+    void prepareEditModePage();
 }

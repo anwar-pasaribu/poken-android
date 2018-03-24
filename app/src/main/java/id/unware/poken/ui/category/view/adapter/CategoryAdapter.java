@@ -42,7 +42,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Single
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(this.mContext).inflate(R.layout.list_product_category, viewGroup, false);
+        View v = LayoutInflater.from(this.mContext).inflate(R.layout.list_featured_product_category, viewGroup, false);
         return new SingleItemRowHolder(v);
     }
 

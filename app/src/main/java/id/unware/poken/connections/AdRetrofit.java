@@ -13,21 +13,23 @@ import io.realm.RealmObject;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdRetrofit {
 
     private static Retrofit instance;
 
-    private static final String POKEN_HOST = BuildConfig.HOST;
-
     public static Retrofit getInstancePoken() {
         if (instance == null) {
 
             int timeOut = BuildConfig.DEV_MODE ? 10 : 60;
+            HttpLoggingInterceptor.Level debugLevel = BuildConfig.DEBUG
+                    ? HttpLoggingInterceptor.Level.BODY
+                    : HttpLoggingInterceptor.Level.NONE;
 
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            interceptor.setLevel(debugLevel);
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(timeOut, TimeUnit.SECONDS)
                     .readTimeout(timeOut, TimeUnit.SECONDS)
@@ -53,7 +55,8 @@ public class AdRetrofit {
                     .create();
 
             instance = new Retrofit.Builder()
-                    .baseUrl(POKEN_HOST)
+                    .baseUrl(BuildConfig.HOST)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(client)
                     .build();

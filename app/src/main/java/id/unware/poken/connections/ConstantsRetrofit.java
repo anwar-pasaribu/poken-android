@@ -12,9 +12,14 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_FETCH_NEARBY_BRANCHES = "location/{lat}/{lon}";
     public static final String ENDPOINT_FETCH_HOME_CONTENT = "home/";
     public static final String ENDPOINT_FETCH_SELLERS = "seller/";
+    public static final String ENDPOINT_FETCH_POKEN_BANK_LIST = "user_bank/";
     public static final String ENDPOINT_FETCH_FEATURED_CATEGORY = "product_category_featured/";
     public static final String ENDPOINT_FETCH_SINGLE_PRODUCT_DETAIL = "product/{pk}/";
     public static final String ENDPOINT_FETCH_SHOPPING_CART = "cart/";
+    public static final String ENDPOINT_FETCH_PRODUCT_CATEGORY = "product_category/";
+    public static final String ENDPOINT_FETCH_STORE_SUMMARY = "store_summary/";
+    public static final String ENDPOINT_FETCH_STORE_PRODUCT = "store_product/";
+    public static final String ENDPOINT_FETCH_STORE_CREDIT = "store_credits/";
     public static final String ENDPOINT_PATCH_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_PATCH_ORDER_DETAILS_STATUS = "order_details/{pk}/";
     public static final String ENDPOINT_PATCH_CUSTOMER_PROFILE = "customer/{pk}/";
@@ -23,6 +28,8 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_INSERT_ORDER_DETAIL = "insert_order_detail/";
     public static final String ENDPOINT_INSERT_ORDERED_PRODUCT = "insert_ordered_product/";
     public static final String ENDPOINT_INSERT_ADDRESS_BOOK = "address_book/";
+    public static final String ENDPOINT_INSERT_PRODUCT_IMAGE = "insert_product_image/";
+    public static final String ENDPOINT_INSERT_PRODUCT = "insert_product/";
     public static final String ENDPOINT_DELETE_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_DELETE_ADDRESS_BOOK = "address_book/{pk}/";
     public static final String ENDPOINT_PATCH_ADDRESS_BOOK = "address_book/{pk}/";

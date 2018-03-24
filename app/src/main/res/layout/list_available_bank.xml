@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentBanks"
+    android:layout_width="match_parent"
+    android:background="@color/white_100"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/parentBankList"
+    android:paddingTop="@dimen/item_gap_m"
+    android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/imageViewBankLogo"
+            android:layout_width="@dimen/clickable_size_64"
+            android:layout_height="@dimen/clickable_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_gap_l"
+            android:contentDescription="@string/lbl_transfer_to"
+            app:srcCompat="@drawable/ic_bank_bri_logo" />
+
+        <TextView
+            android:id="@+id/textViewBankAccountName"
+            style="@style/TextBodyDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/buttonCopyBankAccountNumber"
+            android:layout_marginTop="@dimen/item_gap_s"
+            android:layout_toRightOf="@+id/imageViewBankLogo"
+            android:text="@string/poken_bank_account_name" />
+
+        <Button
+            android:id="@+id/buttonAccountNumber"
+            style="@style/TextBodyDefault"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_height="@dimen/icon_24dp"
+            android:layout_below="@+id/textViewBankAccountName"
+            android:layout_toLeftOf="@+id/buttonCopyBankAccountNumber"
+            android:layout_toRightOf="@+id/imageViewBankLogo"
+
+            android:background="@color/white_100"
+            android:enabled="false"
+
+            android:gravity="left|center_vertical"
+
+            android:text="@string/poken_bank_account_number_bri" />
+
+        <Button
+            android:id="@+id/buttonCopyBankAccountNumber"
+            style="@style/TextBodyDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="@string/btn_copy"
+            android:textAllCaps="true"
+            android:textColor="@color/btn_higlight_accent" />
+
+    <View
+        android:id="@+id/viewSep"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/separator_view"
+        android:layout_marginTop="@dimen/item_gap_m"
+        android:layout_below="@+id/imageViewBankLogo"/>
+
+    </RelativeLayout>

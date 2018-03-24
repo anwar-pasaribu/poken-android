@@ -5,6 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -13,8 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindString;
@@ -23,14 +27,18 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.controller.ControllerDate;
+import id.unware.poken.domain.UserBank;
 import id.unware.poken.pojo.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyTagHandler;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;
+import id.unware.poken.tools.glide.GlideApp;
+import id.unware.poken.tools.glide.GlideRequests;
 import id.unware.poken.ui.BaseActivity;
 import id.unware.poken.ui.payment.model.PaymentModel;
 import id.unware.poken.ui.payment.presenter.PaymentPresenter;
+import id.unware.poken.ui.payment.view.adapter.PokenBankAdapter;
 import id.unware.poken.ui.shoppingsummary.view.ShoppingSummaryActivity;
 
 public class PaymentActivity extends BaseActivity implements IPaymentView {
@@ -41,9 +49,9 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
     @BindView(R.id.btnConfirmPayment) Button btnConfirmPayment;
     @BindView(R.id.textViewAmountToTransfer) TextView textViewAmountToTransfer;
     @BindView(R.id.textViewInstructions) TextView textViewInstructions;
-    @BindView(R.id.buttonCopyBankAccountNumber) Button buttonCopyBankAccountNumber;
-    @BindView(R.id.buttonCopyBankAccountNumberBni) Button buttonCopyBankAccountNumberBni;
-    @BindView(R.id.buttonCopyBankAccountNumberMandiri) Button buttonCopyBankAccountNumberMandiri;
+
+    @BindView(R.id.pbPaymentBankList) ProgressBar pbPaymentBankList;
+    @BindView(R.id.rvBankList) RecyclerView rvBankList;
 
     // LOADING INDICATOR
     @BindView(R.id.loadingOverlayParentView) ViewGroup loadingOverlayParentView;
@@ -54,6 +62,8 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
     @BindString(R.string.poken_bank_account_number_mandiri) String poken_bank_account_number_mandiri;
 
     private PaymentPresenter presenter;
+
+    private GlideRequests glideRequests;
 
     private Unbinder unbinder;
 
@@ -79,17 +89,18 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
 
         presenter = new PaymentPresenter(new PaymentModel(), this);
 
+        glideRequests = GlideApp.with(this);
+
         unbinder = ButterKnife.bind(this);
 
         initView();
     }
 
     @Override
-    protected void onResume() {
+    protected void onStart() {
+        super.onStart();
 
-        super.onResume();
-
-        Utils.Logs('i', TAG, "Order id: " + orderId + ", status: " + orderStatus);
+        presenter.loadAvailablePokenBankList();
     }
 
     private void initView() {
@@ -111,72 +122,6 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
             }
         });
 
-        buttonCopyBankAccountNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String clearBankAccNumber = poken_bank_account_number_bri.replace("-", "");
-                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
-                        clipboard.setPrimaryClip(clip);
-
-                        Utils.snackBar(
-                                parentView,
-                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
-                                Log.INFO
-                        );
-                    }
-                }, 150);
-            }
-        });
-
-        buttonCopyBankAccountNumberBni.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String clearBankAccNumber = poken_bank_account_number_bni.replace("-", "");
-                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
-                        clipboard.setPrimaryClip(clip);
-
-                        Utils.snackBar(
-                                parentView,
-                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
-                                Log.INFO
-                        );
-                    }
-                }, 150);
-            }
-        });
-
-        buttonCopyBankAccountNumberMandiri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String clearBankAccNumber = poken_bank_account_number_mandiri.replace("-", "");
-                        ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
-                        clipboard.setPrimaryClip(clip);
-
-                        Utils.snackBar(
-                                parentView,
-                                PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
-                                Log.INFO
-                        );
-                    }
-                }, 150);
-            }
-        });
-
         String strRules = this.getString(R.string.top_up_rules,
                 ControllerDate.getInstance().getShortDateWithHourFormat(paymentDue));
         //noinspection deprecation
@@ -189,6 +134,35 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
         intentShoppingSummary.putExtra(Constants.EXTRA_ORDER_REF, orderRef);
         intentShoppingSummary.putExtra(Constants.EXTRA_TOTAL_SHOPPING_COST, shoppingCost);
         this.startActivity(intentShoppingSummary);
+    }
+
+    @Override
+    public void populateBankList(ArrayList<UserBank> userBankArrayList) {
+
+        PokenBankAdapter adapter = new PokenBankAdapter(this, userBankArrayList, presenter, glideRequests);
+        rvBankList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvBankList.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void copyBankAccountNumber(String accountNumber) {
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String clearBankAccNumber = poken_bank_account_number_mandiri.replace("-", "");
+                ClipboardManager clipboard = (ClipboardManager) PaymentActivity.this.getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("copied_bank_account_number", clearBankAccNumber);
+                clipboard.setPrimaryClip(clip);
+
+                Utils.snackBar(
+                        parentView,
+                        PaymentActivity.this.getString(R.string.msg_info_string_copied, clearBankAccNumber),
+                        Log.INFO
+                );
+            }
+        }, 150);
     }
 
     @Override
@@ -231,6 +205,8 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
                     btnConfirmPayment.setEnabled(false);
                 }
             }).alpha(1F);
+
+            pbPaymentBankList.setVisibility(View.VISIBLE);
         } else {
 
             loadingOverlayParentView.animate().withEndAction(new Runnable() {
@@ -240,6 +216,8 @@ public class PaymentActivity extends BaseActivity implements IPaymentView {
                     btnConfirmPayment.setEnabled(true);
                 }
             }).alpha(0F);
+
+            pbPaymentBankList.setVisibility(View.GONE);
         }
     }
 

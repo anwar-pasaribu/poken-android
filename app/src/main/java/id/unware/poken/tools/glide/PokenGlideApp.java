@@ -36,6 +36,7 @@ public class PokenGlideApp extends AppGlideModule {
         final RequestOptions defaultOptions = new RequestOptions()
                 .placeholder(R.drawable.ic_image_black_24dp)
                 .error(R.drawable.ic_broken_image_black_24dp)
+                .centerInside()
                 .format(decodeFormat)
                 .disallowHardwareConfig();
 

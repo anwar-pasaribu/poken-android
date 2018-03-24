@@ -28,6 +28,9 @@ public class Constants {
     public static final String SP_AUTH_PASSWORD = "AUTH_PASSWORD";
     public static final String SP_AUTH_CUSTOMER_DATA = "AUTH_CUSTOMER_DATA";
 
+    // SELLER DATA
+    public static final String SP_SELLER_ID = "SP_SELLER_ID";
+
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
 
@@ -48,6 +51,10 @@ public class Constants {
     public static final String EXTRA_REQUESTED_PAGE = "EXTRA_REQUESTED_PAGE";
     public static final String EXTRA_SELECTED_ADDRESS_BOOK = "EXTRA_SELECTED_ADDRESS_BOOK";
     public static final String EXTRA_PARCELABLE_CUSTOMER = "EXTRA_PARCELABLE_CUSTOMER";
+    public static final String EXTRA_DOMAIN_SERIALIZED_STRING = "EXTRA_DOMAIN_SERIALIZED_STRING";
+    public static final String EXTRA_DOMAIN_PARCELABLE_DATA = "EXTRA_DOMAIN_PARCELABLE_DATA";
+    public static final String EXTRA_PRODUCT_DATA = "EXTRA_PRODUCT_DATA";
+    public static final String EXTRA_PRODUCT_DETAIL_IS_EDIT = "EXTRA_PRODUCT_DETAIL_IS_EDIT";
 
     public static final int INTENT_BROWSE_BY_CATEGORY = -33;
 
@@ -55,11 +62,6 @@ public class Constants {
     public static final int VIEWFLIPPER_CHILD_DEFAULT = 1;
     public static final String FABRIC_CONTENT_TYPE = "Page";
 
-    public static final String EXTRA_DOMAIN_SERIALIZED_STRING = "EXTRA_DOMAIN_SERIALIZED_STRING";
-    public static final String EXTRA_DOMAIN_PARCELABLE_DATA = "EXTRA_DOMAIN_PARCELABLE_DATA";
-    public static final String EXTRA_PRODUCT_DATA = "EXTRA_PRODUCT_DATA";
-
-    public static boolean focusOnSender = false;
 
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 314;
 
@@ -104,6 +106,9 @@ public class Constants {
     public static final int TAG_FEATURE_SUBSCRIPTION = 35;
     public static final int TAG_EDIT_PROFILE = 37;
 
+    public static final int TAG_STORE_SUMMARY = 38;
+    public static final int TAG_STORE_MANAGE_PRODUCT = 39;
+
     public static final String EXTRA_SELECTED_SHOPPING_CART_IDS = "selected_shopping_cart_ids";
     public static final String EXTRA_SELECTED_SHOPPING_CART = "selected_shopping_cart";
     // Shared number of OTW driver
@@ -129,7 +134,6 @@ public class Constants {
     public static final int FOOTER_LOAD_MORE_ITEM_ID = -999;
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
     //------------------------ BUNDLE EXTRA -----------------------//
-    public static final String EXTRA_LIST_WALLET_TRANSACTION_HISTORY = "EXTRA_LIST_WALLET_TRANSACTION_HISTORY";
     public static final String EXTRA_TOPUP_STATUS = "EXTRA_TOPUP_STATUS";
     public static final String EXTRA_WITHDRAWAL_STATUS = "EXTRA_WITHDRAWAL_STATUS";
     public static final String EXTRA_WITHDRAWAL_USER_BANK_LIST = "EXTRA_WITHDRAWAL_USER_BANK_LIST";
@@ -152,10 +156,6 @@ public class Constants {
     public static final String GOOGLE_TOKEN_ID = "GOOGLE_TOKEN_ID";
     public static final String GCM_TOKEN = "token";
     public static final String FB_TOKEN_ID = "FB_TOKEN_ID";
-    /**
-     * Minimum amount to withdraw.
-     */
-    public static long MIN_WITHDRAW_VALUE = 10000;
 
     public static int PRODUCT_CATEGORY_ALL = -99;
     // Flag to indicate in tutorial mode on/off

@@ -1,5 +1,8 @@
 package id.unware.poken.ui.payment.view;
 
+import java.util.ArrayList;
+
+import id.unware.poken.domain.UserBank;
 import id.unware.poken.ui.view.BaseView;
 
 /**
@@ -8,4 +11,9 @@ import id.unware.poken.ui.view.BaseView;
 
 public interface IPaymentView extends BaseView {
     void openShoppingSummaryScreen();
+
+    void populateBankList(ArrayList<UserBank> userBankArrayList);
+
+    void copyBankAccountNumber(String accountNumber);
+
 }

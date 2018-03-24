@@ -61,7 +61,7 @@ import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class Utils {
 
-    public static final String TAG = "poken";
+    public static final String TAG = "POKEN";
     private static List<String[]> resultList;
     private static final long ANIM_DUR = 500;
     private static final int height = 400;
@@ -101,14 +101,7 @@ public class Utils {
         }
     }
 
-    /**
-     * Different Logging for INFO, DEBUG, ERROR.
-     *
-     * @param logAttr : Character to indicate log type.
-     * @param msg     : String message to print
-     * @param value   : Value string
-     */
-    public static void Logs(char logAttr, String msg, String value) {
+    public static void Logs(char logAttr, String value) {
         if (BuildConfig.DEV_MODE) {
             // Null value state when no value found
             value = value == null ? "NULL_LOGS_VAL" : value;
@@ -122,41 +115,41 @@ public class Utils {
                     if (value.length() > maxLength) {
                         switch (logAttr) {
                             case 'e':
-                                Log.e(TAG, msg + " " + value.substring(0, maxLength));
-                                Logs('e', msg, value.substring(maxLength));
+                                Log.e(TAG, value.substring(0, maxLength));
+                                Logs('e', value.substring(maxLength));
                                 break;
                             case 'w':
-                                Log.w(TAG, msg + " " + value.substring(0, maxLength));
-                                Logs('w', msg, value.substring(maxLength));
+                                Log.w(TAG, value.substring(0, maxLength));
+                                Logs('w', value.substring(maxLength));
                                 break;
                             case 'i':
-                                Log.i(TAG, msg + " " + value.substring(0, maxLength));
-                                Logs('i', msg, value.substring(maxLength));
+                                Log.i(TAG, value.substring(0, maxLength));
+                                Logs('i', value.substring(maxLength));
                                 break;
                             case 'd':
-                                Log.d(TAG, msg + " " + value.substring(0, maxLength));
-                                Logs('d', msg, value.substring(maxLength));
+                                Log.d(TAG, value.substring(0, maxLength));
+                                Logs('d', value.substring(maxLength));
                             default:
-                                Log.v(TAG, msg + " " + value.substring(0, maxLength));
-                                Logs('v', msg, value.substring(maxLength));
+                                Log.v(TAG, value.substring(0, maxLength));
+                                Logs('v', value.substring(maxLength));
 
                         }
                     } else {
                         switch (logAttr) {
                             case 'e':
-                                Log.e(TAG, msg + " " + value.substring(0, value.length()));
+                                Log.e(TAG, value.substring(0, value.length()));
                                 break;
                             case 'w':
-                                Log.w(TAG, msg + " " + value.substring(0, value.length()));
+                                Log.w(TAG, value.substring(0, value.length()));
                                 break;
                             case 'i':
-                                Log.i(TAG, msg + " " + value.substring(0, value.length()));
+                                Log.i(TAG, value.substring(0, value.length()));
                                 break;
                             case 'd':
-                                Log.d(TAG, msg + " " + value.substring(0, value.length()));
+                                Log.d(TAG, value.substring(0, value.length()));
                                 break;
                             default:
-                                Log.v(TAG, msg + " " + value.substring(0, value.length()));
+                                Log.v(TAG, value.substring(0, value.length()));
                         }
                     }
                 }
@@ -165,6 +158,17 @@ public class Utils {
                 exception.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Different Logging for INFO, DEBUG, ERROR.
+     *
+     * @param logAttr : Character to indicate log type.
+     * @param msg     : String message to print
+     * @param value   : Value string
+     */
+    public static void Logs(char logAttr, String msg, String value) {
+        Logs(logAttr, String.valueOf(msg).concat(String.valueOf(value)));
     }
 
     public static boolean contains(String source, String contain) {

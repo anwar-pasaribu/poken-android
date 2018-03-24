@@ -10,6 +10,7 @@ public enum UIState {
     OFFLINE,
     ERROR,
     LOADING,
+    LOADING_MORE,
     FINISHED,
     NODATA,
     INCOMPLETE

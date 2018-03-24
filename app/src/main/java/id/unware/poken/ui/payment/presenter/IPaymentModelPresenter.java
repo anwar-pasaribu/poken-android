@@ -1,6 +1,9 @@
 package id.unware.poken.ui.payment.presenter;
 
+import java.util.ArrayList;
+
 import id.unware.poken.domain.OrderDetail;
+import id.unware.poken.domain.UserBank;
 import id.unware.poken.ui.presenter.BasePresenter;
 
 /**
@@ -9,4 +12,6 @@ import id.unware.poken.ui.presenter.BasePresenter;
 
 public interface IPaymentModelPresenter extends BasePresenter {
     void onOrderDetailCreatedOrUpdated(OrderDetail orderDetail);
+
+    void onBankListResponse(ArrayList<UserBank> userBankArrayList);
 }
