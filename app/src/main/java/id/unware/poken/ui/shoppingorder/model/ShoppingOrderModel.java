@@ -18,7 +18,7 @@ import id.unware.poken.domain.ShoppingCart;
 import id.unware.poken.domain.ShoppingOrder;
 import id.unware.poken.domain.ShoppingOrderDataRes;
 import id.unware.poken.domain.ShoppingOrderInserted;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;

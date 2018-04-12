@@ -10,12 +10,11 @@ import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.UserBank;
 import id.unware.poken.domain.UserBankDataRes;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.payment.presenter.IPaymentModelPresenter;
-import id.unware.poken.ui.shoppingorder.presenter.IShoppingOrderModelPresenter;
 import retrofit2.Response;
 
 /**

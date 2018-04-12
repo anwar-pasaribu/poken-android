@@ -3,7 +3,7 @@ package id.unware.poken.ui.store.summary.model
 import id.unware.poken.connections.AdRetrofit
 import id.unware.poken.connections.PokenRequest
 import id.unware.poken.helper.SPHelper
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.Constants
 import id.unware.poken.tools.PokenCredentials
 import id.unware.poken.tools.StringUtils
@@ -27,16 +27,16 @@ class StoreSummaryModel : IStoreSummaryModel {
         this.presenter.updateViewState(UIState.LOADING)
 
         // "application/json"
-        this.req.reqStoreSummary(
-                PokenCredentials.getInstance().credentialHashMap)
+        this.req.reqStoreSummary(PokenCredentials.getInstance().credentialHashMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
 
-                            Utils.Log(TAG, "Result: " + result)
+                            Utils.Log(TAG, "Result: $result")
 
                             SPHelper.getInstance().setPreferences(Constants.SP_SELLER_ID, result.results[0].id)
+                            SPHelper.getInstance().setPreferences(Constants.SP_SELLER_OWNER_NAME, result.results[0].seller_detail.owner_name)
 
                             presenter.onStoreDetailResponse(result.results[0].seller_detail)
 
@@ -50,7 +50,7 @@ class StoreSummaryModel : IStoreSummaryModel {
                         },
                         {
                             error ->
-                            Utils.Log(TAG, "Error: " + error)
+                            Utils.Log(TAG, "Error: $error")
                             presenter.updateViewState(UIState.ERROR)
                         }
                 )

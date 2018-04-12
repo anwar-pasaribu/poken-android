@@ -21,6 +21,7 @@
 
     <!-- Border width-->
     <dimen name="border_width">1dp</dimen>
+    <dimen name="border_width_regular">2dp</dimen>
 
     <!--Font size-->
     <dimen name="text_headline">24sp</dimen>

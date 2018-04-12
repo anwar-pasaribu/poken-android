@@ -3,7 +3,7 @@ package id.unware.poken.ui.store.summary.presenter
 import id.unware.poken.domain.Product
 import id.unware.poken.domain.Seller
 import id.unware.poken.domain.SellerPromo
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.ui.store.summary.model.IStoreSummaryModel
 import id.unware.poken.ui.store.summary.view.IStoreSummaryView
 

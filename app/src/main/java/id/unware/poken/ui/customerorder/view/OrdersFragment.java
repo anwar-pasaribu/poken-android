@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.ShoppingOrder;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.BaseFragment;
 import id.unware.poken.ui.customerorder.model.OrdersModel;

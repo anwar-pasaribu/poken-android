@@ -35,8 +35,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +51,7 @@ import id.unware.poken.domain.Seller;
 import id.unware.poken.domain.Shipping;
 import id.unware.poken.domain.ShippingRates;
 import id.unware.poken.domain.ShoppingCart;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;

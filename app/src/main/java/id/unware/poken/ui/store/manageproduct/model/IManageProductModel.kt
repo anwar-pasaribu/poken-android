@@ -1,5 +1,6 @@
 package id.unware.poken.ui.store.manageproduct.model
 
+import id.unware.poken.domain.Product
 import id.unware.poken.domain.ProductImage
 import id.unware.poken.domain.ProductInserted
 import id.unware.poken.ui.store.manageproduct.presenter.IManageProductModelPresenter
@@ -13,4 +14,5 @@ interface IManageProductModel {
     fun getProductCategory(presenter: IManageProductModelPresenter)
     fun postProduct(productInserted: ProductInserted, presenter: IManageProductModelPresenter)
     fun postProductImage(productImage: ProductImage, imagePart: MultipartBody.Part?, imageReqBody: RequestBody?, presenter: IManageProductModelPresenter)
+    fun patchProductData(presenter: IManageProductModelPresenter, modifiedProduct: Product, enteredNewProduct: ProductInserted)
 }

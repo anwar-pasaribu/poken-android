@@ -11,7 +11,7 @@ import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.domain.AddressBookDataRes;
 import id.unware.poken.domain.ShippingRatesDataRes;
 import id.unware.poken.domain.ShoppingCart;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.PokenCredentials;

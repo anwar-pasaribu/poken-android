@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Barang"
-                    android:inputType="text|textPersonName|textCapWords" />
+                    android:inputType="text|textCapSentences" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -121,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Deskripsi Barang"
-                    android:inputType="text|textMultiLine|textCapWords" />
+                    android:inputType="text|textMultiLine|textCapSentences" />
 
             </android.support.design.widget.TextInputLayout>
 

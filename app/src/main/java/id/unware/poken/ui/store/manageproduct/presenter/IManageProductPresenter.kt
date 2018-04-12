@@ -10,4 +10,6 @@ interface IManageProductPresenter {
     fun loadProductCategoryList()
     fun submitNewProductImage(productImage: ProductImage)
     fun submitNewProduct(newProductData: ProductInserted)
+    fun setupEditProductMode()
+    fun updateProduct()
 }

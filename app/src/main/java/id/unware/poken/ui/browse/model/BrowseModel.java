@@ -5,7 +5,6 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import id.unware.poken.domain.Category;
 import id.unware.poken.domain.Product;
@@ -14,7 +13,7 @@ import id.unware.poken.connections.AdRetrofit;
 import id.unware.poken.connections.MyCallback;
 import id.unware.poken.connections.PokenRequest;
 import id.unware.poken.domain.SellerDataRes;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.PokenCredentials;
 import id.unware.poken.tools.StringUtils;

@@ -4,10 +4,9 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import id.unware.poken.domain.ShoppingCart;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;

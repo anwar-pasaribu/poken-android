@@ -7,7 +7,7 @@ import id.unware.poken.domain.Product;
 import id.unware.poken.domain.Section;
 import id.unware.poken.domain.Seller;
 import id.unware.poken.models.Tracking;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.Utils;

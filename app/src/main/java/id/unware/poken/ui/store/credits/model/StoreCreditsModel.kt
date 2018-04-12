@@ -3,8 +3,9 @@ package id.unware.poken.ui.store.credits.model
 import android.net.Uri
 import id.unware.poken.connections.AdRetrofit
 import id.unware.poken.connections.PokenRequest
-import id.unware.poken.domain.ProductDataRes
-import id.unware.poken.pojo.UIState
+import id.unware.poken.domain.OrderCredit
+import id.unware.poken.helper.SPHelper
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.Constants
 import id.unware.poken.tools.PokenCredentials
 import id.unware.poken.tools.StringUtils
@@ -20,6 +21,17 @@ class StoreCreditsModel : IStoreCreditsModel {
     private val tagq = "StoreCreditsModel"
     private val req: PokenRequest = AdRetrofit.getInstancePoken().create(PokenRequest::class.java)
     private var presenter: IStoreCreditsModelPresenter? = null
+
+    private var storeTotalCredits: Double = 0.0
+    private var storeOwnerName = ""
+    private val storeOrderList = ArrayList<OrderCredit>()
+
+    override fun composeWitdrawalRequest(presenter: IStoreCreditsModelPresenter) {
+        Utils.Logs('i', "Store owner name: $storeOwnerName\nStore total credit: $storeTotalCredits")
+        val formattedTotalCredit = StringUtils.formatCurrency(storeTotalCredits)
+        val message = "Nama: $storeOwnerName\nJumlah Pencarian: $formattedTotalCredit\nBank Tujuan: ISI\nNo. Rek.: ISI\nAtas Nama: ISI"
+        presenter.onWithdrawalRequestMessageReady(message, storeTotalCredits > 0)
+    }
 
     override fun getMoreStoreCredits(presenter: IStoreCreditsModelPresenter, nextPage: Int) {
 
@@ -47,6 +59,9 @@ class StoreCreditsModel : IStoreCreditsModel {
                                     parseNextPage(result.next!!)
                             )
 
+                            // Add store credit for later use
+                            storeOrderList.addAll(result.results)
+
                             presenter.onMoreStoreCreditsListResponse(result.results)
                             presenter.updateViewState(UIState.FINISHED)
                         },
@@ -57,6 +72,38 @@ class StoreCreditsModel : IStoreCreditsModel {
                         }
                 )
 
+    }
+
+
+    override fun getCreditSummary(presenter: IStoreCreditsModelPresenter) {
+        presenter.onCreditSummaryViewState(UIState.LOADING)
+
+        // "application/json"
+        this.req.reqStoreSummary(PokenCredentials.getInstance().credentialHashMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+
+                            Utils.Log(tagq, "Result: $result")
+
+                            SPHelper.getInstance().setPreferences(Constants.SP_SELLER_ID, result.results[0].id)
+                            SPHelper.getInstance().setPreferences(Constants.SP_SELLER_OWNER_NAME, result.results[0].seller_detail.owner_name)
+
+
+                            storeOwnerName = result.results[0].seller_detail.owner_name
+                            storeTotalCredits = result.results[0].total_credits
+
+                            presenter.onStoreTotalAmount(StringUtils.formatCurrency(result.results[0].total_credits))
+
+                            presenter.onCreditSummaryViewState(UIState.FINISHED)
+                        },
+                        {
+                            error ->
+                            Utils.Log(tagq, "Error: $error")
+                            presenter.onCreditSummaryViewState(UIState.ERROR)
+                        }
+                )
     }
 
     override fun getStoreCredits(presenter: IStoreCreditsModelPresenter) {
@@ -83,6 +130,9 @@ class StoreCreditsModel : IStoreCreditsModel {
                                     result.next!!,
                                     parseNextPage(result.next!!)
                             )
+
+                            // Add store credit for later use
+                            storeOrderList.addAll(result.results)
 
                             presenter.onStoreCreditsListResponse(result.results)
                             presenter.updateViewState(UIState.FINISHED)

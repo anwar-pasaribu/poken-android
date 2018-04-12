@@ -1,6 +1,7 @@
 package id.unware.poken.ui.store.manageproduct.view
 
 import id.unware.poken.domain.Category
+import id.unware.poken.domain.Product
 import id.unware.poken.domain.ProductImage
 import id.unware.poken.domain.ProductInserted
 import id.unware.poken.ui.view.BaseView
@@ -17,4 +18,7 @@ interface IManageProductView: BaseView {
     fun proceedInsertedProduct(result: ProductInserted?)
     fun showLoadingProductCategoryIndicator(isLoading: Boolean)
     fun populateProductCategoryList(productCategories: ArrayList<Category>)
+    fun showUpdateProductButton()
+    fun getModifiedProduct(): Product
+    fun generateNewProductData(): ProductInserted
 }

@@ -1,7 +1,7 @@
 package id.unware.poken.ui.profileedit.presenter;
 
 import id.unware.poken.domain.Customer;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.ui.profileedit.model.IProfileEditModel;
 import id.unware.poken.ui.profileedit.view.IProfileEditView;

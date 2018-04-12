@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import id.unware.poken.R
 import id.unware.poken.controller.ControllerDate
 import id.unware.poken.domain.OrderCredit
+import id.unware.poken.models.OrderStatus
 import id.unware.poken.tools.StringUtils
 import id.unware.poken.tools.glide.GlideRequest
 import kotlinx.android.synthetic.main.list_store_credit_item.view.*
@@ -52,11 +53,13 @@ class StoreCreditsAdapter(
 
         fun bind(credit: OrderCredit) {
             val strDate = ControllerDate.getInstance().getShortDateWithHourFormat(credit.order_date)
+            var strOrderStatus = OrderStatus.getOrderStatusText(credit.order_status).toString()
 
             mView.tvStoreCreditOrderIndex.text = (adapterPosition + 1).toString()
             mView.tvStoreCreditOrderDate.text = strDate
             mView.tvStoreCreditName.text = credit.order_details
             mView.tvStoreCreditAmount.text = StringUtils.formatCurrency(credit.order_total_credits)
+            mView.tvStoreCreditStatus.text = strOrderStatus
 
             mView.setOnClickListener {
                 mListener?.onCreditItemInteraction(credit)

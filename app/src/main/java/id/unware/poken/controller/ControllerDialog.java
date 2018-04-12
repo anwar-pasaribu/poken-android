@@ -1,6 +1,5 @@
 package id.unware.poken.controller;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import id.unware.poken.BuildConfig;
 import id.unware.poken.R;
 import id.unware.poken.interfaces.InputDialogListener;
 

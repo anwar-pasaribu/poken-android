@@ -30,6 +30,7 @@ public class Constants {
 
     // SELLER DATA
     public static final String SP_SELLER_ID = "SP_SELLER_ID";
+    public static final String SP_SELLER_OWNER_NAME = "SP_SELLER_OWNER_NAME";
 
     // STATUS NUMBER FOR NETWORK CALL STATUS
     public static final int NETWORK_CALLBACK_FAILURE = -1;
@@ -120,14 +121,6 @@ public class Constants {
      * Waiting duration for non-immediate network request ex. autosave on profile
      */
     public static final int DURATION_SUPER_LONG = 1000;
-    /**
-     * Max PojoBooking on database
-     */
-    public static final int MAX_PACKAGES_ON_DB = 1000;
-    /**
-     * Indicate package/PojoBooking item is header on list
-     */
-    public static final int HEADER_ITEM_ID = -99;
     /**
      * Indicate package item is footer for Load More feature
      */

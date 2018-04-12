@@ -1,7 +1,6 @@
 package id.unware.poken.ui.store.manageproduct.view
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -15,6 +14,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.util.SparseArray
@@ -28,7 +28,7 @@ import id.unware.poken.domain.Product
 import id.unware.poken.domain.ProductImage
 import id.unware.poken.domain.ProductInserted
 import id.unware.poken.helper.SPHelper
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.Constants
 import id.unware.poken.tools.MyLog
 import id.unware.poken.tools.StringUtils
@@ -48,6 +48,7 @@ import java.io.File
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategoryDialogFragment.Listener  {
 
@@ -129,16 +130,44 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
         }
 
         // Restore product data to edit it.
-        if (productToEdit != null)
-            restoreProductData(productToEdit)
+        if (productToEdit != null) {
 
+            presenter?.setupEditProductMode()
+
+            restoreProductData(productToEdit)
+        }
+
+    }
+
+    override fun showUpdateProductButton() {
+        includeBottomToolbar.btnRight.text = getString(R.string.btn_update_product)
+        includeBottomToolbar.btnRight.setOnClickListener { view: View? ->
+            Utils.Log("Clicked view: ", view.toString())
+            presenter?.updateProduct()
+        }
+    }
+
+    override fun getModifiedProduct(): Product {
+
+        productToEdit?.category = newProductData.category.toString()
+
+        return productToEdit!!
     }
 
     private fun restoreProductData(productToEdit: Product?) {
 
+        if (productToEdit == null) {
+            return
+        }
+
+        val productWeight = productToEdit.weight.roundToInt()
+        val productPrice = productToEdit.original_price.roundToInt()
+
+        Utils.Logs('i', "Product price after minus 5%: $productPrice")
+
         // Restore image
         var imgIndex = 0
-        productToEdit?.images?.forEach { productImage ->
+        productToEdit.images?.forEach { productImage ->
             Utils.Logs('i', "Product image ${productImage.thumbnail}")
             glideRequest.asDrawable()
                     .clone()
@@ -146,17 +175,17 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
                     .centerInside()
                     .into(imageViews[imgIndex])
 
+            productImages.put(imgIndex, productImage)
+
             imgIndex++
         }
 
-        etManageProductName.setText(productToEdit?.name)
-        etManageProductDescription.setText(productToEdit?.description)
-        etManageProductStock.setText(productToEdit?.stock.toString())
-        etManageProductWeight.setText(productToEdit?.weight.toString())
-        etManageProductStorePrice.setText(productToEdit?.price.toString())
+        etManageProductName.setText(productToEdit.name)
+        etManageProductDescription.setText(productToEdit.description)
+        etManageProductStock.setText(productToEdit.stock.toString())
+        etManageProductWeight.setText(productWeight.toString())
+        etManageProductStorePrice.setText(productPrice.toString())
 
-        // Restore product category
-        // When product category downloaded
     }
 
 
@@ -235,12 +264,14 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
         else
             priceString
 
+        // NEW Set original price
+        newProductData.original_price = nullSafePriceString.toDouble()
+
         // Add 5% from original price
-        val pokenPrice: Double = nullSafePriceString.toDouble() * 0.005 + nullSafePriceString.toDouble()
+        val pokenPrice: Double = nullSafePriceString.toDouble() * 0.05 + nullSafePriceString.toDouble()
+        newProductData.price = pokenPrice.roundToInt().toDouble()
 
-        newProductData.price = pokenPrice
-
-        Utils.Logs('i', "After Poken price $pokenPrice")
+        Utils.Logs('i', "After Poken price ${newProductData.price}. Original price: ${newProductData.original_price}")
         tvManageProductGeneratedProkenPrice.text = StringUtils.formatCurrency(pokenPrice)
 
     }
@@ -373,7 +404,6 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
         }
     }
 
-    @SuppressLint("ObsoleteSdkInt")
     private fun pickFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -413,33 +443,41 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
             Utils.Logs('i', TAG, "Begin submitting new product")
             MyLog.FabricLog(Log.INFO, "$TAG - Begin submitting new product")
 
-            val imagesId = (0..productImages.size())
-                    .map { productImages.keyAt(it) }
-                    .map { productImages.get(it).id }
-
-            newProductData.seller = SPHelper.getInstance().getSharedPreferences(Constants.SP_SELLER_ID, 3L)
-            newProductData.brand = 1
-            newProductData.category = 5
-            newProductData.images = LongArray(imagesId.size, { i -> imagesId[i] })
-            newProductData.size = 5
-            newProductData.is_new = true
-            newProductData.name = etManageProductName.text.toString()
-            newProductData.description = etManageProductDescription.text.toString()
-            newProductData.stock = try {
-                etManageProductStock.text.toString().toInt()
-            } catch (e: NumberFormatException) {
-                0
-            }
-            newProductData.weight = try {
-                etManageProductWeight.text.toString().toDouble()
-            } catch (e: NumberFormatException) {
-                0.0
-            }
-            Utils.Logs('i', TAG, "New product data ready: $newProductData")
-            presenter?.submitNewProduct(newProductData)
+            presenter?.submitNewProduct(generateNewProductData())
         } else {
             Utils.Logs('e', "$TAG Form not ready")
         }
+    }
+
+    override fun generateNewProductData(): ProductInserted {
+
+        val imagesId = (0..productImages.size())
+                .map { productImages.keyAt(it) }
+                .map { productImages.get(it).id }
+
+        // Price generate on "afterProductPriceEntered()"
+        newProductData.seller = SPHelper.getInstance().getSharedPreferences(Constants.SP_SELLER_ID, 3L)
+        newProductData.brand = 1
+        // newProductData.category = 5
+        newProductData.images = LongArray(imagesId.size, { i -> imagesId[i] })
+        newProductData.size = 5
+        newProductData.is_new = true
+        newProductData.name = etManageProductName.text.toString()
+        newProductData.description = etManageProductDescription.text.toString()
+        newProductData.stock = try {
+            etManageProductStock.text.toString().toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
+        newProductData.weight = try {
+            etManageProductWeight.text.toString().toDouble()
+        } catch (e: NumberFormatException) {
+            0.0
+        }
+        Utils.Logs('i', TAG, "New product data ready: $newProductData")
+
+        return newProductData
+
     }
 
     override fun showViewState(uiState: UIState?) {
@@ -487,6 +525,7 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
     }
 
     override fun populateProductCategoryList(productCategories: ArrayList<Category>) {
+
         Utils.Logs('i', "$TAG - Product category list size: ${productCategories.size}")
         productCategoryList = productCategories
 
@@ -501,19 +540,21 @@ class ManageProductActivity : BaseActivity(), IManageProductView, ProductCategor
                 Utils.Logs('i', "$TAG - Find product category: $productCategoryName found at index $productCategoryIndex")
 
                 if (productCategoryIndex >= 0) {
-                    onProductCtaegoryItemClicked(productCategoryIndex, productCategoryList[productCategoryIndex])
+                    onProductCategoryItemClicked(productCategoryIndex, productCategoryList[productCategoryIndex])
                 }
             }
         }
     }
 
-    override fun onProductCtaegoryItemClicked(position: Int, category: Category) {
+    override fun onProductCategoryItemClicked(position: Int, category: Category) {
 
         Utils.Logs('i', "Selected category pos: $position item: $category")
 
         newProductData.category = category.id
 
         tvManageProductProductCategory.text = getString(R.string.lbl_selected_product_category, category.name)
+
+        productToEdit?.category = category.id.toString()
 
     }
 

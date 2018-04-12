@@ -3,9 +3,10 @@ package id.unware.poken.ui.store.manageproduct.model
 import id.unware.poken.connections.AdRetrofit
 import id.unware.poken.connections.MyCallback
 import id.unware.poken.connections.PokenRequest
+import id.unware.poken.domain.Product
 import id.unware.poken.domain.ProductImage
 import id.unware.poken.domain.ProductInserted
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.PokenCredentials
 import id.unware.poken.tools.Utils
 import id.unware.poken.ui.store.manageproduct.presenter.IManageProductModelPresenter
@@ -15,6 +16,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import kotlin.math.roundToInt
 
 class ManageProductModel : MyCallback(), IManageProductModel {
 
@@ -36,13 +38,13 @@ class ManageProductModel : MyCallback(), IManageProductModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { result ->
-                            Utils.Log(TAG, "Result: " + result)
+                            Utils.Log(TAG, "Result: $result")
                             presenter.onProductCategoryResponse(result.results)
                             presenter.updateViewState(UIState.FINISHED)
                         },
                         {
                             error ->
-                            Utils.Log(TAG, "Error: " + error)
+                            Utils.Log(TAG, "Error: $error")
                             presenter.updateViewState(UIState.ERROR)
                         }
                 )
@@ -78,6 +80,52 @@ class ManageProductModel : MyCallback(), IManageProductModel {
                         }
                 )
 
+    }
+
+    override fun patchProductData(presenter: IManageProductModelPresenter, modifiedProduct: Product, enteredNewProduct: ProductInserted) {
+        // Loading state to view
+        presenter.updateViewState(UIState.LOADING)
+
+        val productImages = LongArray(enteredNewProduct.images.size)
+        for ((imgIndex, imgId) in enteredNewProduct.images.withIndex()) {
+            productImages[imgIndex] = imgId
+        }
+
+        val patchBody = ProductInserted()
+        patchBody.name = enteredNewProduct.name
+        patchBody.description = enteredNewProduct.description
+        patchBody.seller = enteredNewProduct.seller
+        patchBody.is_new = enteredNewProduct.is_new
+        patchBody.brand = 1  // Other
+        patchBody.category = enteredNewProduct.category
+        patchBody.images = productImages
+        patchBody.size = 5  // Satu Ukuran
+        patchBody.stock = enteredNewProduct.stock
+        patchBody.original_price = enteredNewProduct.original_price
+        patchBody.price = enteredNewProduct.price
+        patchBody.weight = enteredNewProduct.weight
+
+
+        // "application/json"
+        this.req.patchProduct(
+                PokenCredentials.getInstance().credentialHashMap,
+                "application/json",
+                modifiedProduct.id,
+                patchBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result ->
+                            Utils.Log(TAG, "Result: $result")
+                            presenter.onProductInserted(result)
+                            presenter.updateViewState(UIState.FINISHED)
+                        },
+                        {
+                            error ->
+                            Utils.Log(TAG, "Error: $error")
+                            presenter.updateViewState(UIState.ERROR)
+                        }
+                )
     }
 
     override fun postProductImage(productImage: ProductImage,

@@ -51,10 +51,7 @@ import java.util.List;
 import id.unware.poken.BuildConfig;
 import id.unware.poken.R;
 import id.unware.poken.controller.ControllerDate;
-import id.unware.poken.helper.SPHelper;
 import id.unware.poken.models.Tracking;
-import id.unware.poken.pojo.PojoBooking;
-import id.unware.poken.pojo.PojoCity;
 import id.unware.poken.tools.chromecustomtabs.CustomTabActivityHelper;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -698,38 +695,6 @@ public class Utils {
             e.printStackTrace();
             MyLog.FabricLog(Log.ERROR, "Custom Tabs activity not found to open : " + strUrl, e);
         }
-    }
-
-    public static void setLastSenderData(PojoBooking pojoBooking) {
-
-        SPHelper sp = SPHelper.getInstance();
-
-        sp.setPreferences(Constants.SHARED_NAME, pojoBooking.getFrom_name());
-        sp.setPreferences(Constants.SHARED_ADDRESS, pojoBooking.getFrom_address());
-        sp.setPreferences(Constants.SHARED_POST_CODE, pojoBooking.getFrom_zip_code());
-        sp.setPreferences(Constants.SHARED_PHONE, pojoBooking.getFrom_phone());
-
-        Utils.Log(TAG, "Form name: " + pojoBooking.getFrom_name());
-    }
-
-    public static PojoCity getCityById(Context context, String id) {
-        // area_id,city,state,country,country_code,importance,timestamp
-        List<String[]> listArrayCity = readCSV(context.getResources()
-                .openRawResource(R.raw.area_detail));
-        PojoCity result = new PojoCity();
-        // id,kelurahan,kecamatan,kabupaten,provinsi,kodepos
-        for (String[] city : listArrayCity) {
-            if (city[0].equals(id)) {
-                result.setAreaId(Integer.parseInt(city[0]));
-                result.setCity(city[1]);
-                result.setState(city[2]);
-                result.setCountry(city[3]);
-                result.setCountry_code(city[4]);
-                result.setImportance(Integer.parseInt(city[5]));
-                result.setTimestamp(city[6]);
-            }
-        }
-        return result;
     }
 
     /**

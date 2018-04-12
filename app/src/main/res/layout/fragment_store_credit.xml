@@ -1,77 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/includeCreditHeader"
-        layout="@layout/list_store_credit_item" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srlStoreCredits"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/parentStoreCreditBottomSummary"
-        android:layout_below="@+id/includeCreditHeader">
+        android:background="@color/white_100">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvStoreCredit"
+        <include
+            android:id="@+id/includeCreditHeader"
+            layout="@layout/list_store_credit_item" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srlStoreCredits"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/item_gap_l"
-            android:paddingTop="@dimen/item_gap_m"
-            app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/list_store_credit_item" />
+            android:layout_above="@+id/parentStoreCreditBottomSummary"
+            android:layout_below="@+id/includeCreditHeader">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvStoreCredit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/item_gap_l"
+                android:paddingTop="@dimen/item_gap_m"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/list_store_credit_item" />
 
-    <RelativeLayout
-        android:id="@+id/parentStoreCreditBottomSummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/separator_view_lighter"
-        android:minHeight="@dimen/clickable_size">
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:id="@+id/tvStoreCreditAmountSummaryLbl"
-            style="@style/TextCaption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_gap_l"
-            android:layout_marginTop="@dimen/item_gap_s"
-            android:text="@string/lbl_currency_rp" />
-
-        <TextView
-            style="@style/PaketTextView.PageTextTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvStoreCreditAmountSummaryLbl"
-            android:layout_marginBottom="@dimen/item_gap_s"
-            android:layout_marginLeft="@dimen/item_gap_l"
-            tools:text="980.000" />
-
-        <View
+        <RelativeLayout
+            android:id="@+id/parentStoreCreditBottomSummary"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentTop="true"
-            android:background="@color/separator_view" />
-
-        <Button
-            android:id="@+id/btnRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/item_gap_m"
-            android:text="@string/btn_store_credit_withdrawal"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:theme="@style/MyButton" />
+            android:layout_height="@dimen/clickable_size_64"
+            android:layout_alignParentBottom="true"
+            android:background="@color/separator_view_lighter"
+            android:minHeight="@dimen/clickable_size"/>
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/bottom_sheet_store_credit_summary" />
+
+</android.support.design.widget.CoordinatorLayout>

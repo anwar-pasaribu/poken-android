@@ -29,6 +29,7 @@ public class ProductInserted implements Parcelable {
     @SerializedName("category") public long category;
     @SerializedName("stock") public int stock;
     @SerializedName("price") public double price;
+    @SerializedName("original_price") public double original_price;
     @SerializedName("weight") public double weight;
 
     public ProductInserted() {
@@ -49,6 +50,7 @@ public class ProductInserted implements Parcelable {
         category = in.readLong();
         stock = in.readInt();
         price = in.readDouble();
+        original_price = in.readDouble();
         weight = in.readDouble();
     }
 
@@ -68,6 +70,7 @@ public class ProductInserted implements Parcelable {
         dest.writeLong(category);
         dest.writeInt(stock);
         dest.writeDouble(price);
+        dest.writeDouble(original_price);
         dest.writeDouble(weight);
     }
 

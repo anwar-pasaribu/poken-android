@@ -3,12 +3,15 @@ package id.unware.poken.ui.store.manageproduct.presenter
 import id.unware.poken.domain.Category
 import id.unware.poken.domain.ProductImage
 import id.unware.poken.domain.ProductInserted
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.ui.store.manageproduct.model.IManageProductModel
 import id.unware.poken.ui.store.manageproduct.view.IManageProductView
 
 class ManageProductPresenter(private val model: IManageProductModel,
                              private val view: IManageProductView) : IManageProductPresenter, IManageProductModelPresenter {
+    override fun setupEditProductMode() {
+        view.showUpdateProductButton()
+    }
 
     override fun submitNewProductImage(productImage: ProductImage) {
 
@@ -36,6 +39,16 @@ class ManageProductPresenter(private val model: IManageProductModel,
 
     override fun submitNewProduct(newProductData: ProductInserted) {
         model.postProduct(newProductData, this)
+    }
+
+    override fun updateProduct() {
+
+        model.patchProductData(
+                this,
+                view.getModifiedProduct(),
+                view.generateNewProductData()
+        )
+
     }
 
     override fun updateViewState(uiState: UIState?) {

@@ -9,12 +9,26 @@ import android.os.Parcelable;
  */
 
 public class ProductBrand implements Parcelable {
+    public long id;
     public String name;
     public String logo;
 
     protected ProductBrand(Parcel in) {
+        id = in.readLong();
         name = in.readString();
         logo = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(logo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<ProductBrand> CREATOR = new Creator<ProductBrand>() {
@@ -28,15 +42,4 @@ public class ProductBrand implements Parcelable {
             return new ProductBrand[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(logo);
-    }
 }

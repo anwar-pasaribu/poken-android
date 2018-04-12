@@ -39,7 +39,7 @@ import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.User;
 import id.unware.poken.helper.SPHelper;
 import id.unware.poken.interfaces.InputDialogListener;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.StringUtils;
 import id.unware.poken.tools.Utils;

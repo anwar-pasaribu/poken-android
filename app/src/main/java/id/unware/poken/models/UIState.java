@@ -1,4 +1,4 @@
-package id.unware.poken.pojo;
+package id.unware.poken.models;
 
 /**
  * @author Anwar Pasaribu

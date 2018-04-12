@@ -28,6 +28,7 @@ public class Product implements Parcelable {
     public String size;
     public int stock;
     public double price;
+    public double original_price;
     public double weight;
 
     public static String KEY_PRODUCT_ID = "id";
@@ -44,14 +45,39 @@ public class Product implements Parcelable {
         is_new = in.readByte() != 0;
         is_discount = in.readByte() != 0;
         discount_amount = in.readDouble();
-        date_created = new Date(in.readLong());  // Custom, convert to Date to save
         brand = in.readParcelable(ProductBrand.class.getClassLoader());
         category = in.readString();
         images = in.createTypedArrayList(ProductImage.CREATOR);
         size = in.readString();
         stock = in.readInt();
         price = in.readDouble();
+        original_price = in.readDouble();
         weight = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeParcelable(seller, flags);
+        dest.writeByte((byte) (is_cod ? 1 : 0));
+        dest.writeByte((byte) (is_new ? 1 : 0));
+        dest.writeByte((byte) (is_discount ? 1 : 0));
+        dest.writeDouble(discount_amount);
+        dest.writeParcelable(brand, flags);
+        dest.writeString(category);
+        dest.writeTypedList(images);
+        dest.writeString(size);
+        dest.writeInt(stock);
+        dest.writeDouble(price);
+        dest.writeDouble(original_price);
+        dest.writeDouble(weight);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -74,28 +100,4 @@ public class Product implements Parcelable {
 
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeString(name);
-        parcel.writeString(description);
-        parcel.writeParcelable(seller, i);
-        parcel.writeByte((byte) (is_cod ? 1 : 0));
-        parcel.writeByte((byte) (is_new ? 1 : 0));
-        parcel.writeByte((byte) (is_discount ? 1 : 0));
-        parcel.writeDouble(discount_amount);
-        parcel.writeLong(date_created.getTime());  // Custom, convert to long to save
-        parcel.writeParcelable(brand, i);
-        parcel.writeString(category);
-        parcel.writeTypedList(images);
-        parcel.writeString(size);
-        parcel.writeInt(stock);
-        parcel.writeDouble(price);
-        parcel.writeDouble(weight);
-    }
 }

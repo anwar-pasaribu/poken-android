@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView
@@ -16,7 +15,7 @@ import id.unware.poken.R
 import id.unware.poken.domain.Product
 import id.unware.poken.domain.Seller
 import id.unware.poken.domain.SellerPromo
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.Constants
 import id.unware.poken.tools.MyLog
 import id.unware.poken.tools.Utils

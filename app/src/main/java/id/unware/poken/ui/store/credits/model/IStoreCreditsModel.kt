@@ -8,4 +8,6 @@ import id.unware.poken.ui.store.credits.presenter.IStoreCreditsModelPresenter
 interface IStoreCreditsModel {
     fun getStoreCredits(presenter: IStoreCreditsModelPresenter)
     fun getMoreStoreCredits(presenter: IStoreCreditsModelPresenter, nextPage: Int)
+    fun getCreditSummary(presenter: IStoreCreditsModelPresenter)
+    fun composeWitdrawalRequest(presenter: IStoreCreditsModelPresenter)
 }

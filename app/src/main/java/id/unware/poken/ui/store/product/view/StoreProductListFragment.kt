@@ -8,14 +8,13 @@ import android.view.*
 import id.unware.poken.R
 import id.unware.poken.domain.Category
 import id.unware.poken.domain.Product
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.tools.Utils
 import id.unware.poken.tools.glide.GlideApp
 import id.unware.poken.tools.glide.GlideRequests
 import id.unware.poken.ui.store.product.model.StoreProductListModel
 import id.unware.poken.ui.store.product.presenter.IStoreProductListPresenter
 import id.unware.poken.ui.store.product.presenter.StoreProductListPresenter
-import kotlinx.android.synthetic.main.fragment_store_credit.*
 import kotlinx.android.synthetic.main.fragment_store_product.*
 
 
@@ -120,13 +119,17 @@ class StoreProductListFragment : Fragment(), IStoreProductListView {
     }
 
     private fun showLoadingIndicator(isLoading: Boolean) {
+        if (srlStoreProduct == null) {
+            return
+        }
+
         if (isLoading) {
             if (!srlStoreProduct.isRefreshing) {
-                srlStoreProduct.isRefreshing = true
+                srlStoreProduct?.isRefreshing = true
             }
         } else {
             if (srlStoreProduct.isRefreshing) {
-                srlStoreProduct.isRefreshing = false
+                srlStoreProduct?.isRefreshing = false
             }
         }
     }

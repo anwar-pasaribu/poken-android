@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/clickable_size_32"
+    android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -17,8 +17,8 @@
         style="@style/TextBodySecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_m"
         android:ellipsize="middle"
         android:gravity="center_vertical"
         android:maxEms="1"
@@ -28,25 +28,12 @@
         tools:text="99" />
 
     <TextView
-        android:id="@+id/tvStoreCreditOrderDate"
-        style="@style/TextBodyDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/tvStoreCreditOrderIndex"
-        android:ellipsize="middle"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        tools:text="20 Mei" />
-
-    <TextView
         android:id="@+id/tvStoreCreditName"
         style="@style/TextBodyDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/item_gap_l"
-        android:layout_toStartOf="@+id/tvStoreCreditAmount"
+        android:layout_alignBaseline="@+id/tvStoreCreditOrderIndex"
+        android:layout_toRightOf="@+id/tvStoreCreditOrderIndex"
         android:ellipsize="middle"
         android:fontFamily="monospace"
         android:gravity="center_vertical|start"
@@ -54,20 +41,72 @@
         tools:text="M9564RBGWT" />
 
     <TextView
+        android:id="@+id/tvStoreCreditOrderDate"
+        style="@style/TextBodySecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStoreCreditName"
+        android:layout_toRightOf="@id/tvStoreCreditOrderIndex"
+        android:ellipsize="middle"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        tools:text="20 Mei, 12.45" />
+
+    <TextView
         android:id="@+id/tvStoreCreditAmount"
         style="@style/TextBodyDefault"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_alignBaseline="@+id/tvStoreCreditName"
         android:layout_marginRight="@dimen/text_margin"
+        android:layout_alignParentRight="true"
         android:gravity="end"
         android:minEms="5"
         android:textStyle="bold"
         tools:text="Rp 999.999.999" />
 
+    <TextView
+        android:id="@+id/tvStoreCreditStatus"
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@+id/tvStoreCreditOrderDate"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/item_gap_m"
+        android:background="@drawable/bg_border_light_grey_regular"
+        android:layout_below="@+id/tvStoreCreditAmount"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/item_gap_s"
+        android:paddingRight="@dimen/item_gap_s"
+        tools:text="Pembelian Hangus" />
+
     <android.support.v4.widget.Space
-        android:layout_width="0dp"
-        android:layout_height="@dimen/clickable_size" />
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvStoreCreditOrderDate"
+        android:layout_height="@dimen/item_gap_m" />
 
 </RelativeLayout>
+
+    <!--
+            case ORDERED:
+                return "Dipesan";
+            case PAID:
+                return "Dibayar";
+            case SENT:
+                return "Dikirim";
+            case RECEIVED:
+                return "Diterima";
+            case SUCCESS:
+                return "Pembelian berhasil";
+            case REFUND:
+                return "Pengembalian barang";
+            case ORDER_EXPIRE:
+                return "Pesanan Hangus";
+            case COD_ACCEPTED:
+                return "COD Diterima";
+            case AUTO_SUCCESS:
+                return "Sistem Auto Sukses";
+    -->

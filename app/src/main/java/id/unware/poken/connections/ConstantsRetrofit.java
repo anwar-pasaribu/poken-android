@@ -1,6 +1,5 @@
 package id.unware.poken.connections;
 
-@SuppressWarnings("WeakerAccess")
 public class ConstantsRetrofit {
     public static final String ENDPOINT_POKEN_REGISTER = "insert_user/";
     public static final String ENDPOINT_POKEN_AUTH = "api-token-auth/";
@@ -30,6 +29,7 @@ public class ConstantsRetrofit {
     public static final String ENDPOINT_INSERT_ADDRESS_BOOK = "address_book/";
     public static final String ENDPOINT_INSERT_PRODUCT_IMAGE = "insert_product_image/";
     public static final String ENDPOINT_INSERT_PRODUCT = "insert_product/";
+    public static final String ENDPOINT_PATCH_PRODUCT = "insert_product/{pk}/";
     public static final String ENDPOINT_DELETE_SHOPPING_CART = "cart/{pk}/";
     public static final String ENDPOINT_DELETE_ADDRESS_BOOK = "address_book/{pk}/";
     public static final String ENDPOINT_PATCH_ADDRESS_BOOK = "address_book/{pk}/";

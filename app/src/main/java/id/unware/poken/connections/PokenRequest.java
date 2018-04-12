@@ -156,6 +156,13 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> credentials,
             @Body ProductInserted postBody);
 
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_PRODUCT)
+    Observable<ProductInserted> patchProduct(
+            @HeaderMap Map<String, String> credentials,
+            @Header("Content-Type") String contentType,
+            @Path("pk") long itemId,
+            @Body ProductInserted postBody);
+
 
     @POST(ConstantsRetrofit.ENDPOINT_INSERT_ADDRESS_BOOK)
     Call<AddressBook> postNewAddressBook(

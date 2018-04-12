@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentBottomSheetCreditBottomSummary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/separator_view_lighter"
+    android:minHeight="@dimen/clickable_size"
+    app:behavior_hideable="false"
+    android:clickable="true"
+    android:focusable="true"
+    app:behavior_peekHeight="@dimen/clickable_size_64"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <TextView
+        android:id="@+id/tvBottomSheetCreditAmountSummaryLbl"
+        style="@style/TextCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:text="@string/lbl_currency_rp" />
+
+    <TextView
+        android:id="@+id/tvBottomSheetCreditAmountSummary"
+        style="@style/PaketTextView.PageTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBottomSheetCreditAmountSummaryLbl"
+        android:layout_marginBottom="@dimen/item_gap_s"
+        android:layout_marginLeft="@dimen/item_gap_l"
+
+        tools:text="980.000"
+        tools:visibility="invisible" />
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/tvBottomSheetCreditAmountLoding"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="@dimen/clickable_size_64"
+        android:layout_height="@dimen/icon_24dp"
+        android:layout_below="@+id/tvBottomSheetCreditAmountSummaryLbl"
+        android:layout_marginBottom="@dimen/item_gap_s"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:indeterminate="true"
+        tools:text="980.000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentTop="true"
+        android:background="@color/separator_view" />
+
+    <Button
+        android:id="@+id/btnBottomSheetCreditWithdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:text="@string/btn_store_credit_withdrawal"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:theme="@style/MyButton"/>
+
+    <android.support.v4.widget.Space
+        android:id="@+id/spaceBottomSheetMoreContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnBottomSheetCreditWithdraw" />
+
+    <TextView
+        android:id="@+id/tvBottomSheetCreditInstructionTitle"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spaceBottomSheetMoreContent"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingRight="@dimen/item_gap_l"
+        android:text="Petunjuk pencairan dana" />
+
+    <TextView
+        android:id="@+id/tvBottomSheetCreditInstructionContent"
+        style="@style/TextBodySecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBottomSheetCreditInstructionTitle"
+        android:paddingLeft="@dimen/item_gap_l"
+        android:paddingRight="@dimen/item_gap_l"
+        android:text="Pencairan dana akan dilanjutkan via Whatsapp Poken" />
+
+    <Button
+        android:id="@+id/btnBottomSheetCreditBeginWithdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBottomSheetCreditInstructionContent"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginRight="@dimen/item_gap_m"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:text="@string/btn_store_credit_begin_withdrawal"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:theme="@style/MyButton" />
+
+    <Button
+        android:id="@+id/btnBottomSheetCreditCancelWithdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnBottomSheetCreditBeginWithdrawal"
+        android:layout_marginLeft="@dimen/item_gap_m"
+        android:layout_marginBottom="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_m"
+        android:text="@string/btn_store_credit_cancel_withdrawal"
+        android:theme="@style/MyButton.Optional" />
+
+
+</RelativeLayout>

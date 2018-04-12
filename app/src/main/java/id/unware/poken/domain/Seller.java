@@ -16,6 +16,8 @@ public class Seller implements Parcelable {
     public String phone_number;
     public Location location;
 
+    public String owner_name;
+
     // Wether customer subscribe to Seller
     public boolean is_subscribed;
 
@@ -29,7 +31,25 @@ public class Seller implements Parcelable {
         tag_line = in.readString();
         phone_number = in.readString();
         location = in.readParcelable(Location.class.getClassLoader());
+        owner_name = in.readString();
         is_subscribed = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(store_avatar);
+        dest.writeString(store_name);
+        dest.writeString(tag_line);
+        dest.writeString(phone_number);
+        dest.writeParcelable(location, flags);
+        dest.writeString(owner_name);
+        dest.writeByte((byte) (is_subscribed ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Seller> CREATOR = new Creator<Seller>() {
@@ -43,22 +63,6 @@ public class Seller implements Parcelable {
             return new Seller[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeString(store_avatar);
-        parcel.writeString(store_name);
-        parcel.writeString(tag_line);
-        parcel.writeString(phone_number);
-        parcel.writeParcelable(location, i);
-        parcel.writeByte((byte) (is_subscribed ? 1 : 0));
-    }
 
     @Override public String toString() {
         return "Seller{" +

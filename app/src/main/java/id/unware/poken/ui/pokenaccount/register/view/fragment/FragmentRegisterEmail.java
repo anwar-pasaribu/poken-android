@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.unware.poken.R;
 import id.unware.poken.domain.User;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Constants;
 import id.unware.poken.tools.MyLog;
 import id.unware.poken.tools.StringUtils;

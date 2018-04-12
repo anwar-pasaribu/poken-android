@@ -247,6 +247,7 @@
     <string name="hint_add_product_image">Tambah gambar produk</string>
     <string name="title_add_product">Tambah Produk</string>
     <string name="btn_save_product">Simpan</string>
+    <string name="btn_update_product">Perbarui</string>
 
     <string name="label_select_picture">Pilih Gambar</string>
 
@@ -272,5 +273,7 @@
     <string name="title_store_product_list">Produk</string>
     <string name="title_store_credit_list">Saldo</string>
     <string name="btn_store_credit_withdrawal">Cairkan</string>
+    <string name="btn_store_credit_begin_withdrawal">Ajukan Pencairan Dana </string>
+    <string name="btn_store_credit_cancel_withdrawal">Batalkan </string>
     <string name="lbl_currency_rp">Rp</string>
 </resources>

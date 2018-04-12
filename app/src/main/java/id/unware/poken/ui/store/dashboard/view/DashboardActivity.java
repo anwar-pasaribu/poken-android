@@ -130,6 +130,7 @@ public class DashboardActivity extends BaseActivity implements
         Utils.Logs('i', String.format("Clicked product : %s", product));
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
         productDetailIntent.putExtra(Product.KEY_PRODUCT_ID, product.id);
+        productDetailIntent.putExtra(Constants.EXTRA_PRODUCT_DETAIL_IS_EDIT, true);
         this.startActivityForResult(productDetailIntent, Constants.TAG_PRODUCT_DETAIL);
     }
 

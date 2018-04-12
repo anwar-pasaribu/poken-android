@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import id.unware.poken.domain.OrderDetail;
 import id.unware.poken.domain.UserBank;
 import id.unware.poken.models.OrderStatus;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.tools.Utils;
 import id.unware.poken.ui.payment.model.IPaymentModel;
 import id.unware.poken.ui.payment.view.IPaymentView;

@@ -81,7 +81,7 @@ class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
     }
 
     interface Listener {
-        fun onProductCtaegoryItemClicked(position: Int, category: Category)
+        fun onProductCategoryItemClicked(position: Int, category: Category)
     }
 
     private inner class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup)
@@ -93,7 +93,7 @@ class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
         init {
             text.setOnClickListener {
                 mListener?.let {
-                    it.onProductCtaegoryItemClicked(adapterPosition, itemVal)
+                    it.onProductCategoryItemClicked(adapterPosition, itemVal)
                     dismiss()
                 }
             }

@@ -2,7 +2,7 @@ package id.unware.poken.ui.store.product.presenter
 
 import id.unware.poken.domain.Category
 import id.unware.poken.domain.Product
-import id.unware.poken.pojo.UIState
+import id.unware.poken.models.UIState
 import id.unware.poken.ui.store.product.model.IStoreProductListModel
 import id.unware.poken.ui.store.product.view.IStoreProductListView
 

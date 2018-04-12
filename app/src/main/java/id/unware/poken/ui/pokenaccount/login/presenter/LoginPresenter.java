@@ -2,7 +2,7 @@ package id.unware.poken.ui.pokenaccount.login.presenter;
 
 import id.unware.poken.domain.Customer;
 import id.unware.poken.domain.User;
-import id.unware.poken.pojo.UIState;
+import id.unware.poken.models.UIState;
 import id.unware.poken.ui.pokenaccount.login.model.ILoginModel;
 import id.unware.poken.ui.pokenaccount.login.view.ILoginView;
 
