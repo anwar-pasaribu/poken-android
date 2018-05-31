@@ -18,6 +18,8 @@ public interface IShoppingOrderPresenter {
 
     void startSelectedProductScreen();
 
+    void setOrderDetailsTrackingId(long orderDetailsId, String trackingId);
+
     void createOrUpdateOrderDetail(long[] selectedShoppingCartIds, AddressBook addressBook);
 
     void prepareOrderFromShoppingCart(String shoppingCartArrayListJsonString);
@@ -27,4 +29,8 @@ public interface IShoppingOrderPresenter {
     void retureOrder(long orderDetailsId);
 
     void beginOrder();
+
+    void setupSellerMode(boolean isSellerMode);
+
+    void sendPackage(long orderDetailsId);
 }

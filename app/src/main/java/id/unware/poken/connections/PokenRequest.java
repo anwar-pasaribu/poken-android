@@ -130,6 +130,13 @@ public interface PokenRequest {
             @HeaderMap Map<String, String> headerMap,
             @FieldMap() Map<String, String> postData);
 
+    @FormUrlEncoded
+    @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_ORDER_DETAILS_TRACKING_ID)
+    Call<OrderDetail> patchOrderDetailsTrackingId(
+            @Path("pk") long itemId,
+            @HeaderMap Map<String, String> headerMap,
+            @FieldMap() Map<String, String> postData);
+
     @PATCH(ConstantsRetrofit.ENDPOINT_PATCH_ADDRESS_BOOK)
     Call<AddressBook> patchAddressBookChanges(
             @Header("Content-Type") String contentType,

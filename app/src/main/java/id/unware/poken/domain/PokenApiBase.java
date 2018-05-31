@@ -45,17 +45,13 @@ public class PokenApiBase {
     public PokenApiBase() {
     }
 
-    @Override
-    public String toString() {
-        return "API BASE. Count: "
-                .concat(String.valueOf(count))
-                .concat(", Next: ")
-                .concat(String.valueOf(next))
-                .concat(", Previous: ")
-                .concat(String.valueOf(previous))
-                .concat(", Detail: ")
-                .concat(String.valueOf(detail))
-                .concat(", NON Field ERROR: ")
-                .concat(Arrays.toString(non_field_errors));
+    @Override public String toString() {
+        return "PokenApiBase{" +
+                "count=" + count +
+                ", next='" + next + '\'' +
+                ", previous='" + previous + '\'' +
+                ", detail='" + detail + '\'' +
+                ", non_field_errors=" + Arrays.toString(non_field_errors) +
+                '}';
     }
 }

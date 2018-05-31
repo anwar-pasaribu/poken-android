@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:background="?attr/selectableItemBackground"
-    android:layout_height="wrap_content"
-
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:ignore="RtlHardcoded">
 
     <ImageView
         android:id="@+id/ivStoreProductImage"
@@ -25,13 +25,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/item_gap_l"
-        android:layout_toRightOf="@id/ivStoreProductImage"
-        android:layout_toStartOf="@+id/tvStoreProductStock"
+        android:layout_marginLeft="@dimen/clickable_size_72"
+        android:layout_toLeftOf="@+id/tvStoreProductStock"
         android:ellipsize="middle"
+        android:layout_alignParentLeft="true"
         android:gravity="center_vertical"
         android:singleLine="true"
-        tools:text="Nama Barang yang sangat panjang sehingga merusak layout yang sudah rapih" />
+        tools:text="Nama " />
 
     <TextView
         android:id="@+id/tvStoreProductStock"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:layout_toStartOf="@+id/ivStoreProductNotification"
+        android:layout_toLeftOf="@+id/space"
         android:textStyle="bold"
         tools:text="999" />
 
@@ -49,8 +49,18 @@
         android:layout_height="@dimen/icon_24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:visibility="gone"
         android:tint="@color/style_overlay_grey"
         app:srcCompat="@drawable/ic_notifications_black_24dp" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="@dimen/icon_24dp"
+        android:layout_height="@dimen/icon_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:visibility="visible"/>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ public class Shipping implements Parcelable {
     public long id;
     public String name;
     public double fee;
+    public String service;
 
     public Shipping() {
     }
@@ -26,6 +27,7 @@ public class Shipping implements Parcelable {
         id = in.readLong();
         name = in.readString();
         fee = in.readDouble();
+        service = in.readString();
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Shipping implements Parcelable {
         dest.writeLong(id);
         dest.writeString(name);
         dest.writeDouble(fee);
+        dest.writeString(service);
     }
 
     @Override
@@ -51,4 +54,13 @@ public class Shipping implements Parcelable {
             return new Shipping[size];
         }
     };
+
+    @Override public String toString() {
+        return "Shipping{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fee=" + fee +
+                ", service='" + service + '\'' +
+                '}';
+    }
 }

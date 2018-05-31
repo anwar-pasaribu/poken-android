@@ -31,6 +31,11 @@ public class Product implements Parcelable {
     public double original_price;
     public double weight;
 
+    /**
+     * Indicate whether product is ordered
+     */
+    public boolean is_ordered;
+
     public static String KEY_PRODUCT_ID = "id";
 
     public Product() {
@@ -53,6 +58,7 @@ public class Product implements Parcelable {
         price = in.readDouble();
         original_price = in.readDouble();
         weight = in.readDouble();
+        is_ordered = in.readByte() != 0;
     }
 
     @Override
@@ -73,6 +79,7 @@ public class Product implements Parcelable {
         dest.writeDouble(price);
         dest.writeDouble(original_price);
         dest.writeDouble(weight);
+        dest.writeByte((byte) (is_ordered ? 1 : 0));
     }
 
     @Override

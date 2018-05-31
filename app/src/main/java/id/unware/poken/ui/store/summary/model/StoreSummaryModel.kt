@@ -35,16 +35,23 @@ class StoreSummaryModel : IStoreSummaryModel {
 
                             Utils.Log(TAG, "Result: $result")
 
-                            SPHelper.getInstance().setPreferences(Constants.SP_SELLER_ID, result.results[0].id)
-                            SPHelper.getInstance().setPreferences(Constants.SP_SELLER_OWNER_NAME, result.results[0].seller_detail.owner_name)
+                            if (result.results.isEmpty()) {
 
-                            presenter.onStoreDetailResponse(result.results[0].seller_detail)
+                                presenter.onSellerNotAvailable()
 
-                            presenter.onSellerPromoListResponse(result.results[0].promotions)
+                            } else {
 
-                            presenter.onStoreTotalAmount(StringUtils.formatCurrency(result.results[0].total_credits))
+                                SPHelper.getInstance().setPreferences(Constants.SP_SELLER_ID, result.results[0].id)
+                                SPHelper.getInstance().setPreferences(Constants.SP_SELLER_OWNER_NAME, result.results[0].seller_detail.owner_name)
 
-                            presenter.onLatestProductListResponse(result.results[0].latest_products)
+                                presenter.onStoreDetailResponse(result.results[0].seller_detail)
+
+                                presenter.onSellerPromoListResponse(result.results[0].promotions)
+
+                                presenter.onStoreTotalAmount(StringUtils.formatCurrency(result.results[0].total_credits))
+
+                                presenter.onLatestProductListResponse(result.results[0].latest_products)
+                            }
 
                             presenter.updateViewState(UIState.FINISHED)
                         },

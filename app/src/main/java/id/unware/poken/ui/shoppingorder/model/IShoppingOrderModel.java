@@ -26,4 +26,6 @@ public interface IShoppingOrderModel {
     void parseSelectedShoppingCarts(IShoppingOrderModelPresenter presenter, String shoppingCartArrayListJsonString);
 
     void patchOrderDetailsStatus(IShoppingOrderModelPresenter presenter, long orderDetailsId, int orderStatus);
+
+    void patchOrderDetailsTrackingId(IShoppingOrderModelPresenter presenter, long orderDetailsId, String trackingId);
 }

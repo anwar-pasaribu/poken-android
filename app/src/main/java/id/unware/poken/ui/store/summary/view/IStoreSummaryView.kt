@@ -14,4 +14,5 @@ interface IStoreSummaryView : BaseView{
     fun populateLatestProducts(products: List<Product>)
     fun populateSellerPromo(promos: List<SellerPromo>)
     fun showProductDetail(product: Product)
+    fun showSellerNotRegisteredStatus()
 }

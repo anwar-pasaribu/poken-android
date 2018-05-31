@@ -12,6 +12,11 @@ class StoreSummaryPresenter(
         private var view: IStoreSummaryView
     ) : IStoreSummaryPresenter, IStoreSummaryModelPresenter {
 
+    override fun onSellerNotAvailable() {
+        view.showSellerNotRegisteredStatus()
+
+    }
+
     override fun onSellerPromoListResponse(promos: ArrayList<SellerPromo>) {
         view.populateSellerPromo(promos)
     }

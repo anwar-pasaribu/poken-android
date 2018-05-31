@@ -135,9 +135,14 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
         startActivity(productDetailIntent)
     }
 
+    /** User not registered as Seller */
+    override fun showSellerNotRegisteredStatus() {
+        mListener?.showSellerNotRegisteredView()
+    }
+
     override fun showStoreInfo(storeData: Seller) {
 
-        Utils.Log(TAG, "Store info: " + storeData)
+        Utils.Log(TAG, "Store info: $storeData")
 
         tvStoreSummaryStoreName?.text = storeData.store_name
 
@@ -165,7 +170,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
     }
 
     override fun showTotalAmount(totalAmount: String) {
-        Utils.Log(TAG, "Total amount: " + totalAmount)
+        Utils.Log(TAG, "Total amount: $totalAmount")
         tvStoreSummaryCreditAmount?.text = totalAmount
     }
 
@@ -179,7 +184,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
             sliderView.bundle.putParcelable(Constants.EXTRA_DOMAIN_PARCELABLE_DATA, item)
             sliderView.setOnSliderClickListener { slider ->
                 val featured = slider.bundle.getParcelable<SellerPromo>(Constants.EXTRA_DOMAIN_PARCELABLE_DATA)
-                Utils.Logs('i', "Clicked slide item: " + featured)
+                Utils.Logs('i', "Clicked slide item: $featured")
             }
             slStoreSummaryPromotion.addSlider(sliderView)
         }
@@ -207,6 +212,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
         fun openAllProductListScreen()
+        fun showSellerNotRegisteredView()
     }
 
     companion object {

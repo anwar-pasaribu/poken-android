@@ -200,6 +200,26 @@ public class ShoppingOrderModel extends MyCallback implements IShoppingOrderMode
 
     }
 
+    @Override public void patchOrderDetailsTrackingId(IShoppingOrderModelPresenter presenter, long orderDetailsId, String trackingId) {
+        if (this.presenter == null) {
+            this.presenter = presenter;
+        }
+
+        this.presenter.updateViewState(UIState.LOADING);
+
+        Map<String, String> postBody = new HashMap<>();
+        postBody.put("shipping_tracking_id", trackingId);
+
+        if (PokenCredentials.getInstance().getCredentialHashMap() != null) {
+            // noinspection unchecked
+            req.patchOrderDetailsTrackingId(
+                    orderDetailsId,
+                    PokenCredentials.getInstance().getCredentialHashMap(),
+                    postBody)
+                    .enqueue(this);
+        }
+    }
+
     @Override
     public void onSuccess(Response response) {
 

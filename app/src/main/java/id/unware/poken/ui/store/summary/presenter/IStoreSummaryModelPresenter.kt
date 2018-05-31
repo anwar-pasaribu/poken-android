@@ -13,4 +13,5 @@ interface IStoreSummaryModelPresenter: BasePresenter {
     fun onStoreDetailResponse(storeData: Seller)
     fun onLatestProductListResponse(products: ArrayList<Product>)
     fun onSellerPromoListResponse(promos: ArrayList<SellerPromo>)
+    fun onSellerNotAvailable()
 }

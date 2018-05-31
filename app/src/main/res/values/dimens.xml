@@ -35,6 +35,7 @@
     <dimen name="clickable_size_32">32dp</dimen>
     <dimen name="clickable_size">48dp</dimen>
     <dimen name="clickable_size_64">64dp</dimen>
+    <dimen name="clickable_size_72">72dp</dimen>
     <dimen name="icon_24dp">24dp</dimen>
 
     <dimen name="product_quantity_control_width">100dp</dimen>

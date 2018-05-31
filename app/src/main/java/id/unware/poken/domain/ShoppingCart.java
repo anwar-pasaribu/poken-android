@@ -34,6 +34,9 @@ public class ShoppingCart implements Parcelable {
     /** Selected shipping fee - Courier specific fee*/
     public double shipping_fee;
 
+    /** Selected shipping service */
+    public String shipping_service;
+
     public String extra_note;
 
     public static String KEY_SHOPPING_CART_ID = "id";
@@ -51,6 +54,7 @@ public class ShoppingCart implements Parcelable {
         total_price = in.readDouble();
         grand_total_price = in.readDouble();
         shipping_fee = in.readDouble();
+        shipping_service = in.readString();
         extra_note = in.readString();
     }
 
@@ -64,6 +68,7 @@ public class ShoppingCart implements Parcelable {
         dest.writeDouble(total_price);
         dest.writeDouble(grand_total_price);
         dest.writeDouble(shipping_fee);
+        dest.writeString(shipping_service);
         dest.writeString(extra_note);
     }
 

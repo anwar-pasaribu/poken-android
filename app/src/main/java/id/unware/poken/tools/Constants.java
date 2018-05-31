@@ -45,6 +45,7 @@ public class Constants {
     public static final String EXTRA_GENERAL_INTENT_VALUE = "INTENT_VAL";
     public static final String EXTRA_IS_BROWSE_BY_CATEGORY = "IS_BROWSE_BY_CAT";
     public static final String EXTRA_IS_LAUNCH_FAVORITE = "is_launch_favo";
+    public static final String EXTRA_IS_SELLER_MODE_ORDER_PAGE = "EXTRA_IS_SELLER_MODE_ORDER_PAGE";
     public static final String EXTRA_CATEGORY_ID = "CATEGORY_ID";
     public static final String EXTRA_CATEGORY_NAME = "CATEGORY_NAME";
     public static final String EXTRA_TOTAL_SHOPPING_COST = "TOTAL_SHOPPING_COST";

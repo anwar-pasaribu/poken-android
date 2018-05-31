@@ -16,8 +16,6 @@ import io.realm.RealmConfiguration;
 
 public class PokenApp extends MultiDexApplication {
 
-    private final String TAG = "AppClass";
-
     private static PokenApp instance;
 
     public static PokenApp getInstance() {

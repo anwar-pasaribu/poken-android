@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:background="@color/white_100"
+    tools:context=".ui.store.nonregisteredseller.view.NonSellerFragment"
+    tools:ignore="RtlHardcoded,HardcodedText,ContentDescription">
+
+    <ImageView
+        android:id="@+id/ivNonSellerLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvNonSellerTitle"
+        style="@style/PaketTextView.PageTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivNonSellerLogo"
+        android:layout_marginTop="@dimen/item_gap_l"
+        android:text="Yuk berjualan di Poken" />
+
+    <TextView
+        android:id="@+id/tvNonSellerDescription"
+        style="@style/TextBodyDefault"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/item_gap_s"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNonSellerTitle"
+        android:layout_marginLeft="@dimen/item_gap_l"
+        android:layout_marginRight="@dimen/item_gap_l"
+        android:text="Kembangkan usaha Anda di Poken" />
+
+    <RelativeLayout
+        android:id="@+id/parentNonSellerCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNonSellerDescription"
+        android:layout_marginTop="@dimen/clickable_size"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/clickable_size_64">
+
+        <ImageView
+            android:id="@+id/ivNonSellerCallIcon"
+            android:layout_width="@dimen/icon_24dp"
+            android:layout_height="@dimen/icon_24dp"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_social_whatsapp" />
+
+        <TextView
+            android:id="@+id/tvNonSellerCallCaption"
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_toRightOf="@id/ivNonSellerCallIcon"
+            android:text="Hubungi" />
+
+        <TextView
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNonSellerCallCaption"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_toRightOf="@+id/ivNonSellerCallIcon"
+            android:text="0812 8123 1103" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvNonSellerCallCaption"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/icon_24dp"
+            app:srcCompat="@drawable/ic_chevron_right_24dp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/parentNonSellerAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/parentNonSellerCall"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/clickable_size_64">
+
+        <ImageView
+            android:id="@+id/ivNonSellerAddressIcon"
+            android:layout_width="@dimen/icon_24dp"
+            android:layout_height="@dimen/icon_24dp"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvNonSellerAddressCaption"
+            style="@style/TextCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_marginTop="@dimen/item_gap_m"
+            android:layout_toRightOf="@id/ivNonSellerAddressIcon"
+            android:text="Alamat" />
+
+        <TextView
+            style="@style/TextListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvNonSellerAddressCaption"
+            android:layout_marginBottom="@dimen/item_gap_m"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_toRightOf="@+id/ivNonSellerAddressIcon"
+            android:text="Jl. KH. Wahid Hasyim No. 29, Padangsidimpuan" />
+
+        <View
+            android:id="@+id/viewNonSellerSep"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/item_gap_l"
+            android:layout_toRightOf="@id/ivNonSellerAddressIcon"
+            android:background="@color/separator_view_lighter" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -23,6 +23,8 @@ public interface IShoppingOrderView extends BaseView {
 
     void setupSelectedProduct(ShoppingCart shoppingCart);
 
+    void onShowPackageTrackingId(String shippingTrackingId);
+
     void setupSelectedProducts(ArrayList<ShoppingCart> shoppingCarts);
 
     void setupShippingMethod(Shipping shipping);
@@ -60,5 +62,9 @@ public interface IShoppingOrderView extends BaseView {
     void showViewStatusSuccess();
 
     void showViewStatusReturn();
+
+    void showSellerProceedButton();
+
+    void showForSellerSection(boolean isShow);
 
 }

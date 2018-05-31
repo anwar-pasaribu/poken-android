@@ -57,6 +57,7 @@ import id.unware.poken.ui.product.detail.view.ProductDetailActivity;
 import id.unware.poken.ui.profile.view.ProfileActivity;
 import id.unware.poken.ui.search.view.SearchActivity;
 import id.unware.poken.ui.shoppingcart.view.ShoppingCartActivity;
+import id.unware.poken.ui.store.dashboard.view.DashboardActivity;
 import io.realm.Realm;
 
 public class HomeActivity extends BaseActivity implements IHomeView {
@@ -145,8 +146,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         String token = FirebaseInstanceId.getInstance().getToken();
 
         // Log and toast
-        Utils.Logs('w', TAG, token);
-        Toast.makeText(this, token, Toast.LENGTH_LONG).show();
+        Utils.Logs('w', TAG, "Token: " + token);
 
     }
 
@@ -157,7 +157,7 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
             dm.setHeaderTitle("Section " + i);
 
-            ArrayList<SingleItemModel> singleItem = new ArrayList<SingleItemModel>();
+            ArrayList<SingleItemModel> singleItem = new ArrayList<>();
             for (int j = 0; j <= 5; j++) {
                 // Create dummy header slider
                 if (j == 0) {
@@ -271,6 +271,14 @@ public class HomeActivity extends BaseActivity implements IHomeView {
         super.onDestroy();
         unbinder.unbind();
         realm.close();
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+
+        // TODO Just for testing purpose
+        // Intent storeIntent = new Intent(this, DashboardActivity.class);
+        // startActivity(storeIntent);
     }
 
     @Override

@@ -100,6 +100,7 @@
     <string name="btn_order_received">Barang Diterima</string>
     <string name="btn_order_reture">Reture Barang </string>
     <string name="lbl_shipping_destination">Tujuan Pengiriman</string>
+    <string name="lbl_seller_send_order">Nomor Resi Pengiriman</string>
     <string name="lbl_ordered_product_section">Barang Pesanan</string>
     <string name="lbl_shipping_method_section">Layanan Pengiriman</string>
     <string name="title_activity_payment">Pembayaran</string>
@@ -276,4 +277,7 @@
     <string name="btn_store_credit_begin_withdrawal">Ajukan Pencairan Dana </string>
     <string name="btn_store_credit_cancel_withdrawal">Batalkan </string>
     <string name="lbl_currency_rp">Rp</string>
+    <string name="btn_proceed_send">Proses</string>
+    <string name="title_selected_shipping_service">Layanan Pengiriman</string>
+    <string name="msg_tracking_id_empty">Pastikan nomor resi telah diisi.</string>
 </resources>

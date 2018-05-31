@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -74,14 +76,22 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     @BindView(R.id.tvSelectedProductName) TextView tvSelectedProductName;
     @BindView(R.id.tvProductQuantity) TextView tvProductQuantity;
     @BindView(R.id.tvProductTotalPrice) TextView tvProductTotalPrice;
+
     @BindView(R.id.tvSelectedShippingMethod) TextView tvSelectedShippingMethod;
     @BindView(R.id.tvSelectedShippingFee) TextView tvSelectedShippingFee;
+    @BindView(R.id.ibSelectedShippingMethodMoreInfo) ImageButton ibSelectedShippingMethodMoreInfo;
+
     @BindView(R.id.tvTotalFee) TextView tvTotalFee;
     @BindView(R.id.orderDetailParentClickableOrderedProduct) RelativeLayout orderDetailParentClickableOrderedProduct;
     @BindView(R.id.orderDetailTvTotalOrderedProduct) TextView orderDetailTvTotalOrderedProduct;
     // Extra note (hide when no extra note)
     @BindView(R.id.orderTvExtraNoteLbl) TextView orderTvExtraNoteLbl;
     @BindView(R.id.orderTvExtraNote) TextView orderTvExtraNote;
+
+    // SET TRACKING ID
+    @BindView(R.id.parentContentOrderSellerSendOrder) RelativeLayout parentContentOrderSellerSendOrder;
+    @BindView(R.id.etContentOrderSellerSendInputResi) EditText etContentOrderSellerSendInputResi;
+    @BindView(R.id.btnContentOrderSellerSendSubmitResi) Button btnContentOrderSellerSendSubmitResi;
 
     // MAIN ACTION
     @BindView(R.id.tvTotalShoppingAmountLabel) TextView tvTotalShoppingAmountLabel;
@@ -94,6 +104,8 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     private Unbinder unbinder;
 
     private ShoppingOrderPresenter presenter;
+
+    private boolean isSellerMode = false;
 
     private long[] shoppingCartIds;
     private String shoppingCartArrayListJsonString;
@@ -133,6 +145,9 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
 
             // When Order created before
             orderedProductId = getIntent().getExtras().getLong(Constants.EXTRA_ORDER_ID, -1);
+
+            // Seller Mode different with Buyer mode
+            isSellerMode = getIntent().getBooleanExtra(Constants.EXTRA_IS_SELLER_MODE_ORDER_PAGE, false);
         }
 
         presenter = new ShoppingOrderPresenter(new ShoppingOrderModel(), this /*View*/);
@@ -146,6 +161,8 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
         }
 
         initView();
+
+        presenter.setupSellerMode(isSellerMode);
     }
 
     @Override
@@ -208,6 +225,14 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
             }
         });
 
+        btnContentOrderSellerSendSubmitResi.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                if (presenter != null) {
+                    presenter.setOrderDetailsTrackingId(orderDetailsId, etContentOrderSellerSendInputResi.getText().toString());
+                }
+            }
+        });
+
         btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,6 +268,9 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
             orderBtnChangeReceiverAddress.setEnabled(false);
             btnContinueToPayment.setEnabled(false);
 
+            // Btn to add tracking id
+            btnContentOrderSellerSendSubmitResi.setEnabled(false);
+
         } else {
             if (swipeRefreshLayout.isRefreshing()) {
                 swipeRefreshLayout.setRefreshing(false);
@@ -250,6 +278,8 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
 
             orderBtnChangeReceiverAddress.setEnabled(true);
             btnContinueToPayment.setEnabled(true);
+
+            btnContentOrderSellerSendSubmitResi.setEnabled(true);
         }
     }
 
@@ -293,13 +323,22 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     }
 
     @Override
-    public void setupShippingReceiver(AddressBook addressBook) {
+    public void setupShippingReceiver(final AddressBook addressBook) {
 
         selectedAddressBookId = addressBook.id;
 
         tvShippingAddressName.setText(addressBook.name);
         tvShippingAddressPhone.setText(addressBook.phone);
         tvShippingAddress.setText(addressBook.address);
+
+        if (isSellerMode) {
+            tvShippingAddressPhone.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View view) {
+                    MyLog.FabricLog(Log.INFO, "Open dialer using customer number.");
+                    Utils.openDialer(OrderActivity.this, addressBook.phone);
+                }
+            });
+        }
     }
 
     @Override
@@ -338,6 +377,11 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
         }
     }
 
+    @Override public void onShowPackageTrackingId(String shippingTrackingId) {
+        etContentOrderSellerSendInputResi.setText(shippingTrackingId);
+        etContentOrderSellerSendInputResi.setSelection(etContentOrderSellerSendInputResi.getText().length());
+    }
+
     @Override
     public void setupSelectedProducts(ArrayList<ShoppingCart> shoppingCarts) {
         Utils.Logs('i', TAG, "Selected shopping carts size: " + shoppingCarts.size());
@@ -345,8 +389,31 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     }
 
     @Override
-    public void setupShippingMethod(Shipping shipping) {
-        Utils.Logs('i', TAG, "Setup shipping method name: " + shipping.name + ", fee: " + shipping.fee);
+    public void setupShippingMethod(final Shipping shipping) {
+        Utils.Logs('i', TAG, "Setup shipping:" + shipping);
+        if (ibSelectedShippingMethodMoreInfo == null) return;
+
+        ibSelectedShippingMethodMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                ControllerDialog.getInstance().showDialogInfo(
+                        getString(R.string.title_selected_shipping_service),
+                        String.valueOf(shipping.service),
+                        OrderActivity.this
+
+                );
+            }
+        });
+
+        tvSelectedShippingMethod.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                ControllerDialog.getInstance().showDialogInfo(
+                        getString(R.string.title_selected_shipping_service),
+                        String.valueOf(shipping.service),
+                        OrderActivity.this
+
+                );
+            }
+        });
     }
 
     @Override
@@ -510,6 +577,12 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
                 );
             }
         });
+
+        // Hide buttons on Seller mode
+        if (isSellerMode) {
+            statusSentBtnConfirmAccepted.setVisibility(View.GONE);
+            statusSentBtnReturn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -525,6 +598,32 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     @Override
     public void showViewStatusReturn() {
         orderViewFlipperStatusView.setDisplayedChild(OrderStatus.REFUND);
+    }
+
+    @Override public void showSellerProceedButton() {
+        btnContinueToPayment.setVisibility(View.VISIBLE);
+        btnContinueToPayment.setOnClickListener(null);
+        btnContinueToPayment.setText(R.string.btn_proceed_send);
+        btnContinueToPayment.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                // Send package
+                if (presenter != null
+                        && !StringUtils.isEmpty(etContentOrderSellerSendInputResi.getText().toString())) {
+                    presenter.sendPackage(orderDetailsId);
+                } else {
+                    Utils.toast(OrderActivity.this, getString(R.string.msg_tracking_id_empty));
+                    etContentOrderSellerSendInputResi.requestFocus();
+                }
+            }
+        });
+    }
+
+    @Override public void showForSellerSection(boolean isShow) {
+        if (isShow) {
+            parentContentOrderSellerSendOrder.setVisibility(View.VISIBLE);
+        } else {
+            parentContentOrderSellerSendOrder.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

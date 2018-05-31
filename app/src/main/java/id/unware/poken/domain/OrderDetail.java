@@ -33,4 +33,20 @@ public class OrderDetail {
 
     public OrderDetail() {
     }
+
+    @Override public String toString() {
+        return "OrderDetail{" +
+                "id=" + id +
+                ", order_id='" + order_id + '\'' +
+                ", customer=" + customer +
+                ", address_book_id=" + address_book_id +
+                ", address_book=" + address_book +
+                ", shipping=" + shipping +
+                ", date=" + date +
+                ", payment_expiration_date=" + payment_expiration_date +
+                ", order_expiration_date=" + order_expiration_date +
+                ", order_status=" + order_status +
+                ", shipping_tracking_id='" + shipping_tracking_id + '\'' +
+                '}';
+    }
 }

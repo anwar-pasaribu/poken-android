@@ -43,6 +43,13 @@ class StoreProductListAdapter(
         holder.mView.setOnClickListener {
             mListener?.onListFragmentInteraction(holder.mItem!!)
         }
+
+        if (mValues[position].is_ordered) {
+            holder.ivStoreProductNotification.visibility = View.VISIBLE
+        } else {
+            holder.ivStoreProductNotification.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -59,5 +66,6 @@ class StoreProductListAdapter(
         override fun toString(): String {
             return super.toString() + " '" + mItem + "'"
         }
+
     }
 }

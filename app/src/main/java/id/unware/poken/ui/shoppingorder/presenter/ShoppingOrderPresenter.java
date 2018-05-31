@@ -37,6 +37,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     private OrderDetail currentOrderDetails;
     private boolean isPaymentScreenRequested = false;
     private int previousOrderStatusNumber = OrderStatus.INITIALIZE;
+    private boolean isSellerMode = false;
 
     public ShoppingOrderPresenter(IShoppingOrderModel model, IShoppingOrderView view) {
         this.model = model;
@@ -84,6 +85,11 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     @Override
     public void startSelectedProductScreen() {
         view.showSelectedProductDialog();
+    }
+
+    @Override public void setOrderDetailsTrackingId(long orderDetailsId, String trackingId) {
+        Utils.Log(TAG, "Update tracking id. ID: " + trackingId);
+        this.model.patchOrderDetailsTrackingId(this, orderDetailsId, trackingId);
     }
 
     @Override
@@ -138,6 +144,19 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         }
     }
 
+    @Override public void setupSellerMode(boolean isSellerMode) {
+        if (view.isActivityFinishing()) return;
+        this.isSellerMode = isSellerMode;
+        view.showSellerProceedButton();
+        view.showForSellerSection(true);
+    }
+
+    @Override public void sendPackage(long orderDetailsId) {
+        Utils.Log(TAG, "Setup order details as sent. Order details id: " + orderDetailsId);
+        // SELLER ACTION - SELLER BEGIN SEND ORDER
+        model.patchOrderDetailsStatus(this, orderDetailsId, OrderStatus.SENT);
+    }
+
     @Override
     public void updateViewState(UIState uiState) {
 
@@ -173,7 +192,7 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         // Make sure "no address book" view hidden
         view.showNoReceiverAddressView(false);
 
-        view.setupShippingReceiver(newlyCreatedAddressBook);
+        view.setupShippingReceiver(getFormattedAddress(newlyCreatedAddressBook));
 
         // Each new address book created, create/update order details
         Utils.Log(TAG, "New address book created. Now, create order detail with address  book id: " + newlyCreatedAddressBook.id);
@@ -192,7 +211,10 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
             view.showNoReceiverAddressView(true);
         } else {
             view.showNoReceiverAddressView(false);
-            view.setupShippingReceiver(addressBookArrayList.get(0));
+
+            // Format Addres with complete with postal code and show on view
+            view.setupShippingReceiver(getFormattedAddress(addressBookArrayList.get(0)));
+
             view.populateAddressBookList(addressBookArrayList);
 
             model.postOrUpdateOrderDetails(
@@ -333,7 +355,6 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         ArrayList<ShoppingCart> shoppingCarts = orderedProduct.shopping_carts;
         OrderDetail orderDetail = orderedProduct.order_details;
-        AddressBook addressBook = orderDetail.address_book;
         Shipping shipping = shoppingCarts.get(0).shipping;
 
         // Save current order detail id to prevent recreate order detail
@@ -347,7 +368,8 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         // Show pay now when order still unpaid
         if (orderDetail.order_status == OrderStatus.ORDERED
-                || orderDetail.order_status == OrderStatus.INITIALIZE) {
+                || orderDetail.order_status == OrderStatus.INITIALIZE
+                || isSellerMode) {
             view.showPayNowView(true);
         } else {
             view.showPayNowView(false);
@@ -355,10 +377,14 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
 
         view.showOrderId(orderDetail.order_id, orderDetail.id, orderedProduct.id);
 
-        view.setupShippingReceiver(addressBook);
+        view.setupShippingReceiver(getFormattedAddress(orderDetail.address_book));
+
+        view.onShowPackageTrackingId(orderDetail.shipping_tracking_id);
 
         setupSelectedProduct(shoppingCarts);
 
+        // Set Shipping Service which is available on each Shopping Carts
+        shipping.service = shoppingCarts.get(0).shipping_service;
         view.setupShippingMethod(shipping);
 
         setupOrderDetailsViewByOrderStatus(orderDetail);
@@ -380,5 +406,16 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
         } else if (orderDetail.order_status == OrderStatus.SUCCESS) {
             view.showViewStatusSuccess();
         }
+    }
+
+    private AddressBook getFormattedAddress(AddressBook addressBook) {
+
+        String strDistrict = addressBook.location != null? addressBook.location.district : "";
+        String strCity = addressBook.location != null? addressBook.location.city : "";
+        String strZip = addressBook.location != null? addressBook.location.zip : "";
+        addressBook.address = String.format("%s, %s, %s %s", addressBook.address, strDistrict, strCity, strZip);
+
+        return addressBook;
+
     }
 }
