@@ -93,6 +93,8 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     @BindView(R.id.etContentOrderSellerSendInputResi) EditText etContentOrderSellerSendInputResi;
     @BindView(R.id.btnContentOrderSellerSendSubmitResi) Button btnContentOrderSellerSendSubmitResi;
 
+    @BindView(R.id.orderSepShippingAddress) View orderSepShippingAddress;
+
     // MAIN ACTION
     @BindView(R.id.tvTotalShoppingAmountLabel) TextView tvTotalShoppingAmountLabel;
     @BindView(R.id.tvTotalShoppingAmount) TextView tvTotalShoppingAmount;
@@ -621,8 +623,10 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
     @Override public void showForSellerSection(boolean isShow) {
         if (isShow) {
             parentContentOrderSellerSendOrder.setVisibility(View.VISIBLE);
+            orderSepShippingAddress.setVisibility(View.VISIBLE);
         } else {
-            parentContentOrderSellerSendOrder.setVisibility(View.VISIBLE);
+            parentContentOrderSellerSendOrder.setVisibility(View.GONE);
+            orderSepShippingAddress.setVisibility(View.GONE);
         }
     }
 
@@ -634,17 +638,6 @@ public class OrderActivity extends BaseActivity implements IShoppingOrderView,
         addressBookIntent.putExtra(Constants.EXTRA_ORDER_ID, this.orderDetailsId);
         startActivityForResult(addressBookIntent, Constants.REQ_CODE_ADDRESS_BOOK);
 
-//        addressBookDialogFragment =
-//                AddressBookDialogFragment.newInstance(
-//                        0,
-//                        selectedAddressBookIndex,
-//                        isAddressBookAvailable  /* Open when address book not available*/
-//                );
-//
-//        addressBookDialogFragment.show(
-//                this.getSupportFragmentManager(),
-//                "addressbook-dialog"
-//        );
     }
 
     @Override

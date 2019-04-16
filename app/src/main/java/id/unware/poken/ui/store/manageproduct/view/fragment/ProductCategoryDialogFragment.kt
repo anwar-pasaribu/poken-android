@@ -26,7 +26,7 @@ import android.view.animation.AnimationUtils
 
 class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var listItem: ArrayList<Category>
+    private var listItem: ArrayList<Category> = ArrayList()
 
     private val handler: Handler = Handler()
 
@@ -44,7 +44,8 @@ class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listItem = arguments.getParcelableArrayList(Constants.EXTRA_DOMAIN_PARCELABLE_DATA)
+        if (arguments != null)
+        listItem = arguments!!.getParcelableArrayList(Constants.EXTRA_DOMAIN_PARCELABLE_DATA)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +53,7 @@ class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_product_category_dialog, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         ibClose.setOnClickListener { dismissAllowingStateLoss() }
 
@@ -135,14 +136,13 @@ class ProductCategoryDialogFragment : BottomSheetDialogFragment() {
             val d = dialogOnShowListener as BottomSheetDialog
 
             val bottomSheet = d.findViewById<FrameLayout>(android.support.design.R.id.design_bottom_sheet)
-            if (bottomSheet != null) {
-                bottomSheet.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
+            if (bottomSheet != null && context != null) {
+                bottomSheet.setBackgroundColor(ContextCompat.getColor(context!!, android.R.color.transparent))
                 BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
 
         dialog.setTitle("Pilih Kategory Produk")
-
 
         // Do something with your dialog like setContentView() or whatever
         return dialog

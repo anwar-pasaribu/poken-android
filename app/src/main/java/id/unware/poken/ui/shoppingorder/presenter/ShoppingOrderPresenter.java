@@ -147,11 +147,16 @@ public class ShoppingOrderPresenter implements IShoppingOrderPresenter, IShoppin
     @Override public void setupSellerMode(boolean isSellerMode) {
         if (view.isActivityFinishing()) return;
         this.isSellerMode = isSellerMode;
-        view.showSellerProceedButton();
-        view.showForSellerSection(true);
+
+        if (isSellerMode) {
+            view.showSellerProceedButton();
+        }
+
+        view.showForSellerSection(isSellerMode);
     }
 
-    @Override public void sendPackage(long orderDetailsId) {
+    @Override
+    public void sendPackage(long orderDetailsId) {
         Utils.Log(TAG, "Setup order details as sent. Order details id: " + orderDetailsId);
         // SELLER ACTION - SELLER BEGIN SEND ORDER
         model.patchOrderDetailsStatus(this, orderDetailsId, OrderStatus.SENT);

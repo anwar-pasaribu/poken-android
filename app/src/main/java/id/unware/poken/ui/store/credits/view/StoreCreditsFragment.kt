@@ -40,7 +40,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
 
     private lateinit var withdrawalRequestMessage: String
     private var isWithdrawalReady: Boolean = false
-    private var mColumnCount = 3
+    private var mColumnCount: Int? = 3
     private var mListener: OnStoreCreditListener? = null
 
     // Store a member variable for the listener
@@ -50,20 +50,18 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (arguments != null) {
-            mColumnCount = arguments.getInt(ARG_COLUMN_COUNT)
-        }
+        mColumnCount = arguments?.getInt(ARG_COLUMN_COUNT, 3)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // This fragment has option menu
         setHasOptionsMenu(true)
-        activity.title = getString(R.string.title_store_credit_list)
+        activity?.title = getString(R.string.title_store_credit_list)
 
-        val view = inflater!!.inflate(R.layout.fragment_store_credit, container, false)
+        val view = inflater.inflate(R.layout.fragment_store_credit, container, false)
 
         glideRequest = GlideApp.with(this)
         presenter = StoreCreditsPresenter(StoreCreditsModel(), this)
@@ -71,7 +69,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
@@ -144,7 +142,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
 
             MyLog.FabricLog(Log.INFO, "Withdrawal reqest message: $withdrawalRequestMessage")
 
-            val packageManager = context.packageManager
+            val packageManager = context?.packageManager
             val i = Intent(Intent.ACTION_VIEW)
 
             try {
@@ -152,7 +150,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
                 i.`package` = "com.whatsapp"
                 i.data = Uri.parse(url)
                 if (i.resolveActivity(packageManager) != null) {
-                    context.startActivity(i)
+                    context?.startActivity(i)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -225,7 +223,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
             }
         }
         // Adds the scroll listener to RecyclerView
-        rvStoreCredit.addOnScrollListener(scrollListener)
+        rvStoreCredit.addOnScrollListener(scrollListener as EndlessRecyclerViewScrollListener)
 
         rvStoreCredit.adapter = adapter
 
@@ -243,7 +241,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> activity?.onBackPressed()
         }
 
         return super.onOptionsItemSelected(item)
@@ -286,7 +284,7 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
     }
 
     override fun isActivityFinishing(): Boolean {
-        return activity == null || activity.isFinishing || isDetached
+        return activity == null || activity!!.isFinishing || isDetached
     }
 
     override fun populateStoreCreditList(credits: ArrayList<OrderCredit>) {
@@ -316,12 +314,9 @@ class StoreCreditsFragment : Fragment(), IStoreCreditsView {
 
         private const val ARG_COLUMN_COUNT = "column-count"
 
-        fun newInstance(columnCount: Int): StoreCreditsFragment {
-            val fragment = StoreCreditsFragment()
-            val args = Bundle()
-            args.putInt(ARG_COLUMN_COUNT, columnCount)
-            fragment.arguments = args
-            return fragment
-        }
+        fun newInstance(columnCount: Int) =
+                StoreCreditsFragment().apply {
+                    arguments = Bundle().apply { putInt(ARG_COLUMN_COUNT, columnCount) }
+                }
     }
 }

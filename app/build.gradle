@@ -45,8 +45,8 @@ android {
         minSdkVersion versions.minSdkVersion
         targetSdkVersion versions.targetSdkVersion
 
-        versionCode 24
-        versionName "0.0.24-beta"
+        versionCode 26
+        versionName "0.0.26"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -164,6 +164,22 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    // Add this block and enable/disable the parameters as follows
+    bundle {
+        density {
+            // Different APKs are generated for devices with different screen densities; true by default.
+            enableSplit true
+        }
+        abi {
+            // Different APKs are generated for devices with different CPU architectures; true by default.
+            enableSplit true
+        }
+        language {
+            // This is disabled so that the App Bundle does NOT split the APK for each language.
+            // We're gonna use the same APK for all languages.
+            enableSplit false
+        }
+    }
 
 }
 
@@ -244,7 +260,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 // Firebase for google-services.json parser

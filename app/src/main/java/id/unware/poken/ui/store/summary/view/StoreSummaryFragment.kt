@@ -44,20 +44,20 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            mParam1 = arguments.getString(ARG_PARAM1)
-            mParam2 = arguments.getString(ARG_PARAM2)
+            mParam1 = arguments!!.getString(ARG_PARAM1)
+            mParam2 = arguments!!.getString(ARG_PARAM2)
         }
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // This fragment has option menu
         setHasOptionsMenu(true)
-        activity.title = getString(R.string.title_store_summary)
+        activity?.title = getString(R.string.title_store_summary)
 
-        val view = inflater!!.inflate(R.layout.fragment_store_summary, container, false)
+        val view = inflater.inflate(R.layout.fragment_store_summary, container, false)
         // Inflate the layout for this fragment
         presenter = StoreSummaryPresenter(StoreSummaryModel(), this)
         glideRequest = GlideApp.with(this)
@@ -65,7 +65,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter?.loadStoreSummary()
 
@@ -108,7 +108,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_notification -> openNotification()
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> activity?.onBackPressed()
         }
 
         return super.onOptionsItemSelected(item)
@@ -206,7 +206,7 @@ class StoreSummaryFragment : Fragment(), IStoreSummaryView {
 
     override fun isActivityFinishing(): Boolean {
         // 'or' operator still check other
-        return isDetached || activity.isFinishing
+        return isDetached || activity?.isFinishing!!
     }
 
     interface OnFragmentInteractionListener {

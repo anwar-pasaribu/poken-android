@@ -103,7 +103,6 @@ public class HomeActivity extends BaseActivity implements IHomeView {
 
         presenter = new HomePresenter(new HomeModel(realm), HomeActivity.this);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -36,16 +36,16 @@ class StoreProductListFragment : Fragment(), IStoreProductListView {
         super.onCreate(savedInstanceState)
 
         if (arguments != null) {
-            mColumnCount = arguments.getInt(ARG_COLUMN_COUNT)
+            mColumnCount = arguments!!.getInt(ARG_COLUMN_COUNT)
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // This fragment has option menu
         setHasOptionsMenu(true)
-        activity.title = getString(R.string.title_store_product_list)
+        activity?.title = getString(R.string.title_store_product_list)
 
         val view = inflater!!.inflate(R.layout.fragment_store_product, container, false)
 
@@ -55,7 +55,7 @@ class StoreProductListFragment : Fragment(), IStoreProductListView {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
@@ -86,7 +86,7 @@ class StoreProductListFragment : Fragment(), IStoreProductListView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> activity.onBackPressed()
+            android.R.id.home -> activity?.onBackPressed()
         }
 
         return super.onOptionsItemSelected(item)
@@ -135,7 +135,7 @@ class StoreProductListFragment : Fragment(), IStoreProductListView {
     }
 
     override fun isActivityFinishing(): Boolean {
-        return activity == null || activity.isFinishing || isDetached
+        return activity == null || activity?.isFinishing!! || isDetached
     }
 
     override fun populateProductCategoryList(productCategories: ArrayList<Category>) {
